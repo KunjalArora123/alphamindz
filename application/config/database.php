@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'alphamindz',
+	'hostname' => isset($_SERVER['DB_HOST']) ? $_SERVER['DB_HOST'] : 'localhost',
+	'username' => isset($_SERVER['DB_USER']) ? $_SERVER['DB_USER'] : 'root',
+	'password' => isset($_SERVER['DB_PASS']) ? $_SERVER['DB_PASS'] : '',
+	'database' => isset($_SERVER['DB_NAME']) ? $_SERVER['DB_NAME'] : 'alphamindz',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
