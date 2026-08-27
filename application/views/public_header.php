@@ -20,7 +20,7 @@
                 <a href="#"><i class="ri-mail-fill"></i> info@alphamindz.com</a>
             </div>
             <div class="top-links">
-                <a href="https://www.alphamindz.com/about">About Us</a>
+                <a href="<?php echo site_url('about'); ?>">About Us</a>
                 <a href="https://www.alphamindz.com/reachus">Reach Us</a>
                 <a href="https://www.alphamindz.com/pay-online-form">Pay Online</a>
                 <a href="#"><i class="ri-user-line"></i> Login / Register</a>

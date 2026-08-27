@@ -1067,6 +1067,201 @@ a {
 
 /* Tablet and Desktop adjustments */
 @media (min-width: 768px) {
+    }
+    .hero-title {
+        font-size: 64px;
+    }
+    .testimonials-grid, .shop-grid, .stats-grid, .video-carousel, .articles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        text-align: left;
+    }
+    .contact-list li {
+        justify-content: flex-start;
+    }
+    .social-links {
+        justify-content: flex-start;
+    }
+    .footer-bottom {
+        flex-direction: row;
+        text-align: left;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-container {
+        grid-template-columns: 1.1fr 0.9fr;
+        text-align: left;
+        gap: 80px;
+    }
+    .hero-title {
+        font-size: 82px;
+    }
+    .hero-subtitle {
+        margin: 0 0 40px 0;
+    }
+    .hero-cta, .hero-stats {
+        justify-content: flex-start;
+    }
+    .badge-1, .badge-2 {
+        display: flex;
+    }
+    .mixed-grid {
+        grid-template-columns: 1.5fr 1fr;
+    }
+    .video-carousel {
+        grid-template-columns: 1fr 1fr;
+    }
+    .testimonials-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .shop-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    }
+}
+
+/* ==========================================================================
+   Assessment Listing Layout 
+   ========================================================================== */
+.assessments-page {
+    padding: 60px 0 100px;
+    background-color: var(--bg-secondary);
+}
+
+.category-filters {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    scrollbar-width: none;
+}
+.category-filters::-webkit-scrollbar { 
+    display: none; 
+}
+
+.filter-btn {
+    padding: 10px 24px;
+    border-radius: 30px;
+    background: #fff;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.filter-btn:hover {
+    background: var(--bg-secondary);
+}
+.filter-btn.active {
+    background: var(--text-main);
+    color: #fff;
+    border-color: var(--text-main);
+}
+
+.assessments-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+.assessment-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+.assessment-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-5px);
+}
+
+.card-banner {
+    height: 160px;
+    background: linear-gradient(135deg, rgba(48, 98, 135, 0.1), rgba(255, 113, 154, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: var(--color-blue);
+    position: relative;
+}
+
+.card-banner i {
+    z-index: 2;
+}
+
+.card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.assessment-card .tag {
+    align-self: flex-start;
+}
+
+.assessment-card h3 {
+    font-size: 20px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-family: var(--font-heading);
+    color: var(--text-main);
+}
+
+.assessment-card p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.card-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 16px 0;
+}
+.card-meta span { 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+}
+.card-meta i {
+    color: var(--color-blue);
+}
+
+.card-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-price {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    color: var(--text-main);
+}
+
+/* Tablet and Desktop adjustments */
+@media (min-width: 768px) {
     .assessments-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1074,5 +1269,83 @@ a {
 @media (min-width: 1024px) {
     .assessments-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ==========================================================================
+   About Us - Team Section
+   ========================================================================== */
+.team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+
+.team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.member-image-wrapper {
+    width: 200px;
+    height: 250px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    /* Optional: add border radius if you want rounded images, or keep square as per mockup */
+    /* border-radius: 12px; */
+}
+
+.member-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top; /* To ensure faces are visible */
+    transition: transform 0.4s ease;
+}
+
+.team-member:hover .member-image-wrapper img {
+    transform: scale(1.05);
+}
+
+.member-name {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.member-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.member-bio {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* Tablet and Desktop adjustments */
+@media (min-width: 768px) {
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    .member-image-wrapper {
+        width: 100%;
+        max-width: 250px;
+        height: 320px;
+    }
+}
+@media (min-width: 1024px) {
+    .team-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
