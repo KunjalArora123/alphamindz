@@ -42,11 +42,18 @@
  *---------------------------------------------------------------
  */
 if (file_exists(__DIR__ . '/.env')) {
-    $env = parse_ini_file(__DIR__ . '/.env');
-    if ($env !== false) {
-        foreach ($env as $key => $value) {
-            $_SERVER[$key] = $value;
-            $_ENV[$key] = $value;
+    $lines = file(__DIR__ . '/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if ($line === '' || strpos($line, '#') === 0) {
+            continue;
+        }
+        if (strpos($line, '=') !== false) {
+            list($name, $value) = explode('=', $line, 2);
+            $name = trim($name);
+            $value = trim($value);
+            $_SERVER[$name] = $value;
+            $_ENV[$name] = $value;
         }
     }
 }

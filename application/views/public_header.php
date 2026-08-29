@@ -23,7 +23,13 @@
                 <a href="<?php echo site_url('about'); ?>">About Us</a>
                 <a href="https://www.alphamindz.com/reachus">Reach Us</a>
                 <a href="https://www.alphamindz.com/pay-online-form">Pay Online</a>
-                <a href="#"><i class="ri-user-line"></i> Login / Register</a>
+                
+                <?php if($this->session->userdata('user_logged_in')): ?>
+                    <a href="<?php echo site_url('student'); ?>"><i class="ri-user-line"></i> My Account</a>
+                    <a href="<?php echo site_url('auth/logout'); ?>"><i class="ri-logout-box-line"></i> Logout</a>
+                <?php else: ?>
+                    <a href="<?php echo site_url('auth/login'); ?>"><i class="ri-user-line"></i> Login / Register</a>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -31,12 +37,12 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="https://www.alphamindz.com" class="brand" style="display: flex; align-items: center;">
+            <a href="<?php echo base_url(); ?>" class="brand" style="display: flex; align-items: center;">
                 <img src="<?php echo base_url('assets/images/logo.png'); ?>" alt="AlphaMindz" style="height: 48px; width: auto; object-fit: contain;">
             </a>
             
             <div class="nav-links">
-                <a href="#" class="nav-link">Home</a>
+                <a href="<?php echo base_url(); ?>" class="nav-link">Home</a>
                 
                 <div class="nav-item has-dropdown mega-dropdown">
                     <a href="<?php echo site_url('courses'); ?>" class="nav-link">Courses <i class="ri-arrow-down-s-line"></i></a>
@@ -62,7 +68,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="nav-link">Counselling Scope</a>
+                <a href="<?php echo site_url('blogs'); ?>" class="nav-link">Blogs</a>
 
                 <div class="nav-item has-dropdown">
                     <a href="<?php echo site_url('assessments'); ?>" class="nav-link">Assessment <i class="ri-arrow-down-s-line"></i></a>
@@ -75,18 +81,17 @@
                 </div>
 
                 <div class="nav-item has-dropdown">
-                    <a href="#" class="nav-link">Shop <i class="ri-arrow-down-s-line"></i></a>
+                    <a href="<?php echo site_url('shop'); ?>" class="nav-link">Shop <i class="ri-arrow-down-s-line"></i></a>
                     <div class="dropdown-menu">
-                        <a href="#">E-Books</a>
-                        <a href="#">IELTS Achievers</a>
-                        <a href="#">Training & Educational Kits</a>
+                        <a href="<?php echo site_url('shop'); ?>">E-Books</a>
+                        <a href="<?php echo site_url('shop'); ?>">IELTS Achievers</a>
+                        <a href="<?php echo site_url('shop'); ?>">Training & Educational Kits</a>
                     </div>
                 </div>
 
                 <div class="nav-item has-dropdown">
                     <a href="#" class="nav-link">Free Resources <i class="ri-arrow-down-s-line"></i></a>
                     <div class="dropdown-menu">
-                        <a href="#">Blogs</a>
                         <a href="#">Articles</a>
                         <a href="#">Career Facts</a>
                         <a href="#">IELTS Download</a>

@@ -29,6 +29,16 @@
                     <i class="ri-article-line"></i> Articles
                 </a>
             </li>
+            <li>
+                <a href="<?php echo site_url('admin/blogs'); ?>" class="<?php echo ($this->uri->segment(2) == 'blogs' || $this->uri->segment(2) == 'add_blog' || $this->uri->segment(2) == 'edit_blog') ? 'active' : ''; ?>">
+                    <i class="ri-quill-pen-line"></i> Blogs
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('admin/users'); ?>" class="<?php echo ($this->uri->segment(2) == 'users' || $this->uri->segment(2) == 'edit_user') ? 'active' : ''; ?>">
+                    <i class="ri-group-line"></i> Users
+                </a>
+            </li>
         </ul>
     </div>
 

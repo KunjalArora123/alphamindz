@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="250" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px;">
+  <!-- Lines AC and BD -->
+  <line x1="80" y1="80" x2="320" y2="220" stroke="#475569" stroke-width="2.5" />
+  <line x1="80" y1="220" x2="320" y2="80" stroke="#475569" stroke-width="2.5" />
+  
+  <!-- Triangle boundaries -->
+  <line x1="80" y1="80" x2="80" y2="220" stroke="#2563eb" stroke-width="2" />
+  <line x1="320" y1="80" x2="320" y2="220" stroke="#10b981" stroke-width="2" />
+
+  <!-- Vertices / Points -->
+  <circle cx="80" cy="80" r="4" fill="#0f172a" />
+  <circle cx="80" cy="220" r="4" fill="#0f172a" />
+  <circle cx="200" cy="150" r="4" fill="#0f172a" />
+  <circle cx="320" cy="80" r="4" fill="#0f172a" />
+  <circle cx="320" cy="220" r="4" fill="#0f172a" />
+
+  <!-- Vertex Labels -->
+  <text x="60" y="85" font-family="'Outfit', sans-serif" font-size="16" font-weight="bold" fill="#0f172a">A</text>
+  <text x="60" y="225" font-family="'Outfit', sans-serif" font-size="16" font-weight="bold" fill="#0f172a">B</text>
+  <text x="200" y="135" font-family="'Outfit', sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle">O</text>
+  <text x="335" y="85" font-family="'Outfit', sans-serif" font-size="16" font-weight="bold" fill="#0f172a">D</text>
+  <text x="335" y="225" font-family="'Outfit', sans-serif" font-size="16" font-weight="bold" fill="#0f172a">C</text>
+
+  <!-- Angle Values -->
+  <text x="95" y="100" font-family="'Outfit', sans-serif" font-size="14" fill="#2563eb" font-weight="semibold">75°</text>
+  <text x="95" y="210" font-family="'Outfit', sans-serif" font-size="14" fill="#2563eb" font-weight="semibold">55°</text>
+  <text x="290" y="210" font-family="'Outfit', sans-serif" font-size="14" fill="#10b981" font-weight="semibold">100°</text>
+  <text x="295" y="100" font-family="'Outfit', sans-serif" font-size="14" fill="#dc2626" font-weight="semibold">?</text>
+</svg>

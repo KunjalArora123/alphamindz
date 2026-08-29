@@ -155,13 +155,38 @@
         </div>
         <ul class="sidebar-menu">
             <li>
-                <a href="<?php echo site_url('admin/dashboard'); ?>">
+                <a href="<?php echo site_url('admin/dashboard'); ?>" class="<?php echo ($this->uri->segment(2) == 'dashboard' || $this->uri->segment(2) == '') ? 'active' : ''; ?>">
                     <i class="ri-dashboard-line"></i> Dashboard
                 </a>
             </li>
             <li>
-                <a href="<?php echo site_url('admin/courses'); ?>" class="active">
+                <a href="<?php echo site_url('admin/courses'); ?>" class="<?php echo ($this->uri->segment(2) == 'courses' || $this->uri->segment(2) == 'add_course' || $this->uri->segment(2) == 'edit_course') ? 'active' : ''; ?>">
                     <i class="ri-book-open-line"></i> Courses
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('admin/assessments'); ?>" class="<?php echo ($this->uri->segment(2) == 'assessments') ? 'active' : ''; ?>">
+                    <i class="ri-survey-line"></i> Assessments
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('admin/products'); ?>" class="<?php echo ($this->uri->segment(2) == 'products') ? 'active' : ''; ?>">
+                    <i class="ri-store-2-line"></i> Shop Products
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('admin/articles'); ?>" class="<?php echo ($this->uri->segment(2) == 'articles') ? 'active' : ''; ?>">
+                    <i class="ri-article-line"></i> Articles
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('admin/blogs'); ?>" class="<?php echo ($this->uri->segment(2) == 'blogs' || $this->uri->segment(2) == 'add_blog' || $this->uri->segment(2) == 'edit_blog') ? 'active' : ''; ?>">
+                    <i class="ri-quill-pen-line"></i> Blogs
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('admin/users'); ?>" class="<?php echo ($this->uri->segment(2) == 'users' || $this->uri->segment(2) == 'edit_user') ? 'active' : ''; ?>">
+                    <i class="ri-group-line"></i> Users
                 </a>
             </li>
         </ul>
