@@ -335,7 +335,7 @@
                 <!-- Top Header -->
                 <div class="cert-header">
                     <div class="cert-logo">
-                        <img src="<?php echo base_url('assets/images/logo.png?v='.time()); ?>" alt="AlphaMindz Logo" onerror="this.style.display='none'; document.getElementById('alt-logo-text').style.display='block';">
+                        <img src="<?php echo base_url('assets/images/logo.png?v='.filemtime(FCPATH.'assets/images/logo.png')); ?>" alt="AlphaMindz Logo" onerror="this.style.display='none'; document.getElementById('alt-logo-text').style.display='block';">
                         <div id="alt-logo-text" class="cert-logo-text">Alpha<span>Mindz</span></div>
                     </div>
                     <div class="cert-badge">

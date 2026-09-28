@@ -2,7 +2,7 @@
         <div class="footer-container">
             <div class="footer-grid">
                 <div class="footer-about">
-                    <img src="<?php echo base_url('assets/images/logo.png?v='.time()); ?>" alt="AlphaMindz Logo" style="height: 55px; width: auto; background: #ffffff; padding: 6px 12px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+                    <img src="<?php echo base_url('assets/images/logo.png?v='.filemtime(FCPATH.'assets/images/logo.png')); ?>" alt="AlphaMindz Logo" style="height: 55px; width: auto; background: #ffffff; padding: 6px 12px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
                     <p>Empowering the next generation of global leaders through scientific capability assessments and personalized career counselling.</p>
                     <div class="social-links" style="margin-top: 24px; font-size: 20px; display: flex; gap: 16px;">
                         <a href="https://www.facebook.com/share/1F929ZPEeC/" target="_blank" title="Facebook" rel="noopener noreferrer"><i class="ri-facebook-fill"></i></a>

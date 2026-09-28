@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Public Credential Verification Portal | AlphaMindz</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
-    <link rel="shortcut icon" type="image/png" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
-    <link rel="apple-touch-icon" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
+    <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/favicon.png?v='.filemtime(FCPATH.'assets/images/favicon.png')); ?>">
+    <link rel="shortcut icon" type="image/png" href="<?php echo base_url('assets/images/favicon.png?v='.filemtime(FCPATH.'assets/images/favicon.png')); ?>">
+    <link rel="apple-touch-icon" href="<?php echo base_url('assets/images/favicon.png?v='.filemtime(FCPATH.'assets/images/favicon.png')); ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
@@ -111,7 +111,7 @@
     <header class="verify-header">
         <div class="container">
             <a href="<?php echo site_url(); ?>" class="brand-logo mb-3 d-inline-flex align-items-center gap-2" style="text-decoration: none;">
-                <img src="<?php echo base_url('assets/images/logo.png?v='.time()); ?>" alt="AlphaMindz Logo" style="height: 48px; width: auto; background: #ffffff; padding: 4px 10px; border-radius: 8px;">
+                <img src="<?php echo base_url('assets/images/logo.png?v='.filemtime(FCPATH.'assets/images/logo.png')); ?>" alt="AlphaMindz Logo" style="height: 48px; width: auto; background: #ffffff; padding: 4px 10px; border-radius: 8px;">
                 <span>AlphaMindz</span>
             </a>
             <h1 class="fw-extrabold fs-3 fs-md-2 mb-2">Public Credential Verification Portal</h1>

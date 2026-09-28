@@ -1,7 +1,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-header" style="text-align: center; padding: 16px 10px;">
-            <img src="<?php echo base_url('assets/images/logo.png?v='.time()); ?>" alt="AlphaMindz" style="height: 38px; width: auto; background: #ffffff; padding: 4px 10px; border-radius: 6px;">
+            <img src="<?php echo base_url('assets/images/logo.png?v='.filemtime(FCPATH.'assets/images/logo.png')); ?>" alt="AlphaMindz" style="height: 38px; width: auto; background: #ffffff; padding: 4px 10px; border-radius: 6px;">
         </div>
         <ul class="sidebar-menu">
             <li>
