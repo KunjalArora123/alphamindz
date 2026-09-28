@@ -1013,6 +1013,13 @@ class Admin extends CI_Controller {
     }
 
     public function update_user($id) {
+        $this->load->database();
+        $target_user = $this->db->get_where('users', array('id' => $id))->row();
+        if ($target_user && $target_user->email === 'kunjalarora2@gmail.com') {
+            $this->session->set_flashdata('error', 'Action denied: The account kunjalarora2@gmail.com cannot be modified.');
+            redirect('admin/users');
+            return;
+        }
         if (!$this->session->userdata('admin_logged_in')) redirect('admin');
         $this->load->database();
         
@@ -1030,6 +1037,13 @@ class Admin extends CI_Controller {
     }
 
     public function delete_user($id) {
+        $this->load->database();
+        $target_user = $this->db->get_where('users', array('id' => $id))->row();
+        if ($target_user && $target_user->email === 'kunjalarora2@gmail.com') {
+            $this->session->set_flashdata('error', 'Action denied: The account kunjalarora2@gmail.com cannot be deleted.');
+            redirect('admin/users');
+            return;
+        }
         if (!$this->session->userdata('admin_logged_in')) redirect('admin');
         $this->load->database();
         
@@ -2347,3 +2361,4 @@ class Admin extends CI_Controller {
         redirect('admin/articles');
     }
 }
+

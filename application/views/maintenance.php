@@ -9,9 +9,9 @@ header('Retry-After: 3600');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Under Maintenance | AlphaMindz</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/logo.png'); ?>">
-    <link rel="shortcut icon" type="image/png" href="<?php echo base_url('assets/images/logo.png'); ?>">
-    <link rel="apple-touch-icon" href="<?php echo base_url('assets/images/logo.png'); ?>">
+    <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
+    <link rel="shortcut icon" type="image/png" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
+    <link rel="apple-touch-icon" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         * {
@@ -258,7 +258,7 @@ header('Retry-After: 3600');
 
     <div class="maintenance-card">
         <div class="logo-box">
-            <img src="<?php echo base_url('assets/images/logo.png'); ?>" alt="AlphaMindz">
+            <img src="<?php echo base_url('assets/images/logo.png?v='.time()); ?>" alt="AlphaMindz">
         </div>
 
         <div class="status-badge">

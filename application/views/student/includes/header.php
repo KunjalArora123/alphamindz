@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title><?php echo isset($title) ? $title : 'Student Portal'; ?></title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/logo.png'); ?>">
-    <link rel="shortcut icon" type="image/png" href="<?php echo base_url('assets/images/logo.png'); ?>">
-    <link rel="apple-touch-icon" href="<?php echo base_url('assets/images/logo.png'); ?>">
+    <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
+    <link rel="shortcut icon" type="image/png" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
+    <link rel="apple-touch-icon" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Remix Icons -->
@@ -200,7 +200,7 @@
     <div class="container">
         <!-- Brand / Logo -->
         <a class="navbar-brand d-flex align-items-center" href="<?php echo site_url('student'); ?>">
-            <img src="<?php echo base_url('assets/images/logo.png'); ?>" alt="AlphaMindz" style="height: 38px; width: auto; background: #ffffff; padding: 4px 10px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);" class="me-2">
+            <img src="<?php echo base_url('assets/images/logo.png?v='.time()); ?>" alt="AlphaMindz" style="height: 38px; width: auto; background: #ffffff; padding: 4px 10px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);" class="me-2">
             <span class="badge" style="background-color: var(--sp-green); color: #fff; font-size: 0.7rem;">STUDENT PORTAL</span>
         </a>
         

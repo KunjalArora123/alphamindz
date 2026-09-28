@@ -1,7 +1,7 @@
     <!-- Superadmin Sidebar -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <img src="<?php echo base_url('assets/images/logo.png'); ?>" alt="AlphaMindz" style="height: 38px; width: auto; background: #ffffff; padding: 4px 10px; border-radius: 6px;">
+            <img src="<?php echo base_url('assets/images/logo.png?v='.time()); ?>" alt="AlphaMindz" style="height: 38px; width: auto; background: #ffffff; padding: 4px 10px; border-radius: 6px;">
             <div>
                 <span class="super-tag"><i class="ri-shield-flash-line"></i> Superadmin Control</span>
             </div>
@@ -25,6 +25,11 @@
             <li>
                 <a href="<?php echo site_url('superadmin/website_access'); ?>" class="<?php echo ($this->uri->segment(2) == 'website_access') ? 'active' : ''; ?>">
                     <i class="ri-toggle-line"></i> Website Access
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('superadmin/branding'); ?>" class="<?php echo ($this->uri->segment(2) == 'branding') ? 'active' : ''; ?>">
+                    <i class="ri-palette-line"></i> Site Branding
                 </a>
             </li>
             <li style="margin-top: 15px; padding: 0 24px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 700;">

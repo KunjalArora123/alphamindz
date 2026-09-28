@@ -218,6 +218,12 @@ class Superadmin extends CI_Controller {
     }
 
     public function change_user_role($id) {
+        $target_user = $this->db->get_where('users', array('id' => $id))->row();
+        if ($target_user && $target_user->email === 'kunjalarora2@gmail.com') {
+            $this->session->set_flashdata('error', 'Action denied: The role for kunjalarora2@gmail.com cannot be changed.');
+            redirect('superadmin/users');
+            return;
+        }
         $this->_check_auth();
         $new_role = $this->input->post('role');
         
@@ -251,6 +257,12 @@ class Superadmin extends CI_Controller {
     }
 
     public function delete_user($id) {
+        $target_user = $this->db->get_where('users', array('id' => $id))->row();
+        if ($target_user && $target_user->email === 'kunjalarora2@gmail.com') {
+            $this->session->set_flashdata('error', 'Action denied: The account kunjalarora2@gmail.com cannot be deleted.');
+            redirect('superadmin/users');
+            return;
+        }
         $this->_check_auth();
         $this->db->where('id', $id)->delete('users');
         $this->session->set_flashdata('success', 'User deleted successfully.');
@@ -258,6 +270,12 @@ class Superadmin extends CI_Controller {
     }
 
     public function delete_admin($id) {
+        $target_admin = $this->db->get_where('admins', array('id' => $id))->row();
+        if ($target_admin && $target_admin->email === 'kunjalarora2@gmail.com') {
+            $this->session->set_flashdata('error', 'Action denied: The account kunjalarora2@gmail.com cannot be deleted.');
+            redirect('superadmin/dashboard');
+            return;
+        }
         $this->_check_auth();
         $this->db->where('id', $id)->delete('admins');
         $this->session->set_flashdata('success', 'Admin account deleted.');
@@ -359,9 +377,59 @@ class Superadmin extends CI_Controller {
         redirect('superadmin/website_access');
     }
 
+    public function branding() {
+        $this->_check_auth();
+        $this->load->helper('form');
+        $this->load->library('upload');
+        
+        if ($this->input->server('REQUEST_METHOD') === 'POST') {
+            $config['upload_path'] = FCPATH . 'assets/images/';
+            $config['allowed_types'] = 'gif|jpg|jpeg|png|ico';
+            $config['max_size'] = 5000;
+            $config['overwrite'] = true;
+            
+            $this->upload->initialize($config);
+            $success = false;
+
+            if (!empty($_FILES['logo']['name'])) {
+                $config['file_name'] = 'logo.png';
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('logo')) {
+                    $success = true;
+                } else {
+                    $this->session->set_flashdata('error', $this->upload->display_errors('',''));
+                }
+            }
+
+            if (!empty($_FILES['favicon']['name'])) {
+                $config['file_name'] = 'favicon.png';
+                $this->upload->initialize($config);
+                if ($this->upload->do_upload('favicon')) {
+                    $success = true;
+                } else {
+                    $this->session->set_flashdata('error', $this->upload->display_errors('',''));
+                }
+            }
+            
+            if ($success) {
+                $this->session->set_flashdata('success', 'Branding images updated successfully. Please hard refresh (Ctrl+F5) to see the changes.');
+            }
+            
+            redirect('superadmin/branding');
+            return;
+        }
+
+        $data['page_title'] = 'Site Branding';
+        $this->load->view('superadmin/includes/header', $data);
+        $this->load->view('superadmin/includes/sidebar');
+        $this->load->view('superadmin/branding');
+        $this->load->view('superadmin/includes/footer');
+    }
+
     public function logout() {
         $this->session->unset_userdata(array('superadmin_logged_in', 'superadmin_email', 'superadmin_username', 'superadmin_name', 'superadmin_role'));
         $this->session->set_flashdata('success', 'Superadmin logged out successfully.');
         redirect('superadmin/login');
     }
 }
+

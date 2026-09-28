@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($title) ? $title : 'AlphaMindz | Empower. Inspire. Motivate.'; ?></title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/logo.png'); ?>">
-    <link rel="shortcut icon" type="image/png" href="<?php echo base_url('assets/images/logo.png'); ?>">
-    <link rel="apple-touch-icon" href="<?php echo base_url('assets/images/logo.png'); ?>">
+    <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
+    <link rel="shortcut icon" type="image/png" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
+    <link rel="apple-touch-icon" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
     <!-- Modern Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +43,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="<?php echo base_url(); ?>" class="brand" style="display: flex; align-items: center;">
-                <img src="<?php echo base_url('assets/images/logo.png'); ?>" alt="AlphaMindz" style="height: 48px; width: auto; object-fit: contain;">
+                <img src="<?php echo base_url('assets/images/logo.png?v='.time()); ?>" alt="AlphaMindz" style="height: 48px; width: auto; object-fit: contain;">
             </a>
             
             <div class="nav-links">
@@ -147,7 +147,7 @@
     <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileMenu()"></div>
     <div class="mobile-nav-drawer" id="mobileNavDrawer">
         <div class="mobile-nav-header">
-            <img src="<?php echo base_url('assets/images/logo.png'); ?>" alt="AlphaMindz" style="height: 32px;">
+            <img src="<?php echo base_url('assets/images/logo.png?v='.time()); ?>" alt="AlphaMindz" style="height: 32px;">
             <button class="mobile-nav-close" onclick="toggleMobileMenu()"><i class="ri-close-line"></i></button>
         </div>
         <div class="mobile-nav-links">

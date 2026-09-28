@@ -60,9 +60,9 @@ foreach ($questions as $q) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alpha Mindz - <?php echo htmlspecialchars($subject); ?></title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/logo.png'); ?>">
-    <link rel="shortcut icon" type="image/png" href="<?php echo base_url('assets/images/logo.png'); ?>">
-    <link rel="apple-touch-icon" href="<?php echo base_url('assets/images/logo.png'); ?>">
+    <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
+    <link rel="shortcut icon" type="image/png" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
+    <link rel="apple-touch-icon" href="<?php echo base_url('assets/images/favicon.png?v='.time()); ?>">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
@@ -130,7 +130,7 @@ foreach ($questions as $q) {
     <header class="w-full card-panel border-b border-slate-200 sticky top-0 z-40 px-4 py-3.5 md:px-8">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <img src="<?php echo base_url('assets/images/logo.png'); ?>" alt="Alpha Mindz Logo" class="h-10 w-auto">
+                <img src="<?php echo base_url('assets/images/logo.png?v='.time()); ?>" alt="Alpha Mindz Logo" class="h-10 w-auto">
                 <div class="hidden sm:block border-l-2 border-slate-200 pl-3">
                     <h2 class="text-sm font-bold text-slate-800 tracking-wide">Alpha Mindz - <?php echo htmlspecialchars($subject); ?></h2>
                 </div>

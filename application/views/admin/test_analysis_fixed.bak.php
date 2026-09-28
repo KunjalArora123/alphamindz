@@ -1,4 +1,4 @@
-﻿<div class="card">
+<div class="card">
     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
         <h3>Detailed Test Analysis</h3>
         <a href="<?php echo site_url('admin/user_details/'.$user->id); ?>" class="btn btn-secondary" style="padding: 5px 10px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px;">Back to User</a>
