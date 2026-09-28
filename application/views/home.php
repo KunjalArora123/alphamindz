@@ -231,53 +231,30 @@
         <div class="section-container">
             <div class="section-header">
                 <h2>Alpha Shop</h2>
-                <a href="#" class="view-all">Browse store <i class="ri-arrow-right-line"></i></a>
+                <a href="<?php echo site_url('shop'); ?>" class="view-all">Browse store <i class="ri-arrow-right-line"></i></a>
             </div>
             <div class="shop-grid">
+                <?php if(!empty($products)): foreach($products as $product): ?>
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Book">
-                        <span class="product-badge">E-Book</span>
+                        <?php if($product->image_url): ?>
+                            <img src="<?php echo base_url($product->image_url); ?>" alt="<?php echo htmlspecialchars($product->title); ?>" style="object-fit: contain;">
+                        <?php else: ?>
+                            <div style="height: 100%; display: flex; align-items: center; justify-content: center; background: #f8f9fa; color: #ccc; font-size: 3rem;">
+                                <i class="ri-book-2-line"></i>
+                            </div>
+                        <?php endif; ?>
+                        <span class="product-badge">Product</span>
                     </div>
                     <div class="product-info">
-                        <h4>IELTS Achievers Guide</h4>
-                        <p class="price">₹499.00</p>
-                        <a href="#" class="btn-outline btn-sm">Add to Cart</a>
+                        <h4><?php echo htmlspecialchars($product->title); ?></h4>
+                        <p class="price" style="font-weight: 600; font-size: 1.1rem; color: #ff4757; margin-top: 8px;"><?php echo htmlspecialchars($product->price); ?></p>
+                        <button type="button" onclick="addToCart('product', <?php echo $product->id; ?>, this)" class="btn-outline btn-sm" style="width: 100%; margin-top: 15px; text-align: center; display: block;">Add to Cart</button>
                     </div>
                 </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Kit">
-                        <span class="product-badge">Physical</span>
-                    </div>
-                    <div class="product-info">
-                        <h4>Personality Dev Kit</h4>
-                        <p class="price">₹1,299.00</p>
-                        <a href="#" class="btn-outline btn-sm">Add to Cart</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Book">
-                        <span class="product-badge">E-Book</span>
-                    </div>
-                    <div class="product-info">
-                        <h4>8 Learning Styles</h4>
-                        <p class="price">₹299.00</p>
-                        <a href="#" class="btn-outline btn-sm">Add to Cart</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Kit">
-                        <span class="product-badge">Kit</span>
-                    </div>
-                    <div class="product-info">
-                        <h4>Train the Trainer Set</h4>
-                        <p class="price">₹3,499.00</p>
-                        <a href="#" class="btn-outline btn-sm">Add to Cart</a>
-                    </div>
-                </div>
+                <?php endforeach; else: ?>
+                    <p style="grid-column: 1 / -1; text-align: center; color: #6c757d; padding: 40px 0;">No products available at the moment.</p>
+                <?php endif; ?>
             </div>
         </div>
     </section>
@@ -355,3 +332,4 @@
     </section>
 
     <!-- Expanded Multi-column Footer -->
+
