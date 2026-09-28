@@ -1,0 +1,653 @@
+[
+    {
+        "id": 1,
+        "text": "When you go somewhere for the day , would you rather",
+        "option_a": "Plan what you will do",
+        "option_b": "Just go",
+        "pair": "J/P"
+    },
+    {
+        "id": 2,
+        "text": "Do you consider yourself to be",
+        "option_a": "More of an organised person",
+        "option_b": "More of a spontaneous person",
+        "pair": "J/P"
+    },
+    {
+        "id": 3,
+        "text": "If you were a teacher would you rather teach",
+        "option_a": "Fact courses or",
+        "option_b": "Courses involving theory",
+        "pair": "S/N"
+    },
+    {
+        "id": 4,
+        "text": "Are you usually",
+        "option_a": "A good mixer or",
+        "option_b": "Rather quiet and reserved",
+        "pair": "E/I"
+    },
+    {
+        "id": 5,
+        "text": "Do you get along with",
+        "option_a": "Realistic people",
+        "option_b": "Imaginative people or",
+        "pair": "S/N"
+    },
+    {
+        "id": 6,
+        "text": "Do you more often let",
+        "option_a": "Your head rule heart",
+        "option_b": "Your heart rule head",
+        "pair": "T/F"
+    },
+    {
+        "id": 7,
+        "text": "Do you prefer to do  any things",
+        "option_a": "According to your plans",
+        "option_b": "On the spur of the moment or",
+        "pair": "J/P"
+    },
+    {
+        "id": 8,
+        "text": "Are you",
+        "option_a": "Easy to get to know or",
+        "option_b": "Hard to get to know",
+        "pair": "E/I"
+    },
+    {
+        "id": 9,
+        "text": "Does Following Schedule",
+        "option_a": "Appeal to you or",
+        "option_b": "Cramp you",
+        "pair": "J/P"
+    },
+    {
+        "id": 10,
+        "text": "When you have a special job to do , do you like to",
+        "option_a": "Organise it carefully before you start or",
+        "option_b": "Find out necessary as you go along",
+        "pair": "J/P"
+    },
+    {
+        "id": 11,
+        "text": "In most instances do you prefer to",
+        "option_a": "Follow a schedule",
+        "option_b": "Go with the flow",
+        "pair": "J/P"
+    },
+    {
+        "id": 12,
+        "text": "Would Most people say you are",
+        "option_a": "A very open Person",
+        "option_b": "A private person",
+        "pair": "E/I"
+    },
+    {
+        "id": 13,
+        "text": "Would you rather be considered",
+        "option_a": "A Practical Person",
+        "option_b": "Ingeneous person",
+        "pair": "S/N"
+    },
+    {
+        "id": 14,
+        "text": "In A large group do you more often",
+        "option_a": "Introduce pthers",
+        "option_b": "Or Get Introduced",
+        "pair": "E/I"
+    },
+    {
+        "id": 15,
+        "text": "Would you rather have a friend someone who",
+        "option_a": "Has Both feet on the ground",
+        "option_b": "Is Always Coming up with New Ideas",
+        "pair": "S/N"
+    },
+    {
+        "id": 16,
+        "text": "Are you inclined to",
+        "option_a": "Value Logic more than sentiment",
+        "option_b": "Value Sentiment more than logic or",
+        "pair": "T/F"
+    },
+    {
+        "id": 17,
+        "text": "Do you prefer to",
+        "option_a": "Plan things far in advance",
+        "option_b": "Wait and see what happens and then make plans or",
+        "pair": "J/P"
+    },
+    {
+        "id": 18,
+        "text": "Do you tend to spend a lot of time",
+        "option_a": "With others",
+        "option_b": "By Yourself",
+        "pair": "E/I"
+    },
+    {
+        "id": 19,
+        "text": "Do you find being around a lot of people",
+        "option_a": "Give you more energy",
+        "option_b": "Is often draining",
+        "pair": "E/I"
+    },
+    {
+        "id": 20,
+        "text": "Do you prefer to",
+        "option_a": "Arrange dates parties etc , well in  advance",
+        "option_b": "Be free to do whatever looks like fun when time comes",
+        "pair": "J/P"
+    },
+    {
+        "id": 21,
+        "text": "In Planning a trip would you prefer to",
+        "option_a": "Know ahead of the time what you'll be doing most days",
+        "option_b": "Most of the time what you feel like that day",
+        "pair": "J/P"
+    },
+    {
+        "id": 22,
+        "text": "At parties do you",
+        "option_a": "Have fun",
+        "option_b": "Sometimes get bored",
+        "pair": "E/I"
+    },
+    {
+        "id": 23,
+        "text": "Do you Usually",
+        "option_a": "Mingle well with other",
+        "option_b": "Tend to keep to yourself",
+        "pair": "E/I"
+    },
+    {
+        "id": 24,
+        "text": "Are you more attracted to",
+        "option_a": "A practical person with a lot of common sense",
+        "option_b": "A person with a quick and brilliant mind",
+        "pair": "S/N"
+    },
+    {
+        "id": 25,
+        "text": "In your daily work do you",
+        "option_a": "Usually Plan your work so you won't need to work under pressure",
+        "option_b": "Rather Enjoy an Emergency that makes you work against time",
+        "pair": "J/P"
+    },
+    {
+        "id": 26,
+        "text": "Would you generally say it takes other",
+        "option_a": "Little time to get to know you",
+        "option_b": "A lot of time to get to know you",
+        "pair": "E/I"
+    },
+    {
+        "id": 27,
+        "text": "",
+        "option_a": "Open",
+        "option_b": "Private",
+        "pair": "E/I"
+    },
+    {
+        "id": 28,
+        "text": "",
+        "option_a": "Scheduled",
+        "option_b": "Unplanned",
+        "pair": "J/P"
+    },
+    {
+        "id": 29,
+        "text": "",
+        "option_a": "Solid",
+        "option_b": "Abstract",
+        "pair": "S/N"
+    },
+    {
+        "id": 30,
+        "text": "",
+        "option_a": "Firm",
+        "option_b": "Gentle",
+        "pair": "T/F"
+    },
+    {
+        "id": 31,
+        "text": "",
+        "option_a": "Thinking",
+        "option_b": "Feeling",
+        "pair": "T/F"
+    },
+    {
+        "id": 32,
+        "text": "",
+        "option_a": "Facts",
+        "option_b": "Ideas",
+        "pair": "S/N"
+    },
+    {
+        "id": 33,
+        "text": "",
+        "option_a": "Decision",
+        "option_b": "Impulse",
+        "pair": "J/P"
+    },
+    {
+        "id": 34,
+        "text": "",
+        "option_a": "Hearty",
+        "option_b": "Quiet",
+        "pair": "E/I"
+    },
+    {
+        "id": 35,
+        "text": "",
+        "option_a": "Outgoing",
+        "option_b": "Quiet",
+        "pair": "E/I"
+    },
+    {
+        "id": 36,
+        "text": "",
+        "option_a": "Systematic",
+        "option_b": "Casual",
+        "pair": "J/P"
+    },
+    {
+        "id": 37,
+        "text": "",
+        "option_a": "Certinity",
+        "option_b": "Theory",
+        "pair": "S/N"
+    },
+    {
+        "id": 38,
+        "text": "",
+        "option_a": "Just",
+        "option_b": "Sensitive",
+        "pair": "T/F"
+    },
+    {
+        "id": 39,
+        "text": "",
+        "option_a": "Convincing",
+        "option_b": "Touching",
+        "pair": "T/F"
+    },
+    {
+        "id": 40,
+        "text": "",
+        "option_a": "Statement",
+        "option_b": "Concept",
+        "pair": "S/N"
+    },
+    {
+        "id": 41,
+        "text": "",
+        "option_a": "Scheduled",
+        "option_b": "Unconstrained",
+        "pair": "J/P"
+    },
+    {
+        "id": 42,
+        "text": "",
+        "option_a": "Talkative",
+        "option_b": "Reserved",
+        "pair": "E/I"
+    },
+    {
+        "id": 43,
+        "text": "",
+        "option_a": "Oderly",
+        "option_b": "Easygoing",
+        "pair": "J/P"
+    },
+    {
+        "id": 44,
+        "text": "",
+        "option_a": "Actually",
+        "option_b": "Idea",
+        "pair": "S/N"
+    },
+    {
+        "id": 45,
+        "text": "",
+        "option_a": "Foresight",
+        "option_b": "Compassion",
+        "pair": "T/F"
+    },
+    {
+        "id": 46,
+        "text": "",
+        "option_a": "Benefits",
+        "option_b": "Blessings",
+        "pair": "T/F"
+    },
+    {
+        "id": 47,
+        "text": "",
+        "option_a": "No - Nonsense",
+        "option_b": "Theoretical",
+        "pair": "S/N"
+    },
+    {
+        "id": 48,
+        "text": "",
+        "option_a": "Lots of Friends",
+        "option_b": "Few Friends",
+        "pair": "E/I"
+    },
+    {
+        "id": 49,
+        "text": "",
+        "option_a": "Syestamatic",
+        "option_b": "Spontaneous",
+        "pair": "J/P"
+    },
+    {
+        "id": 50,
+        "text": "",
+        "option_a": "Matter of Fact",
+        "option_b": "imaginative",
+        "pair": "S/N"
+    },
+    {
+        "id": 51,
+        "text": "",
+        "option_a": "Objective",
+        "option_b": "Warm",
+        "pair": "T/F"
+    },
+    {
+        "id": 52,
+        "text": "",
+        "option_a": "Objective",
+        "option_b": "passionate",
+        "pair": "T/F"
+    },
+    {
+        "id": 53,
+        "text": "",
+        "option_a": "Build",
+        "option_b": "Invent",
+        "pair": "S/N"
+    },
+    {
+        "id": 54,
+        "text": "",
+        "option_a": "Gregarious",
+        "option_b": "Quiet",
+        "pair": "E/I"
+    },
+    {
+        "id": 55,
+        "text": "",
+        "option_a": "Fact",
+        "option_b": "Theory",
+        "pair": "S/N"
+    },
+    {
+        "id": 56,
+        "text": "",
+        "option_a": "Logical",
+        "option_b": "Compassionate",
+        "pair": "T/F"
+    },
+    {
+        "id": 57,
+        "text": "",
+        "option_a": "Analytical",
+        "option_b": "Sentimental",
+        "pair": "T/F"
+    },
+    {
+        "id": 58,
+        "text": "",
+        "option_a": "Sensible",
+        "option_b": "Fascinating",
+        "pair": "S/N"
+    },
+    {
+        "id": 59,
+        "text": "When you start a big project that is due in a week , do you",
+        "option_a": "Take time to llist separate things to be done and the order of doing them",
+        "option_b": "Plunge right in",
+        "pair": "J/P"
+    },
+    {
+        "id": 60,
+        "text": "In Special situations do you generally find it",
+        "option_a": "Easy to talk to most people for long period of time",
+        "option_b": "Difficult to start and maintain , a conversation with some people",
+        "pair": "E/I"
+    },
+    {
+        "id": 61,
+        "text": "In doing something that many people do , does it appeal to you more to",
+        "option_a": "do it in an accepted way",
+        "option_b": "Invent a way of your own",
+        "pair": "S/N"
+    },
+    {
+        "id": 62,
+        "text": "Can the people you meet tell you what you are interested in",
+        "option_a": "Right away",
+        "option_b": "Only after they really get to know you",
+        "pair": "E/I"
+    },
+    {
+        "id": 63,
+        "text": "Do you Generally prefer courses that teach",
+        "option_a": "Facts and figures",
+        "option_b": "Concepts and principles",
+        "pair": "S/N"
+    },
+    {
+        "id": 64,
+        "text": "Is it a higher compliment to be called",
+        "option_a": "A consistently reasonable Person",
+        "option_b": "A Person of Real Feeling",
+        "pair": "T/F"
+    },
+    {
+        "id": 65,
+        "text": "Do you find going by a schedule",
+        "option_a": "Helpful and favourable most of the time",
+        "option_b": "Necessary at times by generally unfavourable",
+        "pair": "J/P"
+    },
+    {
+        "id": 66,
+        "text": "When you are with a group of people , would you you usually rather",
+        "option_a": "Join in talk of the group",
+        "option_b": "Join  Individually with people you know well",
+        "pair": "E/I"
+    },
+    {
+        "id": 67,
+        "text": "At parties do you",
+        "option_a": "Do much of the talking",
+        "option_b": "Let others do most of the talking",
+        "pair": "E/I"
+    },
+    {
+        "id": 68,
+        "text": "Does the idea of making a list of what you should get done over a weekend",
+        "option_a": "Appeal to you",
+        "option_b": "Leave you cold",
+        "pair": "J/P"
+    },
+    {
+        "id": 69,
+        "text": "Which is a higher compliment to be called",
+        "option_a": "Competent",
+        "option_b": "Compassionate",
+        "pair": "T/F"
+    },
+    {
+        "id": 70,
+        "text": "Do you generally prefer to",
+        "option_a": "Made your Social engagements Some Distance ahead",
+        "option_b": "Be free to do things in a spur of the moment",
+        "pair": "J/P"
+    },
+    {
+        "id": 71,
+        "text": "Overall when working on a big assignment do you tend to",
+        "option_a": "Begin by breaking it down in steps",
+        "option_b": "Figure out what you need to do as you go along",
+        "pair": "J/P"
+    },
+    {
+        "id": 72,
+        "text": "Can you keep a conversation going indefinetely",
+        "option_a": "With almost anyone",
+        "option_b": "Only with people , you share same interests of yours",
+        "pair": "E/I"
+    },
+    {
+        "id": 73,
+        "text": "Would you rather",
+        "option_a": "Support the establised methods of doing good",
+        "option_b": "Alemsnalyse What is Still Wrong and attack unresolved prob",
+        "pair": "S/N"
+    },
+    {
+        "id": 74,
+        "text": "In reading for pleasure do you",
+        "option_a": "Like writers to say exactly what they mean",
+        "option_b": "Enjoy Old and original ways of Saying things",
+        "pair": "S/N"
+    },
+    {
+        "id": 75,
+        "text": "Would you rather work under a boss (or teacher) who is",
+        "option_a": "Sharp Tongued but always logical",
+        "option_b": "A good natured but always inconsistent",
+        "pair": "T/F"
+    },
+    {
+        "id": 76,
+        "text": "Would you prefer to do most things acording to",
+        "option_a": "Set a schedule",
+        "option_b": "How do you feel that particular day",
+        "pair": "J/P"
+    },
+    {
+        "id": 77,
+        "text": "Can you",
+        "option_a": "Talk easily to almost anyone for as long as you have to",
+        "option_b": "Find a lot to say only to certain People Or under certain conditions",
+        "pair": "E/I"
+    },
+    {
+        "id": 78,
+        "text": "When Making a Decision , is it more important to you to",
+        "option_a": "Weighs the facts",
+        "option_b": "Consider People's Feelings and Opinions",
+        "pair": "T/F"
+    },
+    {
+        "id": 79,
+        "text": "",
+        "option_a": "Realistic",
+        "option_b": "Imaginative",
+        "pair": "S/N"
+    },
+    {
+        "id": 80,
+        "text": "",
+        "option_a": "Firm Minded",
+        "option_b": "Big Hearted",
+        "pair": "T/F"
+    },
+    {
+        "id": 81,
+        "text": "",
+        "option_a": "Fair Minded",
+        "option_b": "Caring",
+        "pair": "T/F"
+    },
+    {
+        "id": 82,
+        "text": "",
+        "option_a": "Production",
+        "option_b": "Design",
+        "pair": "S/N"
+    },
+    {
+        "id": 83,
+        "text": "",
+        "option_a": "Certainities",
+        "option_b": "Probabilities",
+        "pair": "S/N"
+    },
+    {
+        "id": 84,
+        "text": "",
+        "option_a": "Strength",
+        "option_b": "tenderness",
+        "pair": "T/F"
+    },
+    {
+        "id": 85,
+        "text": "",
+        "option_a": "Practical",
+        "option_b": "Sentimental",
+        "pair": "T/F"
+    },
+    {
+        "id": 86,
+        "text": "",
+        "option_a": "Make",
+        "option_b": "Create",
+        "pair": "S/N"
+    },
+    {
+        "id": 87,
+        "text": "",
+        "option_a": "Already Known",
+        "option_b": "Novel",
+        "pair": "S/N"
+    },
+    {
+        "id": 88,
+        "text": "",
+        "option_a": "Analyze",
+        "option_b": "Sympathize",
+        "pair": "T/F"
+    },
+    {
+        "id": 89,
+        "text": "",
+        "option_a": "Strong Willed",
+        "option_b": "Tender Hearted",
+        "pair": "T/F"
+    },
+    {
+        "id": 90,
+        "text": "",
+        "option_a": "Concrete",
+        "option_b": "Abstract",
+        "pair": "S/N"
+    },
+    {
+        "id": 91,
+        "text": "",
+        "option_a": "Determined",
+        "option_b": "Devoted",
+        "pair": "T/F"
+    },
+    {
+        "id": 92,
+        "text": "",
+        "option_a": "Competent",
+        "option_b": "Kind Hearted",
+        "pair": "T/F"
+    },
+    {
+        "id": 93,
+        "text": "",
+        "option_a": "Practical",
+        "option_b": "Innovative",
+        "pair": "S/N"
+    }
+]

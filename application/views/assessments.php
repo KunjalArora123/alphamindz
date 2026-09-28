@@ -13,7 +13,7 @@
 <section class="assessments-page">
     <div class="section-container">
         
-        <!-- Category Filters (Mobile Scrollable) -->
+        <!-- Category Filters -->
         <div class="category-filters">
             <button class="filter-btn active">All Assessments</button>
             <button class="filter-btn">Career</button>
@@ -22,97 +22,67 @@
             <button class="filter-btn">Skills</button>
         </div>
 
+        <?php
+          // Fetch active assessments if not passed from controller
+          if (!isset($active_assessments)) {
+              $ci =& get_instance();
+              $ci->load->database();
+              $active_assessments = $ci->db->get_where('assessments', array('status' => 'active'))->result();
+          }
+        ?>
+
         <!-- Assessments Grid -->
         <div class="assessments-grid">
-            
-            <!-- Assessment Card 1 -->
-            <div class="assessment-card">
-                <div class="card-banner">
-                    <i class="ri-briefcase-4-line"></i>
-                </div>
-                <div class="card-body">
-                    <span class="tag bg-blue">Career</span>
-                    <h3>Student Career Assessment</h3>
-                    <p>Find the perfect career path based on your strengths, interests, and personality traits.</p>
-                    
-                    <div class="card-meta">
-                        <span><i class="ri-time-line"></i> 45 mins</span>
-                        <span><i class="ri-question-answer-line"></i> 60 Qs</span>
-                    </div>
+            <?php if (!empty($active_assessments)): ?>
+                <?php foreach ($active_assessments as $ass): ?>
+                    <?php
+                        // Determine visual style based on title
+                        $bg_class = 'bg-blue';
+                        $icon = 'ri-briefcase-4-line';
+                        $banner_style = '';
 
-                    <div class="card-footer">
-                        <span class="card-price">₹999</span>
-                        <a href="#" class="btn-primary" style="padding: 8px 20px;">Enroll Now</a>
-                    </div>
-                </div>
-            </div>
+                        if (stripos($ass->title, 'kids') !== false) {
+                            $bg_class = 'bg-green';
+                            $icon = 'ri-bear-smile-line';
+                            $banner_style = 'background: linear-gradient(135deg, rgba(139, 189, 79, 0.1), rgba(48, 98, 135, 0.1)); color: var(--color-green);';
+                        } elseif (stripos($ass->title, 'personality') !== false) {
+                            $bg_class = 'bg-pink';
+                            $icon = 'ri-user-smile-line';
+                            $banner_style = 'background: linear-gradient(135deg, rgba(255, 113, 154, 0.1), rgba(139, 189, 79, 0.1)); color: var(--color-pink);';
+                        } elseif (stripos($ass->title, 'leadership') !== false || stripos($ass->title, 'skill') !== false) {
+                            $bg_class = 'bg-blue';
+                            $icon = 'ri-lightbulb-flash-line';
+                            $banner_style = 'background: linear-gradient(135deg, rgba(48, 98, 135, 0.1), rgba(255, 113, 154, 0.1)); color: var(--color-blue);';
+                        }
+                    ?>
+                    <div class="assessment-card">
+                        <div class="card-banner" style="<?php echo $banner_style; ?>">
+                            <i class="<?php echo $icon; ?>"></i>
+                        </div>
+                        <div class="card-body">
+                            <span class="tag <?php echo $bg_class; ?>"><?php echo htmlspecialchars($ass->title); ?></span>
+                            <h3><?php echo htmlspecialchars($ass->title); ?></h3>
+                            <p><?php echo htmlspecialchars($ass->description ? $ass->description : 'Comprehensive assessment evaluating core skills and abilities.'); ?></p>
+                            
+                            <div class="card-meta">
+                                <span><i class="ri-time-line"></i> <?php echo ($ass->time_limit > 0) ? $ass->time_limit : 45; ?> mins</span>
+                                <span><i class="ri-question-answer-line"></i> Online Test</span>
+                            </div>
 
-            <!-- Assessment Card 2 -->
-            <div class="assessment-card">
-                <div class="card-banner" style="background: linear-gradient(135deg, rgba(139, 189, 79, 0.1), rgba(48, 98, 135, 0.1)); color: var(--color-green);">
-                    <i class="ri-bear-smile-line"></i>
-                </div>
-                <div class="card-body">
-                    <span class="tag bg-green">Kids</span>
-                    <h3>Kids Interests Assessment</h3>
-                    <p>Discover your child's innate talents and inclinations to guide their extracurricular activities.</p>
-                    
-                    <div class="card-meta">
-                        <span><i class="ri-time-line"></i> 30 mins</span>
-                        <span><i class="ri-question-answer-line"></i> 40 Qs</span>
+                            <div class="card-footer">
+                                <span class="card-price">₹<?php echo number_format($ass->price > 0 ? $ass->price : 999, 0); ?></span>
+                                <button type="button" onclick="addToCart('assessment', <?php echo $ass->id; ?>, this)" class="btn-primary" style="padding: 8px 20px; border: none; cursor: pointer; transition: all 0.3s ease;">
+                                    Enroll Now
+                                </button>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="card-footer">
-                        <span class="card-price">₹599</span>
-                        <a href="#" class="btn-primary" style="padding: 8px 20px;">Enroll Now</a>
-                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #6c757d;">
+                    <p>No assessment tests currently available.</p>
                 </div>
-            </div>
-
-            <!-- Assessment Card 3 -->
-            <div class="assessment-card">
-                <div class="card-banner" style="background: linear-gradient(135deg, rgba(255, 113, 154, 0.1), rgba(139, 189, 79, 0.1)); color: var(--color-pink);">
-                    <i class="ri-user-smile-line"></i>
-                </div>
-                <div class="card-body">
-                    <span class="tag bg-pink">Personality</span>
-                    <h3>Personality Profile</h3>
-                    <p>Gain deep insights into your behavioral patterns and interpersonal dynamics.</p>
-                    
-                    <div class="card-meta">
-                        <span><i class="ri-time-line"></i> 60 mins</span>
-                        <span><i class="ri-question-answer-line"></i> 100 Qs</span>
-                    </div>
-
-                    <div class="card-footer">
-                        <span class="card-price">₹1,499</span>
-                        <a href="#" class="btn-primary" style="padding: 8px 20px;">Enroll Now</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Assessment Card 4 -->
-            <div class="assessment-card">
-                <div class="card-banner" style="background: linear-gradient(135deg, rgba(48, 98, 135, 0.1), rgba(255, 113, 154, 0.1)); color: var(--color-blue);">
-                    <i class="ri-lightbulb-flash-line"></i>
-                </div>
-                <div class="card-body">
-                    <span class="tag bg-blue">Skills</span>
-                    <h3>Leadership Skill Assessment</h3>
-                    <p>Evaluate your leadership capabilities and identify areas for professional growth.</p>
-                    
-                    <div class="card-meta">
-                        <span><i class="ri-time-line"></i> 40 mins</span>
-                        <span><i class="ri-question-answer-line"></i> 50 Qs</span>
-                    </div>
-
-                    <div class="card-footer">
-                        <span class="card-price">₹1,299</span>
-                        <a href="#" class="btn-primary" style="padding: 8px 20px;">Enroll Now</a>
-                    </div>
-                </div>
-            </div>
-
+            <?php endif; ?>
         </div>
     </div>
 </section>

@@ -1,249 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Courses | Admin | AlphaMindz</title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            background-color: #f4f7f6;
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-        /* Sidebar Styles */
-        .sidebar {
-            width: 260px;
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            display: flex;
-            flex-direction: column;
-        }
-        .sidebar-header {
-            padding: 20px;
-            background-color: #1a252f;
-            text-align: center;
-        }
-        .sidebar-header h2 {
-            margin: 0;
-            font-size: 22px;
-            color: #fff;
-        }
-        .sidebar-menu {
-            flex-grow: 1;
-            padding: 20px 0;
-            margin: 0;
-            list-style: none;
-        }
-        .sidebar-menu li {
-            margin-bottom: 5px;
-        }
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            padding: 12px 24px;
-            color: #bdc3c7;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: #34495e;
-            color: #fff;
-            border-left: 4px solid #3498db;
-        }
-        .sidebar-menu i {
-            margin-right: 12px;
-            font-size: 20px;
-        }
-        /* Main Content Styles */
-        .main-wrapper {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-        .top-navbar {
-            background-color: #fff;
-            padding: 16px 32px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .top-navbar h1 {
-            margin: 0;
-            font-size: 20px;
-            color: #333;
-        }
-        .btn-logout {
-            color: #fff;
-            text-decoration: none;
-            padding: 8px 16px;
-            background-color: #e74c3c;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
-        .btn-logout:hover {
-            background-color: #c0392b;
-        }
-        .content-container {
-            padding: 32px;
-        }
-        .data-card {
-            background-color: #fff;
-            padding: 24px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        
-        /* Table Styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 16px;
-        }
-        table th, table td {
-            text-align: left;
-            padding: 12px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        table th {
-            background-color: #f8f9fa;
-            color: #333;
-            font-weight: 600;
-        }
-        table tr:hover {
-            background-color: #f1f1f1;
-        }
-        .status-badge {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .status-publish {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .status-draft {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h2>AlphaMindz</h2>
-        </div>
-        <ul class="sidebar-menu">
-            <li>
-                <a href="<?php echo site_url('admin/dashboard'); ?>" class="<?php echo ($this->uri->segment(2) == 'dashboard' || $this->uri->segment(2) == '') ? 'active' : ''; ?>">
-                    <i class="ri-dashboard-line"></i> Dashboard
-                </a>
-            </li>
-            <li>
-                <a href="<?php echo site_url('admin/courses'); ?>" class="<?php echo ($this->uri->segment(2) == 'courses' || $this->uri->segment(2) == 'add_course' || $this->uri->segment(2) == 'edit_course') ? 'active' : ''; ?>">
-                    <i class="ri-book-open-line"></i> Courses
-                </a>
-            </li>
-            <li>
-                <a href="<?php echo site_url('admin/assessments'); ?>" class="<?php echo ($this->uri->segment(2) == 'assessments') ? 'active' : ''; ?>">
-                    <i class="ri-survey-line"></i> Assessments
-                </a>
-            </li>
-            <li>
-                <a href="<?php echo site_url('admin/products'); ?>" class="<?php echo ($this->uri->segment(2) == 'products') ? 'active' : ''; ?>">
-                    <i class="ri-store-2-line"></i> Shop Products
-                </a>
-            </li>
-            <li>
-                <a href="<?php echo site_url('admin/articles'); ?>" class="<?php echo ($this->uri->segment(2) == 'articles') ? 'active' : ''; ?>">
-                    <i class="ri-article-line"></i> Articles
-                </a>
-            </li>
-            <li>
-                <a href="<?php echo site_url('admin/blogs'); ?>" class="<?php echo ($this->uri->segment(2) == 'blogs' || $this->uri->segment(2) == 'add_blog' || $this->uri->segment(2) == 'edit_blog') ? 'active' : ''; ?>">
-                    <i class="ri-quill-pen-line"></i> Blogs
-                </a>
-            </li>
-            <li>
-                <a href="<?php echo site_url('admin/users'); ?>" class="<?php echo ($this->uri->segment(2) == 'users' || $this->uri->segment(2) == 'edit_user') ? 'active' : ''; ?>">
-                    <i class="ri-group-line"></i> Users
-                </a>
-            </li>
-        </ul>
+<div class="data-card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="margin: 0; color: #2c3e50;"><i class="ri-book-open-line"></i> Manage Courses</h2>
+        <a href="<?php echo site_url('admin/add_course'); ?>" style="background-color: #27ae60; color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 4px; font-weight: bold; font-size: 14px; display: inline-flex; align-items: center; gap: 6px;">
+            <i class="ri-add-line" style="font-size: 18px;"></i> Add New Course
+        </a>
     </div>
-
-    <!-- Main Wrapper -->
-    <div class="main-wrapper">
-        <!-- Top Navbar -->
-        <div class="top-navbar">
-            <h1>Manage Courses</h1>
-            <a href="<?php echo site_url('admin/logout'); ?>" class="btn-logout"><i class="ri-logout-circle-r-line"></i> Logout</a>
-        </div>
-
-        <!-- Page Content -->
-        <div class="content-container">
-            <?php if($this->session->flashdata('success')): ?>
-                <div style="color: #155724; background-color: #d4edda; padding: 10px; border-radius: 4px; margin-bottom: 16px;">
-                    <?php echo $this->session->flashdata('success'); ?>
-                </div>
-            <?php endif; ?>
-
-            <div class="data-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                    <h2 style="margin: 0;">Manage Courses</h2>
-                    <a href="<?php echo site_url('admin/add_course'); ?>" style="background-color: #3498db; color: #fff; text-decoration: none; padding: 8px 16px; border-radius: 4px;"><i class="ri-add-line"></i> Add New Course</a>
-                </div>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Price</th>
-                            <th>Duration</th>
-                            <th>Status</th>
-                            <th>Created At</th>
-                            <th>Actions</th>
+    
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                    <th style="padding: 12px; text-align: left;">ID</th>
+                    <th style="padding: 12px; text-align: left;">Thumbnail</th>
+                    <th style="padding: 12px; text-align: left;">Title</th>
+                    <th style="padding: 12px; text-align: left;">Price</th>
+                    <th style="padding: 12px; text-align: left;">Duration</th>
+                    <th style="padding: 12px; text-align: left;">Status</th>
+                    <th style="padding: 12px; text-align: left;">Created At</th>
+                    <th style="padding: 12px; text-align: right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if(!empty($courses)): ?>
+                    <?php foreach($courses as $course): ?>
+                        <tr style="border-bottom: 1px solid #dee2e6;">
+                            <td style="padding: 12px; color: #777; font-weight: bold;"><?php echo $course->id; ?></td>
+                            <td style="padding: 12px;">
+                                <?php if (!empty($course->thumbnail)): ?>
+                                    <img src="<?php echo base_url($course->thumbnail); ?>" alt="Thumb" style="width: 55px; height: 38px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;">
+                                <?php else: ?>
+                                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&q=80" alt="Default Thumb" style="width: 55px; height: 38px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; opacity: 0.6;">
+                                <?php endif; ?>
+                            </td>
+                            <td style="padding: 12px; font-weight: 600; color: #2c3e50;"><?php echo htmlspecialchars($course->title); ?></td>
+                            <td style="padding: 12px;">
+                                <?php 
+                                if (!empty($course->tiers)) {
+                                    $prices = array_map(function($t) { return (float)$t->price; }, $course->tiers);
+                                    $min_p = min($prices);
+                                    $max_p = max($prices);
+                                    $tier_count = count($course->tiers);
+                                    if ($min_p == $max_p) {
+                                        echo '₹' . number_format($min_p, 2);
+                                    } else {
+                                        echo '₹' . number_format($min_p, 0) . ' - ₹' . number_format($max_p, 0) . '<br><small style="color:#777;">(' . $tier_count . ' Tiers)</small>';
+                                    }
+                                } else {
+                                    echo $course->price ? '₹' . number_format($course->price, 2) : 'Free';
+                                }
+                                ?>
+                            </td>
+                            <td style="padding: 12px; color: #555;"><?php echo $course->duration ? htmlspecialchars($course->duration) : 'N/A'; ?></td>
+                            <td style="padding: 12px;">
+                                <span class="status-badge <?php echo $course->status === 'publish' ? 'status-publish' : 'status-draft'; ?>">
+                                    <?php echo ucfirst($course->status); ?>
+                                </span>
+                            </td>
+                            <td style="padding: 12px; color: #777; font-size: 13px;"><?php echo date('M d, Y', strtotime($course->created_at)); ?></td>
+                            <td style="padding: 12px; text-align: right;">
+                                <a href="<?php echo site_url('admin/course_materials/'.$course->id); ?>" style="color: #dc2626; text-decoration: none; margin-right: 12px; font-size: 19px;" title="Upload & Manage PDF Materials"><i class="ri-file-pdf-2-line"></i></a>
+                                <a href="<?php echo site_url('admin/enroll_students/'.$course->id); ?>" style="color: #27ae60; text-decoration: none; margin-right: 12px; font-size: 18px;" title="Enroll Students"><i class="ri-user-add-line"></i></a>
+                                <a href="<?php echo site_url('admin/edit_course/'.$course->id); ?>" style="color: #3498db; text-decoration: none; margin-right: 12px; font-size: 18px;" title="Edit"><i class="ri-edit-line"></i></a>
+                                <a href="<?php echo site_url('admin/delete_course/'.$course->id); ?>" style="color: #e74c3c; text-decoration: none; font-size: 18px;" title="Delete" onclick="return confirm('Are you sure you want to delete this course?');"><i class="ri-delete-bin-line"></i></a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <?php if(!empty($courses)): ?>
-                            <?php foreach($courses as $course): ?>
-                                <tr>
-                                    <td><?php echo $course->id; ?></td>
-                                    <td><strong><?php echo $course->title; ?></strong></td>
-                                    <td><?php echo $course->price ? '₹'.$course->price : 'Free'; ?></td>
-                                    <td><?php echo $course->duration ? $course->duration : 'N/A'; ?></td>
-                                    <td>
-                                        <span class="status-badge <?php echo $course->status === 'publish' ? 'status-publish' : 'status-draft'; ?>">
-                                            <?php echo ucfirst($course->status); ?>
-                                        </span>
-                                    </td>
-                                    <td><?php echo date('M d, Y', strtotime($course->created_at)); ?></td>
-                                    <td>
-                                        <a href="<?php echo site_url('admin/edit_course/'.$course->id); ?>" style="color: #3498db; text-decoration: none; margin-right: 8px;" title="Edit"><i class="ri-edit-line"></i></a>
-                                        <a href="<?php echo site_url('admin/delete_course/'.$course->id); ?>" style="color: #e74c3c; text-decoration: none;" title="Delete" onclick="return confirm('Are you sure you want to delete this course?');"><i class="ri-delete-bin-line"></i></a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="5" style="text-align: center;">No courses found.</td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="7" style="padding: 20px; text-align: center; color: #666;">No courses found.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
     </div>
-
-</body>
-</html>
+</div>

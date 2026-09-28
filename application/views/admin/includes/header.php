@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($page_title) ? $page_title : 'Admin Dashboard'; ?> | AlphaMindz</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/logo.png'); ?>">
+    <link rel="shortcut icon" type="image/png" href="<?php echo base_url('assets/images/logo.png'); ?>">
+    <link rel="apple-touch-icon" href="<?php echo base_url('assets/images/logo.png'); ?>">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <style>
         body {

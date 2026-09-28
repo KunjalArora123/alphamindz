@@ -26,7 +26,10 @@
             </div>
 
             <div style="margin-bottom: 25px;">
-                <label for="password" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Password</label>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <label for="password" style="margin-bottom: 0; font-weight: 500; color: #333;">Password</label>
+                    <a href="<?php echo site_url('auth/forgot_password'); ?>" style="color: #007bff; text-decoration: none; font-size: 0.88rem; font-weight: 500;">Forgot Password?</a>
+                </div>
                 <input type="password" name="password" id="password" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; box-sizing: border-box;">
             </div>
 

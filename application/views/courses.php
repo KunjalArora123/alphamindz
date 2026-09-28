@@ -14,23 +14,40 @@
             <div class="shop-grid">
                 <?php if(!empty($courses)): ?>
                     <?php foreach($courses as $course): ?>
+                        <?php 
+                        $min_price = $course->price;
+                        $tier_count = 0;
+                        if (!empty($course->tiers)) {
+                            $tier_count = count($course->tiers);
+                            $tier_prices = array_map(function($t) { return (float)$t->price; }, $course->tiers);
+                            $min_price = min($tier_prices);
+                        }
+                        ?>
                         <div class="product-card">
                             <div class="product-image" style="aspect-ratio: 16/9; background: #eee;">
-                                <!-- Random educational placeholder image -->
-                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="<?php echo htmlspecialchars($course->title); ?>">
-                                <?php if($course->status): ?>
-                                <span class="product-badge" style="background: var(--color-blue); color: #fff; text-transform: capitalize;"><?php echo htmlspecialchars($course->status); ?></span>
+                                <?php 
+                                $thumb_src = !empty($course->thumbnail) ? base_url($course->thumbnail) : 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80';
+                                ?>
+                                <img src="<?php echo $thumb_src; ?>" alt="<?php echo htmlspecialchars($course->title); ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                <?php if($tier_count > 0): ?>
+                                <span class="product-badge" style="background: var(--color-blue); color: #fff; text-transform: capitalize;"><?php echo $tier_count; ?> Tiers Available</span>
                                 <?php endif; ?>
                             </div>
                             <div class="product-info">
-                                <h4 style="min-height: 48px; line-height: 1.4;"><?php echo htmlspecialchars($course->title); ?></h4>
-                                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;"><?php echo strip_tags($course->description); ?></p>
+                                <h4 style="min-height: 48px; line-height: 1.4;">
+                                    <a href="<?php echo site_url('courses/'.$course->id); ?>" style="color: inherit; text-decoration: none;">
+                                        <?php echo htmlspecialchars($course->title); ?>
+                                    </a>
+                                </h4>
+                                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                    <?php echo !empty($course->introduction) ? strip_tags($course->introduction) : strip_tags($course->description); ?>
+                                </p>
                                 
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                                    <p class="price" style="margin-bottom: 0;">₹<?php echo number_format($course->price, 2); ?></p>
+                                    <p class="price" style="margin-bottom: 0;">Starting at ₹<?php echo number_format($min_price, 2); ?></p>
                                     <span style="font-size: 12px; font-weight: 600; color: var(--color-green);"><i class="ri-time-line"></i> <?php echo htmlspecialchars($course->duration); ?></span>
                                 </div>
-                                <a href="#" class="btn-primary" style="width: 100%; justify-content: center;">Enroll Now <i class="ri-arrow-right-line"></i></a>
+                                <a href="<?php echo site_url('courses/'.$course->id); ?>" class="btn-primary" style="width: 100%; justify-content: center;">View Tiers & Enroll <i class="ri-arrow-right-line"></i></a>
                             </div>
                         </div>
                     <?php endforeach; ?>

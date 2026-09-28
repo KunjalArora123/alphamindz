@@ -1,7 +1,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-header">
-            <h2>AlphaMindz</h2>
+        <div class="sidebar-header" style="text-align: center; padding: 16px 10px;">
+            <img src="<?php echo base_url('assets/images/logo.png'); ?>" alt="AlphaMindz" style="height: 38px; width: auto; background: #ffffff; padding: 4px 10px; border-radius: 6px;">
         </div>
         <ul class="sidebar-menu">
             <li>
@@ -15,13 +15,38 @@
                 </a>
             </li>
             <li>
+                <a href="<?php echo site_url('admin/manage_assessments'); ?>" class="<?php echo (in_array($this->uri->segment(2), ['manage_assessments', 'add_assessment', 'edit_assessment', 'manage_questions', 'edit_question'])) ? 'active' : ''; ?>">
+                    <i class="ri-file-list-3-line"></i> Manage Assessments
+                </a>
+            </li>
+            <li>
                 <a href="<?php echo site_url('admin/assessments'); ?>" class="<?php echo ($this->uri->segment(2) == 'assessments') ? 'active' : ''; ?>">
-                    <i class="ri-survey-line"></i> Assessments
+                    <i class="ri-shield-keyhole-line"></i> Student Test Access
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('admin/appeared_tests'); ?>" class="<?php echo ($this->uri->segment(2) == 'appeared_tests') ? 'active' : ''; ?>">
+                    <i class="ri-file-paper-2-line"></i> Appeared Tests
                 </a>
             </li>
             <li>
                 <a href="<?php echo site_url('admin/products'); ?>" class="<?php echo ($this->uri->segment(2) == 'products') ? 'active' : ''; ?>">
                     <i class="ri-store-2-line"></i> Shop Products
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('admin/orders'); ?>" class="<?php echo ($this->uri->segment(2) == 'orders') ? 'active' : ''; ?>">
+                    <i class="ri-shopping-bag-3-line"></i> Manage Orders
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('admin/certificates'); ?>" class="<?php echo ($this->uri->segment(2) == 'certificates') ? 'active' : ''; ?>">
+                    <i class="ri-award-line"></i> Certification
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('admin/book_delivery'); ?>" class="<?php echo ($this->uri->segment(2) == 'book_delivery') ? 'active' : ''; ?>">
+                    <i class="ri-book-read-line"></i> Book Delivery
                 </a>
             </li>
             <li>

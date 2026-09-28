@@ -1,0 +1,36 @@
+﻿import json
+
+questions = [
+    # Section 1 (Sheet 1)
+    {"id": 1, "section": "Section 1", "text": "My Dream Has Always to be", "type": "textarea"},
+    {"id": 2, "section": "Section 1", "text": "I am Very Curious About a career In", "type": "textarea"},
+    {"id": 3, "section": "Section 1", "text": "I think I would be good at", "type": "textarea"},
+    {"id": 4, "section": "Section 1", "text": "My parents would Like", "type": "textarea"},
+    
+    # Section 2 (Sheet 2) - A. Child's Interests & Preferences
+    {"id": 5, "section": "Section 2", "text": "1. Which subjects do you enjoy most at school? What do you like about them?", "type": "textarea"},
+    {"id": 6, "section": "Section 2", "text": "2. What do you enjoy doing most in your free time?", "type": "textarea"},
+    {"id": 7, "section": "Section 2", "text": "3. What activities can you do for a long time without getting bored?", "type": "textarea"},
+    {"id": 8, "section": "Section 2", "text": "4. What are three things you feel you are naturally good at?", "type": "textarea"},
+    {"id": 9, "section": "Section 2", "text": "5. Which type of activities do you enjoy most?", "type": "checkbox", "options": ["Solving problems / thinking", "Creating / designing", "Helping / working with people", "Organising / leading", "Practical / technical activities", "Other"]},
+    {"id": 10, "section": "Section 2", "text": "6. If you could learn anything outside your school curriculum, what would you choose?", "type": "textarea"},
+    {"id": 11, "section": "Section 2", "text": "7. Is there any profession or type of work that currently interests you? What attracts you to it?", "type": "textarea"},
+    {"id": 12, "section": "Section 2", "text": "8. Is there any profession or type of work you would definitely not like to do? Why?", "type": "textarea"},
+    {"id": 13, "section": "Section 2", "text": "9. If marks, money and other people's expectations were not a concern, what would you genuinely like to explore or do?", "type": "textarea"},
+    {"id": 14, "section": "Section 2", "text": "10. Who or what has influenced your career thinking the most?", "type": "checkbox", "options": ["Parents", "Relatives", "Teachers", "Friends", "Social media", "Personal interest", "Other"]},
+    {"id": 15, "section": "Section 2", "text": "11. What would you ideally like your future work to be like?", "type": "checkbox", "options": ["Creative", "Challenging", "Helping others", "Financially rewarding", "Independent", "Stable", "Leadership-oriented", "Flexible", "Social / people-oriented", "Practical / hands-on", "Other"]},
+    {"id": 16, "section": "Section 2", "text": "12. Is there anything else about your interests, strengths or career ideas that you would like to tell me?", "type": "textarea"},
+    
+    # Section 2 - B. Family & Career Background
+    {"id": 17, "section": "Section 2", "text": "B. Family & Career Background\n\nParent 1 / Father Profession / Occupation:", "type": "text"},
+    {"id": 18, "section": "Section 2", "text": "Parent 1 / Father Brief description of work:", "type": "textarea"},
+    {"id": 19, "section": "Section 2", "text": "Does the child show interest in this profession? (Parent 1)", "type": "radio", "options": ["Yes", "No", "Not sure"]},
+    {"id": 20, "section": "Section 2", "text": "Parent 2 / Mother Profession / Occupation:", "type": "text"},
+    {"id": 21, "section": "Section 2", "text": "Parent 2 / Mother Brief description of work:", "type": "textarea"},
+    {"id": 22, "section": "Section 2", "text": "Does the child show interest in this profession? (Parent 2)", "type": "radio", "options": ["Yes", "No", "Not sure"]},
+    {"id": 23, "section": "Section 2", "text": "Other significant family members influencing career thinking:", "type": "textarea"},
+    {"id": 24, "section": "Section 2", "text": "Any specific career expectations expressed by the family?", "type": "textarea"}
+]
+
+with open('d:/xampp/htdocs/AlphaMindz/application/config/interest_inventory.json', 'w') as f:
+    json.dump(questions, f, indent=4)

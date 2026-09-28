@@ -50,5 +50,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'welcome';
+$route['reachus'] = 'reachus';
+$route['courses/(:any)'] = 'courses/detail/$1';
+$route['verify'] = 'verify/index';
+$route['verify/(:any)'] = 'verify/index/$1';
+
+/* Superadmin Routes */
+$route['superadmin'] = 'superadmin/index';
+$route['superadmin/login'] = 'superadmin/login';
+$route['superadmin/authenticate'] = 'superadmin/authenticate';
+$route['superadmin/dashboard'] = 'superadmin/dashboard';
+$route['superadmin/users'] = 'superadmin/users';
+$route['superadmin/logs'] = 'superadmin/logs';
+$route['superadmin/clear_logs'] = 'superadmin/clear_logs';
+$route['superadmin/website_access'] = 'superadmin/website_access';
+$route['superadmin/toggle_maintenance'] = 'superadmin/toggle_maintenance';
+$route['superadmin/update_maintenance_message'] = 'superadmin/update_maintenance_message';
+$route['superadmin/logout'] = 'superadmin/logout';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

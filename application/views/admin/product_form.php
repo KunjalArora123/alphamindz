@@ -27,6 +27,17 @@
                 <small style="color: #6c757d; display: block; margin-top: 5px;">Upload a cover image for the e-book/product.</small>
             </div>
 
+            <div class="form-group" style="margin-bottom: 25px;">
+                <label for="pdf_file" style="display: block; margin-bottom: 5px; font-weight: 500;">Book PDF File</label>
+                <?php if(isset($product) && $product->file_path): ?>
+                    <div style="margin-bottom: 10px; font-size: 13px; color: #2ecc71;">
+                        <i class="ri-checkbox-circle-line"></i> Current PDF: <strong><?php echo basename($product->file_path); ?></strong>
+                    </div>
+                <?php endif; ?>
+                <input type="file" name="pdf_file" id="pdf_file" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px; background: #fff;" accept="application/pdf">
+                <small style="color: #6c757d; display: block; margin-top: 5px;">Upload the PDF file to be stored in books_pdfs. Leave empty to keep existing.</small>
+            </div>
+
             <div class="form-group">
                 <button type="submit" class="btn-primary" style="padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Save Product</button>
                 <a href="<?php echo site_url('admin/products'); ?>" style="margin-left: 10px; color: #6c757d; text-decoration: none;">Cancel</a>

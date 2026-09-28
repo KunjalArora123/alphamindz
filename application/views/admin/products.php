@@ -10,6 +10,7 @@
                     <th style="padding: 12px; text-align: left;">Preview</th>
                     <th style="padding: 12px; text-align: left;">Title</th>
                     <th style="padding: 12px; text-align: left;">Price</th>
+                    <th style="padding: 12px; text-align: left;">File</th>
                     <th style="padding: 12px; text-align: left;">Created At</th>
                     <th style="padding: 12px; text-align: right;">Actions</th>
                 </tr>
@@ -26,6 +27,13 @@
                     </td>
                     <td style="padding: 12px;"><?php echo $product->title; ?></td>
                     <td style="padding: 12px;"><?php echo $product->price; ?></td>
+                    <td style="padding: 12px;">
+                        <?php if(!empty($product->file_path)): ?>
+                            <span style="background: #2ecc71; color: #fff; padding: 2px 8px; border-radius: 12px; font-size: 11px;">PDF Uploaded</span>
+                        <?php else: ?>
+                            <span style="color: #999; font-size: 11px;">No PDF</span>
+                        <?php endif; ?>
+                    </td>
                     <td style="padding: 12px;"><?php echo date('M d, Y', strtotime($product->created_at)); ?></td>
                     <td style="padding: 12px; text-align: right;">
                         <a href="<?php echo site_url('admin/edit_product/'.$product->id); ?>" style="color: #007bff; text-decoration: none; margin-right: 10px;">Edit</a>
@@ -34,7 +42,7 @@
                 </tr>
                 <?php endforeach; else: ?>
                 <tr>
-                    <td colspan="5" style="padding: 12px; text-align: center;">No products found.</td>
+                    <td colspan="6" style="padding: 12px; text-align: center;">No products found.</td>
                 </tr>
                 <?php endif; ?>
             </tbody>

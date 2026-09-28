@@ -1,7 +1,7 @@
 <?php
 $elapsed = time() - $start_time;
-$remainingTime = $time_limit - $elapsed;
-if ($remainingTime < 0) $remainingTime = 0;
+$remainingTime = ($time_limit > 0) ? ($time_limit - $elapsed) : -1;
+if ($time_limit > 0 && $remainingTime < 0) $remainingTime = 0;
 
 function getQuestionImage($subject, $qNum) {
     $prefix = '';
@@ -27,18 +27,29 @@ function getQuestionImage($subject, $qNum) {
 
 $jsQuestions = [];
 foreach ($questions as $q) {
+    $part_tag = !empty($q->part_name) ? $q->part_name : $q->subject;
+    
+    $options = [];
+    foreach (['A' => 'a', 'B' => 'b', 'C' => 'c', 'D' => 'd'] as $letter => $key) {
+        $text_col = 'option_' . $key;
+        $img_col = 'option_' . $key . '_image';
+        $txt = isset($q->$text_col) ? $q->$text_col : '';
+        $img = (!empty($q->$img_col) && file_exists(FCPATH . $q->$img_col)) ? base_url($q->$img_col) : null;
+        if (!empty($txt) || !empty($img)) {
+            $options[$letter] = [
+                'text' => $txt,
+                'image' => $img
+            ];
+        }
+    }
+
     $jsQuestions[] = [
         'id' => (int)$q->id,
         'number' => (int)$q->question_number,
-        'subject' => $q->subject,
+        'subject' => $part_tag,
         'text' => $q->question_text,
-        'image_path' => getQuestionImage($q->subject, $q->question_number),
-        'options' => array_filter([
-            'A' => $q->option_a,
-            'B' => $q->option_b,
-            'C' => $q->option_c,
-            'D' => $q->option_d,
-        ]),
+        'image_path' => (!empty($q->image_path) && file_exists(FCPATH . $q->image_path)) ? base_url($q->image_path) : getQuestionImage($q->subject, $q->question_number),
+        'options' => $options,
     ];
 }
 ?>
@@ -48,6 +59,10 @@ foreach ($questions as $q) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alpha Mindz - <?php echo htmlspecialchars($subject); ?></title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="<?php echo base_url('assets/images/logo.png'); ?>">
+    <link rel="shortcut icon" type="image/png" href="<?php echo base_url('assets/images/logo.png'); ?>">
+    <link rel="apple-touch-icon" href="<?php echo base_url('assets/images/logo.png'); ?>">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
@@ -94,7 +109,6 @@ foreach ($questions as $q) {
         }
         .custom-scrollbar::-webkit-scrollbar-track {
             background: #f1f5f9;
-            border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: #cbd5e1;
@@ -138,12 +152,18 @@ foreach ($questions as $q) {
                     <p class="text-sm font-bold text-slate-700"><?php echo htmlspecialchars($this->session->userdata('first_name') . ' ' . $this->session->userdata('last_name')); ?></p>
                 </div>
                 
+                <?php if ($remainingTime >= 0): ?>
                 <div id="timer-box" class="flex items-center gap-2 px-4 py-2 bg-blue-50/60 border border-blue-100 rounded-xl">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-blue-600" id="timer-icon">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span id="countdown" class="font-mono text-base font-extrabold text-blue-600">00:00</span>
                 </div>
+                <?php else: ?>
+                <div class="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl">
+                    <span class="font-mono text-sm font-bold text-slate-500">No Time Limit</span>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
     </header>
@@ -230,33 +250,35 @@ foreach ($questions as $q) {
             }
         }
 
-        const timerText = document.getElementById('countdown');
-        const timerBox = document.getElementById('timer-box');
-        const timerIcon = document.getElementById('timer-icon');
-        
-        const timerInterval = setInterval(() => {
-            remainingSeconds--;
+        if (remainingSeconds >= 0) {
+            const timerText = document.getElementById('countdown');
+            const timerBox = document.getElementById('timer-box');
+            const timerIcon = document.getElementById('timer-icon');
             
-            if (remainingSeconds <= 0) {
-                clearInterval(timerInterval);
-                timerText.innerText = "00:00";
-                autoSubmit();
-                return;
-            }
+            const timerInterval = setInterval(() => {
+                remainingSeconds--;
+                
+                if (remainingSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerText.innerText = "00:00";
+                    autoSubmit();
+                    return;
+                }
 
-            const mins = Math.floor(remainingSeconds / 60);
-            const secs = remainingSeconds % 60;
-            timerText.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                const mins = Math.floor(remainingSeconds / 60);
+                const secs = remainingSeconds % 60;
+                timerText.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 
-            if (remainingSeconds <= 120) {
-                timerBox.classList.remove('bg-blue-50/60', 'border-blue-100');
-                timerBox.classList.add('border-red-200', 'bg-red-50');
-                timerText.classList.remove('text-blue-600');
-                timerText.classList.add('text-red-600');
-                timerIcon.classList.remove('text-blue-600');
-                timerIcon.classList.add('text-red-600', 'pulsing-timer');
-            }
-        }, 1000);
+                if (remainingSeconds <= 120) {
+                    timerBox.classList.remove('bg-blue-50/60', 'border-blue-100');
+                    timerBox.classList.add('border-red-200', 'bg-red-50');
+                    timerText.classList.remove('text-blue-600');
+                    timerText.classList.add('text-red-600');
+                    timerIcon.classList.remove('text-blue-600');
+                    timerIcon.classList.add('text-red-600', 'pulsing-timer');
+                }
+            }, 1000);
+        }
 
         function renderQuestion() {
             const question = questions[currentIndex];
@@ -266,15 +288,21 @@ foreach ($questions as $q) {
             let optionsHtml = '';
             const selectedOpt = userAnswers[question.id] || null;
 
-            for (const [letter, text] of Object.entries(question.options)) {
+            for (const [letter, opt] of Object.entries(question.options)) {
                 const isSelected = selectedOpt === letter;
+                const optText = (typeof opt === 'object' && opt !== null) ? (opt.text || '') : opt;
+                const optImg = (typeof opt === 'object' && opt !== null) ? (opt.image || null) : null;
+
                 optionsHtml += `
                     <div onclick="selectOption(${question.id}, '${letter}')" 
                          class="option-card px-5 py-4 bg-white border ${isSelected ? 'option-selected' : 'border-slate-200'} rounded-2xl cursor-pointer flex items-center gap-4 relative">
                         <span class="flex items-center justify-center min-w-[2rem] w-8 h-8 rounded-xl ${isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 border border-slate-200 text-slate-500'} font-bold text-sm transition-all duration-300">
                             ${letter}
                         </span>
-                        <span class="text-slate-700 text-sm md:text-base leading-relaxed">${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
+                        <div class="flex-1 flex flex-col md:flex-row md:items-center gap-3">
+                            ${optText ? `<span class="text-slate-700 text-sm md:text-base leading-relaxed">${optText.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>` : ''}
+                            ${optImg ? `<img src="${optImg}" alt="Option ${letter} Photo" class="max-h-36 max-w-xs object-contain rounded-lg border border-slate-200 bg-white p-1">` : ''}
+                        </div>
                     </div>
                 `;
             }
@@ -294,10 +322,17 @@ foreach ($questions as $q) {
                         <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full">
                             Question ${currentIndex + 1} of ${questions.length}
                         </span>
+                        
+                        ${question.subject && question.subject.length <= 40 ? `
                         <span class="text-xs font-bold uppercase tracking-wider text-slate-500 bg-slate-100 border border-slate-200 px-3 py-1 rounded-full">
                             ${question.subject}
-                        </span>
+                        </span>` : ''}
                     </div>
+                    
+                    ${question.subject && question.subject.length > 40 ? `
+                    <div class="mb-5 text-sm md:text-base font-semibold text-indigo-800 bg-indigo-50 border border-indigo-100 rounded-lg p-4 leading-relaxed shadow-sm">
+                        ${question.subject}
+                    </div>` : ''}
                     
                     <p class="text-base md:text-lg font-medium text-slate-800 leading-relaxed mb-6">
                         ${formattedText}
@@ -403,9 +438,16 @@ foreach ($questions as $q) {
             document.getElementById('mobile-progress').innerText = `${answeredCount}/${total}`;
         }
 
+        const requireAllAnswers = <?php echo ($subject == 'MBTI Personality Profiling Test') ? 'true' : 'false'; ?>;
+
         function confirmSubmit() {
             const total = questions.length;
             const answeredCount = Object.keys(userAnswers).length;
+            
+            if (requireAllAnswers && answeredCount < total) {
+                alert(`You must answer all ${total} questions before submitting the test. You have currently answered ${answeredCount}.`);
+                return;
+            }
             
             document.getElementById('modal-details').innerText = `You have answered ${answeredCount} of ${total} questions. Are you sure you want to finish the exam?`;
             

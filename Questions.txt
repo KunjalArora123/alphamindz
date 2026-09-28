@@ -1,0 +1,291 @@
+     Unnamed: 0  Unnamed: 1 Unnamed: 2                                                                                               PERSONALITY PROFILING TEST Unnamed: 4 Unnamed: 5
+0           NaN         NaN        NaN                                                                                                                      NaN        NaN        NaN
+1           NaN         NaN     Part I                                                  Which answer comes closest to describing  how you usually feel or act ?        NaN        NaN
+2           NaN         NaN        NaN                                                                                                                      NaN        NaN        NaN
+3           NaN         NaN          1                                                                     When you go somewhere for the day , would you rather          a          b
+4           NaN         NaN      ( a )                                                                                                    Plan what you will do          1           
+5           NaN         NaN      ( b )                                                                                                                  Just go        NaN        NaN
+6           NaN         NaN          2                                                                                           Do you consider yourself to be          a          b
+7           NaN         NaN      ( a )                                                                                              More of an organised person          1           
+8           NaN         NaN      ( b )                                                                                            More of a spontaneous person         NaN        NaN
+9           NaN         NaN          3                                                                             If you were a teacher would you rather teach          a          b
+10          NaN         NaN      ( a )                                                                                                          Fact courses or          1        NaN
+11          NaN         NaN      ( b )                                                                                                 Courses involving theory        NaN        NaN
+12          NaN         NaN          4                                                                                                          Are you usually          a          b
+13          NaN         NaN      ( a )                                                                                                          A good mixer or          1          0
+14          NaN         NaN      ( b )                                                                                                Rather quiet and reserved        NaN        NaN
+15          NaN         NaN          5                                                                                                    Do you get along with          a          b
+16          NaN         NaN      ( a )                                                                                                         Realistic people          1        NaN
+17          NaN         NaN      ( b )                                                                                                    Imaginative people or        NaN        NaN
+18          NaN         NaN          6                                                                                                    Do you more often let          a          b
+19          NaN         NaN      ( a )                                                                                                     Your head rule heart          1        NaN
+20          NaN         NaN      ( b )                                                                                                    Your heart rule head         NaN        NaN
+21          NaN         NaN          7                                                                                          Do you prefer to do  any things          a          b
+22          NaN         NaN      ( a )                                                                                                  According to your plans          1        NaN
+23          NaN         NaN      ( b )                                                                                             On the spur of the moment or        NaN        NaN
+24          NaN         NaN          8                                                                                                                  Are you          a          b
+25          NaN         NaN      ( a )                                                                                                   Easy to get to know or        NaN          1
+26          NaN         NaN      ( b )                                                                                                      Hard to get to know        NaN        NaN
+27          NaN         NaN          9                                                                                                  Does Following Schedule          a          b
+28          NaN         NaN      ( a )                                                                                                        Appeal to you or           1        NaN
+29          NaN         NaN      ( b )                                                                                                                Cramp you        NaN        NaN
+30          NaN         NaN         10                                                                       When you have a special job to do , do you like to          a          b
+31          NaN         NaN      ( a )                                                                                Organise it carefully before you start or        NaN          1
+32          NaN         NaN      ( b )                                                                                       Find out necessary as you go along        NaN        NaN
+33          NaN         NaN         11                                                                                       In most instances do you prefer to          a          b
+34          NaN         NaN      ( a )                                                                                                        Follow a schedule                     1
+35          NaN         NaN      ( b )                                                                                                         Go with the flow        NaN        NaN
+36          NaN         NaN         12                                                                                            Would Most people say you are          a          b
+37          NaN         NaN      ( a )                                                                                                       A very open Person          1           
+38          NaN         NaN      ( b )                                                                                                         A private person        NaN        NaN
+39          NaN         NaN         13                                                                                           Would you rather be considered          a          b
+40          NaN         NaN      ( a )                                                                                                       A Practical Person          1        NaN
+41          NaN         NaN      ( b )                                                                                                         Ingeneous person        NaN        NaN
+42          NaN         NaN         14                                                                                       In A large group do you more often          a          b
+43          NaN         NaN      ( a )                                                                                                         Introduce pthers          1        NaN
+44          NaN         NaN      ( b )                                                                                                        Or Get Introduced        NaN        NaN
+45          NaN         NaN         15                                                                               Would you rather have a friend someone who          a          b
+46          NaN         NaN      ( a )                                                                                              Has Both feet on the ground                     1
+47          NaN         NaN      ( b )                                                                                       Is Always Coming up with New Ideas        NaN        NaN
+48          NaN         NaN         16                                                                                                      Are you inclined to                     b
+49          NaN         NaN      ( a )                                                                                          Value Logic more than sentiment          1        NaN
+50          NaN         NaN      ( b )                                                                                       Value Sentiment more than logic or        NaN        NaN
+51          NaN         NaN         17                                                                                                        Do you prefer to           a          b
+52          NaN         NaN      ( a )                                                                                               Plan things far in advance                     1
+53          NaN         NaN      ( b )                                                                         Wait and see what happens and then make plans or        NaN        NaN
+54          NaN         NaN         18                                                                                       Do you tend to spend a lot of time          a          b
+55          NaN         NaN      ( a )                                                                                                             With others           1           
+56          NaN         NaN      ( b )                                                                                                              By Yourself        NaN        NaN
+57          NaN         NaN         19                                                                                 Do you find being around a lot of people          a          b
+58          NaN         NaN      ( a )                                                                                                     Give you more energy        NaN          1
+59          NaN         NaN      ( b )                                                                                                        Is often draining        NaN        NaN
+60          NaN         NaN         20                                                                                                         Do you prefer to          a          b
+61          NaN         NaN      ( a )                                                                             Arrange dates parties etc , well in  advance                     1
+62          NaN         NaN      ( b )                                                                    Be free to do whatever looks like fun when time comes        NaN        NaN
+63          NaN         NaN         21                                                                                   In Planning a trip would you prefer to          a          b
+64          NaN         NaN      ( a )                                                                    Know ahead of the time what you'll be doing most days          1        NaN
+65          NaN         NaN      ( b )                                                                             Most of the time what you feel like that day        NaN        NaN
+66          NaN         NaN         22                                                                                                        At parties do you          a          b
+67          NaN         NaN      ( a )                                                                                                                 Have fun          1           
+68          NaN         NaN      ( b )                                                                                                      Sometimes get bored        NaN        NaN
+69          NaN         NaN         23                                                                                                           Do you Usually          a          b
+70          NaN         NaN      ( a )                                                                                                   Mingle well with other          1        NaN
+71          NaN         NaN      ( b )                                                                                                 Tend to keep to yourself        NaN        NaN
+72          NaN         NaN         24                                                                                                Are you more attracted to          a          b
+73          NaN         NaN      ( a )                                                                            A practical person with a lot of common sense          1           
+74          NaN         NaN      ( b )                                                                                 A person with a quick and brilliant mind        NaN        NaN
+75          NaN         NaN         25                                                                                                In your daily work do you          a          b
+76          NaN         NaN      ( a )                                                          Usually Plan your work so you won't need to work under pressure          1        NaN
+77          NaN         NaN      ( b )                                                               Rather Enjoy an Emergency that makes you work against time        NaN        NaN
+78          NaN         NaN         26                                                                                   Would you generally say it takes other          a          b
+79          NaN         NaN      ( a )                                                                                           Little time to get to know you                     1
+80          NaN         NaN      ( b )                                                                                         A lot of time to get to know you        NaN        NaN
+81          NaN         NaN        NaN                                                                                                                      NaN        NaN        NaN
+82          NaN         NaN    Part II    Which word in Each pair appears to you more ? Think about what words mean , not about how they look or how they sound        NaN        NaN
+83          NaN         NaN         27                                                                                                                      NaN        NaN        NaN
+84          NaN         NaN      ( a )                                                                                                                     Open          a          b
+85          NaN         NaN      ( b )                                                                                                                  Private          1           
+86          NaN         NaN         28                                                                                                                      NaN        NaN        NaN
+87          NaN         NaN      ( a )                                                                                                                Scheduled          a          b
+88          NaN         NaN      ( b )                                                                                                                Unplanned          1        NaN
+89          NaN         NaN         29                                                                                                                      NaN        NaN        NaN
+90          NaN         NaN      ( a )                                                                                                                    Solid          a          b
+91          NaN         NaN      ( b )                                                                                                                 Abstract          1        NaN
+92          NaN         NaN         30                                                                                                                      NaN        NaN        NaN
+93          NaN         NaN      ( a )                                                                                                                     Firm          a          b
+94          NaN         NaN      ( b )                                                                                                                   Gentle          1        NaN
+95          NaN         NaN         31                                                                                                                      NaN        NaN        NaN
+96          NaN         NaN      ( a )                                                                                                                 Thinking          a          b
+97          NaN         NaN      ( b )                                                                                                                  Feeling                     1
+98          NaN         NaN         32                                                                                                                      NaN        NaN        NaN
+99          NaN         NaN      ( a )                                                                                                                    Facts          a          b
+100         NaN         NaN      ( b )                                                                                                                    Ideas          1           
+101         NaN         NaN         33                                                                                                                      NaN        NaN        NaN
+102         NaN         NaN      ( a )                                                                                                                Decision           a          b
+103         NaN         NaN      ( b )                                                                                                                  Impulse          1        NaN
+104         NaN         NaN         34                                                                                                                      NaN        NaN        NaN
+105         NaN         NaN      ( a )                                                                                                                   Hearty          a          b
+106         NaN         NaN      ( b )                                                                                                                    Quiet          1           
+107         NaN         NaN         35                                                                                                                      NaN        NaN        NaN
+108         NaN         NaN      ( a )                                                                                                                Outgoing           a          b
+109         NaN         NaN      ( b )                                                                                                                    Quiet          1           
+110         NaN         NaN         36                                                                                                                      NaN        NaN        NaN
+111         NaN         NaN      ( a )                                                                                                               Systematic          a          b
+112         NaN         NaN      ( b )                                                                                                                   Casual          1           
+113         NaN         NaN         37                                                                                                                      NaN        NaN        NaN
+114         NaN         NaN      ( a )                                                                                                                Certinity          a          b
+115         NaN         NaN      ( b )                                                                                                                   Theory          1           
+116         NaN         NaN         38                                                                                                                      NaN        NaN        NaN
+117         NaN         NaN      ( a )                                                                                                                     Just          a          b
+118         NaN         NaN      ( b )                                                                                                                Sensitive          1        NaN
+119         NaN         NaN         39                                                                                                                      NaN        NaN        NaN
+120         NaN         NaN      ( a )                                                                                                               Convincing          a          b
+121         NaN         NaN      ( b )                                                                                                                 Touching          1           
+122         NaN         NaN         40                                                                                                                      NaN        NaN        NaN
+123         NaN         NaN      ( a )                                                                                                                Statement          a          b
+124         NaN         NaN      ( b )                                                                                                                  Concept          1           
+125         NaN         NaN         41                                                                                                                      NaN        NaN        NaN
+126         NaN         NaN      ( a )                                                                                                                Scheduled          a          b
+127         NaN         NaN      ( b )                                                                                                            Unconstrained          1           
+128         NaN         NaN         42                                                                                                                      NaN        NaN        NaN
+129         NaN         NaN      ( a )                                                                                                                Talkative          a          b
+130         NaN         NaN      ( b )                                                                                                                 Reserved          1           
+131         NaN         NaN         43                                                                                                                      NaN        NaN        NaN
+132         NaN         NaN      ( a )                                                                                                                   Oderly          a          b
+133         NaN         NaN      ( b )                                                                                                                Easygoing          1           
+134         NaN         NaN         44                                                                                                                      NaN        NaN        NaN
+135         NaN         NaN      ( a )                                                                                                                 Actually          a          b
+136         NaN         NaN      ( b )                                                                                                                     Idea          1        NaN
+137         NaN         NaN         45                                                                                                                      NaN        NaN        NaN
+138         NaN         NaN      ( a )                                                                                                                Foresight          a          b
+139         NaN         NaN      ( b )                                                                                                               Compassion        NaN          1
+140         NaN         NaN         46                                                                                                                      NaN        NaN        NaN
+141         NaN         NaN      ( a )                                                                                                                 Benefits          a          b
+142         NaN         NaN      ( b )                                                                                                                Blessings          1        NaN
+143         NaN         NaN         47                                                                                                                      NaN        NaN        NaN
+144         NaN         NaN      ( a )                                                                                                            No - Nonsense          a          b
+145         NaN         NaN      ( b )                                                                                                              Theoretical          1        NaN
+146         NaN         NaN         48                                                                                                                      NaN        NaN        NaN
+147         NaN         NaN      ( a )                                                                                                          Lots of Friends          a          b
+148         NaN         NaN      ( b )                                                                                                              Few Friends        NaN          1
+149         NaN         NaN         49                                                                                                                      NaN        NaN        NaN
+150         NaN         NaN      ( a )                                                                                                              Syestamatic          a          b
+151         NaN         NaN      ( b )                                                                                                              Spontaneous                     1
+152         NaN         NaN         50                                                                                                                      NaN        NaN        NaN
+153         NaN         NaN      ( a )                                                                                                           Matter of Fact          a          b
+154         NaN         NaN      ( b )                                                                                                              imaginative          1        NaN
+155         NaN         NaN         51                                                                                                                      NaN        NaN        NaN
+156         NaN         NaN      ( a )                                                                                                                Objective          a          b
+157         NaN         NaN      ( b )                                                                                                                     Warm                     1
+158         NaN         NaN         52                                                                                                                      NaN        NaN        NaN
+159         NaN         NaN      ( a )                                                                                                                Objective          a          b
+160         NaN         NaN      ( b )                                                                                                               passionate                     1
+161         NaN         NaN         53                                                                                                                      NaN        NaN        NaN
+162         NaN         NaN      ( a )                                                                                                                    Build          a          b
+163         NaN         NaN      ( b )                                                                                                                   Invent          1           
+164         NaN         NaN         54                                                                                                                      NaN        NaN        NaN
+165         NaN         NaN      ( a )                                                                                                               Gregarious          a          b
+166         NaN         NaN      ( b )                                                                                                                    Quiet          1           
+167         NaN         NaN         55                                                                                                                      NaN        NaN        NaN
+168         NaN         NaN      ( a )                                                                                                                     Fact          a          b
+169         NaN         NaN      ( b )                                                                                                                   Theory          1        NaN
+170         NaN         NaN         56                                                                                                                      NaN        NaN        NaN
+171         NaN         NaN      ( a )                                                                                                                  Logical          a          b
+172         NaN         NaN      ( b )                                                                                                            Compassionate                     1
+173         NaN         NaN         57                                                                                                                      NaN        NaN        NaN
+174         NaN         NaN      ( a )                                                                                                               Analytical          a          b
+175         NaN         NaN      ( b )                                                                                                              Sentimental          1        NaN
+176         NaN         NaN         58                                                                                                                      NaN        NaN        NaN
+177         NaN         NaN      ( a )                                                                                                                 Sensible          a          b
+178         NaN         NaN      ( b )                                                                                                              Fascinating          1        NaN
+179         NaN         NaN        NaN                                                                                                                      NaN        NaN        NaN
+180         NaN         NaN   Part III                                                   Which Answer  Comes Closest to describing how you usually feel or act         NaN        NaN
+181         NaN         NaN        NaN                                                                                                                      NaN        NaN        NaN
+182         NaN         NaN        NaN                                                                                                                      NaN        NaN        NaN
+183         NaN         NaN         59                                                             When you start a big project that is due in a week , do you           a          b
+184         NaN         NaN      ( a )                                                Take time to llist separate things to be done and the order of doing them          1           
+185         NaN         NaN      ( b )                                                                                                          Plunge right in        NaN        NaN
+186         NaN         NaN         60                                                                           In Special situations do you generally find it          a        NaN
+187         NaN         NaN      ( a )                                                                      Easy to talk to most people for long period of time          1           
+188         NaN         NaN      ( b )                                                       Difficult to start and maintain , a conversation with some people         NaN        NaN
+189         NaN         NaN         61                                                   In doing something that many people do , does it appeal to you more to          a          b
+190         NaN         NaN      ( a )                                                                                                 do it in an accepted way          1           
+191         NaN         NaN      ( b )                                                                                                 Invent a way of your own        NaN        NaN
+192         NaN         NaN         62                                                              Can the people you meet tell you what you are interested in          a          b
+193         NaN         NaN      ( a )                                                                                                               Right away        NaN          1
+194         NaN         NaN      ( b )                                                                                   Only after they really get to know you        NaN        NaN
+195         NaN         NaN         63                                                                               Do you Generally prefer courses that teach          a          b
+196         NaN         NaN      ( a )                                                                                                        Facts and figures                     1
+197         NaN         NaN      ( b )                                                                                                  Concepts and principles        NaN        NaN
+198         NaN         NaN         64                                                                                   Is it a higher compliment to be called          a          b
+199         NaN         NaN      ( a )                                                                                         A consistently reasonable Person                     1
+200         NaN         NaN      ( b )                                                                                                 A Person of Real Feeling        NaN        NaN
+201         NaN         NaN         65                                                                                          Do you find going by a schedule          a          b
+202         NaN         NaN      ( a )                                                                                  Helpful and favourable most of the time          1        NaN
+203         NaN         NaN      ( b )                                                                             Necessary at times by generally unfavourable        NaN        NaN
+204         NaN         NaN         66                                                       When you are with a group of people , would you you usually rather          a          b
+205         NaN         NaN      ( a )                                                                                                Join in talk of the group          1           
+206         NaN         NaN      ( b )                                                                             Join  Individually with people you know well        NaN        NaN
+207         NaN         NaN         67                                                                                                        At parties do you          a          b
+208         NaN         NaN      ( a )                                                                                                   Do much of the talking        NaN          1
+209         NaN         NaN      ( b )                                                                                        Let others do most of the talking        NaN        NaN
+210         NaN         NaN         68                                                Does the idea of making a list of what you should get done over a weekend          a          b
+211         NaN         NaN      ( a )                                                                                                           Appeal to you           1        NaN
+212         NaN         NaN      ( b )                                                                                                           Leave you cold        NaN        NaN
+213         NaN         NaN         69                                                                                Which is a higher compliment to be called          a          b
+214         NaN         NaN      ( a )                                                                                                                Competent                     1
+215         NaN         NaN      ( b )                                                                                                            Compassionate        NaN        NaN
+216         NaN         NaN         70                                                                                               Do you generally prefer to          a          b
+217         NaN         NaN      ( a )                                                                         Made your Social engagements Some Distance ahead          1           
+218         NaN         NaN      ( b )                                                                             Be free to do things in a spur of the moment        NaN        NaN
+219         NaN         NaN         71                                                                  Overall when working on a big assignment do you tend to          a          b
+220         NaN         NaN      ( a )                                                                                       Begin by breaking it down in steps          1        NaN
+221         NaN         NaN      ( b )                                                                           Figure out what you need to do as you go along        NaN        NaN
+222         NaN         NaN         72                                                                           Can you keep a conversation going indefinetely          a          b
+223         NaN         NaN      ( a )                                                                                                       With almost anyone        NaN          1
+224         NaN         NaN      ( b )                                                                     Only with people , you share same interests of yours        NaN        NaN
+225         NaN         NaN         73                                                                                                         Would you rather          a          b
+226         NaN         NaN      ( a )                                                                             Support the establised methods of doing good          1           
+227         NaN         NaN      ( b )                                                               Alemsnalyse What is Still Wrong and attack unresolved prob        NaN        NaN
+228         NaN         NaN         74                                                                                           In reading for pleasure do you          a          b
+229         NaN         NaN      ( a )                                                                               Like writers to say exactly what they mean                     1
+230         NaN         NaN      ( b )                                                                             Enjoy Old and original ways of Saying things        NaN        NaN
+231         NaN         NaN         75                                                                   Would you rather work under a boss (or teacher) who is          a          b
+232         NaN         NaN      ( a )                                                                                         Sharp Tongued but always logical          1        NaN
+233         NaN         NaN      ( b )                                                                                   A good natured but always inconsistent        NaN        NaN
+234         NaN         NaN         76                                                                           Would you prefer to do most things acording to          a          b
+235         NaN         NaN      ( a )                                                                                                           Set a schedule          1        NaN
+236         NaN         NaN      ( b )                                                                                      How do you feel that particular day        NaN        NaN
+237         NaN         NaN         77                                                                                                                 Can you           a          b
+238         NaN         NaN      ( a )                                                                 Talk easily to almost anyone for as long as you have to                      1
+239         NaN         NaN      ( b )                                                     Find a lot to say only to certain People Or under certain conditions        NaN        NaN
+240         NaN         NaN         78                                                                 When Making a Decision , is it more important to you to           a          b
+241         NaN         NaN      ( a )                                                                                                         Weighs the facts          1        NaN
+242         NaN         NaN      ( b )                                                                                  Consider People's Feelings and Opinions        NaN        NaN
+243         NaN         NaN        NaN                                                                                                                      NaN        NaN        NaN
+244         NaN         NaN    Part IV  Which Word in Each pair appeals to you more ? Think About what the words mean and not about how they look or they sound        NaN        NaN
+245         NaN         NaN         79                                                                                                                      NaN        NaN        NaN
+246         NaN         NaN      ( a )                                                                                                                Realistic          a          b
+247         NaN         NaN      ( b )                                                                                                              Imaginative          1           
+248         NaN         NaN         80                                                                                                                      NaN        NaN        NaN
+249         NaN         NaN      ( a )                                                                                                              Firm Minded          a          b
+250         NaN         NaN      ( b )                                                                                                              Big Hearted                     1
+251         NaN         NaN         81                                                                                                                      NaN        NaN        NaN
+252         NaN         NaN      ( a )                                                                                                              Fair Minded          a          b
+253         NaN         NaN      ( b )                                                                                                                   Caring                     1
+254         NaN         NaN         82                                                                                                                      NaN        NaN        NaN
+255         NaN         NaN      ( a )                                                                                                               Production          a          b
+256         NaN         NaN      ( b )                                                                                                                   Design          1           
+257         NaN         NaN         83                                                                                                                      NaN        NaN        NaN
+258         NaN         NaN      ( a )                                                                                                             Certainities          a          b
+259         NaN         NaN      ( b )                                                                                                            Probabilities        NaN          1
+260         NaN         NaN         84                                                                                                                      NaN        NaN        NaN
+261         NaN         NaN      ( a )                                                                                                                 Strength          a          b
+262         NaN         NaN      ( b )                                                                                                               tenderness          1        NaN
+263         NaN         NaN         85                                                                                                                      NaN        NaN        NaN
+264         NaN         NaN      ( a )                                                                                                                Practical          a          b
+265         NaN         NaN      ( b )                                                                                                              Sentimental                     1
+266         NaN         NaN         86                                                                                                                      NaN        NaN        NaN
+267         NaN         NaN      ( a )                                                                                                                     Make          a          b
+268         NaN         NaN      ( b )                                                                                                                   Create        NaN          1
+269         NaN         NaN         87                                                                                                                      NaN        NaN        NaN
+270         NaN         NaN      ( a )                                                                                                            Already Known          a          b
+271         NaN         NaN      ( b )                                                                                                                    Novel                     1
+272         NaN         NaN         88                                                                                                                      NaN        NaN        NaN
+273         NaN         NaN      ( a )                                                                                                                  Analyze          a          b
+274         NaN         NaN      ( b )                                                                                                               Sympathize          1        NaN
+275         NaN         NaN         89                                                                                                                      NaN        NaN        NaN
+276         NaN         NaN      ( a )                                                                                                            Strong Willed          a          b
+277         NaN         NaN      ( b )                                                                                                           Tender Hearted                     1
+278         NaN         NaN         90                                                                                                                      NaN        NaN        NaN
+279         NaN         NaN      ( a )                                                                                                                 Concrete          a          b
+280         NaN         NaN      ( b )                                                                                                                 Abstract          1           
+281         NaN         NaN         91                                                                                                                      NaN        NaN        NaN
+282         NaN         NaN      ( a )                                                                                                               Determined          a          b
+283         NaN         NaN      ( b )                                                                                                                  Devoted                     1
+284         NaN         NaN         92                                                                                                                      NaN        NaN        NaN
+285         NaN         NaN      ( a )                                                                                                                Competent          a          b
+286         NaN         NaN      ( b )                                                                                                             Kind Hearted                     1
+287         NaN         NaN         93                                                                                                                      NaN        NaN        NaN
+288         NaN         NaN      ( a )                                                                                                                Practical          a          b
+289         NaN         NaN      ( b )                                                                                                               Innovative        NaN          1

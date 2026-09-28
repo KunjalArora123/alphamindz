@@ -11,12 +11,15 @@ class Blogs extends CI_Controller {
 
     public function index()
     {
+        $this->db->group_start();
         $this->db->where('status', 'published');
+        $this->db->or_where('status IS NULL', NULL, FALSE);
+        $this->db->group_end();
         $this->db->order_by('id', 'DESC');
-        $query = $this->db->get('blogs');
-        $data['blogs'] = $query->result();
+        $query = $this->db->get('articles');
+        $data['blogs'] = $query ? $query->result() : array();
 
-        $this->load->view('public_header', array('title' => 'Blogs | AlphaMindz'));
+        $this->load->view('public_header', array('title' => 'Blogs & Articles | AlphaMindz'));
         $this->load->view('blogs', $data);
         $this->load->view('public_footer');
     }
@@ -24,10 +27,9 @@ class Blogs extends CI_Controller {
     public function view($slug)
     {
         $this->db->where('slug', $slug);
-        $this->db->where('status', 'published');
-        $query = $this->db->get('blogs');
+        $query = $this->db->get('articles');
 
-        if ($query->num_rows() == 0) {
+        if (!$query || $query->num_rows() == 0) {
             show_404();
         }
 
