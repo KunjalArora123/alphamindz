@@ -56,6 +56,33 @@ class Student extends CI_Controller {
         $this->load->view('student/includes/footer');
     }
 
+        public function assessment() {
+        $this->db->where('status', 'active');
+        $this->db->where('title !=', 'Interest Inventory Test');
+        $this->db->where('title !=', 'MBTI Personality Profiling Test');
+        $active_assessments = $this->db->get('assessments')->result();
+        
+        $data['active_assessments'] = $active_assessments;
+        $user_id = $this->session->userdata('user_id');
+
+        // Check test authorization status per test
+        $perms = $this->db->get_where('user_test_permissions', array('user_id' => $user_id))->result();
+        $permissions_map = array();
+        foreach ($perms as $p) {
+            $permissions_map[$p->test_title] = strtolower($p->status);
+        }
+        $data['permissions_map'] = $permissions_map;
+
+        // Get past attempts
+        $this->db->where('user_id', $user_id);
+        $this->db->order_by('completed_at', 'DESC');
+        $data['attempts'] = $this->db->get('test_attempts')->result();
+
+        $this->load->view('student/includes/header', array('title' => 'My Assessments | AlphaMindz'));
+        $this->load->view('student/assessment', $data);
+        $this->load->view('student/includes/footer');
+    }
+
     public function certificate($credential_id) {
         $user_id = $this->session->userdata('user_id');
 
@@ -187,3 +214,6 @@ class Student extends CI_Controller {
         $this->load->view('student/includes/footer');
     }
 }
+
+
+

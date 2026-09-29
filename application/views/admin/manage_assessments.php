@@ -19,6 +19,7 @@
                     <th style="padding: 14px 16px; text-align: left; font-size: 13px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; min-width: 170px;">Test Title</th>
                     <th style="padding: 14px 16px; text-align: left; font-size: 13px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; min-width: 260px;">Test Parts / Sections</th>
                     <th style="padding: 14px 16px; text-align: left; font-size: 13px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">Time Limit</th>
+                    <th style="padding: 14px 16px; text-align: left; font-size: 13px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">Price</th>
                     <th style="padding: 14px 16px; text-align: left; font-size: 13px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">Total Questions</th>
                     <th style="padding: 14px 16px; text-align: left; font-size: 13px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">Status</th>
                     <th style="padding: 14px 16px; text-align: right; font-size: 13px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; min-width: 260px;">Actions</th>
@@ -49,6 +50,9 @@
                         <span style="background-color: #f1f5f9; color: #1e293b; padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; border: 1px solid #e2e8f0; white-space: nowrap;">
                             <i class="ri-timer-line" style="color: #64748b;"></i> <?php echo (int)$a->time_limit; ?> Mins
                         </span>
+                    </td>
+                    <td style="padding: 16px; white-space: nowrap; font-weight: 600; color: #0969da;">
+                        &#8377;<?php echo number_format(isset($a->price) && $a->price > 0 ? $a->price : 999, 0); ?>
                     </td>
                     <td style="padding: 16px; white-space: nowrap;">
                         <a href="<?php echo site_url('admin/manage_questions/'.$a->id); ?>" style="text-decoration: none;">
@@ -97,3 +101,4 @@
         </table>
     </div>
 </div>
+

@@ -70,9 +70,9 @@
                             </div>
 
                             <div class="card-footer">
-                                <span class="card-price">₹<?php echo number_format($ass->price > 0 ? $ass->price : 999, 0); ?></span>
-                                <button type="button" onclick="addToCart('assessment', <?php echo $ass->id; ?>, this)" class="btn-primary" style="padding: 8px 20px; border: none; cursor: pointer; transition: all 0.3s ease;">
-                                    Enroll Now
+                                <span class="card-price" style="font-size: 1.25rem; font-weight: 700; color: var(--color-pink);">&#8377;<?php echo number_format($ass->price > 0 ? $ass->price : 999, 0); ?></span>
+                                <button type="button" onclick="addToCart('assessment', <?php echo $ass->id; ?>, this)" class="btn-primary" style="padding: 8px 20px; border: none; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;">
+                                    <i class="ri-shopping-cart-line"></i> Add to Cart
                                 </button>
                             </div>
                         </div>
@@ -88,3 +88,9 @@
 </section>
 
 <?php $this->load->view('public_footer'); ?>
+
+
+
+
+
+

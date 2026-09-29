@@ -27,6 +27,11 @@ $form_action = $is_edit ? site_url('admin/update_assessment/'.$assessment->id) :
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 24px;">
             <div class="form-group" style="margin-bottom: 0;">
+                <label for="price" style="font-weight: 600; color: #334155; margin-bottom: 6px; display: block;">Price (&#8377;)</label>
+                <input type="number" step="0.01" id="price" name="price" min="0" value="<?php echo $is_edit && isset($assessment->price) ? (float)$assessment->price : 999; ?>" style="width: 100%; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 14px; box-sizing: border-box;">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0;">
                 <label for="time_limit" style="font-weight: 600; color: #334155; margin-bottom: 6px; display: block;">Time Limit (Minutes) <span style="color: #ef4444;">*</span></label>
                 <input type="number" id="time_limit" name="time_limit" min="1" max="600" value="<?php echo $is_edit ? (int)$assessment->time_limit : 45; ?>" style="width: 100%; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 14px; box-sizing: border-box;" required>
             </div>
@@ -48,3 +53,4 @@ $form_action = $is_edit ? site_url('admin/update_assessment/'.$assessment->id) :
         </div>
     </form>
 </div>
+

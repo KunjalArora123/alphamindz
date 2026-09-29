@@ -14,6 +14,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url('style.css?v=4'); ?>">
+
+    <style>
+    @media (max-width: 1023px) {
+        .btn-download-app-desktop {
+            display: none !important;
+        }
+    }
+    </style>
 </head>
 <body>
     <!-- Top Bar -->
@@ -85,6 +93,7 @@
                 </div>
 
                 <a href="<?php echo site_url('blogs'); ?>" class="nav-link">Blogs</a>
+                <a href="<?php echo site_url('news'); ?>" class="nav-link">News</a>
 
                 <div class="nav-item has-dropdown">
                     <a href="<?php echo site_url('assessments'); ?>" class="nav-link">Assessment <i class="ri-arrow-down-s-line"></i></a>
@@ -122,6 +131,7 @@
               }
             ?>
             <div style="display: flex; align-items: center; gap: 12px;">
+                <a href="<?php echo base_url('app-release.apk'); ?>" download class="btn-download-app btn-download-app-desktop" style="padding: 10px 20px; font-size: 14px; border-radius: 40px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background: #27ae60; color: #fff; box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2); transition: all 0.3s;"><i class="ri-android-line" style="font-size: 1.1rem;"></i> App</a>
                 <a href="<?php echo site_url('cart'); ?>" class="nav-cart-btn" style="position: relative; font-size: 1.4rem; color: #2c3e50; text-decoration: none; padding: 8px 12px; display: flex; align-items: center; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef; transition: all 0.2s;">
                     <i class="ri-shopping-cart-2-line"></i>
                     <span class="cart-badge" id="headerCartCount" style="position: absolute; top: -6px; right: -6px; background: #e74c3c; color: #fff; font-size: 0.75rem; font-weight: 700; border-radius: 10px; padding: 2px 7px; min-width: 18px; text-align: center; box-shadow: 0 2px 4px rgba(231,76,60,0.3);"><?php echo $cart_count; ?></span>
@@ -155,8 +165,10 @@
             <a href="<?php echo site_url('courses'); ?>" class="mobile-nav-link">Courses</a>
             <a href="<?php echo site_url('assessments'); ?>" class="mobile-nav-link">Assessments</a>
             <a href="<?php echo site_url('blogs'); ?>" class="mobile-nav-link">Blogs</a>
+            <a href="<?php echo site_url('news'); ?>" class="mobile-nav-link">News</a>
             <a href="<?php echo site_url('shop'); ?>" class="mobile-nav-link">Shop</a>
             <a href="<?php echo site_url('verify'); ?>" class="mobile-nav-link">Verify Certificate</a>
+            <a href="<?php echo base_url('app-release.apk'); ?>" download class="mobile-nav-link" style="color: #27ae60; font-weight: 700;"><i class="ri-android-fill"></i> Download App</a>
             <div class="mobile-nav-divider"></div>
             <a href="<?php echo site_url('about'); ?>" class="mobile-nav-link">About Us</a>
             <a href="<?php echo site_url('reachus'); ?>" class="mobile-nav-link">Reach Us</a>
@@ -242,4 +254,10 @@
         });
     }
     </script>
+
+
+
+
+
+
 

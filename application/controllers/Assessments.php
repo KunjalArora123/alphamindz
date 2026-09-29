@@ -10,37 +10,14 @@ class Assessments extends CI_Controller {
         $this->load->library('session');
     }
 
-    public function index() {
+        public function index() {
         $this->db->where('status', 'active');
         $this->db->where('title !=', 'Interest Inventory Test');
         $this->db->where('title !=', 'MBTI Personality Profiling Test');
         $active_assessments = $this->db->get('assessments')->result();
         
         $data['active_assessments'] = $active_assessments;
-
-        if (!$this->session->userdata('user_logged_in')) {
-            $this->load->view('assessments', $data);
-            return;
-        }
-
-        $user_id = $this->session->userdata('user_id');
-
-        // Check test authorization status per test
-        $perms = $this->db->get_where('user_test_permissions', array('user_id' => $user_id))->result();
-        $permissions_map = array();
-        foreach ($perms as $p) {
-            $permissions_map[$p->test_title] = strtolower($p->status);
-        }
-        $data['permissions_map'] = $permissions_map;
-
-        // Get past attempts
-        $this->db->where('user_id', $user_id);
-        $this->db->order_by('completed_at', 'DESC');
-        $data['attempts'] = $this->db->get('test_attempts')->result();
-
-        $this->load->view('student/includes/header', array('title' => 'Assessments | AlphaMindz'));
-        $this->load->view('assessments/index', $data);
-        $this->load->view('student/includes/footer');
+        $this->load->view('assessments', $data);
     }
 
     public function take_test($test_param = null) {
@@ -417,3 +394,4 @@ class Assessments extends CI_Controller {
         }
     }
 }
+

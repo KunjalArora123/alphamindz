@@ -218,13 +218,9 @@
                             <i class="ri-dashboard-line me-1 fs-5"></i> Dashboard
                         </a>
                     </li>
+                    
                     <li class="nav-item me-lg-2">
-                        <a class="nav-link d-flex align-items-center" href="<?php echo site_url('courses'); ?>">
-                            <i class="ri-book-open-line me-1 fs-5"></i> Courses
-                        </a>
-                    </li>
-                    <li class="nav-item me-lg-2">
-                        <a class="nav-link d-flex align-items-center" href="<?php echo site_url('assessments'); ?>">
+                        <a class="nav-link d-flex align-items-center" href="<?php echo site_url('student/assessment'); ?>">
                             <i class="ri-task-line me-1 fs-5"></i> Assessments
                         </a>
                     </li>
@@ -245,3 +241,6 @@
         </div>
     </div>
 </nav>
+
+
+

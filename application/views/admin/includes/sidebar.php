@@ -60,6 +60,11 @@
                 </a>
             </li>
             <li>
+                <a href="<?php echo site_url('admin/latest_news'); ?>" class="<?php echo ($this->uri->segment(2) == 'latest_news' || $this->uri->segment(2) == 'add_latest_news' || $this->uri->segment(2) == 'edit_latest_news') ? 'active' : ''; ?>">
+                    <i class="ri-newspaper-line"></i> Latest News
+                </a>
+            </li>
+            <li>
                 <a href="<?php echo site_url('admin/users'); ?>" class="<?php echo ($this->uri->segment(2) == 'users' || $this->uri->segment(2) == 'edit_user') ? 'active' : ''; ?>">
                     <i class="ri-group-line"></i> Users
                 </a>

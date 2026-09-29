@@ -1114,6 +1114,7 @@ class Admin extends CI_Controller {
             'slug' => $slug,
             'description' => $description,
             'time_limit' => $time_limit,
+            'price' => (float)$this->input->post('price') > 0 ? (float)$this->input->post('price') : 999.00,
             'status' => $status,
             'created_at' => date('Y-m-d H:i:s')
         );
@@ -1167,6 +1168,7 @@ class Admin extends CI_Controller {
             'slug' => $slug,
             'description' => $description,
             'time_limit' => $time_limit,
+            'price' => (float)$this->input->post('price') > 0 ? (float)$this->input->post('price') : 999.00,
             'status' => $status
         );
 
@@ -2360,5 +2362,93 @@ class Admin extends CI_Controller {
         }
         redirect('admin/articles');
     }
+
+    public function latest_news() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get('latest_news');
+        $data['latest_news'] = $query ? $query->result() : array();
+        $data['page_title'] = 'Manage Latest News';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/latest_news', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function add_latest_news() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $data['page_title'] = 'Add Latest News';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/latest_news_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function save_latest_news() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $data = array(
+            'title' => trim($this->input->post('title')),
+            'tag' => trim($this->input->post('tag')),
+            'tag_color' => trim($this->input->post('tag_color')),
+            'link' => trim($this->input->post('link')),
+            'image_url' => trim($this->input->post('image_url')),
+            'news_date' => trim($this->input->post('news_date')),
+            'status' => trim($this->input->post('status'))
+        );
+        $this->db->insert('latest_news', $data);
+        $this->session->set_flashdata('success', 'News added successfully.');
+        redirect('admin/latest_news');
+    }
+
+    public function edit_latest_news($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $data['news'] = $this->db->get_where('latest_news', array('id' => $id))->row();
+        $data['page_title'] = 'Edit Latest News';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/latest_news_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function update_latest_news($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $data = array(
+            'title' => trim($this->input->post('title')),
+            'tag' => trim($this->input->post('tag')),
+            'tag_color' => trim($this->input->post('tag_color')),
+            'link' => trim($this->input->post('link')),
+            'image_url' => trim($this->input->post('image_url')),
+            'news_date' => trim($this->input->post('news_date')),
+            'status' => trim($this->input->post('status'))
+        );
+        $this->db->where('id', $id);
+        $this->db->update('latest_news', $data);
+        $this->session->set_flashdata('success', 'News updated successfully.');
+        redirect('admin/latest_news');
+    }
+
+    public function delete_latest_news($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $this->db->where('id', $id);
+        $this->db->delete('latest_news');
+        $this->session->set_flashdata('success', 'News deleted successfully.');
+        redirect('admin/latest_news');
+    }
 }
+
+
+
+
 

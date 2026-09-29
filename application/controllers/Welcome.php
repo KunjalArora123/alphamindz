@@ -36,6 +36,13 @@ class Welcome extends CI_Controller {
 		$p_query = $this->db->get('products');
 		$data['products'] = $p_query ? $p_query->result() : array();
 
+		// Fetch latest news for homepage
+		$this->db->where('status', 'active');
+		$this->db->order_by('news_date', 'DESC');
+		$this->db->limit(3);
+		$n_query = $this->db->get('latest_news');
+		$data['latest_news'] = $n_query ? $n_query->result() : array();
+
 		$this->load->view('public_header');
 		$this->load->view('home', $data);
 		$this->load->view('public_footer');

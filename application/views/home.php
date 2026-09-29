@@ -187,42 +187,27 @@
             <div class="mixed-right">
                 <div class="section-header">
                     <h2>Latest With Alpha Mindz</h2>
-                    <a href="#" class="view-all">View all <i class="ri-arrow-right-line"></i></a>
+                    <a href="<?php echo site_url('news'); ?>" class="view-all">View all <i class="ri-arrow-right-line"></i></a>
                 </div>
                 <div class="latest-list">
-                    <article class="latest-card">
-                        <div class="latest-image">
-                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Update">
-                        </div>
-                        <div class="latest-content">
-                            <span class="tag bg-green" style="position: static; font-size: 10px; padding: 4px 8px; margin-bottom: 8px; display: inline-block;">Career</span>
-                            <h3><a href="#">Decoding the Protocol of Modern Trade</a></h3>
-                            <span class="date" style="font-size: 13px; color: var(--text-muted);">Apr 05, 2024</span>
-                        </div>
-                    </article>
-                    <article class="latest-card">
-                        <div class="latest-image">
-                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Update">
-                        </div>
-                        <div class="latest-content">
-                            <span class="tag bg-blue" style="position: static; font-size: 10px; padding: 4px 8px; margin-bottom: 8px; display: inline-block;">Education</span>
-                            <h3><a href="#">Mastering the Art of Selection</a></h3>
-                            <span class="date" style="font-size: 13px; color: var(--text-muted);">Apr 08, 2024</span>
-                        </div>
-                    </article>
-                    <article class="latest-card">
-                        <div class="latest-image">
-                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Update">
-                        </div>
-                        <div class="latest-content">
-                            <span class="tag bg-pink" style="position: static; font-size: 10px; padding: 4px 8px; margin-bottom: 8px; display: inline-block;">Growth</span>
-                            <h3><a href="#">Building Loyalty Programs</a></h3>
-                            <span class="date" style="font-size: 13px; color: var(--text-muted);">Apr 09, 2024</span>
-                        </div>
-                    </article>
+                    <?php if(!empty($latest_news)): ?>
+                        <?php foreach($latest_news as $news): ?>
+                            <article class="latest-card">
+                                <div class="latest-image">
+                                    <img src="<?php echo htmlspecialchars($news->image_url); ?>" alt="Update">
+                                </div>
+                                <div class="latest-content">
+                                    <span class="tag <?php echo htmlspecialchars($news->tag_color); ?>" style="position: static; font-size: 10px; padding: 4px 8px; margin-bottom: 8px; display: inline-block;"><?php echo htmlspecialchars($news->tag); ?></span>
+                                    <h3><a href="<?php echo htmlspecialchars($news->link); ?>"><?php echo htmlspecialchars($news->title); ?></a></h3>
+                                    <span class="date" style="font-size: 13px; color: var(--text-muted);"><?php echo date('M d, Y', strtotime($news->news_date)); ?></span>
+                                </div>
+                            </article>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No recent news available.</p>
+                    <?php endif; ?>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -332,4 +317,8 @@
     </section>
 
     <!-- Expanded Multi-column Footer -->
+
+
+
+
 

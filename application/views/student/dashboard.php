@@ -23,11 +23,7 @@
                     <h1 class="fw-extrabold fs-2 fs-md-1 mb-2">Welcome back, <?php echo htmlspecialchars($first_name); ?>! 👋</h1>
                     <p class="text-white-50 mb-3 mb-md-0">Track your enrolled courses, tier access privileges, and assessment performance in real time.</p>
                 </div>
-                <div class="col-12 col-md-4 text-md-end mt-3 mt-md-0">
-                    <a href="<?php echo site_url('courses'); ?>" class="btn btn-sp-accent text-white w-100 w-md-auto">
-                        <i class="ri-compass-3-line me-1"></i> Browse Courses
-                    </a>
-                </div>
+                
             </div>
         </div>
 
@@ -67,7 +63,7 @@
                         </div>
                         <p class="small text-muted mb-4">Evaluate your knowledge with real-time test attempts and immediate feedback.</p>
                     </div>
-                    <a href="<?php echo site_url('assessments'); ?>" class="btn btn-sp-accent text-white w-100">
+                    <a href="<?php echo site_url('student/assessment'); ?>" class="btn btn-sp-accent text-white w-100">
                         Take Assessment <i class="ri-arrow-right-line ms-1"></i>
                     </a>
                 </div>
@@ -103,7 +99,7 @@
                             <h4 class="fw-bold mb-1 text-sp-blue"><i class="ri-book-open-fill text-sp-green me-1"></i> Enrolled Courses & Tier Access</h4>
                             <span class="small text-muted">Content unlocked according to your purchased pricing tier</span>
                         </div>
-                        <a href="<?php echo site_url('courses'); ?>" class="btn btn-sm btn-sp-outline">All Courses</a>
+                        
                     </div>
 
                     <?php if(!empty($enrolled_courses)): ?>
@@ -151,7 +147,7 @@
                             <i class="ri-book-3-line text-muted display-4 mb-2 d-block"></i>
                             <h5 class="fw-bold mb-1">No Enrolled Courses Found</h5>
                             <p class="small text-muted mb-3">Browse our course matrix to choose from 3 or 4 differential pricing tiers.</p>
-                            <a href="<?php echo site_url('courses'); ?>" class="btn btn-sp-accent text-white">Explore Courses Matrix</a>
+                            
                         </div>
                     <?php endif; ?>
                 </div>
@@ -213,3 +209,7 @@
 
     </div>
 </div>
+
+
+
+

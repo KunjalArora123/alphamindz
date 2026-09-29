@@ -4,11 +4,8 @@
         <i class="ri-dashboard-line"></i>
         <span>Home</span>
     </a>
-    <a href="<?php echo site_url('courses'); ?>" class="nav-item <?php echo ($this->uri->segment(1) == 'courses') ? 'active' : ''; ?>">
-        <i class="ri-book-open-line"></i>
-        <span>Courses</span>
-    </a>
-    <a href="<?php echo site_url('assessments'); ?>" class="nav-item <?php echo ($this->uri->segment(1) == 'assessments') ? 'active' : ''; ?>">
+    
+    <a href="<?php echo site_url('student/assessment'); ?>" class="nav-item <?php echo ($this->uri->segment(1) == 'assessments') ? 'active' : ''; ?>">
         <i class="ri-task-line"></i>
         <span>Tests</span>
     </a>
@@ -28,3 +25,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
