@@ -1070,11 +1070,16 @@ class Admin extends CI_Controller {
 
             $this->db->group_start();
             $this->db->where('assessment_id', $a->id);
-            $this->db->or_where('subject', $a->title);
+            $this->db->or_group_start();
+            $this->db->where('assessment_id', NULL);
+            $this->db->group_start();
+            $this->db->where('subject', $a->title);
             if (!empty($a->parts)) {
                 $part_names = array_map(function($p) { return $p->part_name; }, $a->parts);
                 $this->db->or_where_in('subject', $part_names);
             }
+            $this->db->group_end();
+            $this->db->group_end();
             $this->db->group_end();
             $a->question_count = $this->db->count_all_results('questions');
         }
@@ -1266,11 +1271,16 @@ class Admin extends CI_Controller {
         $this->db->join('assessment_parts ap', 'q.part_id = ap.id', 'left');
         $this->db->group_start();
         $this->db->where('q.assessment_id', $assessment_id);
-        $this->db->or_where('q.subject', $assessment->title);
+        $this->db->or_group_start();
+        $this->db->where('q.assessment_id', NULL);
+        $this->db->group_start();
+        $this->db->where('q.subject', $assessment->title);
         if (!empty($parts)) {
             $part_names = array_map(function($item) { return $item->part_name; }, $parts);
             $this->db->or_where_in('q.subject', $part_names);
         }
+        $this->db->group_end();
+        $this->db->group_end();
         $this->db->group_end();
         if ($selected_part_id) {
             $this->db->where('q.part_id', $selected_part_id);
@@ -1564,7 +1574,10 @@ class Admin extends CI_Controller {
             foreach ($parts as $p) {
                 $this->db->group_start();
                 $this->db->where('part_id', $p->id);
-                $this->db->or_where('subject', $p->part_name);
+                $this->db->or_group_start();
+                $this->db->where('assessment_id', NULL);
+                $this->db->where('subject', $p->part_name);
+                $this->db->group_end();
                 $this->db->group_end();
                 $this->db->order_by('question_number', 'ASC');
                 $this->db->order_by('id', 'ASC');
@@ -1579,7 +1592,10 @@ class Admin extends CI_Controller {
         } else {
             $this->db->group_start();
             $this->db->where('assessment_id', $assessment_id);
-            $this->db->or_where('subject', $assessment->title);
+            $this->db->or_group_start();
+            $this->db->where('assessment_id', NULL);
+            $this->db->where('subject', $assessment->title);
+            $this->db->group_end();
             $this->db->group_end();
             $this->db->order_by('question_number', 'ASC');
             $this->db->order_by('id', 'ASC');
