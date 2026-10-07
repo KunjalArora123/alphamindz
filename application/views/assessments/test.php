@@ -27,15 +27,15 @@ function getQuestionImage($subject, $qNum) {
 
 $jsQuestions = [];
 foreach ($questions as $q) {
-    $part_tag = !empty($q->part_name) ? $q->part_name : $q->subject;
+    $section_name = !empty($q->part_name) ? $q->part_name : $q->subject;
     
     $options = [];
     foreach (['A' => 'a', 'B' => 'b', 'C' => 'c', 'D' => 'd'] as $letter => $key) {
         $text_col = 'option_' . $key;
         $img_col = 'option_' . $key . '_image';
-        $txt = isset($q->$text_col) ? $q->$text_col : '';
+        $txt = isset($q->$text_col) ? (string)$q->$text_col : '';
         $img = (!empty($q->$img_col) && file_exists(FCPATH . $q->$img_col)) ? base_url($q->$img_col) : null;
-        if (!empty($txt) || !empty($img)) {
+        if ($txt !== '' || !empty($img)) {
             $options[$letter] = [
                 'text' => $txt,
                 'image' => $img
@@ -49,7 +49,8 @@ foreach ($questions as $q) {
     $jsQuestions[] = [
         'id' => (int)$q->id,
         'number' => (int)$q->question_number,
-        'subject' => $part_tag,
+        'section_name' => $section_name,
+        'subject' => $section_name,
         'text' => $q->question_text,
         'image_path' => $img1,
         'image_path_2' => $img2,
@@ -179,8 +180,8 @@ foreach ($questions as $q) {
                 <span class="text-xs bg-slate-50 px-2.5 py-1 border border-slate-200 rounded-lg text-slate-500 font-semibold" id="mobile-progress">0/<?php echo count($questions); ?></span>
             </div>
 
-            <div class="grid grid-cols-5 md:grid-cols-8 lg:grid-cols-5 gap-2 max-h-48 lg:max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar" id="nav-grid">
-                <!-- Rendered dynamically by JS -->
+            <div class="max-h-64 lg:max-h-[60vh] overflow-y-auto pr-1 custom-scrollbar space-y-3" id="nav-grid">
+                <!-- Rendered dynamically by JS grouped by section -->
             </div>
 
             <div class="mt-6 pt-5 border-t border-slate-200 grid grid-cols-3 gap-2 text-[10px] uppercase font-bold tracking-wider text-slate-400 text-center">
@@ -335,22 +336,16 @@ foreach ($questions as $q) {
             }
 
             qWindow.innerHTML = `
-                <div class="slide-in">
                     <div class="flex items-center justify-between mb-4">
                         <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full">
                             Question ${currentIndex + 1} of ${questions.length}
                         </span>
                         
-                        ${question.subject && question.subject.length <= 40 ? `
-                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 bg-slate-100 border border-slate-200 px-3 py-1 rounded-full">
-                            ${question.subject}
+                        ${question.subject ? `
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-600 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-full">
+                            ${cleanSectionName(question.section_name || question.subject)}
                         </span>` : ''}
                     </div>
-                    
-                    ${question.subject && question.subject.length > 40 ? `
-                    <div class="mb-5 text-sm md:text-base font-semibold text-indigo-800 bg-indigo-50 border border-indigo-100 rounded-lg p-4 leading-relaxed shadow-sm">
-                        ${question.subject}
-                    </div>` : ''}
                     
                     <p class="text-base md:text-lg font-medium text-slate-800 leading-relaxed mb-6">
                         ${formattedText}
@@ -420,26 +415,75 @@ foreach ($questions as $q) {
             renderQuestion();
         }
 
+        function cleanSectionName(rawName) {
+            if (!rawName) return 'Section';
+            let name = rawName.replace(/^(10th|9th|8th|arts|commerce|science)\s+/i, '').trim();
+            name = name.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+            return name;
+        }
+
         function updateNavGrid() {
             const grid = document.getElementById('nav-grid');
             let gridHtml = '';
             
+            // Group questions by section
+            const sections = [];
+            let currentSecName = null;
+            let currentSecObj = null;
+
             questions.forEach((q, idx) => {
-                const isCurrent = idx === currentIndex;
-                const isAnswered = userAnswers[q.id] !== undefined;
-                
-                let stateClass = 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50';
-                if (isCurrent) {
-                    stateClass = 'bg-blue-50 border-blue-500 text-blue-600 font-extrabold ring-1 ring-blue-500/30';
-                } else if (isAnswered) {
-                    stateClass = 'bg-emerald-50 border-emerald-500 text-emerald-600';
+                const secName = q.section_name || q.subject || 'Section';
+                if (secName !== currentSecName) {
+                    currentSecName = secName;
+                    currentSecObj = {
+                        name: secName,
+                        questions: []
+                    };
+                    sections.push(currentSecObj);
                 }
+                currentSecObj.questions.push({ q, idx });
+            });
+
+            sections.forEach((sec, secIdx) => {
+                const cleanName = cleanSectionName(sec.name);
+                const answeredInSec = sec.questions.filter(item => userAnswers[item.q.id] !== undefined).length;
+                
+                gridHtml += `
+                    <div class="bg-slate-50/70 border border-slate-200/80 rounded-xl p-3 mb-3">
+                        <div class="flex items-center justify-between mb-2.5 pb-1.5 border-b border-slate-200/60">
+                            <span class="text-xs font-bold text-slate-800 tracking-wide flex items-center gap-1.5 truncate max-w-[70%]" title="${cleanName}">
+                                <span class="w-2 h-2 rounded-full bg-blue-600 flex-shrink-0"></span>
+                                Section ${secIdx + 1}: ${cleanName}
+                            </span>
+                            <span class="text-[11px] font-bold text-slate-500 bg-white px-2 py-0.5 rounded-md border border-slate-200 flex-shrink-0">
+                                ${answeredInSec}/${sec.questions.length}
+                            </span>
+                        </div>
+                        <div class="grid grid-cols-5 md:grid-cols-8 lg:grid-cols-5 gap-2">
+                `;
+
+                sec.questions.forEach(({ q, idx }, secQIdx) => {
+                    const isCurrent = idx === currentIndex;
+                    const isAnswered = userAnswers[q.id] !== undefined;
+                    
+                    let stateClass = 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100 hover:border-slate-300';
+                    if (isCurrent) {
+                        stateClass = 'bg-blue-600 border-blue-600 text-white font-extrabold ring-2 ring-blue-400/40 shadow-sm';
+                    } else if (isAnswered) {
+                        stateClass = 'bg-emerald-50 border-emerald-500 text-emerald-700 font-bold';
+                    }
+
+                    gridHtml += `
+                        <button type="button" onclick="jumpToQuestion(${idx})" 
+                                class="w-full h-8 border rounded-lg flex items-center justify-center text-xs font-semibold transition-all duration-200 ${stateClass}">
+                            ${secQIdx + 1}
+                        </button>
+                    `;
+                });
 
                 gridHtml += `
-                    <button type="button" onclick="jumpToQuestion(${idx})" 
-                            class="w-full h-10 border rounded-xl flex items-center justify-center text-sm font-semibold transition-all duration-300 ${stateClass}">
-                        ${idx + 1}
-                    </button>
+                        </div>
+                    </div>
                 `;
             });
             

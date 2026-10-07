@@ -45,19 +45,8 @@ class Assessments extends CI_Controller {
             return;
         }
 
-        // Workflow Enforcer: Interest -> MBTI -> Target Test
-        if ($test_title !== 'Interest Inventory Test' && $test_title !== 'MBTI Personality Profiling Test') {
-            $this->session->set_userdata('target_test', $test_title);
-            
-            if (!$this->session->userdata('completed_interest')) {
-                redirect('assessments/take_test?test=' . urlencode('Interest Inventory Test'));
-                return;
-            }
-            if (!$this->session->userdata('completed_mbti')) {
-                redirect('assessments/take_test?test=' . urlencode('MBTI Personality Profiling Test'));
-                return;
-            }
-        }
+        // System prerequisite tests (MBTI / Interest Inventory) are currently disabled.
+        // Direct access to target test is allowed.
 
         // Setup session for test
         if (!$this->session->userdata('test_started') || $this->session->userdata('test_subject') != $test_title) {
@@ -311,22 +300,30 @@ class Assessments extends CI_Controller {
             }
             $questions = $this->db->get()->result();
             
-            $score = 0;
-            $total = count($questions);
-            
             $submitted_answers = $this->input->post('answers');
             if (!is_array($submitted_answers)) {
                 $submitted_answers = array();
             }
 
+            $score = 0;
+            $total = count($questions);
+            $graded_answers = array();
+
             foreach ($questions as $q) {
-                $ans = isset($submitted_answers[$q->id]) ? $submitted_answers[$q->id] : null;
-                if ($ans && $ans === $q->correct_option) {
+                $ans = isset($submitted_answers[$q->id]) ? trim($submitted_answers[$q->id]) : null;
+                $is_correct = 0;
+                if ($ans !== null && !empty($q->correct_option) && strcasecmp($ans, trim($q->correct_option)) === 0) {
+                    $is_correct = 1;
                     $score++;
                 }
+                $graded_answers[] = array(
+                    'question_id' => $q->id,
+                    'selected_option' => $ans,
+                    'is_correct' => $is_correct
+                );
             }
 
-            $percentage = ($total > 0) ? ($score / $total) * 100 : 0;
+            $percentage = ($total > 0) ? round(($score / $total) * 100, 2) : 0;
             
             $data = array(
                 'user_id' => $user_id,
@@ -340,6 +337,16 @@ class Assessments extends CI_Controller {
 
             $this->db->insert('test_attempts', $data);
             $attempt_id = $this->db->insert_id();
+
+            // Store individual student responses and grading status into test_answers
+            foreach ($graded_answers as $ga) {
+                $this->db->insert('test_answers', array(
+                    'attempt_id' => $attempt_id,
+                    'question_id' => $ga['question_id'],
+                    'selected_option' => $ga['selected_option'],
+                    'is_correct' => $ga['is_correct']
+                ));
+            }
         }
 
         // Update test permission status to 'completed' for this specific test
@@ -406,6 +413,14 @@ class Assessments extends CI_Controller {
             $this->load->view('mbti/result', $data);
             $this->load->view('student/includes/footer');
         } else {
+            // Fetch test answers for standard assessment result breakdown
+            $this->db->select('test_answers.*, questions.question_text, questions.question_number, questions.correct_option, questions.subject as q_subject');
+            $this->db->from('test_answers');
+            $this->db->join('questions', 'questions.id = test_answers.question_id', 'left');
+            $this->db->where('test_answers.attempt_id', $attempt_id);
+            $this->db->order_by('test_answers.id', 'ASC');
+            $data['answers'] = $this->db->get()->result();
+
             $this->load->view('student/includes/header', array('title' => 'Test Result | AlphaMindz'));
             $this->load->view('assessments/result', $data);
             $this->load->view('student/includes/footer');

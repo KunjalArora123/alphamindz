@@ -234,14 +234,16 @@
             <thead>
                 <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
                     <th style="padding: 12px; text-align: left; width: 50px;">#</th>
+                    <th style="padding: 12px; text-align: left; width: 160px;">Section / Part</th>
                     <th style="padding: 12px; text-align: left;">Question</th>
-                    <th style="padding: 12px; text-align: center; width: 100px;">User Answer</th>
-                    <th style="padding: 12px; text-align: center; width: 100px;">Correct Answer</th>
-                    <th style="padding: 12px; text-align: center; width: 100px;">Status</th>
+                    <th style="padding: 12px; text-align: center; width: 110px;">User Answer</th>
+                    <th style="padding: 12px; text-align: center; width: 110px;">Correct Answer</th>
+                    <th style="padding: 12px; text-align: center; width: 110px;">Status</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if(!empty($answers)): foreach($answers as $ans): 
+                <?php if(!empty($answers)): foreach($answers as $idx => $ans): 
+                    $sec_title = !empty($ans->part_name) ? $ans->part_name : (!empty($ans->q_subject) ? $ans->q_subject : '');
                     if(is_null($ans->selected_option) || $ans->selected_option === '') {
                         $status_color = '#f39c12';
                         $status_text = 'Unanswered';
@@ -257,10 +259,11 @@
                     }
                 ?>
                 <tr style="border-bottom: 1px solid #dee2e6;">
-                    <td style="padding: 12px; font-weight: bold;"><?php echo $ans->question_number ? $ans->question_number : '-'; ?></td>
-                    <td style="padding: 12px;"><?php echo htmlspecialchars($ans->question_text ? $ans->question_text : 'Question text unavailable'); ?></td>
-                    <td style="padding: 12px; text-align: center; font-weight: bold;"><?php echo $ans->selected_option ? $ans->selected_option : '-'; ?></td>
-                    <td style="padding: 12px; text-align: center; font-weight: bold; color: #27ae60;"><?php echo $ans->correct_option; ?></td>
+                    <td style="padding: 12px; font-weight: bold; color: #64748b;"><?php echo ($idx + 1); ?></td>
+                    <td style="padding: 12px; font-weight: 600; color: #475569; font-size: 0.85rem; text-transform: uppercase;"><?php echo htmlspecialchars($sec_title); ?></td>
+                    <td style="padding: 12px; color: #1e293b;"><?php echo strip_tags($ans->question_text ? $ans->question_text : 'Question text unavailable'); ?></td>
+                    <td style="padding: 12px; text-align: center; font-weight: bold;"><?php echo $ans->selected_option ? strtoupper(htmlspecialchars($ans->selected_option)) : '<span style="color: #94a3b8; font-weight: normal; font-style: italic;">Unanswered</span>'; ?></td>
+                    <td style="padding: 12px; text-align: center; font-weight: bold; color: #27ae60;"><?php echo strtoupper(htmlspecialchars($ans->correct_option)); ?></td>
                     <td style="padding: 12px; text-align: center;">
                         <span style="color: <?php echo $status_color; ?>; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 5px;">
                             <i class="<?php echo $status_icon; ?>"></i> <?php echo $status_text; ?>
@@ -269,7 +272,7 @@
                 </tr>
                 <?php endforeach; else: ?>
                 <tr>
-                    <td colspan="5" style="padding: 12px; text-align: center;">No detailed answers available for this legacy test.</td>
+                    <td colspan="6" style="padding: 12px; text-align: center;">No detailed answers available for this test attempt.</td>
                 </tr>
                 <?php endif; ?>
             </tbody>

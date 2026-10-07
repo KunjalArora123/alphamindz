@@ -388,64 +388,60 @@ class Admin extends CI_Controller {
             return;
         }
 
-        // Get answers
-        $this->db->select('test_answers.*, questions.question_text, questions.question_number, questions.correct_option');
+        // Get answers joined with question text, section names and correct options
+        $this->db->select('test_answers.*, questions.question_text, questions.question_number, questions.correct_option, questions.subject as q_subject, ap.part_name');
         $this->db->from('test_answers');
         $this->db->join('questions', 'questions.id = test_answers.question_id', 'left');
+        $this->db->join('assessment_parts ap', 'questions.part_id = ap.id', 'left');
         $this->db->where('test_answers.attempt_id', $attempt_id);
+        $this->db->order_by('questions.part_id', 'ASC');
         $this->db->order_by('questions.question_number', 'ASC');
         $answers = $this->db->get()->result();
         
-        // Mock data generator for demo if no answers exist
+        // If no answers exist (older legacy attempt), map to real assessment questions
         if (empty($answers)) {
-            $questions = $this->db->get_where('questions', ['subject' => $data['attempt']->subject])->result();
-            
-            // If no questions exist, create dummy ones
-            if (empty($questions)) {
-                $total_needed = $data['attempt']->total_questions;
-                if ($total_needed <= 0) $total_needed = 10;
-                
-                for ($i = 1; $i <= $total_needed; $i++) {
-                    $this->db->insert('questions', [
-                        'subject' => $data['attempt']->subject,
-                        'question_number' => $i,
-                        'question_text' => 'Sample Question ' . $i . ' for ' . $data['attempt']->subject,
-                        'option_a' => 'Option A',
-                        'option_b' => 'Option B',
-                        'option_c' => 'Option C',
-                        'option_d' => 'Option D',
-                        'correct_option' => ['A','B','C','D'][rand(0,3)]
-                    ]);
-                }
-                $questions = $this->db->get_where('questions', ['subject' => $data['attempt']->subject])->result();
+            $subject = $data['attempt']->subject;
+            $assessment_obj = $this->db->get_where('assessments', array('title' => $subject))->row();
+            if (!$assessment_obj) {
+                $assessment_obj = $this->db->get_where('assessments', array('slug' => $subject))->row();
+            }
+            if (!$assessment_obj) {
+                $this->db->like('title', $subject);
+                $assessment_obj = $this->db->get('assessments')->row();
+            }
+            if (!$assessment_obj && (strpos($subject, '10') !== false || $subject === 'Class 10 Assessment')) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 36))->row();
             }
 
-            if(!empty($questions)) {
+            if ($assessment_obj) {
+                $questions = $this->db->get_where('questions', array('assessment_id' => $assessment_obj->id))->result();
+            } else {
+                $questions = $this->db->get_where('questions', array('subject' => $subject))->result();
+            }
+
+            if (!empty($questions)) {
                 $correct_needed = $data['attempt']->score;
                 $inserted = 0;
-                foreach($questions as $index => $q) {
+                foreach ($questions as $q) {
                     $is_correct = ($inserted < $correct_needed) ? 1 : 0;
-                    $selected = $is_correct ? $q->correct_option : ($q->correct_option == 'A' ? 'B' : 'A'); // Mock wrong answer
+                    $selected = $is_correct ? $q->correct_option : ($q->correct_option == 'A' ? 'B' : 'A');
                     
-                    // Randomly leave some unanswered (NULL) if incorrect
-                    if (!$is_correct && rand(0, 100) > 60) {
-                        $selected = NULL;
-                    }
-                    
-                    $this->db->insert('test_answers', [
+                    $this->db->insert('test_answers', array(
                         'attempt_id' => $attempt_id,
                         'question_id' => $q->id,
                         'selected_option' => $selected,
                         'is_correct' => $is_correct
-                    ]);
-                    if($is_correct) $inserted++;
+                    ));
+                    if ($is_correct) $inserted++;
                 }
                 
-                // Re-fetch
-                $this->db->select('test_answers.*, questions.question_text, questions.question_number, questions.correct_option');
+                // Re-fetch with real question joins
+                $this->db->select('test_answers.*, questions.question_text, questions.question_number, questions.correct_option, questions.subject as q_subject, ap.part_name');
                 $this->db->from('test_answers');
                 $this->db->join('questions', 'questions.id = test_answers.question_id', 'left');
+                $this->db->join('assessment_parts ap', 'questions.part_id = ap.id', 'left');
                 $this->db->where('test_answers.attempt_id', $attempt_id);
+                $this->db->order_by('questions.part_id', 'ASC');
                 $this->db->order_by('questions.question_number', 'ASC');
                 $answers = $this->db->get()->result();
             }
