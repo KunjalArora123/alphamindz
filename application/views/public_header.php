@@ -30,7 +30,7 @@
             <div class="top-contact">
                 <a href="tel:8308770200"><i class="ri-phone-fill"></i> Solan: 8308770200</a>
                 <a href="tel:7447720000"><i class="ri-phone-fill"></i> Goa: 7447720000</a>
-                <a href="mailto:info@alphamindz.com"><i class="ri-mail-fill"></i> info@alphamindz.com</a>
+                <a href="mailto:info.alphamindz@gmail.com"><i class="ri-mail-fill"></i> info.alphamindz@gmail.com</a>
             </div>
             <div class="top-links">
                 <a href="<?php echo site_url('about'); ?>">About Us</a>
@@ -177,7 +177,7 @@
             <div style="font-size: 14px; color: #64748b; display: flex; flex-direction: column; gap: 8px;">
                 <span><i class="ri-phone-fill"></i> Solan: 8308770200</span>
                 <span><i class="ri-phone-fill"></i> Goa: 7447720000</span>
-                <span><i class="ri-mail-fill"></i> info@alphamindz.com</span>
+                <span><i class="ri-mail-fill"></i> info.alphamindz@gmail.com</span>
             </div>
         </div>
     </div>

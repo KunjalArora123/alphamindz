@@ -49,7 +49,7 @@
                     <ul class="contact-list" style="margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
                         <li><i class="ri-phone-fill text-green"></i> Solan: 8308770200</li>
                         <li><i class="ri-phone-fill text-green"></i> Goa: 7447720000</li>
-                        <li><i class="ri-mail-fill text-blue"></i> info@alphamindz.com</li>
+                        <li><i class="ri-mail-fill text-blue"></i> info.alphamindz@gmail.com</li>
                         <li><i class="ri-time-fill"></i> Mon To Sat 11AM - 7PM</li>
                     </ul>
                 </div>

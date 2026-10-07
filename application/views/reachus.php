@@ -48,7 +48,7 @@
                         <div style="display: flex; gap: 12px; align-items: center;">
                             <i class="ri-mail-fill" style="color: #3498db; font-size: 1.25rem;"></i>
                             <div>
-                                <strong style="color: #2d3748;">Email:</strong> info@alphamindz.com
+                                <strong style="color: #2d3748;">Email:</strong> info.alphamindz@gmail.com
                             </div>
                         </div>
                         <div style="display: flex; gap: 12px; align-items: center;">
@@ -102,7 +102,7 @@
                         <div style="display: flex; gap: 12px; align-items: center;">
                             <i class="ri-mail-fill" style="color: #3498db; font-size: 1.25rem;"></i>
                             <div>
-                                <strong style="color: #2d3748;">Email:</strong> info@alphamindz.com
+                                <strong style="color: #2d3748;">Email:</strong> info.alphamindz@gmail.com
                             </div>
                         </div>
                         <div style="display: flex; gap: 12px; align-items: center;">
@@ -138,7 +138,7 @@
                 <a href="tel:7447720000" class="btn-solid-blue" style="padding: 12px 28px; display: inline-flex; align-items: center; gap: 8px; background: #2ecc71;">
                     <i class="ri-phone-line"></i> Call Goa: 7447720000
                 </a>
-                <a href="mailto:info@alphamindz.com" class="btn-outline" style="padding: 12px 28px; display: inline-flex; align-items: center; gap: 8px;">
+                <a href="mailto:info.alphamindz@gmail.com" class="btn-outline" style="padding: 12px 28px; display: inline-flex; align-items: center; gap: 8px;">
                     <i class="ri-mail-line"></i> Send Email
                 </a>
             </div>

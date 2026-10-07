@@ -1341,6 +1341,18 @@ class Admin extends CI_Controller {
             }
         }
 
+        $image_path_2 = null;
+        if (!empty($_FILES['question_image_2']['name']) && $_FILES['question_image_2']['error'] === UPLOAD_ERR_OK) {
+            $file_ext = strtolower(pathinfo($_FILES['question_image_2']['name'], PATHINFO_EXTENSION));
+            $allowed = array('jpg', 'jpeg', 'png', 'gif', 'svg', 'webp');
+            if (in_array($file_ext, $allowed)) {
+                $filename = 'q2_' . time() . '_' . rand(1000, 9999) . '.' . $file_ext;
+                if (move_uploaded_file($_FILES['question_image_2']['tmp_name'], $upload_dir . $filename)) {
+                    $image_path_2 = 'questions-images/' . $filename;
+                }
+            }
+        }
+
         $option_images = array(
             'option_a_image' => null,
             'option_b_image' => null,
@@ -1373,6 +1385,7 @@ class Admin extends CI_Controller {
             'question_number' => $next_q_num,
             'question_text' => $this->input->post('question_text'),
             'image_path' => $image_path,
+            'image_path_2' => $image_path_2,
             'option_a' => $this->input->post('option_a'),
             'option_b' => $this->input->post('option_b'),
             'option_c' => $this->input->post('option_c'),
@@ -1435,12 +1448,20 @@ class Admin extends CI_Controller {
         }
 
         $image_path = $question->image_path;
+        $image_path_2 = isset($question->image_path_2) ? $question->image_path_2 : null;
 
         if ($this->input->post('remove_image')) {
             if (!empty($question->image_path) && file_exists(FCPATH . $question->image_path)) {
                 @unlink(FCPATH . $question->image_path);
             }
             $image_path = null;
+        }
+
+        if ($this->input->post('remove_image_2')) {
+            if (!empty($question->image_path_2) && file_exists(FCPATH . $question->image_path_2)) {
+                @unlink(FCPATH . $question->image_path_2);
+            }
+            $image_path_2 = null;
         }
 
         $upload_dir = FCPATH . 'questions-images/';
@@ -1458,6 +1479,19 @@ class Admin extends CI_Controller {
                 $filename = 'q_' . time() . '_' . rand(1000, 9999) . '.' . $file_ext;
                 if (move_uploaded_file($_FILES['question_image']['tmp_name'], $upload_dir . $filename)) {
                     $image_path = 'questions-images/' . $filename;
+                }
+            }
+        }
+
+        if (!empty($_FILES['question_image_2']['name']) && $_FILES['question_image_2']['error'] === UPLOAD_ERR_OK) {
+            $file_ext = strtolower(pathinfo($_FILES['question_image_2']['name'], PATHINFO_EXTENSION));
+            if (in_array($file_ext, $allowed)) {
+                if (!empty($question->image_path_2) && file_exists(FCPATH . $question->image_path_2)) {
+                    @unlink(FCPATH . $question->image_path_2);
+                }
+                $filename = 'q2_' . time() . '_' . rand(1000, 9999) . '.' . $file_ext;
+                if (move_uploaded_file($_FILES['question_image_2']['tmp_name'], $upload_dir . $filename)) {
+                    $image_path_2 = 'questions-images/' . $filename;
                 }
             }
         }
@@ -1499,6 +1533,7 @@ class Admin extends CI_Controller {
             'subject' => $subject_name,
             'question_text' => $this->input->post('question_text'),
             'image_path' => $image_path,
+            'image_path_2' => $image_path_2,
             'option_a' => $this->input->post('option_a'),
             'option_b' => $this->input->post('option_b'),
             'option_c' => $this->input->post('option_c'),

@@ -43,12 +43,16 @@ foreach ($questions as $q) {
         }
     }
 
+    $img1 = (!empty($q->image_path) && file_exists(FCPATH . $q->image_path)) ? base_url($q->image_path) : getQuestionImage($q->subject, $q->question_number);
+    $img2 = (!empty($q->image_path_2) && file_exists(FCPATH . $q->image_path_2)) ? base_url($q->image_path_2) : null;
+
     $jsQuestions[] = [
         'id' => (int)$q->id,
         'number' => (int)$q->question_number,
         'subject' => $part_tag,
         'text' => $q->question_text,
-        'image_path' => (!empty($q->image_path) && file_exists(FCPATH . $q->image_path)) ? base_url($q->image_path) : getQuestionImage($q->subject, $q->question_number),
+        'image_path' => $img1,
+        'image_path_2' => $img2,
         'options' => $options,
     ];
 }
@@ -308,7 +312,21 @@ foreach ($questions as $q) {
             }
 
             let imageHtml = '';
-            if (question.image_path) {
+            if (question.image_path && question.image_path_2) {
+                imageHtml = `
+                    <div class="my-6 p-4 bg-white border border-slate-200 rounded-2xl flex flex-col md:flex-row justify-center items-center gap-6 shadow-sm">
+                        <div class="flex-1 flex flex-col items-center">
+                            <span class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Question Figure</span>
+                            <img src="${question.image_path}" alt="Question Figure" class="max-h-64 object-contain rounded-xl border border-slate-100 p-2">
+                        </div>
+                        <div class="hidden md:block w-px bg-slate-200 h-48"></div>
+                        <div class="flex-1 flex flex-col items-center">
+                            <span class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Group 2 Reference Matrix</span>
+                            <img src="${question.image_path_2}" alt="Group 2 Reference" class="max-h-64 object-contain rounded-xl border border-slate-100 p-2">
+                        </div>
+                    </div>
+                `;
+            } else if (question.image_path) {
                 imageHtml = `
                     <div class="my-6 p-4 bg-white border border-slate-200 rounded-2xl flex justify-center items-center shadow-sm">
                         <img src="${question.image_path}" alt="Question Figure" class="max-h-64 object-contain rounded-xl">
