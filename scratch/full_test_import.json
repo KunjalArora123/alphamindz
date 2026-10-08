@@ -176,7 +176,7 @@
           },
           {
             "question_number": 12,
-            "question_text": "I felt the wall of the tunnel shiver. The master alarm squealed through my earphones. Almost simultaneously, Jack yelled down to me that there was a warning light on. Fleeting but spectacular sights snapped into an out of view, the snow, the shower of debris, the moon, looming close and big, the dazzling sunshine for once unfiltered by layers of air. The last twelve hours before re-entry were particular bone-chilling. During this period, I had to go up in to command module. Even after the fiery re-entry splashing down in 81o water in south pacific, we could still see our frosty breath inside the command module.",
+            "question_text": "I felt the wall of the tunnel shiver. The master alarm squealed through my earphones. Almost simultaneously, Jack yelled down to me that there was a warning light on. Fleeting but spectacular sights snapped into an out of view, the snow, the shower of debris, the moon, looming close and big, the dazzling sunshine for once unfiltered by layers of air. The last twelve hours before re-entry were particular bone-chilling. During this period, I had to go up in to command module. Even after the fiery re-entry splashing down in 81° water in south pacific, we could still see our frosty breath inside the command module.",
             "option_a": "There was a shower of debris.",
             "option_a_image": "",
             "option_b": "Jack was yelling.",
@@ -319,13 +319,13 @@
             "question_number": 1,
             "question_text": "How many bricks each measuring (25cm X 11.25cm X 6cm) will be required to construct a wall (8m X 6m X 22.5cm)?",
             "option_a": "8000",
-            "option_a_image": "questions-images/10th_10th_numerical_ability_r8_c4_0.png",
+            "option_a_image": "",
             "option_b": "6400",
-            "option_b_image": "questions-images/10th_10th_numerical_ability_r8_c5_1.png",
+            "option_b_image": "",
             "option_c": "4800",
-            "option_c_image": "questions-images/10th_10th_numerical_ability_r8_c6_2.png",
+            "option_c_image": "",
             "option_d": "7200",
-            "option_d_image": "questions-images/10th_10th_numerical_ability_r8_c7_3.png",
+            "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
             "correct_option": "B"
@@ -347,22 +347,22 @@
           },
           {
             "question_number": 3,
-            "question_text": "The construction of a ▲ABC in which AB = 7cm, ∟A=750 is possible when (BC – AC) is equal to.",
+            "question_text": "The construction of a △ABC in which AB = 7cm, ∠A = 75° is possible when (BC – AC) is equal to.",
             "option_a": "7.5cm",
-            "option_a_image": "questions-images/10th_10th_numerical_ability_r8_c4_0.png",
+            "option_a_image": "",
             "option_b": "7 cm",
-            "option_b_image": "questions-images/10th_10th_numerical_ability_r8_c5_1.png",
+            "option_b_image": "",
             "option_c": "8 cm",
-            "option_c_image": "questions-images/10th_10th_numerical_ability_r8_c6_2.png",
+            "option_c_image": "",
             "option_d": "6.5cm",
-            "option_d_image": "questions-images/10th_10th_numerical_ability_r8_c7_3.png",
-            "image_path": "questions-images/10th_10th_numerical_ability_r10_c8_4.png",
+            "option_d_image": "",
+            "image_path": "",
             "image_path_2": "",
             "correct_option": "D"
           },
           {
             "question_number": 4,
-            "question_text": "In the given figure, ∟OAB = 75 0 and ∟OBA = 550, and ∟OCD = 100 0, then ∟ODC =?",
+            "question_text": "In the given figure, ∠OAB = 75° and ∠OBA = 550, and ∠OCD = 10⁰ 0, then ∠ODC =?",
             "option_a": "50",
             "option_a_image": "",
             "option_b": "30",
@@ -377,16 +377,16 @@
           },
           {
             "question_number": 5,
-            "question_text": "If p(x) = X2 - 2√2x + 1 then a(2√2) = ?",
+            "question_text": "If p(x) = x² - 2√2x + 1 then a(2√2) = ?",
             "option_a": "0",
             "option_a_image": "",
             "option_b": "1",
-            "option_b_image": "questions-images/10th_10th_numerical_ability_r12_c5_5.png",
+            "option_b_image": "",
             "option_c": "4√2",
-            "option_c_image": "questions-images/10th_10th_numerical_ability_r12_c6_6.png",
+            "option_c_image": "",
             "option_d": "-1",
-            "option_d_image": "questions-images/10th_10th_numerical_ability_r12_c7_7.png",
-            "image_path": "questions-images/10th_10th_numerical_ability_r10_c8_4.png",
+            "option_d_image": "",
+            "image_path": "",
             "image_path_2": "",
             "correct_option": "B"
           },
@@ -411,11 +411,11 @@
             "option_a": "(0,2)",
             "option_a_image": "",
             "option_b": "(5,0)",
-            "option_b_image": "questions-images/10th_10th_numerical_ability_r12_c5_5.png",
+            "option_b_image": "",
             "option_c": "(½, 2)",
-            "option_c_image": "questions-images/10th_10th_numerical_ability_r12_c6_6.png",
+            "option_c_image": "",
             "option_d": "2, 1.2.",
-            "option_d_image": "questions-images/10th_10th_numerical_ability_r12_c7_7.png",
+            "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
             "correct_option": "A"
@@ -440,7 +440,7 @@
             "question_text": "8796 x 223 + 8796 x 77 =?",
             "option_a": "2736900",
             "option_a_image": "",
-            "option_b": "9124-10-14 00:00:00",
+            "option_b": "9124-10⁻¹⁴ 00:00:00",
             "option_b_image": "",
             "option_c": "2658560",
             "option_c_image": "",
@@ -452,15 +452,15 @@
           },
           {
             "question_number": 10,
-            "question_text": "10.\tIf a - b = 3 and a2 + b2 = 29, find the value of ab.",
+            "question_text": "10.\tIf a - b = 3 and a² + b² = 29, find the value of ab.",
             "option_a": "10",
-            "option_a_image": "questions-images/10th_10th_numerical_ability_r17_c4_8.png",
+            "option_a_image": "",
             "option_b": "12",
             "option_b_image": "",
             "option_c": "15",
-            "option_c_image": "questions-images/10th_10th_numerical_ability_r17_c6_9.png",
+            "option_c_image": "",
             "option_d": "18",
-            "option_d_image": "questions-images/10th_10th_numerical_ability_r17_c7_10.png",
+            "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
             "correct_option": "A"
@@ -482,22 +482,22 @@
           },
           {
             "question_number": 12,
-            "question_text": "A person crosses a 600 m long street in 5 minutes. What is his speed in km per hour?",
+            "question_text": "A person crosses a 60° m long street in 5 minutes. What is his speed in km per hour?",
             "option_a": "3.6",
-            "option_a_image": "questions-images/10th_10th_numerical_ability_r17_c4_8.png",
+            "option_a_image": "",
             "option_b": "7.2",
             "option_b_image": "",
             "option_c": "8.4",
-            "option_c_image": "questions-images/10th_10th_numerical_ability_r17_c6_9.png",
+            "option_c_image": "",
             "option_d": "10",
-            "option_d_image": "questions-images/10th_10th_numerical_ability_r17_c7_10.png",
+            "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
             "correct_option": "B"
           },
           {
             "question_number": 13,
-            "question_text": "A hollow iron pipe is 21 cm long and its external diameter is 8 cm. If the thickness of the pipe is 1 cm and iron weighs 8 g/cm3, then the weight of the pipe is:",
+            "question_text": "A hollow iron pipe is 21 cm long and its external diameter is 8 cm. If the thickness of the pipe is 1 cm and iron weighs 8 g/cm³, then the weight of the pipe is:",
             "option_a": "3.6\tkg",
             "option_a_image": "",
             "option_b": "3.696 kg",
@@ -576,11 +576,11 @@
             "option_a": "Rs.650",
             "option_a_image": "",
             "option_b": "Rs.690",
-            "option_b_image": "questions-images/10th_10th_numerical_ability_r25_c5_11.png",
+            "option_b_image": "",
             "option_c": "Rs.698",
-            "option_c_image": "questions-images/10th_10th_numerical_ability_r25_c6_12.png",
+            "option_c_image": "",
             "option_d": "Rs.700",
-            "option_d_image": "questions-images/10th_10th_numerical_ability_r25_c7_13.png",
+            "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
             "correct_option": "C"
@@ -606,11 +606,11 @@
             "option_a": "Rs. 3500",
             "option_a_image": "",
             "option_b": "Rs. 3750",
-            "option_b_image": "questions-images/10th_10th_numerical_ability_r25_c5_11.png",
+            "option_b_image": "",
             "option_c": "Rs. 3840",
-            "option_c_image": "questions-images/10th_10th_numerical_ability_r25_c6_12.png",
+            "option_c_image": "",
             "option_d": "Rs. 3900",
-            "option_d_image": "questions-images/10th_10th_numerical_ability_r25_c7_13.png",
+            "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
             "correct_option": "D"
@@ -878,7 +878,7 @@
           },
           {
             "question_number": 18,
-            "question_text": "Which number should come next? 144  121\t100   81   64  ?",
+            "question_text": "Which number should come next? 144  121\t10⁰   81   64  ?",
             "option_a": "17",
             "option_a_image": "",
             "option_b": "19",
@@ -939,7 +939,7 @@
             "option_d": "Fig D",
             "option_d_image": "",
             "image_path": "questions-images/10th_spatial_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -953,8 +953,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r6_c8_1.png",
+            "image_path": "questions-images/10th_spatial_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -968,8 +968,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r6_c8_1.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r7_c8_2.png",
+            "image_path": "questions-images/10th_spatial_ability_r7_c8_2.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -983,8 +983,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r7_c8_2.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r8_c8_3.png",
+            "image_path": "questions-images/10th_spatial_ability_r8_c8_3.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -998,8 +998,8 @@
             "option_c_image": "",
             "option_d": "DE",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r8_c8_3.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r9_c8_4.png",
+            "image_path": "questions-images/10th_spatial_ability_r9_c8_4.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -1013,8 +1013,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r9_c8_4.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r10_c8_5.png",
+            "image_path": "questions-images/10th_spatial_ability_r10_c8_5.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -1028,8 +1028,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r10_c8_5.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r11_c8_6.png",
+            "image_path": "questions-images/10th_spatial_ability_r11_c8_6.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -1043,8 +1043,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r11_c8_6.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r12_c8_7.png",
+            "image_path": "questions-images/10th_spatial_ability_r12_c8_7.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -1058,8 +1058,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r12_c8_7.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r13_c8_8.png",
+            "image_path": "questions-images/10th_spatial_ability_r13_c8_8.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -1073,8 +1073,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r13_c8_8.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r14_c8_9.png",
+            "image_path": "questions-images/10th_spatial_ability_r14_c8_9.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -1103,8 +1103,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r17_c3_10.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r17_c8_11.png",
+            "image_path": "questions-images/10th_spatial_ability_r18_c3_12.png",
+            "image_path_2": "questions-images/10th_spatial_ability_r18_c8_13.png",
             "correct_option": "Q"
           },
           {
@@ -1118,8 +1118,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r18_c3_12.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r18_c8_13.png",
+            "image_path": "questions-images/10th_spatial_ability_r19_c3_14.png",
+            "image_path_2": "questions-images/10th_spatial_ability_r19_c8_15.png",
             "correct_option": "T"
           },
           {
@@ -1133,8 +1133,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r19_c3_14.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r19_c8_15.png",
+            "image_path": "questions-images/10th_spatial_ability_r20_c3_16.png",
+            "image_path_2": "questions-images/10th_spatial_ability_r20_c8_17.png",
             "correct_option": "F"
           },
           {
@@ -1148,8 +1148,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r20_c3_16.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r20_c8_17.png",
+            "image_path": "questions-images/10th_spatial_ability_r21_c3_18.png",
+            "image_path_2": "questions-images/10th_spatial_ability_r21_c8_19.png",
             "correct_option": "X"
           },
           {
@@ -1163,8 +1163,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r21_c3_18.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r21_c8_19.png",
+            "image_path": "questions-images/10th_spatial_ability_r22_c3_20.png",
+            "image_path_2": "questions-images/10th_spatial_ability_r22_c8_21.png",
             "correct_option": "H"
           },
           {
@@ -1178,8 +1178,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r22_c3_20.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r22_c8_21.png",
+            "image_path": "questions-images/10th_spatial_ability_r23_c3_22.png",
+            "image_path_2": "questions-images/10th_spatial_ability_r23_c8_23.png",
             "correct_option": "P"
           },
           {
@@ -1193,8 +1193,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r23_c3_22.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r23_c8_23.png",
+            "image_path": "questions-images/10th_spatial_ability_r24_c3_24.png",
+            "image_path_2": "questions-images/10th_spatial_ability_r24_c8_25.png",
             "correct_option": "D"
           },
           {
@@ -1208,8 +1208,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r24_c3_24.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r24_c8_25.png",
+            "image_path": "questions-images/10th_spatial_ability_r25_c3_26.png",
+            "image_path_2": "questions-images/10th_spatial_ability_r25_c8_27.png",
             "correct_option": "A"
           },
           {
@@ -1223,8 +1223,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/10th_spatial_ability_r25_c3_26.png",
-            "image_path_2": "questions-images/10th_spatial_ability_r25_c8_27.png",
+            "image_path": "questions-images/10th_spatial_ability_r26_c3_28.png",
+            "image_path_2": "questions-images/10th_spatial_ability_r26_c8_29.png",
             "correct_option": "S"
           }
         ]
@@ -1431,13 +1431,13 @@
           {
             "question_number": 14,
             "question_text": "One thousand microns is equal to",
-            "option_a": "10-5m",
+            "option_a": "10⁻⁵m",
             "option_a_image": "",
-            "option_b": "10 -3m",
+            "option_b": "10⁻³m",
             "option_b_image": "",
-            "option_c": "10 -4m",
+            "option_c": "10⁻⁴m",
             "option_c_image": "",
-            "option_d": "10 -2m",
+            "option_d": "10⁻²m",
             "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
@@ -2020,7 +2020,7 @@
           },
           {
             "question_number": 12,
-            "question_text": "12.\tI felt the wall of the tunnel shiver. The master alarm squealed through my earphones. Almost simultaneously, Jack yelled down to me that there was a warning light on. Fleeting but spectacular sights snapped into an out of view, the snow, the shower of debris, the moon, looming close and big, the dazzling sunshine for once unfiltered by layers of air. The last twelve hours before re-entry were particular bone-chilling. During this period, I had to go up in to command module. Even after the fiery re-entry splashing down in 81o water in south pacific, we could still see our frosty breath inside the command module.\nWhich one of the following reasons would one consider as more as possible for the warning lights to be on?",
+            "question_text": "12.\tI felt the wall of the tunnel shiver. The master alarm squealed through my earphones. Almost simultaneously, Jack yelled down to me that there was a warning light on. Fleeting but spectacular sights snapped into an out of view, the snow, the shower of debris, the moon, looming close and big, the dazzling sunshine for once unfiltered by layers of air. The last twelve hours before re-entry were particular bone-chilling. During this period, I had to go up in to command module. Even after the fiery re-entry splashing down in 81° water in south pacific, we could still see our frosty breath inside the command module.\nWhich one of the following reasons would one consider as more as possible for the warning lights to be on?",
             "option_a": "There was a shower of debris.",
             "option_a_image": "",
             "option_b": "Jack was yelling.",
@@ -2176,7 +2176,7 @@
           },
           {
             "question_number": 2,
-            "question_text": "In a triangle ABC, ∠A = 90° and D is the mid-point of AC. The value of BC² − BD² is equal to",
+            "question_text": "In a triangle ABC, ∠A = 9°° and D is the mid-point of AC. The value of BC² − BD² is equal to",
             "option_a": "AD²",
             "option_a_image": "",
             "option_b": "2AD²",
@@ -2260,7 +2260,7 @@
             "option_c_image": "",
             "option_d": "456",
             "option_d_image": "",
-            "image_path": "questions-images/8th_8th_numerical_r14_c3_0.png",
+            "image_path": "",
             "image_path_2": "",
             "correct_option": "B"
           },
@@ -2282,31 +2282,31 @@
           {
             "question_number": 9,
             "question_text": "Which shows 833,000 written in scientific notation?",
-            "option_a": "8.33*10 3",
+            "option_a": "8.33*10³",
             "option_a_image": "",
-            "option_b": "8.33*10 4",
+            "option_b": "8.33*10⁴",
             "option_b_image": "",
-            "option_c": "8.33*10 5",
+            "option_c": "8.33*10⁵",
             "option_c_image": "",
-            "option_d": "8.33*10 6",
+            "option_d": "8.33*10⁶",
             "option_d_image": "",
-            "image_path": "questions-images/8th_8th_numerical_r14_c3_0.png",
-            "image_path_2": "questions-images/8th_8th_numerical_r16_c8_1.png",
+            "image_path": "",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
             "question_number": 10,
-            "question_text": "Nina made a triangle by cutting the corner of a sheet of paper. One angle is 45 0  . What is the measure of the third angle of Nina's triangle ?",
-            "option_a": "30 0",
-            "option_a_image": "questions-images/8th_8th_numerical_r17_c4_3.png",
-            "option_b": "45 0",
-            "option_b_image": "questions-images/8th_8th_numerical_r17_c5_4.png",
+            "question_text": "Nina made a triangle by cutting the corner of a sheet of paper. One angle is 45°  . What is the measure of the third angle of Nina's triangle ?",
+            "option_a": "30°",
+            "option_a_image": "",
+            "option_b": "45°",
+            "option_b_image": "",
             "option_c": "55 0",
-            "option_c_image": "questions-images/8th_8th_numerical_r17_c6_5.png",
-            "option_d": "60 0",
-            "option_d_image": "questions-images/8th_8th_numerical_r17_c7_6.png",
+            "option_c_image": "",
+            "option_d": "60°",
+            "option_d_image": "",
             "image_path": "questions-images/8th_8th_numerical_r16_c8_1.png",
-            "image_path_2": "questions-images/8th_8th_numerical_r17_c3_2.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -2320,37 +2320,37 @@
             "option_c_image": "questions-images/8th_8th_numerical_r17_c6_5.png",
             "option_d": "",
             "option_d_image": "questions-images/8th_8th_numerical_r17_c7_6.png",
-            "image_path": "questions-images/8th_8th_numerical_r16_c8_1.png",
-            "image_path_2": "questions-images/8th_8th_numerical_r17_c3_2.png",
+            "image_path": "questions-images/8th_8th_numerical_r17_c3_2.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
             "question_number": 12,
             "question_text": "This rectangular prism has a length of 14cm , a height of 8cm , and a width of 3cm . What is the volume ?",
             "option_a": "25 cu cm",
-            "option_a_image": "questions-images/8th_8th_numerical_r17_c4_3.png",
+            "option_a_image": "",
             "option_b": "42 cu cm",
-            "option_b_image": "questions-images/8th_8th_numerical_r17_c5_4.png",
+            "option_b_image": "",
             "option_c": "112 cu cm",
-            "option_c_image": "questions-images/8th_8th_numerical_r17_c6_5.png",
+            "option_c_image": "",
             "option_d": "336 cu cm",
-            "option_d_image": "questions-images/8th_8th_numerical_r17_c7_6.png",
-            "image_path": "questions-images/8th_8th_numerical_r17_c3_2.png",
-            "image_path_2": "questions-images/8th_8th_numerical_r18_c8_7.png",
+            "option_d_image": "",
+            "image_path": "questions-images/8th_8th_numerical_r18_c8_7.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
             "question_number": 13,
             "question_text": "Which expression represents the product of n and 25 ?",
             "option_a": "25n",
-            "option_a_image": "questions-images/8th_8th_numerical_r20_c4_8.png",
+            "option_a_image": "",
             "option_b": "25-n",
-            "option_b_image": "questions-images/8th_8th_numerical_r20_c5_9.png",
+            "option_b_image": "",
             "option_c": "25+n",
-            "option_c_image": "questions-images/8th_8th_numerical_r20_c6_10.png",
+            "option_c_image": "",
             "option_d": "25/n",
-            "option_d_image": "questions-images/8th_8th_numerical_r20_c7_11.png",
-            "image_path": "questions-images/8th_8th_numerical_r18_c8_7.png",
+            "option_d_image": "",
+            "image_path": "",
             "image_path_2": "",
             "correct_option": "A"
           },
@@ -2373,13 +2373,13 @@
             "question_number": 15,
             "question_text": "What is the prime factorization of 45 ?",
             "option_a": "2 3 * 5",
-            "option_a_image": "questions-images/8th_8th_numerical_r20_c4_8.png",
+            "option_a_image": "",
             "option_b": "3 2 * 5",
-            "option_b_image": "questions-images/8th_8th_numerical_r20_c5_9.png",
+            "option_b_image": "",
             "option_c": "5 2 * 3",
-            "option_c_image": "questions-images/8th_8th_numerical_r20_c6_10.png",
+            "option_c_image": "",
             "option_d": "5 2 * 9",
-            "option_d_image": "questions-images/8th_8th_numerical_r20_c7_11.png",
+            "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
             "correct_option": "B"
@@ -2388,13 +2388,13 @@
             "question_number": 16,
             "question_text": "11.3 *2.7 =",
             "option_a": "29.31",
-            "option_a_image": "questions-images/8th_8th_numerical_r23_c4_12.png",
+            "option_a_image": "",
             "option_b": "29.51",
-            "option_b_image": "questions-images/8th_8th_numerical_r23_c5_13.png",
+            "option_b_image": "",
             "option_c": "30.31",
-            "option_c_image": "questions-images/8th_8th_numerical_r23_c6_14.png",
+            "option_c_image": "",
             "option_d": "30.51",
-            "option_d_image": "questions-images/8th_8th_numerical_r23_c7_15.png",
+            "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
             "correct_option": "D"
@@ -2410,7 +2410,7 @@
             "option_c_image": "questions-images/8th_8th_numerical_r23_c6_14.png",
             "option_d": "",
             "option_d_image": "questions-images/8th_8th_numerical_r23_c7_15.png",
-            "image_path": "questions-images/8th_8th_numerical_r24_c3_16.png",
+            "image_path": "",
             "image_path_2": "",
             "correct_option": "A"
           },
@@ -2418,13 +2418,13 @@
             "question_number": 18,
             "question_text": "",
             "option_a": "",
-            "option_a_image": "questions-images/8th_8th_numerical_r23_c4_12.png",
+            "option_a_image": "questions-images/8th_8th_numerical_r24_c4_17.png",
             "option_b": "",
-            "option_b_image": "questions-images/8th_8th_numerical_r23_c5_13.png",
+            "option_b_image": "questions-images/8th_8th_numerical_r24_c5_18.png",
             "option_c": "",
-            "option_c_image": "questions-images/8th_8th_numerical_r23_c6_14.png",
+            "option_c_image": "questions-images/8th_8th_numerical_r24_c6_19.png",
             "option_d": "",
-            "option_d_image": "questions-images/8th_8th_numerical_r23_c7_15.png",
+            "option_d_image": "questions-images/8th_8th_numerical_r24_c7_20.png",
             "image_path": "questions-images/8th_8th_numerical_r24_c3_16.png",
             "image_path_2": "",
             "correct_option": "B"
@@ -2433,14 +2433,14 @@
             "question_number": 19,
             "question_text": "In a parking lot , 1 out of every 8 cars is blue . What percent of the cars in this lot are blue ?",
             "option_a": "0.0125",
-            "option_a_image": "questions-images/8th_8th_numerical_r24_c4_17.png",
+            "option_a_image": "",
             "option_b": "0.07",
-            "option_b_image": "questions-images/8th_8th_numerical_r24_c5_18.png",
+            "option_b_image": "",
             "option_c": "0.09",
-            "option_c_image": "questions-images/8th_8th_numerical_r24_c6_19.png",
+            "option_c_image": "",
             "option_d": "12.5",
-            "option_d_image": "questions-images/8th_8th_numerical_r24_c7_20.png",
-            "image_path": "questions-images/8th_8th_numerical_r24_c3_16.png",
+            "option_d_image": "",
+            "image_path": "",
             "image_path_2": "",
             "correct_option": "D"
           },
@@ -2722,7 +2722,7 @@
           },
           {
             "question_number": 18,
-            "question_text": "Which number should come next? 144  121 \t100   81   64  ?",
+            "question_text": "Which number should come next? 144  121 \t10⁰   81   64  ?",
             "option_a": "17",
             "option_a_image": "",
             "option_b": "19",
@@ -2783,7 +2783,7 @@
             "option_d": "Fig D",
             "option_d_image": "",
             "image_path": "questions-images/8th_spatial_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -2797,8 +2797,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r6_c8_1.png",
+            "image_path": "questions-images/8th_spatial_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -2812,8 +2812,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r6_c8_1.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r7_c8_2.png",
+            "image_path": "questions-images/8th_spatial_ability_r7_c8_2.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -2827,8 +2827,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r7_c8_2.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r8_c8_3.png",
+            "image_path": "questions-images/8th_spatial_ability_r8_c8_3.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -2842,8 +2842,8 @@
             "option_c_image": "",
             "option_d": "DE",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r8_c8_3.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r9_c8_4.png",
+            "image_path": "questions-images/8th_spatial_ability_r9_c8_4.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -2857,8 +2857,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r9_c8_4.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r10_c8_5.png",
+            "image_path": "questions-images/8th_spatial_ability_r10_c8_5.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -2872,8 +2872,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r10_c8_5.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r11_c8_6.png",
+            "image_path": "questions-images/8th_spatial_ability_r11_c8_6.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -2887,8 +2887,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r11_c8_6.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r12_c8_7.png",
+            "image_path": "questions-images/8th_spatial_ability_r12_c8_7.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -2902,8 +2902,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r12_c8_7.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r13_c8_8.png",
+            "image_path": "questions-images/8th_spatial_ability_r13_c8_8.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -2917,8 +2917,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r13_c8_8.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r14_c8_9.png",
+            "image_path": "questions-images/8th_spatial_ability_r14_c8_9.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -2947,8 +2947,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r17_c3_10.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r17_c8_11.png",
+            "image_path": "questions-images/8th_spatial_ability_r18_c3_12.png",
+            "image_path_2": "questions-images/8th_spatial_ability_r18_c8_13.png",
             "correct_option": "Q"
           },
           {
@@ -2962,8 +2962,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r18_c3_12.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r18_c8_13.png",
+            "image_path": "questions-images/8th_spatial_ability_r19_c3_14.png",
+            "image_path_2": "questions-images/8th_spatial_ability_r19_c8_15.png",
             "correct_option": "T"
           },
           {
@@ -2977,8 +2977,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r19_c3_14.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r19_c8_15.png",
+            "image_path": "questions-images/8th_spatial_ability_r20_c3_16.png",
+            "image_path_2": "questions-images/8th_spatial_ability_r20_c8_17.png",
             "correct_option": "F"
           },
           {
@@ -2992,8 +2992,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r20_c3_16.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r20_c8_17.png",
+            "image_path": "questions-images/8th_spatial_ability_r21_c3_18.png",
+            "image_path_2": "questions-images/8th_spatial_ability_r21_c8_19.png",
             "correct_option": "X"
           },
           {
@@ -3007,8 +3007,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r21_c3_18.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r21_c8_19.png",
+            "image_path": "questions-images/8th_spatial_ability_r22_c3_20.png",
+            "image_path_2": "questions-images/8th_spatial_ability_r22_c8_21.png",
             "correct_option": "H"
           },
           {
@@ -3022,8 +3022,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r22_c3_20.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r22_c8_21.png",
+            "image_path": "questions-images/8th_spatial_ability_r23_c3_22.png",
+            "image_path_2": "questions-images/8th_spatial_ability_r23_c8_23.png",
             "correct_option": "P"
           },
           {
@@ -3037,8 +3037,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r23_c3_22.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r23_c8_23.png",
+            "image_path": "questions-images/8th_spatial_ability_r24_c3_24.png",
+            "image_path_2": "questions-images/8th_spatial_ability_r24_c8_25.png",
             "correct_option": "D"
           },
           {
@@ -3052,8 +3052,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r24_c3_24.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r24_c8_25.png",
+            "image_path": "questions-images/8th_spatial_ability_r25_c3_26.png",
+            "image_path_2": "questions-images/8th_spatial_ability_r25_c8_27.png",
             "correct_option": "A"
           },
           {
@@ -3067,8 +3067,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/8th_spatial_ability_r25_c3_26.png",
-            "image_path_2": "questions-images/8th_spatial_ability_r25_c8_27.png",
+            "image_path": "questions-images/8th_spatial_ability_r26_c3_28.png",
+            "image_path_2": "questions-images/8th_spatial_ability_r26_c8_29.png",
             "correct_option": "S"
           }
         ]
@@ -3096,13 +3096,13 @@
             "question_number": 2,
             "question_text": "What causes light to become dimmer with distance?",
             "option_a": "Diffraction and scattering",
-            "option_a_image": "questions-images/8th_8th_mechanical_r7_c4_0.png",
+            "option_a_image": "",
             "option_b": "Refraction and scattering",
-            "option_b_image": "questions-images/8th_8th_mechanical_r7_c5_1.png",
+            "option_b_image": "",
             "option_c": "Absorption and scattering",
-            "option_c_image": "questions-images/8th_8th_mechanical_r7_c6_2.png",
+            "option_c_image": "",
             "option_d": "Reflection and scattering",
-            "option_d_image": "questions-images/8th_8th_mechanical_r7_c7_3.png",
+            "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
             "correct_option": "C"
@@ -3864,7 +3864,7 @@
           },
           {
             "question_number": 12,
-            "question_text": "I felt the wall of the tunnel shiver. The master alarm squealed through my earphones. Almost simultaneously, Jack yelled down to me that there was a warning light on. Fleeting but spectacular sights snapped into an out of view, the snow, the shower of debris, the moon, looming close and big, the dazzling sunshine for once unfiltered by layers of air. The last twelve hours before re-entry were particular bone-chilling. During this period, I had to go up in to command module. Even after the fiery re-entry splashing down in 81o water in south pacific, we could still see our frosty breath inside the command module.\nWhich one of the following reasons would one consider as more as possible for the warning lights to be on?",
+            "question_text": "I felt the wall of the tunnel shiver. The master alarm squealed through my earphones. Almost simultaneously, Jack yelled down to me that there was a warning light on. Fleeting but spectacular sights snapped into an out of view, the snow, the shower of debris, the moon, looming close and big, the dazzling sunshine for once unfiltered by layers of air. The last twelve hours before re-entry were particular bone-chilling. During this period, I had to go up in to command module. Even after the fiery re-entry splashing down in 81° water in south pacific, we could still see our frosty breath inside the command module.\nWhich one of the following reasons would one consider as more as possible for the warning lights to be on?",
             "option_a": "There was a shower of debris",
             "option_a_image": "",
             "option_b": "Jack was yelling.",
@@ -4006,21 +4006,21 @@
           {
             "question_number": 1,
             "question_text": "In the star shape shown in figure , the sum of the angles marked at the corners A , B , C , D , E is",
-            "option_a": "90 0",
+            "option_a": "90°",
             "option_a_image": "",
             "option_b": "135 0",
             "option_b_image": "",
-            "option_c": "180 0",
+            "option_c": "180°",
             "option_c_image": "",
             "option_d": "140 0",
             "option_d_image": "",
             "image_path": "questions-images/9th_9th_numerical_r7_c8_0.png",
-            "image_path_2": "questions-images/9th_9th_numerical_r8_c8_1.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
             "question_number": 2,
-            "question_text": "An acute angle is an angle whose measure is between 0 0  and 90 0 . Using the rays in the diagram , how many different acute angles can be formed ?",
+            "question_text": "An acute angle is an angle whose measure is between 0 0  and 90° . Using the rays in the diagram , how many different acute angles can be formed ?",
             "option_a": "12",
             "option_a_image": "",
             "option_b": "9",
@@ -4029,8 +4029,8 @@
             "option_c_image": "",
             "option_d": "10",
             "option_d_image": "",
-            "image_path": "questions-images/9th_9th_numerical_r7_c8_0.png",
-            "image_path_2": "questions-images/9th_9th_numerical_r8_c8_1.png",
+            "image_path": "questions-images/9th_9th_numerical_r8_c8_1.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -4044,8 +4044,8 @@
             "option_c_image": "",
             "option_d": "44",
             "option_d_image": "",
-            "image_path": "questions-images/9th_9th_numerical_r8_c8_1.png",
-            "image_path_2": "questions-images/9th_9th_numerical_r10_c8_2.png",
+            "image_path": "",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -4060,22 +4060,22 @@
             "option_d": "8",
             "option_d_image": "",
             "image_path": "questions-images/9th_9th_numerical_r10_c8_2.png",
-            "image_path_2": "questions-images/9th_9th_numerical_r11_c8_3.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
             "question_number": 5,
             "question_text": "Total area of quadrilateral ABCD is 20cm 2 and offsets on BD are 2cm and 3cm . The length of BD is",
             "option_a": "5cm",
-            "option_a_image": "questions-images/9th_9th_numerical_r12_c4_4.png",
+            "option_a_image": "",
             "option_b": "6cm",
-            "option_b_image": "questions-images/9th_9th_numerical_r12_c5_5.png",
+            "option_b_image": "",
             "option_c": "8cm",
             "option_c_image": "",
             "option_d": "10cm",
             "option_d_image": "",
-            "image_path": "questions-images/9th_9th_numerical_r10_c8_2.png",
-            "image_path_2": "questions-images/9th_9th_numerical_r11_c8_3.png",
+            "image_path": "questions-images/9th_9th_numerical_r11_c8_3.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -4089,22 +4089,22 @@
             "option_c_image": "",
             "option_d": "35 0",
             "option_d_image": "",
-            "image_path": "questions-images/9th_9th_numerical_r11_c8_3.png",
-            "image_path_2": "questions-images/9th_9th_numerical_r12_c8_6.png",
+            "image_path": "questions-images/9th_9th_numerical_r12_c8_6.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
             "question_number": 7,
             "question_text": "How many small cubes with edges of 10cm can be just accommodated in a cubical box of 1m edge ?",
             "option_a": "10",
-            "option_a_image": "questions-images/9th_9th_numerical_r12_c4_4.png",
-            "option_b": "100",
-            "option_b_image": "questions-images/9th_9th_numerical_r12_c5_5.png",
-            "option_c": "1000",
-            "option_c_image": "questions-images/9th_9th_numerical_r14_c6_9.png",
-            "option_d": "10000",
-            "option_d_image": "questions-images/9th_9th_numerical_r14_c7_10.png",
-            "image_path": "questions-images/9th_9th_numerical_r12_c8_6.png",
+            "option_a_image": "",
+            "option_b": "10⁰",
+            "option_b_image": "",
+            "option_c": "10⁰⁰",
+            "option_c_image": "",
+            "option_d": "10⁰⁰⁰",
+            "option_d_image": "",
+            "image_path": "",
             "image_path_2": "",
             "correct_option": "C"
           },
@@ -4119,7 +4119,7 @@
             "option_c_image": "questions-images/9th_9th_numerical_r14_c6_9.png",
             "option_d": "",
             "option_d_image": "questions-images/9th_9th_numerical_r14_c7_10.png",
-            "image_path": "questions-images/9th_9th_numerical_r15_c8_11.png",
+            "image_path": "",
             "image_path_2": "",
             "correct_option": "B"
           },
@@ -4127,13 +4127,13 @@
             "question_number": 9,
             "question_text": "What is the volume of the rectangular solid shown below ?",
             "option_a": "10 cubic cm",
-            "option_a_image": "questions-images/9th_9th_numerical_r14_c4_7.png",
+            "option_a_image": "",
             "option_b": "25 cubic cm",
-            "option_b_image": "questions-images/9th_9th_numerical_r14_c5_8.png",
+            "option_b_image": "",
             "option_c": "30 cubic cm",
-            "option_c_image": "questions-images/9th_9th_numerical_r14_c6_9.png",
+            "option_c_image": "",
             "option_d": "62 cubic cm",
-            "option_d_image": "questions-images/9th_9th_numerical_r14_c7_10.png",
+            "option_d_image": "",
             "image_path": "questions-images/9th_9th_numerical_r15_c8_11.png",
             "image_path_2": "",
             "correct_option": "C"
@@ -4149,8 +4149,8 @@
             "option_c_image": "",
             "option_d": "x =6",
             "option_d_image": "",
-            "image_path": "questions-images/9th_9th_numerical_r15_c8_11.png",
-            "image_path_2": "questions-images/9th_9th_numerical_r17_c8_12.png",
+            "image_path": "",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -4165,7 +4165,7 @@
             "option_d": "48",
             "option_d_image": "",
             "image_path": "questions-images/9th_9th_numerical_r17_c8_12.png",
-            "image_path_2": "questions-images/9th_9th_numerical_r18_c8_13.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -4179,8 +4179,8 @@
             "option_c_image": "",
             "option_d": "12",
             "option_d_image": "",
-            "image_path": "questions-images/9th_9th_numerical_r17_c8_12.png",
-            "image_path_2": "questions-images/9th_9th_numerical_r18_c8_13.png",
+            "image_path": "questions-images/9th_9th_numerical_r18_c8_13.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -4194,7 +4194,7 @@
             "option_c_image": "",
             "option_d": "Reflexive Property",
             "option_d_image": "",
-            "image_path": "questions-images/9th_9th_numerical_r18_c8_13.png",
+            "image_path": "",
             "image_path_2": "",
             "correct_option": "C"
           },
@@ -4204,9 +4204,9 @@
             "option_a": "5*1/5=1",
             "option_a_image": "",
             "option_b": "5*1 =5",
-            "option_b_image": "questions-images/9th_9th_numerical_r21_c5_14.png",
+            "option_b_image": "",
             "option_c": "5*0=0",
-            "option_c_image": "questions-images/9th_9th_numerical_r21_c6_15.png",
+            "option_c_image": "",
             "option_d": "5*5=25",
             "option_d_image": "",
             "image_path": "",
@@ -4234,12 +4234,12 @@
             "option_a": "14+n =72",
             "option_a_image": "",
             "option_b": "72n =14",
-            "option_b_image": "questions-images/9th_9th_numerical_r21_c5_14.png",
+            "option_b_image": "",
             "option_c": "14-n =72",
-            "option_c_image": "questions-images/9th_9th_numerical_r21_c6_15.png",
+            "option_c_image": "",
             "option_d": "72+n =14",
             "option_d_image": "",
-            "image_path": "questions-images/9th_9th_numerical_r23_c8_16.png",
+            "image_path": "",
             "image_path_2": "",
             "correct_option": "A"
           },
@@ -4269,7 +4269,7 @@
             "option_c_image": "",
             "option_d": "24",
             "option_d_image": "",
-            "image_path": "questions-images/9th_9th_numerical_r23_c8_16.png",
+            "image_path": "",
             "image_path_2": "",
             "correct_option": "A"
           },
@@ -4566,7 +4566,7 @@
           },
           {
             "question_number": 18,
-            "question_text": "Which number should come next? 144      121  \t100     81    64?",
+            "question_text": "Which number should come next? 144      121  \t10⁰     81    64?",
             "option_a": "17",
             "option_a_image": "",
             "option_b": "19",
@@ -4627,7 +4627,7 @@
             "option_d": "Fig D",
             "option_d_image": "",
             "image_path": "questions-images/9th_spatial_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -4641,8 +4641,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r6_c8_1.png",
+            "image_path": "questions-images/9th_spatial_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -4656,8 +4656,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r6_c8_1.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r7_c8_2.png",
+            "image_path": "questions-images/9th_spatial_ability_r7_c8_2.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -4671,8 +4671,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r7_c8_2.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r8_c8_3.png",
+            "image_path": "questions-images/9th_spatial_ability_r8_c8_3.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -4686,8 +4686,8 @@
             "option_c_image": "",
             "option_d": "DE",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r8_c8_3.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r9_c8_4.png",
+            "image_path": "questions-images/9th_spatial_ability_r9_c8_4.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -4701,8 +4701,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r9_c8_4.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r10_c8_5.png",
+            "image_path": "questions-images/9th_spatial_ability_r10_c8_5.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -4716,8 +4716,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r10_c8_5.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r11_c8_6.png",
+            "image_path": "questions-images/9th_spatial_ability_r11_c8_6.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -4731,8 +4731,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r11_c8_6.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r12_c8_7.png",
+            "image_path": "questions-images/9th_spatial_ability_r12_c8_7.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -4746,8 +4746,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r12_c8_7.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r13_c8_8.png",
+            "image_path": "questions-images/9th_spatial_ability_r13_c8_8.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -4761,8 +4761,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r13_c8_8.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r14_c8_9.png",
+            "image_path": "questions-images/9th_spatial_ability_r14_c8_9.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -4791,8 +4791,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r17_c3_10.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r17_c8_11.png",
+            "image_path": "questions-images/9th_spatial_ability_r18_c3_12.png",
+            "image_path_2": "questions-images/9th_spatial_ability_r18_c8_13.png",
             "correct_option": "Q"
           },
           {
@@ -4806,8 +4806,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r18_c3_12.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r18_c8_13.png",
+            "image_path": "questions-images/9th_spatial_ability_r19_c3_14.png",
+            "image_path_2": "questions-images/9th_spatial_ability_r19_c8_15.png",
             "correct_option": "T"
           },
           {
@@ -4821,8 +4821,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r19_c3_14.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r19_c8_15.png",
+            "image_path": "questions-images/9th_spatial_ability_r20_c3_16.png",
+            "image_path_2": "questions-images/9th_spatial_ability_r20_c8_17.png",
             "correct_option": "F"
           },
           {
@@ -4836,8 +4836,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r20_c3_16.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r20_c8_17.png",
+            "image_path": "questions-images/9th_spatial_ability_r21_c3_18.png",
+            "image_path_2": "questions-images/9th_spatial_ability_r21_c8_19.png",
             "correct_option": "X"
           },
           {
@@ -4851,8 +4851,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r21_c3_18.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r21_c8_19.png",
+            "image_path": "questions-images/9th_spatial_ability_r22_c3_20.png",
+            "image_path_2": "questions-images/9th_spatial_ability_r22_c8_21.png",
             "correct_option": "H"
           },
           {
@@ -4866,8 +4866,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r22_c3_20.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r22_c8_21.png",
+            "image_path": "questions-images/9th_spatial_ability_r23_c3_22.png",
+            "image_path_2": "questions-images/9th_spatial_ability_r23_c8_23.png",
             "correct_option": "P"
           },
           {
@@ -4881,8 +4881,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r23_c3_22.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r23_c8_23.png",
+            "image_path": "questions-images/9th_spatial_ability_r24_c3_24.png",
+            "image_path_2": "questions-images/9th_spatial_ability_r24_c8_25.png",
             "correct_option": "D"
           },
           {
@@ -4896,8 +4896,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r24_c3_24.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r24_c8_25.png",
+            "image_path": "questions-images/9th_spatial_ability_r25_c3_26.png",
+            "image_path_2": "questions-images/9th_spatial_ability_r25_c8_27.png",
             "correct_option": "A"
           },
           {
@@ -4911,8 +4911,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/9th_spatial_ability_r25_c3_26.png",
-            "image_path_2": "questions-images/9th_spatial_ability_r25_c8_27.png",
+            "image_path": "questions-images/9th_spatial_ability_r26_c3_28.png",
+            "image_path_2": "questions-images/9th_spatial_ability_r26_c8_29.png",
             "correct_option": "S"
           }
         ]
@@ -5153,7 +5153,7 @@
             "option_a_image": "",
             "option_b": "548",
             "option_b_image": "",
-            "option_c": "5.48 * 10-5",
+            "option_c": "5.48 * 10⁻⁵",
             "option_c_image": "",
             "option_d": "54.8",
             "option_d_image": "",
@@ -5178,7 +5178,7 @@
           },
           {
             "question_number": 18,
-            "question_text": "Prefix for 109 is",
+            "question_text": "Prefix for 10⁹ is",
             "option_a": "Giga",
             "option_a_image": "",
             "option_b": "Milli",
@@ -5211,9 +5211,9 @@
             "question_text": "1 horse power is equal to",
             "option_a": "320 W",
             "option_a_image": "",
-            "option_b": "100 W",
+            "option_b": "10⁰ W",
             "option_b_image": "",
-            "option_c": "1000 W",
+            "option_c": "10⁰⁰ W",
             "option_c_image": "",
             "option_d": "746 W",
             "option_d_image": "",
@@ -5708,7 +5708,7 @@
           },
           {
             "question_number": 12,
-            "question_text": "I felt the wall of the tunnel shiver. The master alarm squealed through my earphones. Almost simultaneously, Jack yelled down to me that there was a warning light on. Fleeting but spectacular sights snapped into an out of view, the snow, the shower of debris, the moon, looming close and big, the dazzling sunshine for once unfiltered by layers of air. The last twelve hours before re-entry were particular bone-chilling. During this period, I had to go up in to command module. Even after the fiery re-entry splashing down in 81o water in south pacific, we could still see our frosty breath inside the command module.\nWhich one of the following reasons would one consider as more as possible for the warning lights to be on?",
+            "question_text": "I felt the wall of the tunnel shiver. The master alarm squealed through my earphones. Almost simultaneously, Jack yelled down to me that there was a warning light on. Fleeting but spectacular sights snapped into an out of view, the snow, the shower of debris, the moon, looming close and big, the dazzling sunshine for once unfiltered by layers of air. The last twelve hours before re-entry were particular bone-chilling. During this period, I had to go up in to command module. Even after the fiery re-entry splashing down in 81° water in south pacific, we could still see our frosty breath inside the command module.\nWhich one of the following reasons would one consider as more as possible for the warning lights to be on?",
             "option_a": "There was a shower of debris.",
             "option_a_image": "",
             "option_b": "Jack was yelling.",
@@ -5957,7 +5957,7 @@
             "question_text": "A fruit seller had some apples. He sells 40% apples and still has 420 apples. Originally, he had:",
             "option_a": "588 apples",
             "option_a_image": "",
-            "option_b": "600 Apples",
+            "option_b": "60° Apples",
             "option_b_image": "",
             "option_c": "672 Apples",
             "option_c_image": "",
@@ -5987,11 +5987,11 @@
             "question_text": "A hall is 15 m long and 12 m broad. If the sum of the areas of the floor and the ceiling is equal to the sum of the areas of four walls, the volume of the hall is:",
             "option_a": "720",
             "option_a_image": "",
-            "option_b": "900",
+            "option_b": "90°",
             "option_b_image": "",
             "option_c": "1200",
             "option_c_image": "",
-            "option_d": "1800",
+            "option_d": "180°",
             "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
@@ -6014,7 +6014,7 @@
           },
           {
             "question_number": 12,
-            "question_text": "If a - b = 3 and A2 + b2 = 29, find the value of ab.",
+            "question_text": "If a - b = 3 and A2 + b² = 29, find the value of ab.",
             "option_a": "10",
             "option_a_image": "",
             "option_b": "12",
@@ -6029,7 +6029,7 @@
           },
           {
             "question_number": 13,
-            "question_text": "Two ships are sailing in the sea on the two sides of a lighthouse. The angle of elevation of the top of the lighthouse is observed from the ships are 30º and 45º respectively. If the lighthouse is 100 m high, the distance between the two ships is:",
+            "question_text": "Two ships are sailing in the sea on the two sides of a lighthouse. The angle of elevation of the top of the lighthouse is observed from the ships are 30º and 45º respectively. If the lighthouse is 10⁰ m high, the distance between the two ships is:",
             "option_a": "173m",
             "option_a_image": "",
             "option_b": "200m",
@@ -6044,7 +6044,7 @@
           },
           {
             "question_number": 14,
-            "question_text": "A man purchased a cow for Rs. 3000 and sold it the same day for Rs. 3600, allowing the buyer a credit of 2 years. If the rate of interest be 10% per annum, then the man has a gain of:",
+            "question_text": "A man purchased a cow for Rs. 3000 and sold it the same day for Rs. 360°, allowing the buyer a credit of 2 years. If the rate of interest be 10% per annum, then the man has a gain of:",
             "option_a": "0",
             "option_a_image": "",
             "option_b": "0.05",
@@ -6074,7 +6074,7 @@
           },
           {
             "question_number": 16,
-            "question_text": "In a 100 m race, A can give B 10 m and C 28 m. In the same race B can give C:",
+            "question_text": "In a 10⁰ m race, A can give B 10 m and C 28 m. In the same race B can give C:",
             "option_a": "18m",
             "option_a_image": "",
             "option_b": "20m",
@@ -6119,7 +6119,7 @@
           },
           {
             "question_number": 19,
-            "question_text": "A person crosses a 600 m long street in 5 minutes. What is his speed in km per hour?",
+            "question_text": "A person crosses a 60° m long street in 5 minutes. What is his speed in km per hour?",
             "option_a": "3.6",
             "option_a_image": "",
             "option_b": "7.2",
@@ -6410,7 +6410,7 @@
           },
           {
             "question_number": 18,
-            "question_text": "Which number should come next? 144  121   \t100   81   64  ?",
+            "question_text": "Which number should come next? 144  121   \t10⁰   81   64  ?",
             "option_a": "17",
             "option_a_image": "",
             "option_b": "19",
@@ -6471,7 +6471,7 @@
             "option_d": "Fig D",
             "option_d_image": "",
             "image_path": "questions-images/arts_spatial_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -6485,8 +6485,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r6_c8_1.png",
+            "image_path": "questions-images/arts_spatial_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -6500,8 +6500,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r6_c8_1.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r7_c8_2.png",
+            "image_path": "questions-images/arts_spatial_ability_r7_c8_2.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -6515,8 +6515,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r7_c8_2.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r8_c8_3.png",
+            "image_path": "questions-images/arts_spatial_ability_r8_c8_3.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -6530,8 +6530,8 @@
             "option_c_image": "",
             "option_d": "DE",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r8_c8_3.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r9_c8_4.png",
+            "image_path": "questions-images/arts_spatial_ability_r9_c8_4.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -6545,8 +6545,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r9_c8_4.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r10_c8_5.png",
+            "image_path": "questions-images/arts_spatial_ability_r10_c8_5.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -6560,8 +6560,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r10_c8_5.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r11_c8_6.png",
+            "image_path": "questions-images/arts_spatial_ability_r11_c8_6.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -6575,8 +6575,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r11_c8_6.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r12_c8_7.png",
+            "image_path": "questions-images/arts_spatial_ability_r12_c8_7.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -6590,8 +6590,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r12_c8_7.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r13_c8_8.png",
+            "image_path": "questions-images/arts_spatial_ability_r13_c8_8.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -6605,8 +6605,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r13_c8_8.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r14_c8_9.png",
+            "image_path": "questions-images/arts_spatial_ability_r14_c8_9.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -6635,8 +6635,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r17_c3_10.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r17_c8_11.png",
+            "image_path": "questions-images/arts_spatial_ability_r18_c3_12.png",
+            "image_path_2": "questions-images/arts_spatial_ability_r18_c8_13.png",
             "correct_option": "Q"
           },
           {
@@ -6650,8 +6650,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r18_c3_12.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r18_c8_13.png",
+            "image_path": "questions-images/arts_spatial_ability_r19_c3_14.png",
+            "image_path_2": "questions-images/arts_spatial_ability_r19_c8_15.png",
             "correct_option": "T"
           },
           {
@@ -6665,8 +6665,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r19_c3_14.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r19_c8_15.png",
+            "image_path": "questions-images/arts_spatial_ability_r20_c3_16.png",
+            "image_path_2": "questions-images/arts_spatial_ability_r20_c8_17.png",
             "correct_option": "F"
           },
           {
@@ -6680,8 +6680,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r20_c3_16.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r20_c8_17.png",
+            "image_path": "questions-images/arts_spatial_ability_r21_c3_18.png",
+            "image_path_2": "questions-images/arts_spatial_ability_r21_c8_19.png",
             "correct_option": "X"
           },
           {
@@ -6695,8 +6695,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r21_c3_18.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r21_c8_19.png",
+            "image_path": "questions-images/arts_spatial_ability_r22_c3_20.png",
+            "image_path_2": "questions-images/arts_spatial_ability_r22_c8_21.png",
             "correct_option": "H"
           },
           {
@@ -6710,8 +6710,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r22_c3_20.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r22_c8_21.png",
+            "image_path": "questions-images/arts_spatial_ability_r23_c3_22.png",
+            "image_path_2": "questions-images/arts_spatial_ability_r23_c8_23.png",
             "correct_option": "P"
           },
           {
@@ -6725,8 +6725,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r23_c3_22.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r23_c8_23.png",
+            "image_path": "questions-images/arts_spatial_ability_r24_c3_24.png",
+            "image_path_2": "questions-images/arts_spatial_ability_r24_c8_25.png",
             "correct_option": "D"
           },
           {
@@ -6740,8 +6740,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r24_c3_24.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r24_c8_25.png",
+            "image_path": "questions-images/arts_spatial_ability_r25_c3_26.png",
+            "image_path_2": "questions-images/arts_spatial_ability_r25_c8_27.png",
             "correct_option": "A"
           },
           {
@@ -6755,8 +6755,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/arts_spatial_ability_r25_c3_26.png",
-            "image_path_2": "questions-images/arts_spatial_ability_r25_c8_27.png",
+            "image_path": "questions-images/arts_spatial_ability_r26_c3_28.png",
+            "image_path_2": "questions-images/arts_spatial_ability_r26_c8_29.png",
             "correct_option": "S"
           }
         ]
@@ -6777,26 +6777,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r6_c7_4.png",
             "image_path": "questions-images/arts_arts_visual_r6_c3_0.png",
-            "image_path_2": "questions-images/arts_arts_visual_r7_c3_5.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
             "question_number": 2,
-            "question_text": "",
-            "option_a": "",
-            "option_a_image": "questions-images/arts_arts_visual_r6_c4_1.png",
-            "option_b": "",
-            "option_b_image": "questions-images/arts_arts_visual_r6_c5_2.png",
-            "option_c": "",
-            "option_c_image": "questions-images/arts_arts_visual_r6_c6_3.png",
-            "option_d": "",
-            "option_d_image": "questions-images/arts_arts_visual_r6_c7_4.png",
-            "image_path": "questions-images/arts_arts_visual_r6_c3_0.png",
-            "image_path_2": "questions-images/arts_arts_visual_r7_c3_5.png",
-            "correct_option": "C"
-          },
-          {
-            "question_number": 3,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r7_c4_6.png",
@@ -6807,11 +6792,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r7_c7_9.png",
             "image_path": "questions-images/arts_arts_visual_r7_c3_5.png",
-            "image_path_2": "questions-images/arts_arts_visual_r8_c3_10.png",
-            "correct_option": "D"
+            "image_path_2": "",
+            "correct_option": "C"
           },
           {
-            "question_number": 4,
+            "question_number": 3,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r8_c4_11.png",
@@ -6822,11 +6807,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r8_c7_14.png",
             "image_path": "questions-images/arts_arts_visual_r8_c3_10.png",
-            "image_path_2": "questions-images/arts_arts_visual_r9_c3_15.png",
-            "correct_option": "B"
+            "image_path_2": "",
+            "correct_option": "D"
           },
           {
-            "question_number": 5,
+            "question_number": 4,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r9_c4_16.png",
@@ -6837,11 +6822,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r9_c7_19.png",
             "image_path": "questions-images/arts_arts_visual_r9_c3_15.png",
-            "image_path_2": "questions-images/arts_arts_visual_r10_c3_20.png",
-            "correct_option": "D"
+            "image_path_2": "",
+            "correct_option": "B"
           },
           {
-            "question_number": 6,
+            "question_number": 5,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r10_c4_21.png",
@@ -6852,11 +6837,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r10_c7_24.png",
             "image_path": "questions-images/arts_arts_visual_r10_c3_20.png",
-            "image_path_2": "questions-images/arts_arts_visual_r11_c3_25.png",
-            "correct_option": "C"
+            "image_path_2": "",
+            "correct_option": "D"
           },
           {
-            "question_number": 7,
+            "question_number": 6,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r11_c4_26.png",
@@ -6867,11 +6852,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r11_c7_29.png",
             "image_path": "questions-images/arts_arts_visual_r11_c3_25.png",
-            "image_path_2": "questions-images/arts_arts_visual_r12_c3_30.png",
-            "correct_option": "D"
+            "image_path_2": "",
+            "correct_option": "C"
           },
           {
-            "question_number": 8,
+            "question_number": 7,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r12_c4_31.png",
@@ -6882,11 +6867,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r12_c7_34.png",
             "image_path": "questions-images/arts_arts_visual_r12_c3_30.png",
-            "image_path_2": "questions-images/arts_arts_visual_r13_c3_35.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
-            "question_number": 9,
+            "question_number": 8,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r13_c4_36.png",
@@ -6897,11 +6882,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r13_c7_39.png",
             "image_path": "questions-images/arts_arts_visual_r13_c3_35.png",
-            "image_path_2": "questions-images/arts_arts_visual_r14_c3_40.png",
-            "correct_option": "C"
+            "image_path_2": "",
+            "correct_option": "D"
           },
           {
-            "question_number": 10,
+            "question_number": 9,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r14_c4_41.png",
@@ -6912,11 +6897,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r14_c7_44.png",
             "image_path": "questions-images/arts_arts_visual_r14_c3_40.png",
-            "image_path_2": "questions-images/arts_arts_visual_r15_c3_45.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
-            "question_number": 11,
+            "question_number": 10,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r15_c4_46.png",
@@ -6927,11 +6912,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r15_c7_49.png",
             "image_path": "questions-images/arts_arts_visual_r15_c3_45.png",
-            "image_path_2": "questions-images/arts_arts_visual_r16_c3_50.png",
-            "correct_option": "A"
+            "image_path_2": "",
+            "correct_option": "C"
           },
           {
-            "question_number": 12,
+            "question_number": 11,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r16_c4_51.png",
@@ -6942,7 +6927,22 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r16_c7_54.png",
             "image_path": "questions-images/arts_arts_visual_r16_c3_50.png",
-            "image_path_2": "questions-images/arts_arts_visual_r17_c3_55.png",
+            "image_path_2": "",
+            "correct_option": "A"
+          },
+          {
+            "question_number": 12,
+            "question_text": "",
+            "option_a": "",
+            "option_a_image": "questions-images/arts_arts_visual_r17_c4_56.png",
+            "option_b": "",
+            "option_b_image": "questions-images/arts_arts_visual_r17_c5_57.png",
+            "option_c": "",
+            "option_c_image": "questions-images/arts_arts_visual_r17_c6_58.png",
+            "option_d": "",
+            "option_d_image": "questions-images/arts_arts_visual_r17_c7_59.png",
+            "image_path": "questions-images/arts_arts_visual_r17_c3_55.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -6957,26 +6957,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r19_c7_64.png",
             "image_path": "questions-images/arts_arts_visual_r19_c3_60.png",
-            "image_path_2": "questions-images/arts_arts_visual_r20_c3_65.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
             "question_number": 14,
-            "question_text": "",
-            "option_a": "",
-            "option_a_image": "questions-images/arts_arts_visual_r19_c4_61.png",
-            "option_b": "",
-            "option_b_image": "questions-images/arts_arts_visual_r19_c5_62.png",
-            "option_c": "",
-            "option_c_image": "questions-images/arts_arts_visual_r19_c6_63.png",
-            "option_d": "",
-            "option_d_image": "questions-images/arts_arts_visual_r19_c7_64.png",
-            "image_path": "questions-images/arts_arts_visual_r19_c3_60.png",
-            "image_path_2": "questions-images/arts_arts_visual_r20_c3_65.png",
-            "correct_option": "B"
-          },
-          {
-            "question_number": 15,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r20_c4_66.png",
@@ -6987,11 +6972,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r20_c7_69.png",
             "image_path": "questions-images/arts_arts_visual_r20_c3_65.png",
-            "image_path_2": "questions-images/arts_arts_visual_r21_c3_70.png",
-            "correct_option": "C"
+            "image_path_2": "",
+            "correct_option": "B"
           },
           {
-            "question_number": 16,
+            "question_number": 15,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r21_c4_71.png",
@@ -7002,7 +6987,22 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r21_c7_74.png",
             "image_path": "questions-images/arts_arts_visual_r21_c3_70.png",
-            "image_path_2": "questions-images/arts_arts_visual_r22_c3_75.png",
+            "image_path_2": "",
+            "correct_option": "C"
+          },
+          {
+            "question_number": 16,
+            "question_text": "",
+            "option_a": "",
+            "option_a_image": "questions-images/arts_arts_visual_r22_c4_76.png",
+            "option_b": "",
+            "option_b_image": "questions-images/arts_arts_visual_r22_c5_77.png",
+            "option_c": "",
+            "option_c_image": "questions-images/arts_arts_visual_r22_c6_78.png",
+            "option_d": "",
+            "option_d_image": "questions-images/arts_arts_visual_r22_c7_79.png",
+            "image_path": "questions-images/arts_arts_visual_r22_c3_75.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -7017,26 +7017,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r24_c7_84.png",
             "image_path": "questions-images/arts_arts_visual_r24_c3_80.png",
-            "image_path_2": "questions-images/arts_arts_visual_r25_c3_85.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
             "question_number": 18,
-            "question_text": "",
-            "option_a": "",
-            "option_a_image": "questions-images/arts_arts_visual_r24_c4_81.png",
-            "option_b": "",
-            "option_b_image": "questions-images/arts_arts_visual_r24_c5_82.png",
-            "option_c": "",
-            "option_c_image": "questions-images/arts_arts_visual_r24_c6_83.png",
-            "option_d": "",
-            "option_d_image": "questions-images/arts_arts_visual_r24_c7_84.png",
-            "image_path": "questions-images/arts_arts_visual_r24_c3_80.png",
-            "image_path_2": "questions-images/arts_arts_visual_r25_c3_85.png",
-            "correct_option": "B"
-          },
-          {
-            "question_number": 19,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r25_c4_86.png",
@@ -7047,11 +7032,11 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r25_c7_89.png",
             "image_path": "questions-images/arts_arts_visual_r25_c3_85.png",
-            "image_path_2": "questions-images/arts_arts_visual_r26_c3_90.png",
-            "correct_option": "C"
+            "image_path_2": "",
+            "correct_option": "B"
           },
           {
-            "question_number": 20,
+            "question_number": 19,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/arts_arts_visual_r26_c4_91.png",
@@ -7062,7 +7047,22 @@
             "option_d": "",
             "option_d_image": "questions-images/arts_arts_visual_r26_c7_94.png",
             "image_path": "questions-images/arts_arts_visual_r26_c3_90.png",
-            "image_path_2": "questions-images/arts_arts_visual_r27_c3_95.png",
+            "image_path_2": "",
+            "correct_option": "C"
+          },
+          {
+            "question_number": 20,
+            "question_text": "",
+            "option_a": "",
+            "option_a_image": "questions-images/arts_arts_visual_r27_c4_96.png",
+            "option_b": "",
+            "option_b_image": "questions-images/arts_arts_visual_r27_c5_97.png",
+            "option_c": "",
+            "option_c_image": "questions-images/arts_arts_visual_r27_c6_98.png",
+            "option_d": "",
+            "option_d_image": "questions-images/arts_arts_visual_r27_c7_99.png",
+            "image_path": "questions-images/arts_arts_visual_r27_c3_95.png",
+            "image_path_2": "",
             "correct_option": "D"
           }
         ]
@@ -7552,7 +7552,7 @@
           },
           {
             "question_number": 12,
-            "question_text": "I felt the wall of the tunnel shiver. The master alarm squealed through my earphones. Almost simultaneously, Jack yelled down to me that there was a warning light on. Fleeting but spectacular sights snapped into an out of view, the snow, the shower of debris, the moon, looming close and big, the dazzling sunshine for once unfiltered by layers of air. The last twelve hours before re-entry were particular bone-chilling. During this period, I had to go up in to command module. Even after the fiery re-entry splashing down in 81o water in south pacific, we could still see our frosty breath inside the command module.\nWhich one of the following reasons would one consider as more as possible for the warning lights to be on?",
+            "question_text": "I felt the wall of the tunnel shiver. The master alarm squealed through my earphones. Almost simultaneously, Jack yelled down to me that there was a warning light on. Fleeting but spectacular sights snapped into an out of view, the snow, the shower of debris, the moon, looming close and big, the dazzling sunshine for once unfiltered by layers of air. The last twelve hours before re-entry were particular bone-chilling. During this period, I had to go up in to command module. Even after the fiery re-entry splashing down in 81° water in south pacific, we could still see our frosty breath inside the command module.\nWhich one of the following reasons would one consider as more as possible for the warning lights to be on?",
             "option_a": "There was a shower of debris.",
             "option_a_image": "",
             "option_b": "Jack was yelling.",
@@ -7801,7 +7801,7 @@
             "question_text": "A fruit seller had some apples. He sells 40% apples and still has 420 apples. Originally, he had:",
             "option_a": "588 apples",
             "option_a_image": "",
-            "option_b": "600 Apples",
+            "option_b": "60° Apples",
             "option_b_image": "",
             "option_c": "672 Apples",
             "option_c_image": "",
@@ -7831,11 +7831,11 @@
             "question_text": "A hall is 15 m long and 12 m broad. If the sum of the areas of the floor and the ceiling is equal to the sum of the areas of four walls, the volume of the hall is:",
             "option_a": "720",
             "option_a_image": "",
-            "option_b": "900",
+            "option_b": "90°",
             "option_b_image": "",
             "option_c": "1200",
             "option_c_image": "",
-            "option_d": "1800",
+            "option_d": "180°",
             "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
@@ -7858,7 +7858,7 @@
           },
           {
             "question_number": 12,
-            "question_text": "If a - b = 3 and a2 + b2 = 29, find the value of ab.",
+            "question_text": "If a - b = 3 and a² + b² = 29, find the value of ab.",
             "option_a": "10",
             "option_a_image": "",
             "option_b": "12",
@@ -7873,7 +7873,7 @@
           },
           {
             "question_number": 13,
-            "question_text": "Two ships are sailing in the sea on the two sides of a lighthouse. The angle of elevation of the top of the lighthouse is observed from the ships are 30º and 45º respectively. If the lighthouse is 100 m high, the distance between the two ships is:",
+            "question_text": "Two ships are sailing in the sea on the two sides of a lighthouse. The angle of elevation of the top of the lighthouse is observed from the ships are 30º and 45º respectively. If the lighthouse is 10⁰ m high, the distance between the two ships is:",
             "option_a": "173m",
             "option_a_image": "",
             "option_b": "200m",
@@ -7888,7 +7888,7 @@
           },
           {
             "question_number": 14,
-            "question_text": "A man purchased a cow for Rs. 3000 and sold it the same day for Rs. 3600, allowing the buyer a credit of 2 years. If the rate of interest be 10% per annum, then the man has a gain of:",
+            "question_text": "A man purchased a cow for Rs. 3000 and sold it the same day for Rs. 360°, allowing the buyer a credit of 2 years. If the rate of interest be 10% per annum, then the man has a gain of:",
             "option_a": "0%",
             "option_a_image": "",
             "option_b": "0.05",
@@ -7918,7 +7918,7 @@
           },
           {
             "question_number": 16,
-            "question_text": "In a 100 m race, A can give B 10 m and C 28 m. In the same race B can give C:",
+            "question_text": "In a 10⁰ m race, A can give B 10 m and C 28 m. In the same race B can give C:",
             "option_a": "18m",
             "option_a_image": "",
             "option_b": "20m",
@@ -7963,7 +7963,7 @@
           },
           {
             "question_number": 19,
-            "question_text": "A person crosses a 600 m long street in 5 minutes. What is his speed in km per hour?",
+            "question_text": "A person crosses a 60° m long street in 5 minutes. What is his speed in km per hour?",
             "option_a": "3.6",
             "option_a_image": "",
             "option_b": "7.2",
@@ -8254,7 +8254,7 @@
           },
           {
             "question_number": 18,
-            "question_text": "Which number should come next? 144  121  \t100   81   64  ?",
+            "question_text": "Which number should come next? 144  121  \t10⁰   81   64  ?",
             "option_a": "17",
             "option_a_image": "",
             "option_b": "19",
@@ -8315,7 +8315,7 @@
             "option_d": "Fig D",
             "option_d_image": "",
             "image_path": "questions-images/commerce_spatial_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -8329,8 +8329,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r6_c8_1.png",
+            "image_path": "questions-images/commerce_spatial_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -8344,8 +8344,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r6_c8_1.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r7_c8_2.png",
+            "image_path": "questions-images/commerce_spatial_ability_r7_c8_2.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -8359,8 +8359,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r7_c8_2.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r8_c8_3.png",
+            "image_path": "questions-images/commerce_spatial_ability_r8_c8_3.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -8374,8 +8374,8 @@
             "option_c_image": "",
             "option_d": "DE",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r8_c8_3.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r9_c8_4.png",
+            "image_path": "questions-images/commerce_spatial_ability_r9_c8_4.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -8389,8 +8389,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r9_c8_4.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r10_c8_5.png",
+            "image_path": "questions-images/commerce_spatial_ability_r10_c8_5.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -8404,8 +8404,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r10_c8_5.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r11_c8_6.png",
+            "image_path": "questions-images/commerce_spatial_ability_r11_c8_6.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -8419,8 +8419,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r11_c8_6.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r12_c8_7.png",
+            "image_path": "questions-images/commerce_spatial_ability_r12_c8_7.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -8434,8 +8434,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r12_c8_7.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r13_c8_8.png",
+            "image_path": "questions-images/commerce_spatial_ability_r13_c8_8.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -8449,8 +8449,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r13_c8_8.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r14_c8_9.png",
+            "image_path": "questions-images/commerce_spatial_ability_r14_c8_9.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -8479,8 +8479,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r17_c3_10.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r17_c8_11.png",
+            "image_path": "questions-images/commerce_spatial_ability_r18_c3_12.png",
+            "image_path_2": "questions-images/commerce_spatial_ability_r18_c8_13.png",
             "correct_option": "Q"
           },
           {
@@ -8494,8 +8494,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r18_c3_12.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r18_c8_13.png",
+            "image_path": "questions-images/commerce_spatial_ability_r19_c3_14.png",
+            "image_path_2": "questions-images/commerce_spatial_ability_r19_c8_15.png",
             "correct_option": "T"
           },
           {
@@ -8509,8 +8509,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r19_c3_14.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r19_c8_15.png",
+            "image_path": "questions-images/commerce_spatial_ability_r20_c3_16.png",
+            "image_path_2": "questions-images/commerce_spatial_ability_r20_c8_17.png",
             "correct_option": "F"
           },
           {
@@ -8524,8 +8524,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r20_c3_16.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r20_c8_17.png",
+            "image_path": "questions-images/commerce_spatial_ability_r21_c3_18.png",
+            "image_path_2": "questions-images/commerce_spatial_ability_r21_c8_19.png",
             "correct_option": "X"
           },
           {
@@ -8539,8 +8539,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r21_c3_18.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r21_c8_19.png",
+            "image_path": "questions-images/commerce_spatial_ability_r22_c3_20.png",
+            "image_path_2": "questions-images/commerce_spatial_ability_r22_c8_21.png",
             "correct_option": "H"
           },
           {
@@ -8554,8 +8554,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r22_c3_20.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r22_c8_21.png",
+            "image_path": "questions-images/commerce_spatial_ability_r23_c3_22.png",
+            "image_path_2": "questions-images/commerce_spatial_ability_r23_c8_23.png",
             "correct_option": "P"
           },
           {
@@ -8569,8 +8569,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r23_c3_22.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r23_c8_23.png",
+            "image_path": "questions-images/commerce_spatial_ability_r24_c3_24.png",
+            "image_path_2": "questions-images/commerce_spatial_ability_r24_c8_25.png",
             "correct_option": "D"
           },
           {
@@ -8584,8 +8584,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r24_c3_24.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r24_c8_25.png",
+            "image_path": "questions-images/commerce_spatial_ability_r25_c3_26.png",
+            "image_path_2": "questions-images/commerce_spatial_ability_r25_c8_27.png",
             "correct_option": "A"
           },
           {
@@ -8599,8 +8599,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_spatial_ability_r25_c3_26.png",
-            "image_path_2": "questions-images/commerce_spatial_ability_r25_c8_27.png",
+            "image_path": "questions-images/commerce_spatial_ability_r26_c3_28.png",
+            "image_path_2": "questions-images/commerce_spatial_ability_r26_c8_29.png",
             "correct_option": "S"
           }
         ]
@@ -8620,8 +8620,8 @@
             "option_c_image": "",
             "option_d": "5:8",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r5_c8_0.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r6_c8_1.png",
+            "image_path": "questions-images/commerce_data_interpretation_r6_c8_1.png",
+            "image_path_2": "questions-images/commerce_data_interpretation_r5_c8_0.png",
             "correct_option": "B"
           },
           {
@@ -8635,8 +8635,8 @@
             "option_c_image": "",
             "option_d": "Rs. 478.87 lakhs",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r6_c8_1.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r7_c8_2.png",
+            "image_path": "questions-images/commerce_data_interpretation_r7_c8_2.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -8650,8 +8650,8 @@
             "option_c_image": "",
             "option_d": "Rs. 36.66 lakhs",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r7_c8_2.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r8_c8_3.png",
+            "image_path": "questions-images/commerce_data_interpretation_r8_c8_3.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -8665,8 +8665,8 @@
             "option_c_image": "",
             "option_d": "0.71",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r8_c8_3.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r9_c8_4.png",
+            "image_path": "questions-images/commerce_data_interpretation_r9_c8_4.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -8680,8 +8680,8 @@
             "option_c_image": "",
             "option_d": "0.0125",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r9_c8_4.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r10_c8_5.png",
+            "image_path": "questions-images/commerce_data_interpretation_r10_c8_5.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -8695,8 +8695,8 @@
             "option_c_image": "",
             "option_d": "560",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r10_c8_5.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r11_c8_6.png",
+            "image_path": "questions-images/commerce_data_interpretation_r11_c8_6.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -8710,8 +8710,8 @@
             "option_c_image": "",
             "option_d": "0.7555",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r11_c8_6.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r12_c8_7.png",
+            "image_path": "questions-images/commerce_data_interpretation_r12_c8_7.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -8725,8 +8725,8 @@
             "option_c_image": "",
             "option_d": "88",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r12_c8_7.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r13_c8_8.png",
+            "image_path": "questions-images/commerce_data_interpretation_r13_c8_8.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -8740,8 +8740,8 @@
             "option_c_image": "",
             "option_d": "7:9",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r13_c8_8.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r14_c8_9.png",
+            "image_path": "questions-images/commerce_data_interpretation_r14_c8_9.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -8755,8 +8755,8 @@
             "option_c_image": "",
             "option_d": "87.5%",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r14_c8_9.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r15_c8_10.png",
+            "image_path": "questions-images/commerce_data_interpretation_r15_c8_10.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -8770,13 +8770,13 @@
             "option_c_image": "",
             "option_d": "48º",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r15_c8_10.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r16_c8_11.png",
+            "image_path": "questions-images/commerce_data_interpretation_r16_c8_11.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
             "question_number": 12,
-            "question_text": "Which two expenditures together have central angle of 108º?",
+            "question_text": "Which two expenditures together have central angle of 10⁸º?",
             "option_a": "Biding Cost and Transportation Cost",
             "option_a_image": "",
             "option_b": "Printing Cost and Paper Cost",
@@ -8785,8 +8785,8 @@
             "option_c_image": "",
             "option_d": "Binding Cost and Paper Cost",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r16_c8_11.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r17_c8_12.png",
+            "image_path": "questions-images/commerce_data_interpretation_r17_c8_12.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -8800,8 +8800,8 @@
             "option_c_image": "",
             "option_d": "Paper Cost and Printing Cost",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r17_c8_12.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r18_c8_13.png",
+            "image_path": "questions-images/commerce_data_interpretation_r18_c8_13.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -8815,14 +8815,14 @@
             "option_c_image": "",
             "option_d": "Rs. 28,125",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r18_c8_13.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r19_c8_14.png",
+            "image_path": "questions-images/commerce_data_interpretation_r19_c8_14.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
             "question_number": 15,
-            "question_text": "If for a certain quantity of books, the publisher has to pay Rs. 30,600 as printing cost, then what will be amount of royalty to be paid for these books?",
-            "option_a": "Rs. 19,450",
+            "question_text": "If for a certain quantity of books, the publisher has to pay Rs. 30,60° as printing cost, then what will be amount of royalty to be paid for these books?",
+            "option_a": "Rs. 19,45°",
             "option_a_image": "",
             "option_b": "Rs. 21,200",
             "option_b_image": "",
@@ -8830,8 +8830,8 @@
             "option_c_image": "",
             "option_d": "Rs. 26,150",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r19_c8_14.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r20_c8_15.png",
+            "image_path": "questions-images/commerce_data_interpretation_r20_c8_15.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -8845,8 +8845,8 @@
             "option_c_image": "",
             "option_d": "93.33%",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r20_c8_15.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r21_c8_16.png",
+            "image_path": "questions-images/commerce_data_interpretation_r21_c8_16.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -8860,8 +8860,8 @@
             "option_c_image": "",
             "option_d": "5",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r21_c8_16.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r22_c8_17.png",
+            "image_path": "questions-images/commerce_data_interpretation_r22_c8_17.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -8875,8 +8875,8 @@
             "option_c_image": "",
             "option_d": "Rs. 22.17 crores",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r22_c8_17.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r23_c8_18.png",
+            "image_path": "questions-images/commerce_data_interpretation_r23_c8_18.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -8890,8 +8890,8 @@
             "option_c_image": "",
             "option_d": "1997",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r23_c8_18.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r24_c8_19.png",
+            "image_path": "questions-images/commerce_data_interpretation_r24_c8_19.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -8905,8 +8905,8 @@
             "option_c_image": "",
             "option_d": "1995 and 1996",
             "option_d_image": "",
-            "image_path": "questions-images/commerce_data_interpretation_r24_c8_19.png",
-            "image_path_2": "questions-images/commerce_data_interpretation_r25_c8_20.png",
+            "image_path": "questions-images/commerce_data_interpretation_r25_c8_20.png",
+            "image_path_2": "",
             "correct_option": "D"
           }
         ]
@@ -8927,26 +8927,11 @@
             "option_d": "",
             "option_d_image": "questions-images/commerce_clerical_ability_r6_c7_4.png",
             "image_path": "questions-images/commerce_clerical_ability_r6_c3_0.png",
-            "image_path_2": "questions-images/commerce_clerical_ability_r7_c3_5.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
             "question_number": 2,
-            "question_text": "",
-            "option_a": "",
-            "option_a_image": "questions-images/commerce_clerical_ability_r6_c4_1.png",
-            "option_b": "",
-            "option_b_image": "questions-images/commerce_clerical_ability_r6_c5_2.png",
-            "option_c": "",
-            "option_c_image": "questions-images/commerce_clerical_ability_r6_c6_3.png",
-            "option_d": "",
-            "option_d_image": "questions-images/commerce_clerical_ability_r6_c7_4.png",
-            "image_path": "questions-images/commerce_clerical_ability_r6_c3_0.png",
-            "image_path_2": "questions-images/commerce_clerical_ability_r7_c3_5.png",
-            "correct_option": "A"
-          },
-          {
-            "question_number": 3,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r7_c4_6.png",
@@ -8957,11 +8942,11 @@
             "option_d": "",
             "option_d_image": "questions-images/commerce_clerical_ability_r7_c7_9.png",
             "image_path": "questions-images/commerce_clerical_ability_r7_c3_5.png",
-            "image_path_2": "questions-images/commerce_clerical_ability_r8_c3_10.png",
-            "correct_option": "C"
+            "image_path_2": "",
+            "correct_option": "A"
           },
           {
-            "question_number": 4,
+            "question_number": 3,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r8_c4_11.png",
@@ -8972,11 +8957,11 @@
             "option_d": "",
             "option_d_image": "questions-images/commerce_clerical_ability_r8_c7_14.png",
             "image_path": "questions-images/commerce_clerical_ability_r8_c3_10.png",
-            "image_path_2": "questions-images/commerce_clerical_ability_r9_c3_15.png",
-            "correct_option": "B"
+            "image_path_2": "",
+            "correct_option": "C"
           },
           {
-            "question_number": 5,
+            "question_number": 4,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r9_c4_16.png",
@@ -8987,11 +8972,11 @@
             "option_d": "",
             "option_d_image": "questions-images/commerce_clerical_ability_r9_c7_19.png",
             "image_path": "questions-images/commerce_clerical_ability_r9_c3_15.png",
-            "image_path_2": "questions-images/commerce_clerical_ability_r10_c3_20.png",
-            "correct_option": "C"
+            "image_path_2": "",
+            "correct_option": "B"
           },
           {
-            "question_number": 6,
+            "question_number": 5,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r10_c4_21.png",
@@ -9002,11 +8987,11 @@
             "option_d": "",
             "option_d_image": "questions-images/commerce_clerical_ability_r10_c7_24.png",
             "image_path": "questions-images/commerce_clerical_ability_r10_c3_20.png",
-            "image_path_2": "questions-images/commerce_clerical_ability_r11_c3_25.png",
-            "correct_option": "A"
+            "image_path_2": "",
+            "correct_option": "C"
           },
           {
-            "question_number": 7,
+            "question_number": 6,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r11_c4_26.png",
@@ -9017,11 +9002,11 @@
             "option_d": "",
             "option_d_image": "questions-images/commerce_clerical_ability_r11_c7_29.png",
             "image_path": "questions-images/commerce_clerical_ability_r11_c3_25.png",
-            "image_path_2": "questions-images/commerce_clerical_ability_r12_c3_30.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
-            "question_number": 8,
+            "question_number": 7,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r12_c4_31.png",
@@ -9032,11 +9017,11 @@
             "option_d": "",
             "option_d_image": "questions-images/commerce_clerical_ability_r12_c7_34.png",
             "image_path": "questions-images/commerce_clerical_ability_r12_c3_30.png",
-            "image_path_2": "questions-images/commerce_clerical_ability_r13_c3_35.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
-            "question_number": 9,
+            "question_number": 8,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r13_c4_36.png",
@@ -9047,11 +9032,11 @@
             "option_d": "",
             "option_d_image": "questions-images/commerce_clerical_ability_r13_c7_39.png",
             "image_path": "questions-images/commerce_clerical_ability_r13_c3_35.png",
-            "image_path_2": "questions-images/commerce_clerical_ability_r14_c3_40.png",
-            "correct_option": "C"
+            "image_path_2": "",
+            "correct_option": "A"
           },
           {
-            "question_number": 10,
+            "question_number": 9,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r14_c4_41.png",
@@ -9062,11 +9047,11 @@
             "option_d": "",
             "option_d_image": "questions-images/commerce_clerical_ability_r14_c7_44.png",
             "image_path": "questions-images/commerce_clerical_ability_r14_c3_40.png",
-            "image_path_2": "questions-images/commerce_clerical_ability_r15_c3_45.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
-            "question_number": 11,
+            "question_number": 10,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r15_c4_46.png",
@@ -9077,11 +9062,11 @@
             "option_d": "",
             "option_d_image": "questions-images/commerce_clerical_ability_r15_c7_49.png",
             "image_path": "questions-images/commerce_clerical_ability_r15_c3_45.png",
-            "image_path_2": "questions-images/commerce_clerical_ability_r16_c3_50.png",
-            "correct_option": "A"
+            "image_path_2": "",
+            "correct_option": "C"
           },
           {
-            "question_number": 12,
+            "question_number": 11,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r16_c4_51.png",
@@ -9092,7 +9077,22 @@
             "option_d": "",
             "option_d_image": "questions-images/commerce_clerical_ability_r16_c7_54.png",
             "image_path": "questions-images/commerce_clerical_ability_r16_c3_50.png",
-            "image_path_2": "questions-images/commerce_clerical_ability_r17_c3_55.png",
+            "image_path_2": "",
+            "correct_option": "A"
+          },
+          {
+            "question_number": 12,
+            "question_text": "",
+            "option_a": "",
+            "option_a_image": "questions-images/commerce_clerical_ability_r17_c4_56.png",
+            "option_b": "",
+            "option_b_image": "questions-images/commerce_clerical_ability_r17_c5_57.png",
+            "option_c": "",
+            "option_c_image": "questions-images/commerce_clerical_ability_r17_c6_58.png",
+            "option_d": "",
+            "option_d_image": "questions-images/commerce_clerical_ability_r17_c7_59.png",
+            "image_path": "questions-images/commerce_clerical_ability_r17_c3_55.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -9114,21 +9114,6 @@
             "question_number": 14,
             "question_text": "",
             "option_a": "",
-            "option_a_image": "questions-images/commerce_clerical_ability_r19_c4_60.png",
-            "option_b": "",
-            "option_b_image": "questions-images/commerce_clerical_ability_r19_c5_61.png",
-            "option_c": "",
-            "option_c_image": "questions-images/commerce_clerical_ability_r19_c6_62.png",
-            "option_d": "",
-            "option_d_image": "questions-images/commerce_clerical_ability_r19_c7_63.png",
-            "image_path": "",
-            "image_path_2": "",
-            "correct_option": "CD"
-          },
-          {
-            "question_number": 15,
-            "question_text": "",
-            "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r20_c4_64.png",
             "option_b": "",
             "option_b_image": "questions-images/commerce_clerical_ability_r20_c5_65.png",
@@ -9138,10 +9123,10 @@
             "option_d_image": "questions-images/commerce_clerical_ability_r20_c7_67.png",
             "image_path": "",
             "image_path_2": "",
-            "correct_option": "AD"
+            "correct_option": "CD"
           },
           {
-            "question_number": 16,
+            "question_number": 15,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r21_c4_68.png",
@@ -9153,10 +9138,10 @@
             "option_d_image": "questions-images/commerce_clerical_ability_r21_c7_71.png",
             "image_path": "",
             "image_path_2": "",
-            "correct_option": "BD"
+            "correct_option": "AD"
           },
           {
-            "question_number": 17,
+            "question_number": 16,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r22_c4_72.png",
@@ -9171,7 +9156,7 @@
             "correct_option": "BD"
           },
           {
-            "question_number": 18,
+            "question_number": 17,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r23_c4_76.png",
@@ -9183,10 +9168,10 @@
             "option_d_image": "questions-images/commerce_clerical_ability_r23_c7_79.png",
             "image_path": "",
             "image_path_2": "",
-            "correct_option": "BC"
+            "correct_option": "BD"
           },
           {
-            "question_number": 19,
+            "question_number": 18,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r24_c4_80.png",
@@ -9198,10 +9183,10 @@
             "option_d_image": "questions-images/commerce_clerical_ability_r24_c7_83.png",
             "image_path": "",
             "image_path_2": "",
-            "correct_option": "CD"
+            "correct_option": "BC"
           },
           {
-            "question_number": 20,
+            "question_number": 19,
             "question_text": "",
             "option_a": "",
             "option_a_image": "questions-images/commerce_clerical_ability_r25_c4_84.png",
@@ -9211,6 +9196,21 @@
             "option_c_image": "questions-images/commerce_clerical_ability_r25_c6_86.png",
             "option_d": "",
             "option_d_image": "questions-images/commerce_clerical_ability_r25_c7_87.png",
+            "image_path": "",
+            "image_path_2": "",
+            "correct_option": "CD"
+          },
+          {
+            "question_number": 20,
+            "question_text": "",
+            "option_a": "",
+            "option_a_image": "questions-images/commerce_clerical_ability_r26_c4_88.png",
+            "option_b": "",
+            "option_b_image": "questions-images/commerce_clerical_ability_r26_c5_89.png",
+            "option_c": "",
+            "option_c_image": "questions-images/commerce_clerical_ability_r26_c6_90.png",
+            "option_d": "",
+            "option_d_image": "questions-images/commerce_clerical_ability_r26_c7_91.png",
             "image_path": "",
             "image_path_2": "",
             "correct_option": "AD"
@@ -9396,7 +9396,7 @@
           },
           {
             "question_number": 12,
-            "question_text": "I felt the wall of the tunnel shiver. The master alarm squealed through my earphones. Almost simultaneously, Jack yelled down to me that there was a warning light on. Fleeting but spectacular sights snapped into an out of view, the snow, the shower of debris, the moon, looming close and big, the dazzling sunshine for once unfiltered by layers of air. The last twelve hours before re-entry were particular bone-chilling. During this period, I had to go up in to command module. Even after the fiery re-entry splashing down in 81o water in south pacific, we could still see our frosty breath inside the command module.\nWhich one of the following reasons would one consider as more as possible for the warning lights to be on?",
+            "question_text": "I felt the wall of the tunnel shiver. The master alarm squealed through my earphones. Almost simultaneously, Jack yelled down to me that there was a warning light on. Fleeting but spectacular sights snapped into an out of view, the snow, the shower of debris, the moon, looming close and big, the dazzling sunshine for once unfiltered by layers of air. The last twelve hours before re-entry were particular bone-chilling. During this period, I had to go up in to command module. Even after the fiery re-entry splashing down in 81° water in south pacific, we could still see our frosty breath inside the command module.\nWhich one of the following reasons would one consider as more as possible for the warning lights to be on?",
             "option_a": "There was a shower of debris.",
             "option_a_image": "",
             "option_b": "Jack was yelling.",
@@ -9645,7 +9645,7 @@
             "question_text": "A fruit seller had some apples. He sells 40% apples and still has 420 apples. Originally, he had:",
             "option_a": "588 apples",
             "option_a_image": "",
-            "option_b": "600 Apples",
+            "option_b": "60° Apples",
             "option_b_image": "",
             "option_c": "672 Apples",
             "option_c_image": "",
@@ -9675,11 +9675,11 @@
             "question_text": "A hall is 15 m long and 12 m broad. If the sum of the areas of the floor and the ceiling is equal to the sum of the areas of four walls, the volume of the hall is:",
             "option_a": "720",
             "option_a_image": "",
-            "option_b": "900",
+            "option_b": "90°",
             "option_b_image": "",
             "option_c": "1200",
             "option_c_image": "",
-            "option_d": "1800",
+            "option_d": "180°",
             "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
@@ -9702,7 +9702,7 @@
           },
           {
             "question_number": 12,
-            "question_text": "If a - b = 3 and a2 + b2 = 29, find the value of ab.",
+            "question_text": "If a - b = 3 and a² + b² = 29, find the value of ab.",
             "option_a": "10",
             "option_a_image": "",
             "option_b": "12",
@@ -9717,7 +9717,7 @@
           },
           {
             "question_number": 13,
-            "question_text": "Two ships are sailing in the sea on the two sides of a lighthouse. The angle of elevation of the top of the lighthouse is observed from the ships are 30º and 45º respectively. If the lighthouse is 100 m high, the distance between the two ships is:",
+            "question_text": "Two ships are sailing in the sea on the two sides of a lighthouse. The angle of elevation of the top of the lighthouse is observed from the ships are 30º and 45º respectively. If the lighthouse is 10⁰ m high, the distance between the two ships is:",
             "option_a": "173m",
             "option_a_image": "",
             "option_b": "200m",
@@ -9732,7 +9732,7 @@
           },
           {
             "question_number": 14,
-            "question_text": "A man purchased a cow for Rs. 3000 and sold it the same day for Rs. 3600, allowing the buyer a credit of 2 years. If the rate of interest be 10% per annum, then the man has a gain of:",
+            "question_text": "A man purchased a cow for Rs. 3000 and sold it the same day for Rs. 360°, allowing the buyer a credit of 2 years. If the rate of interest be 10% per annum, then the man has a gain of:",
             "option_a": "0%",
             "option_a_image": "",
             "option_b": "0.05",
@@ -9762,7 +9762,7 @@
           },
           {
             "question_number": 16,
-            "question_text": "In a 100 m race, A can give B 10 m and C 28 m. In the same race B can give C:",
+            "question_text": "In a 10⁰ m race, A can give B 10 m and C 28 m. In the same race B can give C:",
             "option_a": "18m",
             "option_a_image": "",
             "option_b": "20m",
@@ -9807,7 +9807,7 @@
           },
           {
             "question_number": 19,
-            "question_text": "A person crosses a 600 m long street in 5 minutes. What is his speed in km per hour?",
+            "question_text": "A person crosses a 60° m long street in 5 minutes. What is his speed in km per hour?",
             "option_a": "3.6",
             "option_a_image": "",
             "option_b": "7.2",
@@ -10098,7 +10098,7 @@
           },
           {
             "question_number": 18,
-            "question_text": "Which number should come next? 144  121\t   100   81   64  ?",
+            "question_text": "Which number should come next? 144  121\t   10⁰   81   64  ?",
             "option_a": "17",
             "option_a_image": "",
             "option_b": "19",
@@ -10159,7 +10159,7 @@
             "option_d": "Fig D",
             "option_d_image": "",
             "image_path": "questions-images/science_spatial_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/science_spatial_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -10173,8 +10173,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/science_spatial_ability_r6_c8_1.png",
+            "image_path": "questions-images/science_spatial_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -10188,8 +10188,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r6_c8_1.png",
-            "image_path_2": "questions-images/science_spatial_ability_r7_c8_2.png",
+            "image_path": "questions-images/science_spatial_ability_r7_c8_2.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -10203,8 +10203,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r7_c8_2.png",
-            "image_path_2": "questions-images/science_spatial_ability_r8_c8_3.png",
+            "image_path": "questions-images/science_spatial_ability_r8_c8_3.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -10218,8 +10218,8 @@
             "option_c_image": "",
             "option_d": "DE",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r8_c8_3.png",
-            "image_path_2": "questions-images/science_spatial_ability_r9_c8_4.png",
+            "image_path": "questions-images/science_spatial_ability_r9_c8_4.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -10233,8 +10233,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r9_c8_4.png",
-            "image_path_2": "questions-images/science_spatial_ability_r10_c8_5.png",
+            "image_path": "questions-images/science_spatial_ability_r10_c8_5.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -10248,8 +10248,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r10_c8_5.png",
-            "image_path_2": "questions-images/science_spatial_ability_r11_c8_6.png",
+            "image_path": "questions-images/science_spatial_ability_r11_c8_6.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -10263,8 +10263,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r11_c8_6.png",
-            "image_path_2": "questions-images/science_spatial_ability_r12_c8_7.png",
+            "image_path": "questions-images/science_spatial_ability_r12_c8_7.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -10278,8 +10278,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r12_c8_7.png",
-            "image_path_2": "questions-images/science_spatial_ability_r13_c8_8.png",
+            "image_path": "questions-images/science_spatial_ability_r13_c8_8.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -10293,8 +10293,8 @@
             "option_c_image": "",
             "option_d": "Fig D",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r13_c8_8.png",
-            "image_path_2": "questions-images/science_spatial_ability_r14_c8_9.png",
+            "image_path": "questions-images/science_spatial_ability_r14_c8_9.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -10323,8 +10323,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r17_c3_10.png",
-            "image_path_2": "questions-images/science_spatial_ability_r17_c8_11.png",
+            "image_path": "questions-images/science_spatial_ability_r18_c3_12.png",
+            "image_path_2": "questions-images/science_spatial_ability_r18_c8_13.png",
             "correct_option": "Q"
           },
           {
@@ -10338,8 +10338,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r18_c3_12.png",
-            "image_path_2": "questions-images/science_spatial_ability_r18_c8_13.png",
+            "image_path": "questions-images/science_spatial_ability_r19_c3_14.png",
+            "image_path_2": "questions-images/science_spatial_ability_r19_c8_15.png",
             "correct_option": "T"
           },
           {
@@ -10353,8 +10353,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r19_c3_14.png",
-            "image_path_2": "questions-images/science_spatial_ability_r19_c8_15.png",
+            "image_path": "questions-images/science_spatial_ability_r20_c3_16.png",
+            "image_path_2": "questions-images/science_spatial_ability_r20_c8_17.png",
             "correct_option": "F"
           },
           {
@@ -10368,8 +10368,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r20_c3_16.png",
-            "image_path_2": "questions-images/science_spatial_ability_r20_c8_17.png",
+            "image_path": "questions-images/science_spatial_ability_r21_c3_18.png",
+            "image_path_2": "questions-images/science_spatial_ability_r21_c8_19.png",
             "correct_option": "X"
           },
           {
@@ -10383,8 +10383,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r21_c3_18.png",
-            "image_path_2": "questions-images/science_spatial_ability_r21_c8_19.png",
+            "image_path": "questions-images/science_spatial_ability_r22_c3_20.png",
+            "image_path_2": "questions-images/science_spatial_ability_r22_c8_21.png",
             "correct_option": "H"
           },
           {
@@ -10398,8 +10398,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r22_c3_20.png",
-            "image_path_2": "questions-images/science_spatial_ability_r22_c8_21.png",
+            "image_path": "questions-images/science_spatial_ability_r23_c3_22.png",
+            "image_path_2": "questions-images/science_spatial_ability_r23_c8_23.png",
             "correct_option": "P"
           },
           {
@@ -10413,8 +10413,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r23_c3_22.png",
-            "image_path_2": "questions-images/science_spatial_ability_r23_c8_23.png",
+            "image_path": "questions-images/science_spatial_ability_r24_c3_24.png",
+            "image_path_2": "questions-images/science_spatial_ability_r24_c8_25.png",
             "correct_option": "D"
           },
           {
@@ -10428,8 +10428,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r24_c3_24.png",
-            "image_path_2": "questions-images/science_spatial_ability_r24_c8_25.png",
+            "image_path": "questions-images/science_spatial_ability_r25_c3_26.png",
+            "image_path_2": "questions-images/science_spatial_ability_r25_c8_27.png",
             "correct_option": "A"
           },
           {
@@ -10443,8 +10443,8 @@
             "option_c_image": "",
             "option_d": "",
             "option_d_image": "",
-            "image_path": "questions-images/science_spatial_ability_r25_c3_26.png",
-            "image_path_2": "questions-images/science_spatial_ability_r25_c8_27.png",
+            "image_path": "questions-images/science_spatial_ability_r26_c3_28.png",
+            "image_path_2": "questions-images/science_spatial_ability_r26_c8_29.png",
             "correct_option": "S"
           }
         ]
@@ -10465,7 +10465,7 @@
             "option_d": "70lbs",
             "option_d_image": "",
             "image_path": "questions-images/science_mechanical_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -10479,8 +10479,8 @@
             "option_c_image": "",
             "option_d": "45lbs",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r5_c8_0.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r6_c8_1.png",
+            "image_path": "questions-images/science_mechanical_ability_r6_c8_1.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -10494,8 +10494,8 @@
             "option_c_image": "",
             "option_d": "7.5 cms",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r6_c8_1.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r7_c8_2.png",
+            "image_path": "questions-images/science_mechanical_ability_r7_c8_2.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -10509,14 +10509,14 @@
             "option_c_image": "",
             "option_d": "4",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r7_c8_2.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r8_c8_3.png",
+            "image_path": "questions-images/science_mechanical_ability_r8_c8_3.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
             "question_number": 5,
             "question_text": "How much force is required to move the weight?",
-            "option_a": "100kg",
+            "option_a": "10⁰kg",
             "option_a_image": "",
             "option_b": "150kg",
             "option_b_image": "",
@@ -10524,8 +10524,8 @@
             "option_c_image": "",
             "option_d": "60kg",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r8_c8_3.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r9_c8_4.png",
+            "image_path": "questions-images/science_mechanical_ability_r9_c8_4.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -10539,8 +10539,8 @@
             "option_c_image": "",
             "option_d": "d",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r9_c8_4.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r10_c8_5.png",
+            "image_path": "questions-images/science_mechanical_ability_r10_c8_5.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -10554,8 +10554,8 @@
             "option_c_image": "",
             "option_d": "4",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r10_c8_5.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r11_c8_6.png",
+            "image_path": "questions-images/science_mechanical_ability_r11_c8_6.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -10569,8 +10569,8 @@
             "option_c_image": "",
             "option_d": "0",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r11_c8_6.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r12_c8_7.png",
+            "image_path": "questions-images/science_mechanical_ability_r12_c8_7.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -10584,8 +10584,8 @@
             "option_c_image": "",
             "option_d": "3",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r12_c8_7.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r13_c8_8.png",
+            "image_path": "questions-images/science_mechanical_ability_r13_c8_8.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -10599,8 +10599,8 @@
             "option_c_image": "",
             "option_d": "3",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r13_c8_8.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r14_c8_9.png",
+            "image_path": "questions-images/science_mechanical_ability_r14_c8_9.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -10614,8 +10614,8 @@
             "option_c_image": "",
             "option_d": "3",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r14_c8_9.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r15_c8_10.png",
+            "image_path": "questions-images/science_mechanical_ability_r15_c8_10.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -10629,8 +10629,8 @@
             "option_c_image": "",
             "option_d": "3",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r15_c8_10.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r16_c8_11.png",
+            "image_path": "questions-images/science_mechanical_ability_r16_c8_11.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -10644,8 +10644,8 @@
             "option_c_image": "",
             "option_d": "4 & 7",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r16_c8_11.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r17_c8_12.png",
+            "image_path": "questions-images/science_mechanical_ability_r17_c8_12.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -10659,8 +10659,8 @@
             "option_c_image": "",
             "option_d": "1 & 9",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r17_c8_12.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r18_c8_13.png",
+            "image_path": "questions-images/science_mechanical_ability_r18_c8_13.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -10674,8 +10674,8 @@
             "option_c_image": "",
             "option_d": "4",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r18_c8_13.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r19_c8_14.png",
+            "image_path": "questions-images/science_mechanical_ability_r19_c8_14.png",
+            "image_path_2": "",
             "correct_option": "B"
           },
           {
@@ -10689,8 +10689,8 @@
             "option_c_image": "",
             "option_d": "1 & 9",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r19_c8_14.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r20_c8_15.png",
+            "image_path": "questions-images/science_mechanical_ability_r20_c8_15.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -10704,8 +10704,8 @@
             "option_c_image": "",
             "option_d": "all equal",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r20_c8_15.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r21_c8_16.png",
+            "image_path": "questions-images/science_mechanical_ability_r21_c8_16.png",
+            "image_path_2": "",
             "correct_option": "A"
           },
           {
@@ -10719,8 +10719,8 @@
             "option_c_image": "",
             "option_d": "S",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r21_c8_16.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r22_c8_17.png",
+            "image_path": "questions-images/science_mechanical_ability_r22_c8_17.png",
+            "image_path_2": "",
             "correct_option": "C"
           },
           {
@@ -10734,8 +10734,8 @@
             "option_c_image": "",
             "option_d": "4",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r22_c8_17.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r23_c8_18.png",
+            "image_path": "questions-images/science_mechanical_ability_r23_c8_18.png",
+            "image_path_2": "",
             "correct_option": "D"
           },
           {
@@ -10749,8 +10749,8 @@
             "option_c_image": "",
             "option_d": "all equal",
             "option_d_image": "",
-            "image_path": "questions-images/science_mechanical_ability_r23_c8_18.png",
-            "image_path_2": "questions-images/science_mechanical_ability_r24_c8_19.png",
+            "image_path": "questions-images/science_mechanical_ability_r24_c8_19.png",
+            "image_path_2": "",
             "correct_option": "B"
           }
         ]
@@ -10762,13 +10762,13 @@
           {
             "question_number": 1,
             "question_text": "What is the scientific notation for 832,000?",
-            "option_a": "8.32 × 10-2",
+            "option_a": "8.32 × 10⁻²",
             "option_a_image": "",
-            "option_b": "8.32 × 102",
+            "option_b": "8.32 × 10²",
             "option_b_image": "",
-            "option_c": "8.32 × 10-5",
+            "option_c": "8.32 × 10⁻⁵",
             "option_c_image": "",
-            "option_d": "8.32 × 105",
+            "option_d": "8.32 × 10⁵",
             "option_d_image": "",
             "image_path": "",
             "image_path_2": "",
@@ -10776,7 +10776,7 @@
           },
           {
             "question_number": 2,
-            "question_text": "Fill in the blank with the available answers.\n        ____________ is the reason it is harder to stop a baseball flying at 100 MPH than it is to      \n        stop a baseball flying at 50 MPH.",
+            "question_text": "Fill in the blank with the available answers.\n        ____________ is the reason it is harder to stop a baseball flying at 10⁰ MPH than it is to      \n        stop a baseball flying at 50 MPH.",
             "option_a": "Velocity",
             "option_a_image": "",
             "option_b": "Momentum",

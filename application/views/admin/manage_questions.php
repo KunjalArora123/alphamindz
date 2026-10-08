@@ -1,3 +1,22 @@
+<?php
+if (!function_exists('formatMathSigns')) {
+    function formatMathSigns($str) {
+        if (empty($str)) return '';
+        $text = htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+        // Degree signs: 81o, 90o, 45o, 180o, 360o, 81^o -> 81°, 90°
+        $text = preg_replace('/\b(\d+)\s*(\^?o|deg|°)\b/i', '$1°', $text);
+        // Superscripts
+        $text = preg_replace('/(\b[a-zA-Z0-9\)]+)\^([\-\+]?\d+)/', '$1<sup>$2</sup>', $text);
+        $text = str_replace(['²', '³', '¹', '⁰', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹'], ['<sup>2</sup>', '<sup>3</sup>', '<sup>1</sup>', '<sup>0</sup>', '<sup>4</sup>', '<sup>5</sup>', '<sup>6</sup>', '<sup>7</sup>', '<sup>8</sup>', '<sup>9</sup>'], $text);
+        // Subscripts
+        $text = preg_replace('/([a-zA-Z])_(\d+)/', '$1<sub>$2</sub>', $text);
+        $text = str_replace(['₀', '₁', '₂', '₃', '₄', '₅'], ['<sub>0</sub>', '<sub>1</sub>', '<sub>2</sub>', '<sub>3</sub>', '<sub>4</sub>', '<sub>5</sub>'], $text);
+        // Multiplication sign
+        $text = preg_replace('/(\d+)\s*\*\s*(\d+)/', '$1 × $2', $text);
+        return $text;
+    }
+}
+?>
 <div class="data-card" style="padding: 24px 28px; background: #ffffff; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); margin-bottom: 24px;">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
         <div>
@@ -79,6 +98,23 @@
     </h3>
     <form action="<?php echo site_url('admin/save_question/'.$assessment->id); ?>" method="POST" enctype="multipart/form-data">
         
+        <div style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 14px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="font-size: 12px; font-weight: 700; color: #475569; display: flex; align-items: center; gap: 4px;">
+                <i class="ri-functions" style="color: #2563eb;"></i> Math & Symbol Shortcut Toolbar:
+            </span>
+            <button type="button" onclick="insertSymbol('²')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Superscript 2">x²</button>
+            <button type="button" onclick="insertSymbol('³')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Superscript 3">x³</button>
+            <button type="button" onclick="insertSymbol('°')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Degree Sign">°</button>
+            <button type="button" onclick="insertSymbol('₂')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Subscript 2">x₂</button>
+            <button type="button" onclick="insertSymbol('₃')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Subscript 3">x₃</button>
+            <button type="button" onclick="insertSymbol('×')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Multiply">×</button>
+            <button type="button" onclick="insertSymbol('÷')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Divide">÷</button>
+            <button type="button" onclick="insertSymbol('±')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Plus-Minus">±</button>
+            <button type="button" onclick="insertSymbol('√')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Square Root">√</button>
+            <button type="button" onclick="insertSymbol('π')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Pi">π</button>
+            <span style="font-size: 11px; color: #64748b; margin-left: 6px;">(Click any symbol to insert into Question or Option text)</span>
+        </div>
+
         <div class="form-group" style="margin-bottom: 16px;">
             <label for="part_id" style="font-weight: 600; color: #334155; margin-bottom: 6px; display: block;">Select Test Part / Section <span style="color: #ef4444;">*</span></label>
             <select id="part_id" name="part_id" style="width: 100%; max-width: 400px; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 14px; font-weight: 600; color: #1e293b;" required>
@@ -181,7 +217,7 @@
                                 </span>
                             </div>
                             <div style="font-size: 15px; font-weight: 700; color: #0f172a; line-height: 1.5; margin-bottom: 10px;">
-                                <?php echo htmlspecialchars($q->question_text); ?>
+                                <?php echo formatMathSigns($q->question_text); ?>
                             </div>
 
                             <?php if(!empty($q->image_path) && file_exists(FCPATH . $q->image_path)): ?>
@@ -192,7 +228,7 @@
 
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
                                 <div style="padding: 10px 14px; border-radius: 6px; font-size: 14px; <?php echo (strtoupper($q->correct_option) === 'A') ? 'background-color: #dcfce7; border: 1px solid #86efac; color: #14532d; font-weight: 700;' : 'background-color: #ffffff; border: 1px solid #cbd5e1; color: #475569;'; ?>">
-                                    <strong>A:</strong> <?php echo htmlspecialchars($q->option_a); ?>
+                                    <strong>A:</strong> <?php echo formatMathSigns($q->option_a); ?>
                                     <?php if(!empty($q->option_a_image) && file_exists(FCPATH . $q->option_a_image)): ?>
                                         <div style="margin-top: 6px;"><img src="<?php echo base_url($q->option_a_image); ?>" alt="Option A Image" style="max-height: 90px; max-width: 100%; border-radius: 6px; border: 1px solid #cbd5e1;"></div>
                                     <?php endif; ?>
@@ -201,7 +237,7 @@
                                     <?php endif; ?>
                                 </div>
                                 <div style="padding: 10px 14px; border-radius: 6px; font-size: 14px; <?php echo (strtoupper($q->correct_option) === 'B') ? 'background-color: #dcfce7; border: 1px solid #86efac; color: #14532d; font-weight: 700;' : 'background-color: #ffffff; border: 1px solid #cbd5e1; color: #475569;'; ?>">
-                                    <strong>B:</strong> <?php echo htmlspecialchars($q->option_b); ?>
+                                    <strong>B:</strong> <?php echo formatMathSigns($q->option_b); ?>
                                     <?php if(!empty($q->option_b_image) && file_exists(FCPATH . $q->option_b_image)): ?>
                                         <div style="margin-top: 6px;"><img src="<?php echo base_url($q->option_b_image); ?>" alt="Option B Image" style="max-height: 90px; max-width: 100%; border-radius: 6px; border: 1px solid #cbd5e1;"></div>
                                     <?php endif; ?>
@@ -210,7 +246,7 @@
                                     <?php endif; ?>
                                 </div>
                                 <div style="padding: 10px 14px; border-radius: 6px; font-size: 14px; <?php echo (strtoupper($q->correct_option) === 'C') ? 'background-color: #dcfce7; border: 1px solid #86efac; color: #14532d; font-weight: 700;' : 'background-color: #ffffff; border: 1px solid #cbd5e1; color: #475569;'; ?>">
-                                    <strong>C:</strong> <?php echo htmlspecialchars($q->option_c); ?>
+                                    <strong>C:</strong> <?php echo formatMathSigns($q->option_c); ?>
                                     <?php if(!empty($q->option_c_image) && file_exists(FCPATH . $q->option_c_image)): ?>
                                         <div style="margin-top: 6px;"><img src="<?php echo base_url($q->option_c_image); ?>" alt="Option C Image" style="max-height: 90px; max-width: 100%; border-radius: 6px; border: 1px solid #cbd5e1;"></div>
                                     <?php endif; ?>
@@ -220,7 +256,7 @@
                                 </div>
                                 <?php if(!empty($q->option_d) || (!empty($q->option_d_image) && file_exists(FCPATH . $q->option_d_image))): ?>
                                 <div style="padding: 10px 14px; border-radius: 6px; font-size: 14px; <?php echo (strtoupper($q->correct_option) === 'D') ? 'background-color: #dcfce7; border: 1px solid #86efac; color: #14532d; font-weight: 700;' : 'background-color: #ffffff; border: 1px solid #cbd5e1; color: #475569;'; ?>">
-                                    <strong>D:</strong> <?php echo htmlspecialchars($q->option_d); ?>
+                                    <strong>D:</strong> <?php echo formatMathSigns($q->option_d); ?>
                                     <?php if(!empty($q->option_d_image) && file_exists(FCPATH . $q->option_d_image)): ?>
                                         <div style="margin-top: 6px;"><img src="<?php echo base_url($q->option_d_image); ?>" alt="Option D Image" style="max-height: 90px; max-width: 100%; border-radius: 6px; border: 1px solid #cbd5e1;"></div>
                                     <?php endif; ?>
@@ -250,3 +286,26 @@
         </p>
     <?php endif; ?>
 </div>
+
+<script>
+let lastFocusedInput = null;
+document.querySelectorAll('input[type="text"], textarea').forEach(input => {
+    input.addEventListener('focus', function() {
+        lastFocusedInput = this;
+    });
+});
+
+function insertSymbol(symbol) {
+    if (!lastFocusedInput) {
+        lastFocusedInput = document.getElementById('question_text') || document.getElementById('option_a');
+    }
+    if (lastFocusedInput) {
+        const start = lastFocusedInput.selectionStart || lastFocusedInput.value.length;
+        const end = lastFocusedInput.selectionEnd || lastFocusedInput.value.length;
+        const val = lastFocusedInput.value;
+        lastFocusedInput.value = val.substring(0, start) + symbol + val.substring(end);
+        lastFocusedInput.focus();
+        lastFocusedInput.setSelectionRange(start + symbol.length, start + symbol.length);
+    }
+}
+</script>

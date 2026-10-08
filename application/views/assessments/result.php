@@ -1,3 +1,22 @@
+<?php
+if (!function_exists('formatMathSigns')) {
+    function formatMathSigns($str) {
+        if (empty($str)) return '';
+        $text = htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+        // Degree signs
+        $text = preg_replace('/\b(\d+)\s*(\^?o|deg|°)\b/i', '$1°', $text);
+        // Superscripts
+        $text = preg_replace('/(\b[a-zA-Z0-9\)]+)\^([\-\+]?\d+)/', '$1<sup>$2</sup>', $text);
+        $text = str_replace(['²', '³', '¹', '⁰', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹'], ['<sup>2</sup>', '<sup>3</sup>', '<sup>1</sup>', '<sup>0</sup>', '<sup>4</sup>', '<sup>5</sup>', '<sup>6</sup>', '<sup>7</sup>', '<sup>8</sup>', '<sup>9</sup>'], $text);
+        // Subscripts
+        $text = preg_replace('/([a-zA-Z])_(\d+)/', '$1<sub>$2</sub>', $text);
+        $text = str_replace(['₀', '₁', '₂', '₃', '₄', '₅'], ['<sub>0</sub>', '<sub>1</sub>', '<sub>2</sub>', '<sub>3</sub>', '<sub>4</sub>', '<sub>5</sub>'], $text);
+        // Multiplication sign
+        $text = preg_replace('/(\d+)\s*\*\s*(\d+)/', '$1 × $2', $text);
+        return $text;
+    }
+}
+?>
 <div class="page-header" style="background: #f8f9fa; padding: 40px 0; border-bottom: 1px solid #dee2e6;">
     <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
         <h1 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 10px; color: #2c3e50;">Assessment Result Overview</h1>
@@ -54,7 +73,7 @@
                             <tr style="border-bottom: 1px solid #f1f5f9; background: <?php echo ($idx % 2 == 0) ? '#ffffff' : '#fafafa'; ?>;">
                                 <td style="padding: 14px 16px; font-weight: 700; color: #64748b;"><?php echo ($idx + 1); ?></td>
                                 <td style="padding: 14px 16px; color: #475569; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; max-width: 150px;"><?php echo htmlspecialchars($ans->q_subject ? $ans->q_subject : 'Section Question'); ?></td>
-                                <td style="padding: 14px 16px; color: #1e293b; font-weight: 500; max-width: 350px;"><?php echo strip_tags($ans->question_text); ?></td>
+                                <td style="padding: 14px 16px; color: #1e293b; font-weight: 500; max-width: 350px;"><?php echo formatMathSigns($ans->question_text); ?></td>
                                 <td style="padding: 14px 16px; text-align: center; font-weight: 700; color: #334155;">
                                     <?php echo $ans->selected_option ? strtoupper(htmlspecialchars($ans->selected_option)) : '<span style="color: #94a3b8; font-weight: 400; font-style: italic;">Not Answered</span>'; ?>
                                 </td>

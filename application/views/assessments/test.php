@@ -28,7 +28,6 @@ function getQuestionImage($subject, $qNum) {
 $jsQuestions = [];
 foreach ($questions as $q) {
     $section_name = !empty($q->part_name) ? $q->part_name : $q->subject;
-    
     $options = [];
     foreach (['A' => 'a', 'B' => 'b', 'C' => 'c', 'D' => 'd'] as $letter => $key) {
         $text_col = 'option_' . $key;
@@ -41,6 +40,18 @@ foreach ($questions as $q) {
                 'image' => $img
             ];
         }
+    }
+
+    // Fallback options if none defined
+    if (empty($options)) {
+        $is_spatial = stripos($section_name, 'spatial') !== false;
+        $opt_prefix = $is_spatial ? 'Fig ' : 'Option ';
+        $options = [
+            'A' => ['text' => $opt_prefix . 'A', 'image' => null],
+            'B' => ['text' => $opt_prefix . 'B', 'image' => null],
+            'C' => ['text' => $opt_prefix . 'C', 'image' => null],
+            'D' => ['text' => $opt_prefix . 'D', 'image' => null],
+        ];
     }
 
     $img1 = (!empty($q->image_path) && file_exists(FCPATH . $q->image_path)) ? base_url($q->image_path) : getQuestionImage($q->subject, $q->question_number);
@@ -285,15 +296,46 @@ foreach ($questions as $q) {
             }, 1000);
         }
 
+        function formatMathText(str) {
+            if (!str) return '';
+            let text = str;
+            // Degree signs: 81o, 90o, 45o, 180o, 360o, 81^o, 90^o, 81 deg -> 81°, 90°
+            text = text.replace(/\b(\d+)\s*(\^?o|deg|°)\b/gi, '$1°');
+            // Superscripts: x^2 -> x<sup>2</sup>, y^2 -> y<sup>2</sup>, 10^-5 -> 10<sup>-5</sup>, 10^9 -> 10<sup>9</sup>
+            text = text.replace(/([a-zA-Z0-9\)]+)\^([\-\+]?\d+|\{[^}]+\})/g, '$1<sup>$2</sup>');
+            text = text.replace(/²/g, '<sup>2</sup>').replace(/³/g, '<sup>3</sup>').replace(/¹/g, '<sup>1</sup>').replace(/⁰/g, '<sup>0</sup>');
+            text = text.replace(/⁴/g, '<sup>4</sup>').replace(/⁵/g, '<sup>5</sup>').replace(/⁶/g, '<sup>6</sup>').replace(/⁷/g, '<sup>7</sup>').replace(/⁸/g, '<sup>8</sup>').replace(/⁹/g, '<sup>9</sup>');
+            text = text.replace(/⁻/g, '<sup>-</sup>').replace(/⁺/g, '<sup>+</sup>');
+            // Subscripts
+            text = text.replace(/([a-zA-Z])_(\d+)/g, '$1<sub>$2</sub>');
+            text = text.replace(/₀/g, '<sub>0</sub>').replace(/₁/g, '<sub>1</sub>').replace(/₂/g, '<sub>2</sub>').replace(/₃/g, '<sub>3</sub>').replace(/₄/g, '<sub>4</sub>').replace(/₅/g, '<sub>5</sub>');
+            // Multiplication sign
+            text = text.replace(/(\d+)\s*\*\s*(\d+)/g, '$1 × $2');
+            return text;
+        }
+
         function renderQuestion() {
             const question = questions[currentIndex];
             const qWindow = document.getElementById('question-window');
             
-            const formattedText = question.text.replace(/\n/g, '<br>');
+            const rawText = formatMathText(question.text || '');
+            const formattedText = rawText.replace(/\n/g, '<br>');
             let optionsHtml = '';
             const selectedOpt = userAnswers[question.id] || null;
 
-            for (const [letter, opt] of Object.entries(question.options)) {
+            let questionOptions = question.options || {};
+            if (Object.keys(questionOptions).length === 0) {
+                const isSpatial = (question.section_name || question.subject || '').toLowerCase().includes('spatial');
+                const defaultLabel = isSpatial ? 'Fig ' : 'Option ';
+                questionOptions = {
+                    'A': { text: defaultLabel + 'A', image: null },
+                    'B': { text: defaultLabel + 'B', image: null },
+                    'C': { text: defaultLabel + 'C', image: null },
+                    'D': { text: defaultLabel + 'D', image: null }
+                };
+            }
+
+            for (const [letter, opt] of Object.entries(questionOptions)) {
                 const isSelected = selectedOpt === letter;
                 const optText = (typeof opt === 'object' && opt !== null) ? (opt.text || '') : opt;
                 const optImg = (typeof opt === 'object' && opt !== null) ? (opt.image || null) : null;
@@ -305,7 +347,7 @@ foreach ($questions as $q) {
                             ${letter}
                         </span>
                         <div class="flex-1 flex flex-col md:flex-row md:items-center gap-3">
-                            ${optText ? `<span class="text-slate-700 text-sm md:text-base leading-relaxed">${optText.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>` : ''}
+                            ${optText ? `<span class="text-slate-700 text-sm md:text-base leading-relaxed">${formatMathText(optText)}</span>` : ''}
                             ${optImg ? `<img src="${optImg}" alt="Option ${letter} Photo" class="max-h-36 max-w-xs object-contain rounded-lg border border-slate-200 bg-white p-1">` : ''}
                         </div>
                     </div>

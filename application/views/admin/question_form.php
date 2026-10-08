@@ -20,6 +20,23 @@
         </div>
         <?php endif; ?>
 
+        <div style="background-color: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; padding: 10px 14px; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="font-size: 12px; font-weight: 700; color: #475569; display: flex; align-items: center; gap: 4px;">
+                <i class="ri-functions" style="color: #2563eb;"></i> Math & Symbol Shortcut Toolbar:
+            </span>
+            <button type="button" onclick="insertSymbol('²')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Superscript 2">x²</button>
+            <button type="button" onclick="insertSymbol('³')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Superscript 3">x³</button>
+            <button type="button" onclick="insertSymbol('°')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Degree Sign">°</button>
+            <button type="button" onclick="insertSymbol('₂')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Subscript 2">x₂</button>
+            <button type="button" onclick="insertSymbol('₃')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Subscript 3">x₃</button>
+            <button type="button" onclick="insertSymbol('×')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Multiply">×</button>
+            <button type="button" onclick="insertSymbol('÷')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Divide">÷</button>
+            <button type="button" onclick="insertSymbol('±')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Plus-Minus">±</button>
+            <button type="button" onclick="insertSymbol('√')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Square Root">√</button>
+            <button type="button" onclick="insertSymbol('π')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Pi">π</button>
+            <span style="font-size: 11px; color: #64748b; margin-left: 6px;">(Click any symbol to insert at cursor position into Option or Question text)</span>
+        </div>
+
         <div class="form-group" style="margin-bottom: 20px;">
             <label for="question_text" style="font-weight: 600; color: #334155; margin-bottom: 6px; display: block;">Question Text <span style="color: #ef4444;">*</span></label>
             <textarea id="question_text" name="question_text" style="width: 100%; height: 100px; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 14px; box-sizing: border-box;" required><?php echo htmlspecialchars($question->question_text); ?></textarea>
@@ -118,3 +135,26 @@
         </div>
     </form>
 </div>
+
+<script>
+let lastFocusedInput = null;
+document.querySelectorAll('input[type="text"], textarea').forEach(input => {
+    input.addEventListener('focus', function() {
+        lastFocusedInput = this;
+    });
+});
+
+function insertSymbol(symbol) {
+    if (!lastFocusedInput) {
+        lastFocusedInput = document.getElementById('question_text') || document.getElementById('option_a');
+    }
+    if (lastFocusedInput) {
+        const start = lastFocusedInput.selectionStart || lastFocusedInput.value.length;
+        const end = lastFocusedInput.selectionEnd || lastFocusedInput.value.length;
+        const val = lastFocusedInput.value;
+        lastFocusedInput.value = val.substring(0, start) + symbol + val.substring(end);
+        lastFocusedInput.focus();
+        lastFocusedInput.setSelectionRange(start + symbol.length, start + symbol.length);
+    }
+}
+</script>
