@@ -318,10 +318,15 @@ foreach ($questions as $q) {
             let optionsHtml = '';
             const selectedOpt = userAnswers[question.id] || null;
 
-            const isSpatial = (question.section_name || question.subject || '').toLowerCase().includes('spatial');
-            const isSpatialQ11to20 = isSpatial && (question.number >= 11 && question.number <= 20);
+            const secName = (question.section_name || question.subject || '').toLowerCase();
+            const isSpatial = secName.includes('spatial');
+            const isClerical = secName.includes('clerical');
 
-            if (isSpatialQ11to20) {
+            const isTextBoxQuestion = (isSpatial && question.number >= 11 && question.number <= 20) || 
+                                      (isClerical && question.number >= 13 && question.number <= 20);
+
+            if (isTextBoxQuestion) {
+                const placeholderText = isClerical ? "e.g. AB, AD..." : "Type your answer here...";
                 optionsHtml = `
                     <div class="mt-4 p-6 bg-white border border-slate-200 rounded-2xl shadow-sm">
                         <label for="textbox-ans-${question.id}" class="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-2">
@@ -332,7 +337,7 @@ foreach ($questions as $q) {
                                    id="textbox-ans-${question.id}" 
                                    value="${selectedOpt ? selectedOpt : ''}" 
                                    oninput="updateTextAnswer(${question.id}, this.value)" 
-                                   placeholder="Type your answer here..." 
+                                   placeholder="${placeholderText}" 
                                    class="w-full px-5 py-3.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-800 text-lg font-bold tracking-wide focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white uppercase transition-all duration-200" 
                                    autocomplete="off" />
                         </div>
