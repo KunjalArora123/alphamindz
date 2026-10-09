@@ -4,15 +4,10 @@ $remainingTime = ($time_limit > 0) ? ($time_limit - $elapsed) : -1;
 if ($time_limit > 0 && $remainingTime < 0) $remainingTime = 0;
 
 function getQuestionImage($subject, $qNum) {
-    $prefix = '';
-    if ($subject === 'Spatial Ability') {
-        $prefix = 'spatial';
-    } elseif ($subject === 'Numerical Ability') {
-        $prefix = 'numerical';
-    } else {
-        $parts = explode(' ', strtolower($subject));
-        $prefix = $parts[0];
+    if (stripos($subject, 'spatial') === false) {
+        return null;
     }
+    $prefix = 'spatial';
     
     $extensions = ['png', 'jpg', 'jpeg', 'svg', 'gif'];
     foreach ($extensions as $ext) {
