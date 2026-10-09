@@ -326,8 +326,40 @@ foreach ($questions as $q) {
                                       (isClerical && question.number >= 13 && question.number <= 20);
 
             if (isTextBoxQuestion) {
+                let choicesDisplayHtml = '';
+                if (isClerical) {
+                    let questionOptions = question.options || {};
+                    let choicesCardsHtml = '';
+                    for (const [letter, opt] of Object.entries(questionOptions)) {
+                        const optText = (typeof opt === 'object' && opt !== null) ? (opt.text || '') : opt;
+                        const optImg = (typeof opt === 'object' && opt !== null) ? (opt.image || null) : null;
+                        
+                        choicesCardsHtml += `
+                            <div class="flex flex-col items-center p-3 bg-slate-50 border border-slate-200 rounded-xl shadow-xs">
+                                <span class="font-extrabold text-sm text-blue-600 mb-2 bg-blue-100 border border-blue-200 w-7 h-7 rounded-full flex items-center justify-center">
+                                    ${letter}
+                                </span>
+                                ${optText ? `<span class="text-slate-800 text-sm font-semibold text-center">${formatMathText(optText)}</span>` : ''}
+                                ${optImg ? `<img src="${optImg}" alt="Choice ${letter}" class="max-h-36 object-contain bg-white p-1.5 rounded-lg border border-slate-200">` : ''}
+                            </div>
+                        `;
+                    }
+
+                    if (choicesCardsHtml) {
+                        choicesDisplayHtml = `
+                            <div class="my-4">
+                                <span class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Options / Choices to Compare:</span>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    ${choicesCardsHtml}
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+
                 const placeholderText = isClerical ? "e.g. AB, AD..." : "Type your answer here...";
                 optionsHtml = `
+                    ${choicesDisplayHtml}
                     <div class="mt-4 p-6 bg-white border border-slate-200 rounded-2xl shadow-sm">
                         <label for="textbox-ans-${question.id}" class="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-2">
                             Enter Your Answer:
@@ -342,7 +374,7 @@ foreach ($questions as $q) {
                                    autocomplete="off" />
                         </div>
                         <p class="text-xs text-slate-500 mt-2">
-                            Type your answer into the box above. It will be matched against the answer key.
+                            Type the identical pair (e.g. AB, AD, AC) into the box above. It will be matched against the answer key.
                         </p>
                     </div>
                 `;
