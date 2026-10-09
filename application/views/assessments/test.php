@@ -323,35 +323,59 @@ foreach ($questions as $q) {
             let optionsHtml = '';
             const selectedOpt = userAnswers[question.id] || null;
 
-            let questionOptions = question.options || {};
-            if (Object.keys(questionOptions).length === 0) {
-                const isSpatial = (question.section_name || question.subject || '').toLowerCase().includes('spatial');
-                const defaultLabel = isSpatial ? 'Fig ' : 'Option ';
-                questionOptions = {
-                    'A': { text: defaultLabel + 'A', image: null },
-                    'B': { text: defaultLabel + 'B', image: null },
-                    'C': { text: defaultLabel + 'C', image: null },
-                    'D': { text: defaultLabel + 'D', image: null }
-                };
-            }
+            const isSpatial = (question.section_name || question.subject || '').toLowerCase().includes('spatial');
+            const isSpatialQ11to20 = isSpatial && (question.number >= 11 && question.number <= 20);
 
-            for (const [letter, opt] of Object.entries(questionOptions)) {
-                const isSelected = selectedOpt === letter;
-                const optText = (typeof opt === 'object' && opt !== null) ? (opt.text || '') : opt;
-                const optImg = (typeof opt === 'object' && opt !== null) ? (opt.image || null) : null;
-
-                optionsHtml += `
-                    <div onclick="selectOption(${question.id}, '${letter}')" 
-                         class="option-card px-5 py-4 bg-white border ${isSelected ? 'option-selected' : 'border-slate-200'} rounded-2xl cursor-pointer flex items-center gap-4 relative">
-                        <span class="flex items-center justify-center min-w-[2rem] w-8 h-8 rounded-xl ${isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 border border-slate-200 text-slate-500'} font-bold text-sm transition-all duration-300">
-                            ${letter}
-                        </span>
-                        <div class="flex-1 flex flex-col md:flex-row md:items-center gap-3">
-                            ${optText ? `<span class="text-slate-700 text-sm md:text-base leading-relaxed">${formatMathText(optText)}</span>` : ''}
-                            ${optImg ? `<img src="${optImg}" alt="Option ${letter} Photo" class="max-h-36 max-w-xs object-contain rounded-lg border border-slate-200 bg-white p-1">` : ''}
+            if (isSpatialQ11to20) {
+                optionsHtml = `
+                    <div class="mt-4 p-6 bg-white border border-slate-200 rounded-2xl shadow-sm">
+                        <label for="textbox-ans-${question.id}" class="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-2">
+                            Enter Your Answer:
+                        </label>
+                        <div class="relative max-w-md">
+                            <input type="text" 
+                                   id="textbox-ans-${question.id}" 
+                                   value="${selectedOpt ? selectedOpt : ''}" 
+                                   oninput="updateTextAnswer(${question.id}, this.value)" 
+                                   placeholder="Type your answer here..." 
+                                   class="w-full px-5 py-3.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-800 text-lg font-bold tracking-wide focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white uppercase transition-all duration-200" 
+                                   autocomplete="off" />
                         </div>
+                        <p class="text-xs text-slate-500 mt-2">
+                            Type your answer into the box above. It will be matched against the answer key.
+                        </p>
                     </div>
                 `;
+            } else {
+                let questionOptions = question.options || {};
+                if (Object.keys(questionOptions).length === 0) {
+                    const defaultLabel = isSpatial ? 'Fig ' : 'Option ';
+                    questionOptions = {
+                        'A': { text: defaultLabel + 'A', image: null },
+                        'B': { text: defaultLabel + 'B', image: null },
+                        'C': { text: defaultLabel + 'C', image: null },
+                        'D': { text: defaultLabel + 'D', image: null }
+                    };
+                }
+
+                for (const [letter, opt] of Object.entries(questionOptions)) {
+                    const isSelected = selectedOpt === letter;
+                    const optText = (typeof opt === 'object' && opt !== null) ? (opt.text || '') : opt;
+                    const optImg = (typeof opt === 'object' && opt !== null) ? (opt.image || null) : null;
+
+                    optionsHtml += `
+                        <div onclick="selectOption(${question.id}, '${letter}')" 
+                             class="option-card px-5 py-4 bg-white border ${isSelected ? 'option-selected' : 'border-slate-200'} rounded-2xl cursor-pointer flex items-center gap-4 relative">
+                            <span class="flex items-center justify-center min-w-[2rem] w-8 h-8 rounded-xl ${isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 border border-slate-200 text-slate-500'} font-bold text-sm transition-all duration-300">
+                                ${letter}
+                            </span>
+                            <div class="flex-1 flex flex-col md:flex-row md:items-center gap-3">
+                                ${optText ? `<span class="text-slate-700 text-sm md:text-base leading-relaxed">${formatMathText(optText)}</span>` : ''}
+                                ${optImg ? `<img src="${optImg}" alt="Option ${letter} Photo" class="max-h-36 max-w-xs object-contain rounded-lg border border-slate-200 bg-white p-1">` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
             }
 
             let imageHtml = '';
@@ -407,11 +431,13 @@ foreach ($questions as $q) {
                         Previous
                     </button>
                     
+                    <div id="clear-btn-container">
                     ${selectedOpt ? `
                         <button onclick="clearResponse(${question.id})" class="text-xs font-semibold text-slate-400 hover:text-rose-600 transition duration-300">
                             Clear Response
                         </button>
                     ` : ''}
+                    </div>
                     
                     <button onclick="nextQuestion()" 
                             class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition duration-300 text-sm">
@@ -449,6 +475,27 @@ foreach ($questions as $q) {
             userAnswers[qId] = letter;
             localStorage.setItem(storagePrefix + 'answers', JSON.stringify(userAnswers));
             renderQuestion();
+        }
+
+        function updateTextAnswer(qId, val) {
+            const trimmedVal = val.trim();
+            if (trimmedVal.length > 0) {
+                userAnswers[qId] = trimmedVal;
+            } else {
+                delete userAnswers[qId];
+            }
+            localStorage.setItem(storagePrefix + 'answers', JSON.stringify(userAnswers));
+            updateNavGrid();
+            updateProgress();
+
+            const clearBtnContainer = document.getElementById('clear-btn-container');
+            if (clearBtnContainer) {
+                if (userAnswers[qId]) {
+                    clearBtnContainer.innerHTML = `<button onclick="clearResponse(${qId})" class="text-xs font-semibold text-slate-400 hover:text-rose-600 transition duration-300">Clear Response</button>`;
+                } else {
+                    clearBtnContainer.innerHTML = '';
+                }
+            }
         }
 
         function clearResponse(qId) {
