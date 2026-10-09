@@ -117,8 +117,8 @@ class Auth extends CI_Controller {
                 $this->load->config('email');
                 $this->load->library('email');
 
-                $from_email = getenv('FROM_EMAIL') ?: 'info.alphamindz@gmail.com';
-                $from_name  = getenv('FROM_NAME') ?: 'AlphaMindz';
+                $from_email = isset($_SERVER['FROM_EMAIL']) ? $_SERVER['FROM_EMAIL'] : (getenv('FROM_EMAIL') ?: 'prismlogic510@gmail.com');
+                $from_name  = isset($_SERVER['FROM_NAME']) ? $_SERVER['FROM_NAME'] : (getenv('FROM_NAME') ?: 'AlphaMindz');
 
                 $this->email->from($from_email, $from_name);
                 $this->email->to($email);
