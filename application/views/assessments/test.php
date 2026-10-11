@@ -303,7 +303,7 @@ foreach ($questions as $q) {
             text = text.replace(/⁻/g, '<sup>-</sup>').replace(/⁺/g, '<sup>+</sup>');
             // Subscripts
             text = text.replace(/([a-zA-Z])_(\d+)/g, '$1<sub>$2</sub>');
-            text = text.replace(/₀/g, '<sub>0</sub>').replace(/₁/g, '<sub>1</sub>').replace(/₂/g, '<sub>2</sub>').replace(/₃/g, '<sub>3</sub>').replace(/₄/g, '<sub>4</sub>').replace(/₅/g, '<sub>5</sub>');
+            text = text.replace(/₀/g, '<sub>0</sub>').replace(/₁/g, '<sub>1</sub>').replace(/₂/g, '<sub>2</sub>').replace(/₃/g, '<sub>3</sub>').replace(/₄/g, '<sub>4</sub>').replace(/₅/g, '<sub>5</sub>').replace(/₆/g, '<sub>6</sub>').replace(/₇/g, '<sub>7</sub>').replace(/₈/g, '<sub>8</sub>').replace(/₉/g, '<sub>9</sub>');
             // Multiplication sign
             text = text.replace(/(\d+)\s*\*\s*(\d+)/g, '$1 × $2');
             return text;

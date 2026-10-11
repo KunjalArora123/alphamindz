@@ -10,7 +10,7 @@ if (!function_exists('formatMathSigns')) {
         $text = str_replace(['²', '³', '¹', '⁰', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹'], ['<sup>2</sup>', '<sup>3</sup>', '<sup>1</sup>', '<sup>0</sup>', '<sup>4</sup>', '<sup>5</sup>', '<sup>6</sup>', '<sup>7</sup>', '<sup>8</sup>', '<sup>9</sup>'], $text);
         // Subscripts
         $text = preg_replace('/([a-zA-Z])_(\d+)/', '$1<sub>$2</sub>', $text);
-        $text = str_replace(['₀', '₁', '₂', '₃', '₄', '₅'], ['<sub>0</sub>', '<sub>1</sub>', '<sub>2</sub>', '<sub>3</sub>', '<sub>4</sub>', '<sub>5</sub>'], $text);
+        $text = str_replace(['₀', '₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉'], ['<sub>0</sub>', '<sub>1</sub>', '<sub>2</sub>', '<sub>3</sub>', '<sub>4</sub>', '<sub>5</sub>', '<sub>6</sub>', '<sub>7</sub>', '<sub>8</sub>', '<sub>9</sub>'], $text);
         // Multiplication sign
         $text = preg_replace('/(\d+)\s*\*\s*(\d+)/', '$1 × $2', $text);
         return $text;
@@ -107,6 +107,10 @@ if (!function_exists('formatMathSigns')) {
             <button type="button" onclick="insertSymbol('°')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Degree Sign">°</button>
             <button type="button" onclick="insertSymbol('₂')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Subscript 2">x₂</button>
             <button type="button" onclick="insertSymbol('₃')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Subscript 3">x₃</button>
+            <button type="button" onclick="insertSymbol('₄')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Subscript 4">x₄</button>
+            <button type="button" onclick="insertSymbol('₅')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Subscript 5">x₅</button>
+            <button type="button" onclick="insertSymbol('₆')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Subscript 6">x₆</button>
+            <button type="button" onclick="insertSymbol('₇')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Subscript 7">x₇</button>
             <button type="button" onclick="insertSymbol('×')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Multiply">×</button>
             <button type="button" onclick="insertSymbol('÷')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Divide">÷</button>
             <button type="button" onclick="insertSymbol('±')" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 9px; font-size: 13px; font-weight: 700; color: #1e293b; cursor: pointer;" title="Plus-Minus">±</button>

@@ -10,7 +10,7 @@ if (!function_exists('formatMathSigns')) {
         $text = str_replace(['²', '³', '¹', '⁰', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹'], ['<sup>2</sup>', '<sup>3</sup>', '<sup>1</sup>', '<sup>0</sup>', '<sup>4</sup>', '<sup>5</sup>', '<sup>6</sup>', '<sup>7</sup>', '<sup>8</sup>', '<sup>9</sup>'], $text);
         // Subscripts
         $text = preg_replace('/([a-zA-Z])_(\d+)/', '$1<sub>$2</sub>', $text);
-        $text = str_replace(['₀', '₁', '₂', '₃', '₄', '₅'], ['<sub>0</sub>', '<sub>1</sub>', '<sub>2</sub>', '<sub>3</sub>', '<sub>4</sub>', '<sub>5</sub>'], $text);
+        $text = str_replace(['₀', '₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉'], ['<sub>0</sub>', '<sub>1</sub>', '<sub>2</sub>', '<sub>3</sub>', '<sub>4</sub>', '<sub>5</sub>', '<sub>6</sub>', '<sub>7</sub>', '<sub>8</sub>', '<sub>9</sub>'], $text);
         // Multiplication sign
         $text = preg_replace('/(\d+)\s*\*\s*(\d+)/', '$1 × $2', $text);
         return $text;
