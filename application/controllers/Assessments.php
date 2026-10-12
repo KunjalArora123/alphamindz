@@ -12,8 +12,6 @@ class Assessments extends CI_Controller {
 
         public function index() {
         $this->db->where('status', 'active');
-        $this->db->where('title !=', 'Interest Inventory Test');
-        $this->db->where('title !=', 'MBTI Personality Profiling Test');
         $active_assessments = $this->db->get('assessments')->result();
         
         $data['active_assessments'] = $active_assessments;
@@ -45,8 +43,19 @@ class Assessments extends CI_Controller {
             return;
         }
 
-        // System prerequisite tests (MBTI / Interest Inventory) are currently disabled.
-        // Direct access to target test is allowed.
+        // Workflow Enforcer: Interest -> MBTI -> Target Test
+        if ($test_title !== 'Interest Inventory Test' && $test_title !== 'MBTI Personality Profiling Test') {
+            $this->session->set_userdata('target_test', $test_title);
+            
+            if (!$this->session->userdata('completed_interest')) {
+                redirect('assessments/take_test?test=' . urlencode('Interest Inventory Test'));
+                return;
+            }
+            if (!$this->session->userdata('completed_mbti')) {
+                redirect('assessments/take_test?test=' . urlencode('MBTI Personality Profiling Test'));
+                return;
+            }
+        }
 
         // Setup session for test
         if (!$this->session->userdata('test_started') || $this->session->userdata('test_subject') != $test_title) {

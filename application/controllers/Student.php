@@ -58,8 +58,6 @@ class Student extends CI_Controller {
 
         public function assessment() {
         $this->db->where('status', 'active');
-        $this->db->where('title !=', 'Interest Inventory Test');
-        $this->db->where('title !=', 'MBTI Personality Profiling Test');
         $active_assessments = $this->db->get('assessments')->result();
         
         $data['active_assessments'] = $active_assessments;
