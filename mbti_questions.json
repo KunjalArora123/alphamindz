@@ -93,7 +93,7 @@
     {
         "id": 14,
         "text": "In A large group do you more often",
-        "option_a": "Introduce pthers",
+        "option_a": "Introduce others",
         "option_b": "Or Get Introduced",
         "pair": "E/I"
     },
@@ -254,7 +254,7 @@
     {
         "id": 37,
         "text": "",
-        "option_a": "Certainty",
+        "option_a": "Certainity",
         "option_b": "Theory",
         "pair": "S/N"
     },
