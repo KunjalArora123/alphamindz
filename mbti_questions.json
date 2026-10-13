@@ -254,7 +254,7 @@
     {
         "id": 37,
         "text": "",
-        "option_a": "Certinity",
+        "option_a": "Certainty",
         "option_b": "Theory",
         "pair": "S/N"
     },
@@ -338,7 +338,7 @@
     {
         "id": 49,
         "text": "",
-        "option_a": "Syestamatic",
+        "option_a": "Systematic",
         "option_b": "Spontaneous",
         "pair": "J/P"
     },
@@ -507,7 +507,7 @@
         "id": 73,
         "text": "Would you rather",
         "option_a": "Support the establised methods of doing good",
-        "option_b": "Alemsnalyse What is Still Wrong and attack unresolved prob",
+        "option_b": "Analyse What is Still Wrong and attack unresolved prob",
         "pair": "S/N"
     },
     {
