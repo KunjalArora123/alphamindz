@@ -93,7 +93,7 @@
     {
         "id": 14,
         "text": "In A large group do you more often",
-        "option_a": "Introduce pthers",
+        "option_a": "Introduce others",
         "option_b": "Or Get Introduced",
         "pair": "E/I"
     },
@@ -254,7 +254,7 @@
     {
         "id": 37,
         "text": "",
-        "option_a": "Certinity",
+        "option_a": "Certainity",
         "option_b": "Theory",
         "pair": "S/N"
     },
@@ -338,7 +338,7 @@
     {
         "id": 49,
         "text": "",
-        "option_a": "Syestamatic",
+        "option_a": "Systematic",
         "option_b": "Spontaneous",
         "pair": "J/P"
     },
@@ -507,7 +507,7 @@
         "id": 73,
         "text": "Would you rather",
         "option_a": "Support the establised methods of doing good",
-        "option_b": "Alemsnalyse What is Still Wrong and attack unresolved prob",
+        "option_b": "Analyse What is Still Wrong and attack unresolved prob",
         "pair": "S/N"
     },
     {
