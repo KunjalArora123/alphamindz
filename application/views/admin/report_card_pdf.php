@@ -628,34 +628,6 @@
             line-height: 1.1;
         }
 
-        .signatures-container {
-            display: flex;
-            gap: 40px;
-            text-align: center;
-        }
-
-        .sig-block {
-            min-width: 160px;
-        }
-
-        .sig-line {
-            height: 1px;
-            background: #94a3b8;
-            margin-bottom: 6px;
-        }
-
-        .sig-name {
-            font-size: 11px;
-            font-weight: 800;
-            color: #0f172a;
-        }
-
-        .sig-title {
-            font-size: 10px;
-            color: #64748b;
-            font-weight: 600;
-        }
-
         .confidentiality-notice {
             margin-top: 20px;
             text-align: center;
@@ -1094,7 +1066,7 @@
             </div>
         </section>
 
-        <!-- Official Authentication Seal, QR Code & Signatures -->
+        <!-- Official Authentication Seal & QR Code -->
         <footer class="report-auth-footer">
             <div class="seal-qr-box">
                 <div class="qr-wrapper">
@@ -1106,18 +1078,10 @@
                     <div class="seal-text">AlphaMindz<br>Official Seal<br>Verified</div>
                 </div>
             </div>
-
-            <div class="signatures-container">
-                <div class="sig-block">
-                    <div class="sig-line"></div>
-                    <div class="sig-name">Dr. R. K. Mukherjee</div>
-                    <div class="sig-title">Director of Assessment & Psychometrics</div>
-                </div>
-                <div class="sig-block">
-                    <div class="sig-line"></div>
-                    <div class="sig-name">Academic Board</div>
-                    <div class="sig-title">AlphaMindz Academy & Career Cell</div>
-                </div>
+            <div style="text-align: right;">
+                <div style="font-size: 11px; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 0.5px;">Official Assessment Record</div>
+                <div style="font-size: 11px; color: #64748b; margin-top: 2px;">Report ID: <span style="font-family: monospace; font-weight: 700; color: #1e293b;"><?php echo htmlspecialchars($report_id); ?></span></div>
+                <div style="font-size: 10px; color: #94a3b8; margin-top: 2px;">Issued: <?php echo date('F d, Y', strtotime($attempt->completed_at ? $attempt->completed_at : date('Y-m-d'))); ?></div>
             </div>
         </footer>
 
