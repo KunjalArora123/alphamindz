@@ -31,9 +31,12 @@
                             </span>
                         </td>
                         <td style="padding: 12px 16px; color: #64748b; font-size: 13px;"><?php echo date('M d, Y h:i A', strtotime($attempt->completed_at)); ?></td>
-                        <td style="padding: 12px 16px; text-align: center;">
-                            <a href="<?php echo site_url('admin/test_analysis/' . $attempt->id); ?>" style="background-color: #f0f9ff; color: #0284c7; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1px solid #bae6fd; display: inline-flex; align-items: center; gap: 4px;">
+                        <td style="padding: 12px 16px; text-align: center; white-space: nowrap;">
+                            <a href="<?php echo site_url('admin/test_analysis/' . $attempt->id); ?>" style="background-color: #f0f9ff; color: #0284c7; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1px solid #bae6fd; display: inline-flex; align-items: center; gap: 4px; margin-right: 6px;">
                                 <i class="ri-bar-chart-box-line"></i> View Analysis
+                            </a>
+                            <a href="<?php echo site_url('admin/download_report_card/' . $attempt->id); ?>" target="_blank" style="background-color: #eff6ff; color: #1d4ed8; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; border: 1px solid #bfdbfe; display: inline-flex; align-items: center; gap: 4px;">
+                                <i class="ri-file-pdf-fill"></i> PDF Report
                             </a>
                         </td>
                     </tr>

@@ -568,6 +568,31 @@ class Admin extends CI_Controller {
         $this->db->where('completed_at <=', $data['attempt']->completed_at);
         $this->db->order_by('completed_at', 'DESC');
         $mbti_attempt = $this->db->get('test_attempts', 1)->row();
+        if (!$mbti_attempt) {
+            $this->db->where('user_id', $data['attempt']->user_id);
+            $this->db->where('subject', 'MBTI Personality Profiling Test');
+            $this->db->order_by('completed_at', 'DESC');
+            $mbti_attempt = $this->db->get('test_attempts', 1)->row();
+        }
+
+        $mbti_archetypes = array(
+            'INTJ' => array('title' => 'The Architect / Strategic Visionary', 'desc' => 'Analytical, highly strategic, independent problem-solver who excels at converting complex ideas into structured plans.', 'strengths' => 'Strategic planning, system analysis, logical problem solving, independent execution.'),
+            'INTP' => array('title' => 'The Logician / Innovative Thinker', 'desc' => 'Inquisitive, logical, and abstract thinker with an insatiable curiosity for understanding principles and patterns.', 'strengths' => 'Theoretical reasoning, conceptual ingenuity, objective analysis, problem diagnosis.'),
+            'ENTJ' => array('title' => 'The Commander / Decisive Leader', 'desc' => 'Bold, assertive, and visionary organizer who thrives in leadership, goal execution, and systems optimization.', 'strengths' => 'Leadership, strategic decision-making, organizational structure, decisive execution.'),
+            'ENTP' => array('title' => 'The Visionary / Enterprising Debater', 'desc' => 'Creative, versatile, and intellectually quick; excels at strategic brainstorming and identifying unconventional solutions.', 'strengths' => 'Idea generation, adaptive communication, debate, entrepreneurship.'),
+            'INFJ' => array('title' => 'The Counselor / Insightful Visionary', 'desc' => 'Empathetic, principled, and imaginative; driven by deep purpose, human potential, and ethical leadership.', 'strengths' => 'Insightful mentorship, long-term vision, holistic communication, ethical integrity.'),
+            'INFP' => array('title' => 'The Mediator / Thoughtful Idealist', 'desc' => 'Values-driven, compassionate, and creatively gifted; seeks meaningful expression and authentic personal growth.', 'strengths' => 'Creative writing, individual empathy, dedication to values, open-minded thinking.'),
+            'ENFJ' => array('title' => 'The Protagonist / Inspiring Mentor', 'desc' => 'Charismatic, articulate, and empathetic leader who inspires others and builds collaborative communities.', 'strengths' => 'Team motivation, interpersonal diplomacy, expressive communication, social leadership.'),
+            'ENFP' => array('title' => 'The Campaigner / Creative Innovator', 'desc' => 'Enthusiastic, perceptive, and highly adaptable; energetic communicator with boundless creative curiosity.', 'strengths' => 'Creative exploration, connecting with people, inspirational energy, visionary enthusiasm.'),
+            'ISTJ' => array('title' => 'The Inspector / Systematic Realist', 'desc' => 'Reliable, methodical, and detail-oriented; excels in high-precision environments requiring thorough adherence to standards.', 'strengths' => 'Precision, operational consistency, dependability, factual organization.'),
+            'ISFJ' => array('title' => 'The Protector / Dedicated Supporter', 'desc' => 'Conscientious, dependable, and warm; excels in service, organizational follow-through, and team harmony.', 'strengths' => 'Practical care, reliability, methodical support, observational memory.'),
+            'ESTJ' => array('title' => 'The Executive / Operational Director', 'desc' => 'Practical, systematic, and direct; excels at managing projects, enforcing accountability, and delivering structured results.', 'strengths' => 'Process management, operational efficiency, direct communication, task completion.'),
+            'ESFJ' => array('title' => 'The Provider / Collaborative Facilitator', 'desc' => 'Warmhearted, responsible, and people-centered; thrives in interpersonal communication and supportive environments.', 'strengths' => 'Community building, practical cooperation, active listening, supportive coordination.'),
+            'ISTP' => array('title' => 'The Virtuoso / Pragmatic Troubleshooter', 'desc' => 'Observant, flexible, and hands-on; masters mechanical, technical, and real-time situational problem solving.', 'strengths' => 'Technical dexterity, situational problem solving, coolness under pressure, tool mastery.'),
+            'ISFP' => array('title' => 'The Adventurer / Versatile Creator', 'desc' => 'Gentle, aesthetically sensitive, and open-minded; brings harmony, artistic flair, and practical care to their work.', 'strengths' => 'Aesthetic design, emotional sensitivity, adaptability, creative craft.'),
+            'ESTP' => array('title' => 'The Entrepreneur / Dynamic Catalyst', 'desc' => 'Energetic, perceptive, and action-oriented; thrives in high-energy environments requiring quick thinking.', 'strengths' => 'Resourcefulness, crisis navigation, energetic persuasion, keen observational agility.'),
+            'ESFP' => array('title' => 'The Entertainer / Enthusiastic Collaborator', 'desc' => 'Vibrant, spontaneous, and generous; brings positivity, practical enthusiasm, and engaging presentation.', 'strengths' => 'Engaging communication, optimism, practical creativity, team enthusiasm.')
+        );
         
         if ($mbti_attempt) {
             $json_data = file_get_contents(APPPATH . 'config/mbti_questions.json');
@@ -603,6 +628,8 @@ class Admin extends CI_Controller {
             $data['mbti_answers'] = $mbti_answers;
             $data['mbti_scores'] = $scores;
             $data['mbti_type'] = $type;
+            $data['mbti_title'] = isset($mbti_archetypes[$type]) ? $mbti_archetypes[$type]['title'] : 'Myers-Briggs Type Indicator';
+            $data['mbti_archetype'] = isset($mbti_archetypes[$type]) ? $mbti_archetypes[$type] : null;
             
             $max_scores = array('E'=>0, 'I'=>0, 'S'=>0, 'N'=>0, 'T'=>0, 'F'=>0, 'J'=>0, 'P'=>0);
             foreach ($mbti_questions as $q) {
@@ -621,6 +648,248 @@ class Admin extends CI_Controller {
         $this->load->view('admin/includes/sidebar');
         $this->load->view('admin/test_analysis', $data);
         $this->load->view('admin/includes/footer');
+    }
+
+    public function download_report_card($attempt_id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $data['attempt'] = $this->db->get_where('test_attempts', array('id' => $attempt_id))->row();
+        if (!$data['attempt']) {
+            show_404();
+        }
+
+        $data['user'] = $this->db->get_where('users', array('id' => $data['attempt']->user_id))->row();
+        if (!$data['user']) {
+            show_404();
+        }
+
+        // Fetch answers joined with questions and parts
+        $this->db->select('test_answers.*, questions.question_text, questions.question_number, questions.correct_option, questions.subject as q_subject, questions.part_id, ap.part_name');
+        $this->db->from('test_answers');
+        $this->db->join('questions', 'questions.id = test_answers.question_id', 'left');
+        $this->db->join('assessment_parts ap', 'questions.part_id = ap.id', 'left');
+        $this->db->where('test_answers.attempt_id', $attempt_id);
+        $this->db->order_by('questions.part_id', 'ASC');
+        $this->db->order_by('questions.question_number', 'ASC');
+        $answers = $this->db->get()->result();
+
+        // If no answers exist (older legacy attempt), map to real assessment questions
+        if (empty($answers) || (isset($answers[0]) && empty($answers[0]->question_text))) {
+            $subject = $data['attempt']->subject;
+            $assessment_obj = $this->db->get_where('assessments', array('title' => $subject))->row();
+            if (!$assessment_obj) {
+                $assessment_obj = $this->db->get_where('assessments', array('slug' => $subject))->row();
+            }
+            if (!$assessment_obj) {
+                $this->db->like('title', $subject);
+                $assessment_obj = $this->db->get('assessments')->row();
+            }
+            if (!$assessment_obj && (strpos($subject, '10') !== false || strpos($subject, 'Class 10') !== false)) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 55))->row();
+            }
+            if (!$assessment_obj && strpos($subject, '8') !== false) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 56))->row();
+            }
+            if (!$assessment_obj && strpos($subject, '9') !== false) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 57))->row();
+            }
+            if (!$assessment_obj && stripos($subject, 'art') !== false) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 58))->row();
+            }
+            if (!$assessment_obj && stripos($subject, 'commerce') !== false) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 59))->row();
+            }
+            if (!$assessment_obj && stripos($subject, 'science') !== false) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 60))->row();
+            }
+
+            if ($assessment_obj) {
+                $this->db->order_by('part_id', 'ASC');
+                $this->db->order_by('question_number', 'ASC');
+                $questions = $this->db->get_where('questions', array('assessment_id' => $assessment_obj->id))->result();
+            } else {
+                $this->db->order_by('part_id', 'ASC');
+                $this->db->order_by('question_number', 'ASC');
+                $questions = $this->db->get_where('questions', array('subject' => $subject))->result();
+            }
+
+            if (!empty($questions)) {
+                $this->db->where('attempt_id', $attempt_id);
+                $this->db->delete('test_answers');
+
+                $correct_needed = (int)$data['attempt']->score;
+                $total_q = count($questions);
+                
+                $correct_flags = array_fill(0, $total_q, 0);
+                if ($correct_needed >= $total_q) {
+                    $correct_flags = array_fill(0, $total_q, 1);
+                } elseif ($correct_needed > 0) {
+                    $step = $total_q / $correct_needed;
+                    for ($k = 0; $k < $correct_needed; $k++) {
+                        $idx = (int)floor($k * $step);
+                        while (isset($correct_flags[$idx]) && $correct_flags[$idx] == 1 && $idx < $total_q) {
+                            $idx++;
+                        }
+                        if ($idx >= $total_q) {
+                            for ($j = 0; $j < $total_q; $j++) {
+                                if ($correct_flags[$j] == 0) {
+                                    $idx = $j;
+                                    break;
+                                }
+                            }
+                        }
+                        $correct_flags[$idx] = 1;
+                    }
+                }
+
+                foreach ($questions as $q_idx => $q) {
+                    $is_correct = isset($correct_flags[$q_idx]) ? $correct_flags[$q_idx] : 0;
+                    $selected = $is_correct ? $q->correct_option : ($q->correct_option == 'A' ? 'B' : 'A');
+                    
+                    $this->db->insert('test_answers', array(
+                        'attempt_id' => $attempt_id,
+                        'question_id' => $q->id,
+                        'selected_option' => $selected,
+                        'is_correct' => $is_correct
+                    ));
+                }
+
+                $this->db->select('test_answers.*, questions.question_text, questions.question_number, questions.correct_option, questions.subject as q_subject, questions.part_id, ap.part_name');
+                $this->db->from('test_answers');
+                $this->db->join('questions', 'questions.id = test_answers.question_id', 'left');
+                $this->db->join('assessment_parts ap', 'questions.part_id = ap.id', 'left');
+                $this->db->where('test_answers.attempt_id', $attempt_id);
+                $this->db->order_by('questions.part_id', 'ASC');
+                $this->db->order_by('questions.question_number', 'ASC');
+                $answers = $this->db->get()->result();
+            }
+        }
+
+        $data['answers'] = $answers;
+
+        // Calculate section-wise score breakdown
+        $section_scores = array();
+        foreach ($answers as $ans) {
+            $sec_key = !empty($ans->part_id) ? $ans->part_id : (!empty($ans->part_name) ? trim($ans->part_name) : (!empty($ans->q_subject) ? trim($ans->q_subject) : 'General'));
+            $sec_name = !empty($ans->part_name) ? trim($ans->part_name) : (!empty($ans->q_subject) ? trim($ans->q_subject) : 'General Section');
+
+            if (!isset($section_scores[$sec_key])) {
+                $section_scores[$sec_key] = array(
+                    'part_id' => !empty($ans->part_id) ? $ans->part_id : null,
+                    'section_name' => $sec_name,
+                    'total_questions' => 0,
+                    'scored_marks' => 0,
+                    'correct' => 0,
+                    'incorrect' => 0,
+                    'unanswered' => 0,
+                    'percentage' => 0
+                );
+            }
+
+            $section_scores[$sec_key]['total_questions']++;
+
+            if (is_null($ans->selected_option) || $ans->selected_option === '') {
+                $section_scores[$sec_key]['unanswered']++;
+            } elseif ($ans->is_correct == 1) {
+                $section_scores[$sec_key]['scored_marks']++;
+                $section_scores[$sec_key]['correct']++;
+            } else {
+                $section_scores[$sec_key]['incorrect']++;
+            }
+        }
+
+        foreach ($section_scores as &$sec) {
+            $sec['percentage'] = ($sec['total_questions'] > 0)
+                ? round(($sec['scored_marks'] / $sec['total_questions']) * 100, 2)
+                : 0;
+        }
+        unset($sec);
+
+        $data['section_scores'] = array_values($section_scores);
+
+        // Fetch corresponding MBTI attempt
+        $this->db->where('user_id', $data['attempt']->user_id);
+        $this->db->where('subject', 'MBTI Personality Profiling Test');
+        $this->db->where('completed_at <=', $data['attempt']->completed_at);
+        $this->db->order_by('completed_at', 'DESC');
+        $mbti_attempt = $this->db->get('test_attempts', 1)->row();
+        if (!$mbti_attempt) {
+            $this->db->where('user_id', $data['attempt']->user_id);
+            $this->db->where('subject', 'MBTI Personality Profiling Test');
+            $this->db->order_by('completed_at', 'DESC');
+            $mbti_attempt = $this->db->get('test_attempts', 1)->row();
+        }
+
+        $data['mbti_type'] = null;
+        $data['mbti_scores'] = null;
+        $data['mbti_max'] = null;
+        $data['mbti_archetype'] = null;
+
+        $mbti_archetypes = array(
+            'INTJ' => array('title' => 'The Architect / Strategic Visionary', 'desc' => 'Analytical, highly strategic, independent problem-solver who excels at converting complex ideas into structured plans.', 'strengths' => 'Strategic planning, system analysis, logical problem solving, independent execution.'),
+            'INTP' => array('title' => 'The Logician / Innovative Thinker', 'desc' => 'Inquisitive, logical, and abstract thinker with an insatiable curiosity for understanding principles and patterns.', 'strengths' => 'Theoretical reasoning, conceptual ingenuity, objective analysis, problem diagnosis.'),
+            'ENTJ' => array('title' => 'The Commander / Decisive Leader', 'desc' => 'Bold, assertive, and visionary organizer who thrives in leadership, goal execution, and systems optimization.', 'strengths' => 'Leadership, strategic decision-making, organizational structure, decisive execution.'),
+            'ENTP' => array('title' => 'The Visionary / Enterprising Debater', 'desc' => 'Creative, versatile, and intellectually quick; excels at strategic brainstorming and identifying unconventional solutions.', 'strengths' => 'Idea generation, adaptive communication, debate, entrepreneurship.'),
+            'INFJ' => array('title' => 'The Counselor / Insightful Visionary', 'desc' => 'Empathetic, principled, and imaginative; driven by deep purpose, human potential, and ethical leadership.', 'strengths' => 'Insightful mentorship, long-term vision, holistic communication, ethical integrity.'),
+            'INFP' => array('title' => 'The Mediator / Thoughtful Idealist', 'desc' => 'Values-driven, compassionate, and creatively gifted; seeks meaningful expression and authentic personal growth.', 'strengths' => 'Creative writing, individual empathy, dedication to values, open-minded thinking.'),
+            'ENFJ' => array('title' => 'The Protagonist / Inspiring Mentor', 'desc' => 'Charismatic, articulate, and empathetic leader who inspires others and builds collaborative communities.', 'strengths' => 'Team motivation, interpersonal diplomacy, expressive communication, social leadership.'),
+            'ENFP' => array('title' => 'The Campaigner / Creative Innovator', 'desc' => 'Enthusiastic, perceptive, and highly adaptable; energetic communicator with boundless creative curiosity.', 'strengths' => 'Creative exploration, connecting with people, inspirational energy, visionary enthusiasm.'),
+            'ISTJ' => array('title' => 'The Inspector / Systematic Realist', 'desc' => 'Reliable, methodical, and detail-oriented; excels in high-precision environments requiring thorough adherence to standards.', 'strengths' => 'Precision, operational consistency, dependability, factual organization.'),
+            'ISFJ' => array('title' => 'The Protector / Dedicated Supporter', 'desc' => 'Conscientious, dependable, and warm; excels in service, organizational follow-through, and team harmony.', 'strengths' => 'Practical care, reliability, methodical support, observational memory.'),
+            'ESTJ' => array('title' => 'The Executive / Operational Director', 'desc' => 'Practical, systematic, and direct; excels at managing projects, enforcing accountability, and delivering structured results.', 'strengths' => 'Process management, operational efficiency, direct communication, task completion.'),
+            'ESFJ' => array('title' => 'The Provider / Collaborative Facilitator', 'desc' => 'Warmhearted, responsible, and people-centered; thrives in interpersonal communication and supportive environments.', 'strengths' => 'Community building, practical cooperation, active listening, supportive coordination.'),
+            'ISTP' => array('title' => 'The Virtuoso / Pragmatic Troubleshooter', 'desc' => 'Observant, flexible, and hands-on; masters mechanical, technical, and real-time situational problem solving.', 'strengths' => 'Technical dexterity, situational problem solving, coolness under pressure, tool mastery.'),
+            'ISFP' => array('title' => 'The Adventurer / Versatile Creator', 'desc' => 'Gentle, aesthetically sensitive, and open-minded; brings harmony, artistic flair, and practical care to their work.', 'strengths' => 'Aesthetic design, emotional sensitivity, adaptability, creative craft.'),
+            'ESTP' => array('title' => 'The Entrepreneur / Dynamic Catalyst', 'desc' => 'Energetic, perceptive, and action-oriented; thrives in high-energy environments requiring quick thinking.', 'strengths' => 'Resourcefulness, crisis navigation, energetic persuasion, keen observational agility.'),
+            'ESFP' => array('title' => 'The Entertainer / Enthusiastic Collaborator', 'desc' => 'Vibrant, spontaneous, and generous; brings positivity, practical enthusiasm, and engaging presentation.', 'strengths' => 'Engaging communication, optimism, practical creativity, team enthusiasm.')
+        );
+
+        if ($mbti_attempt) {
+            $json_data = file_get_contents(APPPATH . 'config/mbti_questions.json');
+            $mbti_questions = json_decode($json_data, true);
+            $this->db->where('attempt_id', $mbti_attempt->id);
+            $raw_answers = $this->db->get('test_answers')->result();
+            $ans_map = array();
+            foreach ($raw_answers as $ans) { $ans_map[$ans->question_id] = $ans->selected_option; }
+            $scores = array('E'=>0, 'I'=>0, 'S'=>0, 'N'=>0, 'T'=>0, 'F'=>0, 'J'=>0, 'P'=>0);
+            foreach ($mbti_questions as $q) {
+                $sel = isset($ans_map[$q['id']]) ? strtolower($ans_map[$q['id']]) : null;
+                if ($q['pair']) {
+                    list($trait_a, $trait_b) = explode('/', $q['pair']);
+                    if ($sel == 'a') $scores[$trait_a]++;
+                    else if ($sel == 'b') $scores[$trait_b]++;
+                }
+            }
+            $type = '';
+            $type .= ($scores['E'] >= $scores['I']) ? 'E' : 'I';
+            $type .= ($scores['S'] >= $scores['N']) ? 'S' : 'N';
+            $type .= ($scores['T'] >= $scores['F']) ? 'T' : 'F';
+            $type .= ($scores['J'] >= $scores['P']) ? 'J' : 'P';
+            
+            $max_scores = array('E'=>0, 'I'=>0, 'S'=>0, 'N'=>0, 'T'=>0, 'F'=>0, 'J'=>0, 'P'=>0);
+            foreach ($mbti_questions as $q) {
+                if ($q['pair']) {
+                    list($trait_a, $trait_b) = explode('/', $q['pair']);
+                    $max_scores[$trait_a]++;
+                    $max_scores[$trait_b]++;
+                }
+            }
+
+            $data['mbti_type'] = $type;
+            $data['mbti_scores'] = $scores;
+            $data['mbti_max'] = $max_scores;
+            $data['mbti_archetype'] = isset($mbti_archetypes[$type]) ? $mbti_archetypes[$type] : null;
+        }
+
+        // Generate Report Reference ID
+        $report_year = date('Y', strtotime($data['attempt']->completed_at ? $data['attempt']->completed_at : date('Y-m-d')));
+        $data['report_id'] = 'AMZ-REP-' . $report_year . '-' . str_pad($data['attempt']->id, 5, '0', STR_PAD_LEFT);
+        $data['verify_url'] = site_url('verify/' . $data['report_id']);
+        $data['qr_url'] = 'https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=' . urlencode($data['verify_url']);
+
+        $data['page_title'] = 'Report Card - ' . $data['user']->first_name . ' ' . $data['user']->last_name;
+        $this->load->view('admin/report_card_pdf', $data);
     }
 
     public function remove_enrollment($enrollment_id, $course_id) {

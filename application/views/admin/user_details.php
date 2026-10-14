@@ -62,8 +62,9 @@
                         <td style="padding: 12px;"><?php echo $test->score; ?> / <?php echo $test->total_questions; ?></td>
                         <td style="padding: 12px;"><?php echo $test->percentage; ?>%</td>
                         <td style="padding: 12px;"><?php echo date('M d, Y h:i A', strtotime($test->completed_at)); ?></td>
-                        <td style="padding: 12px; text-align: right;">
-                            <a href="<?php echo site_url('admin/test_analysis/'.$test->id); ?>" style="color: #3498db; text-decoration: none;"><i class="ri-bar-chart-2-line"></i> Analysis</a>
+                        <td style="padding: 12px; text-align: right; white-space: nowrap;">
+                            <a href="<?php echo site_url('admin/test_analysis/'.$test->id); ?>" style="color: #3498db; text-decoration: none; margin-right: 12px; font-weight: 600;"><i class="ri-bar-chart-2-line"></i> Analysis</a>
+                            <a href="<?php echo site_url('admin/download_report_card/'.$test->id); ?>" target="_blank" style="background-color: #2563eb; color: #ffffff; text-decoration: none; padding: 5px 12px; border-radius: 4px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(37,99,235,0.2);"><i class="ri-file-pdf-fill"></i> Download PDF</a>
                         </td>
                     </tr>
                     <?php endforeach; else: ?>
@@ -73,6 +74,32 @@
                     <?php endif; ?>
                 </tbody>
             </table>
+
+            <?php if(!empty($recent_tests)): 
+                $latest_test = $recent_tests[0];
+            ?>
+            <!-- Student Assessment Result Card Highlight -->
+            <div style="margin-top: 20px; background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%); border: 1px solid #cbd5e1; border-left: 5px solid #2563eb; border-radius: 8px; padding: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div>
+                    <div style="font-size: 11px; font-weight: 800; color: #2563eb; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
+                        <i class="ri-award-fill"></i> Latest Assessment Result Card
+                    </div>
+                    <h3 style="margin: 0 0 6px 0; color: #0f172a; font-size: 18px; font-weight: 800;">
+                        <?php echo htmlspecialchars($latest_test->subject); ?>
+                    </h3>
+                    <div style="font-size: 13px; color: #475569; display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                        <span><strong>Score:</strong> <?php echo $latest_test->score; ?> / <?php echo $latest_test->total_questions; ?></span>
+                        <span><strong>Percentage:</strong> <span style="color: #16a34a; font-weight: 700;"><?php echo $latest_test->percentage; ?>%</span></span>
+                        <span><strong>Completed:</strong> <?php echo date('M d, Y h:i A', strtotime($latest_test->completed_at)); ?></span>
+                    </div>
+                </div>
+                <div>
+                    <a href="<?php echo site_url('admin/download_report_card/'.$latest_test->id); ?>" target="_blank" class="btn" style="background-color: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 6px; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(37,99,235,0.25);">
+                        <i class="ri-file-pdf-fill" style="font-size: 16px;"></i> Download Student Report Card (PDF)
+                    </a>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
 
         <div style="margin-bottom: 30px;">

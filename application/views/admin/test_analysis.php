@@ -1,7 +1,10 @@
 <div class="card">
-    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
         <h3>Detailed Test Analysis</h3>
-        <a href="<?php echo site_url('admin/user_details/'.$user->id); ?>" class="btn btn-secondary" style="padding: 5px 10px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px;">Back to User</a>
+        <div style="display: flex; gap: 10px;">
+            <a href="<?php echo site_url('admin/download_report_card/'.$attempt->id); ?>" target="_blank" class="btn btn-primary" style="padding: 6px 14px; background-color: #2563eb; color: white; text-decoration: none; border-radius: 4px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(37,99,235,0.2);"><i class="ri-file-pdf-fill"></i> Download Report Card (PDF)</a>
+            <a href="<?php echo site_url('admin/user_details/'.$user->id); ?>" class="btn btn-secondary" style="padding: 6px 12px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px;">Back to User</a>
+        </div>
     </div>
     
     <div class="card-body">
@@ -373,7 +376,45 @@
                                 </span>
                             </td>
                         </tr>
-                        <?php endforeach; else: ?>
+                        <?php endforeach; ?>
+
+                        <?php if (!empty($mbti_type)): ?>
+                        <tr style="background: linear-gradient(90deg, #f5f3ff 0%, #ede9fe 100%); border-bottom: 2px solid #ddd6fe;">
+                            <td style="padding: 14px 16px; text-align: center; font-weight: 700; color: #7c3aed;"><i class="ri-psychotherapy-line" style="font-size: 18px;"></i></td>
+                            <td style="padding: 14px 16px;">
+                                <span style="font-weight: 800; color: #5b21b6; font-size: 14px; display: block;">MBTI Personality Profile</span>
+                                <span style="font-size: 12px; color: #6d28d9;"><?php echo isset($mbti_title) ? htmlspecialchars($mbti_title) : 'Myers-Briggs Type Indicator'; ?></span>
+                            </td>
+                            <td style="padding: 14px 16px; text-align: center;" colspan="2">
+                                <span style="display: inline-block; background: #7c3aed; color: #ffffff; padding: 4px 14px; border-radius: 20px; font-weight: 800; font-size: 14px; letter-spacing: 1px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.25);">
+                                    Archetype: <?php echo $mbti_type; ?>
+                                </span>
+                            </td>
+                            <td style="padding: 14px 16px; text-align: center;">
+                                <span style="background-color: #ddd6fe; color: #5b21b6; border: 1px solid #c4b5fd; padding: 4px 10px; border-radius: 14px; font-size: 12px; font-weight: 700; display: inline-block;">
+                                    Assessed
+                                </span>
+                            </td>
+                            <td style="padding: 14px 16px;">
+                                <span style="font-size: 12px; color: #5b21b6; font-weight: 600;">
+                                    <?php 
+                                        if (isset($mbti_scores)) {
+                                            echo 'E:'.$mbti_scores['E'].' I:'.$mbti_scores['I'].' | S:'.$mbti_scores['S'].' N:'.$mbti_scores['N'].' | T:'.$mbti_scores['T'].' F:'.$mbti_scores['F'].' | J:'.$mbti_scores['J'].' P:'.$mbti_scores['P'];
+                                        } else {
+                                            echo 'Personality Assessment Complete';
+                                        }
+                                    ?>
+                                </span>
+                            </td>
+                            <td style="padding: 14px 16px; text-align: center;">
+                                <a href="#mbti" onclick="document.getElementById('mbti-tab') ? document.getElementById('mbti-tab').click() : null;" style="color: #6d28d9; font-weight: 700; font-size: 12px; text-decoration: underline; cursor: pointer;">
+                                    View Profile &rarr;
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+
+                        <?php else: ?>
                         <tr>
                             <td colspan="7" style="padding: 24px; text-align: center; color: #64748b;">No section breakdown available for this attempt.</td>
                         </tr>
