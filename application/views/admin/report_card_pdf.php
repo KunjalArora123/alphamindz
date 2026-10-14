@@ -575,31 +575,9 @@
             page-break-inside: avoid;
         }
 
-        .seal-qr-box {
+        .seal-box {
             display: flex;
             align-items: center;
-            gap: 20px;
-        }
-
-        .qr-wrapper {
-            text-align: center;
-        }
-
-        .qr-wrapper img {
-            width: 75px;
-            height: 75px;
-            border: 1px solid #cbd5e1;
-            padding: 3px;
-            border-radius: 6px;
-        }
-
-        .qr-wrapper span {
-            display: block;
-            font-size: 9px;
-            font-weight: 700;
-            color: #64748b;
-            margin-top: 2px;
-            text-transform: uppercase;
         }
 
         .official-seal-badge {
@@ -1066,13 +1044,9 @@
             </div>
         </section>
 
-        <!-- Official Authentication Seal & QR Code -->
+        <!-- Official Authentication Seal -->
         <footer class="report-auth-footer">
-            <div class="seal-qr-box">
-                <div class="qr-wrapper">
-                    <img src="<?php echo $qr_url; ?>" alt="Verification QR Code">
-                    <span>Scan to Verify</span>
-                </div>
+            <div class="seal-box">
                 <div class="official-seal-badge">
                     <i class="ri-shield-check-fill"></i>
                     <div class="seal-text">AlphaMindz<br>Official Seal<br>Verified</div>
