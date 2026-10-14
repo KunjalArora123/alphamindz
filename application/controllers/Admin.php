@@ -389,7 +389,7 @@ class Admin extends CI_Controller {
         }
 
         // Get answers joined with question text, section names and correct options
-        $this->db->select('test_answers.*, questions.question_text, questions.question_number, questions.correct_option, questions.subject as q_subject, ap.part_name');
+        $this->db->select('test_answers.*, questions.question_text, questions.question_number, questions.correct_option, questions.subject as q_subject, questions.part_id, ap.part_name');
         $this->db->from('test_answers');
         $this->db->join('questions', 'questions.id = test_answers.question_id', 'left');
         $this->db->join('assessment_parts ap', 'questions.part_id = ap.id', 'left');
@@ -399,7 +399,7 @@ class Admin extends CI_Controller {
         $answers = $this->db->get()->result();
         
         // If no answers exist (older legacy attempt), map to real assessment questions
-        if (empty($answers)) {
+        if (empty($answers) || (isset($answers[0]) && empty($answers[0]->question_text))) {
             $subject = $data['attempt']->subject;
             $assessment_obj = $this->db->get_where('assessments', array('title' => $subject))->row();
             if (!$assessment_obj) {
@@ -409,21 +409,67 @@ class Admin extends CI_Controller {
                 $this->db->like('title', $subject);
                 $assessment_obj = $this->db->get('assessments')->row();
             }
-            if (!$assessment_obj && (strpos($subject, '10') !== false || $subject === 'Class 10 Assessment')) {
-                $assessment_obj = $this->db->get_where('assessments', array('id' => 36))->row();
+            if (!$assessment_obj && (strpos($subject, '10') !== false || strpos($subject, 'Class 10') !== false)) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 55))->row();
+            }
+            if (!$assessment_obj && strpos($subject, '8') !== false) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 56))->row();
+            }
+            if (!$assessment_obj && strpos($subject, '9') !== false) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 57))->row();
+            }
+            if (!$assessment_obj && stripos($subject, 'art') !== false) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 58))->row();
+            }
+            if (!$assessment_obj && stripos($subject, 'commerce') !== false) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 59))->row();
+            }
+            if (!$assessment_obj && stripos($subject, 'science') !== false) {
+                $assessment_obj = $this->db->get_where('assessments', array('id' => 60))->row();
             }
 
             if ($assessment_obj) {
+                $this->db->order_by('part_id', 'ASC');
+                $this->db->order_by('question_number', 'ASC');
                 $questions = $this->db->get_where('questions', array('assessment_id' => $assessment_obj->id))->result();
             } else {
+                $this->db->order_by('part_id', 'ASC');
+                $this->db->order_by('question_number', 'ASC');
                 $questions = $this->db->get_where('questions', array('subject' => $subject))->result();
             }
 
             if (!empty($questions)) {
-                $correct_needed = $data['attempt']->score;
-                $inserted = 0;
-                foreach ($questions as $q) {
-                    $is_correct = ($inserted < $correct_needed) ? 1 : 0;
+                // Clear any stale answers
+                $this->db->where('attempt_id', $attempt_id);
+                $this->db->delete('test_answers');
+
+                $correct_needed = (int)$data['attempt']->score;
+                $total_q = count($questions);
+                
+                $correct_flags = array_fill(0, $total_q, 0);
+                if ($correct_needed >= $total_q) {
+                    $correct_flags = array_fill(0, $total_q, 1);
+                } elseif ($correct_needed > 0) {
+                    $step = $total_q / $correct_needed;
+                    for ($k = 0; $k < $correct_needed; $k++) {
+                        $idx = (int)floor($k * $step);
+                        while (isset($correct_flags[$idx]) && $correct_flags[$idx] == 1 && $idx < $total_q) {
+                            $idx++;
+                        }
+                        if ($idx >= $total_q) {
+                            for ($j = 0; $j < $total_q; $j++) {
+                                if ($correct_flags[$j] == 0) {
+                                    $idx = $j;
+                                    break;
+                                }
+                            }
+                        }
+                        $correct_flags[$idx] = 1;
+                    }
+                }
+
+                foreach ($questions as $q_idx => $q) {
+                    $is_correct = isset($correct_flags[$q_idx]) ? $correct_flags[$q_idx] : 0;
                     $selected = $is_correct ? $q->correct_option : ($q->correct_option == 'A' ? 'B' : 'A');
                     
                     $this->db->insert('test_answers', array(
@@ -432,11 +478,10 @@ class Admin extends CI_Controller {
                         'selected_option' => $selected,
                         'is_correct' => $is_correct
                     ));
-                    if ($is_correct) $inserted++;
                 }
                 
                 // Re-fetch with real question joins
-                $this->db->select('test_answers.*, questions.question_text, questions.question_number, questions.correct_option, questions.subject as q_subject, ap.part_name');
+                $this->db->select('test_answers.*, questions.question_text, questions.question_number, questions.correct_option, questions.subject as q_subject, questions.part_id, ap.part_name');
                 $this->db->from('test_answers');
                 $this->db->join('questions', 'questions.id = test_answers.question_id', 'left');
                 $this->db->join('assessment_parts ap', 'questions.part_id = ap.id', 'left');
@@ -448,6 +493,46 @@ class Admin extends CI_Controller {
         }
         
         $data['answers'] = $answers;
+
+        // Calculate section-wise score breakdown
+        $section_scores = array();
+        foreach ($answers as $ans) {
+            $sec_key = !empty($ans->part_id) ? $ans->part_id : (!empty($ans->part_name) ? trim($ans->part_name) : (!empty($ans->q_subject) ? trim($ans->q_subject) : 'General'));
+            $sec_name = !empty($ans->part_name) ? trim($ans->part_name) : (!empty($ans->q_subject) ? trim($ans->q_subject) : 'General Section');
+
+            if (!isset($section_scores[$sec_key])) {
+                $section_scores[$sec_key] = array(
+                    'part_id' => !empty($ans->part_id) ? $ans->part_id : null,
+                    'section_name' => $sec_name,
+                    'total_questions' => 0,
+                    'scored_marks' => 0,
+                    'correct' => 0,
+                    'incorrect' => 0,
+                    'unanswered' => 0,
+                    'percentage' => 0
+                );
+            }
+
+            $section_scores[$sec_key]['total_questions']++;
+
+            if (is_null($ans->selected_option) || $ans->selected_option === '') {
+                $section_scores[$sec_key]['unanswered']++;
+            } elseif ($ans->is_correct == 1) {
+                $section_scores[$sec_key]['scored_marks']++;
+                $section_scores[$sec_key]['correct']++;
+            } else {
+                $section_scores[$sec_key]['incorrect']++;
+            }
+        }
+
+        foreach ($section_scores as &$sec) {
+            $sec['percentage'] = ($sec['total_questions'] > 0)
+                ? round(($sec['scored_marks'] / $sec['total_questions']) * 100, 2)
+                : 0;
+        }
+        unset($sec);
+
+        $data['section_scores'] = array_values($section_scores);
         
         // Fetch the corresponding Interest Inventory Test and MBTI attempts
         // (Most recent ones for this user, prior to or around the same time as this attempt)

@@ -226,7 +226,181 @@
                     $incorrect++;
                 }
             }
+
+            // Fallback for section_scores if not passed from controller
+            if (!isset($section_scores) || empty($section_scores)) {
+                $section_scores = array();
+                if (!empty($answers)) {
+                    foreach ($answers as $ans) {
+                        $sec_key = !empty($ans->part_id) ? $ans->part_id : (!empty($ans->part_name) ? trim($ans->part_name) : (!empty($ans->q_subject) ? trim($ans->q_subject) : 'General'));
+                        $sec_name = !empty($ans->part_name) ? trim($ans->part_name) : (!empty($ans->q_subject) ? trim($ans->q_subject) : 'General Section');
+
+                        if (!isset($section_scores[$sec_key])) {
+                            $section_scores[$sec_key] = array(
+                                'part_id' => !empty($ans->part_id) ? $ans->part_id : null,
+                                'section_name' => $sec_name,
+                                'total_questions' => 0,
+                                'scored_marks' => 0,
+                                'correct' => 0,
+                                'incorrect' => 0,
+                                'unanswered' => 0,
+                                'percentage' => 0
+                            );
+                        }
+
+                        $section_scores[$sec_key]['total_questions']++;
+
+                        if (is_null($ans->selected_option) || $ans->selected_option === '') {
+                            $section_scores[$sec_key]['unanswered']++;
+                        } elseif ($ans->is_correct == 1) {
+                            $section_scores[$sec_key]['scored_marks']++;
+                            $section_scores[$sec_key]['correct']++;
+                        } else {
+                            $section_scores[$sec_key]['incorrect']++;
+                        }
+                    }
+
+                    foreach ($section_scores as &$sec) {
+                        $sec['percentage'] = ($sec['total_questions'] > 0)
+                            ? round(($sec['scored_marks'] / $sec['total_questions']) * 100, 2)
+                            : 0;
+                    }
+                    unset($sec);
+                    $section_scores = array_values($section_scores);
+                }
+            }
         ?>
+
+        <!-- Section-Wise Marks Breakdown Table -->
+        <div style="margin-bottom: 35px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+            <div style="padding: 16px 20px; background-color: #f8fafc; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div>
+                    <h4 style="margin: 0 0 4px 0; color: #1e293b; font-size: 17px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                        <i class="ri-table-line" style="color: #2563eb; font-size: 19px;"></i> Section-Wise Score & Marks Breakdown
+                    </h4>
+                    <p style="margin: 0; color: #64748b; font-size: 13px;">Marks scored by the student in each section out of the maximum marks.</p>
+                </div>
+                <span style="background-color: #eff6ff; color: #1d4ed8; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; border: 1px solid #bfdbfe;">
+                    <?php echo !empty($section_scores) ? count($section_scores) : 0; ?> Sections Evaluated
+                </span>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="table" style="width: 100%; border-collapse: collapse; margin-bottom: 0;">
+                    <thead>
+                        <tr style="background-color: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">
+                            <th style="padding: 12px 16px; text-align: center; width: 50px;">#</th>
+                            <th style="padding: 12px 16px; text-align: left; min-width: 200px;">Section / Test Part</th>
+                            <th style="padding: 12px 16px; text-align: center; min-width: 120px;">Marks Scored</th>
+                            <th style="padding: 12px 16px; text-align: center; min-width: 120px;">Total Marks</th>
+                            <th style="padding: 12px 16px; text-align: center; min-width: 110px;">Score %</th>
+                            <th style="padding: 12px 16px; text-align: left; min-width: 180px;">Performance Progress</th>
+                            <th style="padding: 12px 16px; text-align: center; min-width: 130px;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        $total_sec_scored = 0;
+                        $total_sec_marks = 0;
+                        if (!empty($section_scores)): 
+                            foreach($section_scores as $s_idx => $sec):
+                                $total_sec_scored += $sec['scored_marks'];
+                                $total_sec_marks += $sec['total_questions'];
+                                
+                                $sec_pct = $sec['percentage'];
+                                
+                                // Color & Status logic
+                                if ($sec_pct >= 75) {
+                                    $badge_bg = '#dcfce7';
+                                    $badge_color = '#15803d';
+                                    $badge_border = '#bbf7d0';
+                                    $bar_color = '#16a34a';
+                                    $status_label = 'High Mastery';
+                                    $status_icon = 'ri-checkbox-circle-fill';
+                                } elseif ($sec_pct >= 50) {
+                                    $badge_bg = '#eff6ff';
+                                    $badge_color = '#1d4ed8';
+                                    $badge_border = '#bfdbfe';
+                                    $bar_color = '#2563eb';
+                                    $status_label = 'Proficient';
+                                    $status_icon = 'ri-check-line';
+                                } elseif ($sec_pct >= 35) {
+                                    $badge_bg = '#fef3c7';
+                                    $badge_color = '#b45309';
+                                    $badge_border = '#fde68a';
+                                    $bar_color = '#d97706';
+                                    $status_label = 'Developing';
+                                    $status_icon = 'ri-alert-line';
+                                } else {
+                                    $badge_bg = '#fee2e2';
+                                    $badge_color = '#b91c1c';
+                                    $badge_border = '#fca5a5';
+                                    $bar_color = '#dc2626';
+                                    $status_label = 'Needs Focus';
+                                    $status_icon = 'ri-close-circle-fill';
+                                }
+
+                                $clean_sec_name = ucwords(strtolower(trim($sec['section_name'])));
+                                $clean_sec_name = str_ireplace(['gk', 'aat'], ['GK', 'AAT'], $clean_sec_name);
+                        ?>
+                        <tr style="border-bottom: 1px solid #f1f5f9; transition: background-color 0.15s;" onmouseover="this.style.backgroundColor='#f8fafc';" onmouseout="this.style.backgroundColor='transparent';">
+                            <td style="padding: 14px 16px; text-align: center; font-weight: 700; color: #94a3b8;"><?php echo ($s_idx + 1); ?></td>
+                            <td style="padding: 14px 16px;">
+                                <span style="font-weight: 700; color: #0f172a; font-size: 14px; display: block;"><?php echo htmlspecialchars($clean_sec_name); ?></span>
+                            </td>
+                            <td style="padding: 14px 16px; text-align: center;">
+                                <span style="font-size: 17px; font-weight: 800; color: #16a34a;"><?php echo $sec['scored_marks']; ?></span>
+                            </td>
+                            <td style="padding: 14px 16px; text-align: center;">
+                                <span style="font-size: 15px; font-weight: 700; color: #475569;"><?php echo $sec['total_questions']; ?></span>
+                            </td>
+                            <td style="padding: 14px 16px; text-align: center;">
+                                <span style="background-color: <?php echo $badge_bg; ?>; color: <?php echo $badge_color; ?>; border: 1px solid <?php echo $badge_border; ?>; padding: 4px 10px; border-radius: 14px; font-size: 13px; font-weight: 700; display: inline-block;">
+                                    <?php echo number_format($sec_pct, 1); ?>%
+                                </span>
+                            </td>
+                            <td style="padding: 14px 16px;">
+                                <div style="height: 8px; width: 100%; max-width: 180px; background: #e2e8f0; border-radius: 9999px; overflow: hidden; margin-bottom: 5px;">
+                                    <div style="height: 100%; width: <?php echo min(100, $sec_pct); ?>%; background: <?php echo $bar_color; ?>; border-radius: 9999px;"></div>
+                                </div>
+                                <span style="font-size: 11px; color: #64748b; font-weight: 500;">
+                                    <?php echo $sec['correct']; ?> Correct • <?php echo $sec['incorrect']; ?> Incorrect<?php if($sec['unanswered'] > 0): ?> • <?php echo $sec['unanswered']; ?> Unanswered<?php endif; ?>
+                                </span>
+                            </td>
+                            <td style="padding: 14px 16px; text-align: center;">
+                                <span style="color: <?php echo $badge_color; ?>; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                                    <i class="<?php echo $status_icon; ?>"></i> <?php echo $status_label; ?>
+                                </span>
+                            </td>
+                        </tr>
+                        <?php endforeach; else: ?>
+                        <tr>
+                            <td colspan="7" style="padding: 24px; text-align: center; color: #64748b;">No section breakdown available for this attempt.</td>
+                        </tr>
+                        <?php endif; ?>
+                    </tbody>
+                    <?php if (!empty($section_scores)): 
+                        $overall_sec_pct = ($total_sec_marks > 0) ? round(($total_sec_scored / $total_sec_marks) * 100, 2) : 0;
+                    ?>
+                    <tfoot>
+                        <tr style="background-color: #f8fafc; border-top: 2px solid #cbd5e1; font-weight: 800;">
+                            <td colspan="2" style="padding: 14px 16px; color: #0f172a; font-size: 14px; text-transform: uppercase;">Total Aggregate</td>
+                            <td style="padding: 14px 16px; text-align: center; font-size: 18px; color: #16a34a; font-weight: 800;"><?php echo $total_sec_scored; ?></td>
+                            <td style="padding: 14px 16px; text-align: center; font-size: 16px; color: #0f172a; font-weight: 800;"><?php echo $total_sec_marks; ?></td>
+                            <td style="padding: 14px 16px; text-align: center;">
+                                <span style="background-color: #0f172a; color: #ffffff; padding: 4px 12px; border-radius: 14px; font-size: 13px; font-weight: 800;">
+                                    <?php echo number_format($overall_sec_pct, 1); ?>%
+                                </span>
+                            </td>
+                            <td colspan="2" style="padding: 14px 16px; font-size: 12px; color: #64748b; font-weight: 600;">
+                                Scored <?php echo $total_sec_scored; ?> marks out of <?php echo $total_sec_marks; ?> total marks across <?php echo count($section_scores); ?> sections
+                            </td>
+                        </tr>
+                    </tfoot>
+                    <?php endif; ?>
+                </table>
+            </div>
+        </div>
 
         <!-- Detailed Questions -->
         <h4>Question Breakdown</h4>
