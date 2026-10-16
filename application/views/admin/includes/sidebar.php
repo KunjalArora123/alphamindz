@@ -50,13 +50,23 @@
                 </a>
             </li>
             <li>
-                <a href="<?php echo site_url('admin/articles'); ?>" class="<?php echo ($this->uri->segment(2) == 'articles') ? 'active' : ''; ?>">
+                <a href="<?php echo site_url('admin/articles'); ?>" class="<?php echo in_array($this->uri->segment(2), array('articles', 'add_article', 'edit_article')) ? 'active' : ''; ?>">
                     <i class="ri-article-line"></i> Articles
                 </a>
             </li>
             <li>
-                <a href="<?php echo site_url('admin/blogs'); ?>" class="<?php echo ($this->uri->segment(2) == 'blogs' || $this->uri->segment(2) == 'add_blog' || $this->uri->segment(2) == 'edit_blog') ? 'active' : ''; ?>">
+                <a href="<?php echo site_url('admin/blogs'); ?>" class="<?php echo in_array($this->uri->segment(2), array('blogs', 'add_blog', 'edit_blog')) ? 'active' : ''; ?>">
                     <i class="ri-quill-pen-line"></i> Blogs
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('admin/career_facts'); ?>" class="<?php echo in_array($this->uri->segment(2), array('career_facts', 'add_career_fact', 'edit_career_fact')) ? 'active' : ''; ?>">
+                    <i class="ri-briefcase-line"></i> Career Facts
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo site_url('admin/gallery'); ?>" class="<?php echo in_array($this->uri->segment(2), array('gallery', 'add_gallery_item', 'edit_gallery_item')) ? 'active' : ''; ?>">
+                    <i class="ri-gallery-line"></i> Gallery
                 </a>
             </li>
             <li>

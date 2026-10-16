@@ -21,6 +21,52 @@
             display: none !important;
         }
     }
+    .mobile-dropdown-group {
+        display: flex;
+        flex-direction: column;
+    }
+    .mobile-dropdown-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--text-main);
+        padding: 0;
+        cursor: pointer;
+        font-family: inherit;
+    }
+    .mobile-dropdown-toggle:hover {
+        color: var(--color-blue);
+    }
+    .mobile-dropdown-content {
+        display: none;
+        padding: 8px 0 4px 14px;
+        margin-top: 8px;
+        border-left: 2px solid #e2e8f0;
+    }
+    .mobile-sublink {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 0;
+        font-size: 15px;
+        font-weight: 500;
+        color: #475569;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .mobile-sublink:hover {
+        color: var(--color-blue);
+    }
+    .mobile-sublink i {
+        font-size: 17px;
+        color: var(--color-blue);
+    }
     </style>
 </head>
 <body>
@@ -92,8 +138,21 @@
                     </div>
                 </div>
 
-                <a href="<?php echo site_url('blogs'); ?>" class="nav-link">Blogs</a>
-                <a href="<?php echo site_url('news'); ?>" class="nav-link">News</a>
+                <div class="nav-item has-dropdown">
+                    <a href="<?php echo site_url('resources'); ?>" class="nav-link">Free Resources <i class="ri-arrow-down-s-line"></i></a>
+                    <div class="dropdown-menu" style="min-width: 250px;">
+                        <a href="<?php echo site_url('articles'); ?>"><i class="ri-article-line"></i> Articles</a>
+                        <a href="<?php echo site_url('blogs'); ?>"><i class="ri-quill-pen-line"></i> Blogs</a>
+                        <a href="<?php echo site_url('career-facts'); ?>"><i class="ri-briefcase-line"></i> Career Facts</a>
+                        <div style="height: 1px; background: #e2e8f0; margin: 6px 12px;"></div>
+                        <div style="padding: 4px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.5px;">Downloadable Guides</div>
+                        <a href="<?php echo site_url('resources/business-excellence'); ?>"><i class="ri-line-chart-line"></i> Business Excellence</a>
+                        <a href="<?php echo site_url('resources/career-guidance'); ?>"><i class="ri-compass-3-line"></i> Career Guidance</a>
+                        <a href="<?php echo site_url('resources/ielts-download'); ?>"><i class="ri-book-read-line"></i> IELTS Download</a>
+                        <a href="<?php echo site_url('resources/language-power'); ?>"><i class="ri-speak-line"></i> Language Power</a>
+                        <a href="<?php echo site_url('resources/personal-growth'); ?>"><i class="ri-user-star-line"></i> Personal Growth</a>
+                    </div>
+                </div>
 
                 <div class="nav-item has-dropdown">
                     <a href="<?php echo site_url('assessments'); ?>" class="nav-link">Assessment <i class="ri-arrow-down-s-line"></i></a>
@@ -114,9 +173,7 @@
                     </div>
                 </div>
 
-                <a href="<?php echo site_url('verify'); ?>" class="nav-link" style="display: inline-flex; align-items: center; gap: 6px;">
-                    <i class="ri-shield-check-fill" style="color: var(--color-green); font-size: 1.1rem;"></i> Verify Certificate
-                </a>
+                <a href="<?php echo site_url('gallery'); ?>" class="nav-link"><i class="ri-gallery-line" style="font-size: 1.1rem; color: #2563eb;"></i> Gallery</a>
             </div>
             <!-- Cart Icon & CTA -->
             <?php 
@@ -164,10 +221,27 @@
             <a href="<?php echo base_url(); ?>" class="mobile-nav-link">Home</a>
             <a href="<?php echo site_url('courses'); ?>" class="mobile-nav-link">Courses</a>
             <a href="<?php echo site_url('assessments'); ?>" class="mobile-nav-link">Assessments</a>
-            <a href="<?php echo site_url('blogs'); ?>" class="mobile-nav-link">Blogs</a>
-            <a href="<?php echo site_url('news'); ?>" class="mobile-nav-link">News</a>
+            <!-- Mobile Dropdown: Free Resources -->
+            <div class="mobile-dropdown-group">
+                <button type="button" class="mobile-dropdown-toggle" onclick="toggleMobileDropdown('freeResourcesMenu', this)">
+                    <span>Free Resources</span>
+                    <i class="ri-arrow-down-s-line dropdown-arrow"></i>
+                </button>
+                <div class="mobile-dropdown-content" id="freeResourcesMenu">
+                    <a href="<?php echo site_url('articles'); ?>" class="mobile-sublink"><i class="ri-article-line"></i> Articles</a>
+                    <a href="<?php echo site_url('blogs'); ?>" class="mobile-sublink"><i class="ri-quill-pen-line"></i> Blogs</a>
+                    <a href="<?php echo site_url('career-facts'); ?>" class="mobile-sublink"><i class="ri-briefcase-line"></i> Career Facts</a>
+                    <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.5px; margin: 8px 0 4px;">Downloadable Guides</div>
+                    <a href="<?php echo site_url('resources/business-excellence'); ?>" class="mobile-sublink"><i class="ri-line-chart-line"></i> Business Excellence</a>
+                    <a href="<?php echo site_url('resources/career-guidance'); ?>" class="mobile-sublink"><i class="ri-compass-3-line"></i> Career Guidance</a>
+                    <a href="<?php echo site_url('resources/ielts-download'); ?>" class="mobile-sublink"><i class="ri-book-read-line"></i> IELTS Download</a>
+                    <a href="<?php echo site_url('resources/language-power'); ?>" class="mobile-sublink"><i class="ri-speak-line"></i> Language Power</a>
+                    <a href="<?php echo site_url('resources/personal-growth'); ?>" class="mobile-sublink"><i class="ri-user-star-line"></i> Personal Growth</a>
+                </div>
+            </div>
+
             <a href="<?php echo site_url('shop'); ?>" class="mobile-nav-link">Shop</a>
-            <a href="<?php echo site_url('verify'); ?>" class="mobile-nav-link">Verify Certificate</a>
+            <a href="<?php echo site_url('gallery'); ?>" class="mobile-nav-link"><i class="ri-gallery-line" style="color: #2563eb;"></i> Gallery</a>
             <a href="<?php echo base_url('app-release.apk'); ?>" download class="mobile-nav-link" style="color: #27ae60; font-weight: 700;"><i class="ri-android-fill"></i> Download App</a>
             <div class="mobile-nav-divider"></div>
             <a href="<?php echo site_url('about'); ?>" class="mobile-nav-link">About Us</a>
@@ -185,6 +259,19 @@
     function toggleMobileMenu() {
         document.getElementById('mobileNavOverlay').classList.toggle('active');
         document.getElementById('mobileNavDrawer').classList.toggle('active');
+    }
+
+    function toggleMobileDropdown(menuId, btn) {
+        var menu = document.getElementById(menuId);
+        if (menu) {
+            var isOpen = menu.style.display === 'block';
+            menu.style.display = isOpen ? 'none' : 'block';
+            var arrow = btn.querySelector('.dropdown-arrow');
+            if (arrow) {
+                arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+                arrow.style.transition = 'transform 0.25s ease';
+            }
+        }
     }
     </script>
 

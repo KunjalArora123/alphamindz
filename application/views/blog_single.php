@@ -1,20 +1,41 @@
-<div class="page-header" style="background: #f8f9fa; padding: 60px 0; text-align: center; border-bottom: 1px solid #dee2e6;">
-    <div class="container" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
-        <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 20px; color: #2c3e50;"><?php echo $blog->title; ?></h1>
-        <div class="blog-meta" style="font-size: 1rem; color: #6c757d;">
-            <span><i class="ri-user-line"></i> Written by <strong><?php echo htmlspecialchars($blog->author); ?></strong></span>
-            <span style="margin: 0 15px;">|</span>
-            <span><i class="ri-calendar-line"></i> <?php echo date('F d, Y', strtotime($blog->created_at)); ?></span>
+<div class="page-header" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 70px 0; border-bottom: 1px solid #dee2e6;">
+    <div class="container" style="max-width: 860px; margin: 0 auto; padding: 0 20px;">
+        <div style="margin-bottom: 14px;">
+            <a href="<?php echo site_url('blogs'); ?>" style="color: var(--color-blue); text-decoration: none; font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+                <i class="ri-arrow-left-line"></i> Back to Blogs
+            </a>
+        </div>
+        <div style="margin-bottom: 12px;">
+            <span style="display: inline-block; padding: 4px 12px; background: #fdf2f8; color: #be185d; font-size: 12px; font-weight: 700; border-radius: 4px; text-transform: uppercase;">
+                <?php echo htmlspecialchars($blog->category ?: 'Blog'); ?>
+            </span>
+        </div>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 2.8rem; line-height: 1.25; margin-bottom: 18px; color: #1e293b;"><?php echo htmlspecialchars($blog->title); ?></h1>
+        <div class="blog-meta" style="font-size: 0.95rem; color: #64748b; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <span><i class="ri-user-line"></i> By <strong><?php echo htmlspecialchars($blog->author ?: 'Alpha Mindz'); ?></strong></span>
+            <span>•</span>
+            <span><i class="ri-calendar-line"></i> <?php echo !empty($blog->published_at) ? date('F d, Y', strtotime($blog->published_at)) : date('F d, Y', strtotime($blog->created_at)); ?></span>
         </div>
     </div>
 </div>
 
-<div class="container" style="padding: 60px 20px; max-width: 800px; margin: 0 auto;">
-    <div class="blog-content" style="line-height: 1.8; color: #444; font-size: 1.1rem;">
+<div class="container" style="padding: 50px 20px 80px; max-width: 860px; margin: 0 auto;">
+    <?php if(!empty($blog->image)): ?>
+        <div style="margin-bottom: 40px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.08);">
+            <img src="<?php echo htmlspecialchars($blog->image); ?>" alt="<?php echo htmlspecialchars($blog->title); ?>" style="width: 100%; max-height: 480px; object-fit: cover; display: block;" onerror="this.style.display='none';">
+        </div>
+    <?php endif; ?>
+
+    <div class="blog-body" style="line-height: 1.9; color: #334155; font-size: 1.15rem; word-break: break-word;">
         <?php echo $blog->content; ?>
     </div>
     
-    <div style="margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px;">
-        <a href="<?php echo site_url('blogs'); ?>" style="color: #007bff; text-decoration: none;"><i class="ri-arrow-left-line"></i> Back to all blogs</a>
+    <div style="margin-top: 50px; border-top: 1px solid #e2e8f0; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <a href="<?php echo site_url('blogs'); ?>" class="btn-outline" style="padding: 10px 22px; font-size: 14px; text-decoration: none; border-radius: 30px; display: inline-flex; align-items: center; gap: 6px;">
+            <i class="ri-arrow-left-line"></i> All Blogs
+        </a>
+        <a href="<?php echo site_url('articles'); ?>" style="color: var(--color-blue); text-decoration: none; font-size: 14px; font-weight: 600;">
+            Explore Articles <i class="ri-arrow-right-line"></i>
+        </a>
     </div>
 </div>

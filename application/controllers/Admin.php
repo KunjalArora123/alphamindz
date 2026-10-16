@@ -1219,15 +1219,565 @@ class Admin extends CI_Controller {
         redirect('admin/products');
     }
     // ==========================================
-    // BLOGS / ARTICLES ALIASES
+    // BLOGS MANAGEMENT
     // ==========================================
 
-    public function blogs() { $this->articles(); }
-    public function add_blog() { $this->add_article(); }
-    public function save_blog() { $this->save_article(); }
-    public function edit_blog($id) { $this->edit_article($id); }
-    public function update_blog($id) { $this->update_article($id); }
-    public function delete_blog($id) { $this->delete_article($id); }
+    public function blogs() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get('blogs');
+        $data['blogs'] = $query ? $query->result() : array();
+        $data['page_title'] = 'Manage Blogs';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/blogs', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function add_blog() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $data['page_title'] = 'Add New Blog';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/blog_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function save_blog() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $title = trim($this->input->post('title'));
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
+        
+        $check = $this->db->get_where('blogs', array('slug' => $slug))->num_rows();
+        if ($check > 0) {
+            $slug .= '-' . time();
+        }
+
+        $image_path = null;
+        if (!empty($_FILES['image']['name'])) {
+            $upload_dir = FCPATH . 'assets/uploads/blogs/';
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+            $allowed_exts = array('jpg', 'jpeg', 'png', 'webp', 'gif');
+            if (in_array($ext, $allowed_exts)) {
+                $new_filename = 'blog_' . time() . '_' . rand(1000, 9999) . '.' . $ext;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_dir . $new_filename)) {
+                    $image_path = 'assets/uploads/blogs/' . $new_filename;
+                }
+            }
+        }
+
+        $excerpt = trim($this->input->post('excerpt'));
+        if (empty($excerpt)) {
+            $raw_content = strip_tags($this->input->post('content'));
+            $excerpt = (mb_strlen($raw_content) > 120) ? mb_substr($raw_content, 0, 120) . '...' : $raw_content;
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $data = array(
+            'title' => $title,
+            'slug' => $slug,
+            'author' => !empty($this->input->post('author')) ? trim($this->input->post('author')) : 'Alpha Mindz Team',
+            'category' => !empty($this->input->post('category')) ? trim($this->input->post('category')) : 'Blogs',
+            'image' => $image_path,
+            'excerpt' => $excerpt,
+            'content' => $this->input->post('content'),
+            'status' => $this->input->post('status') ? $this->input->post('status') : 'published',
+            'created_at' => $now,
+            'published_at' => $now
+        );
+
+        $this->db->insert('blogs', $data);
+        $this->session->set_flashdata('success', 'Blog created successfully!');
+        redirect('admin/blogs');
+    }
+
+    public function edit_blog($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $blog = $this->db->get_where('blogs', array('id' => $id))->row();
+        if (!$blog) {
+            $this->session->set_flashdata('error', 'Blog not found.');
+            redirect('admin/blogs');
+            return;
+        }
+
+        $data['blog'] = $blog;
+        $data['page_title'] = 'Edit Blog';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/blog_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function update_blog($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $title = trim($this->input->post('title'));
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
+
+        $excerpt = trim($this->input->post('excerpt'));
+        if (empty($excerpt)) {
+            $raw_content = strip_tags($this->input->post('content'));
+            $excerpt = (mb_strlen($raw_content) > 120) ? mb_substr($raw_content, 0, 120) . '...' : $raw_content;
+        }
+
+        $data = array(
+            'title' => $title,
+            'slug' => $slug,
+            'author' => !empty($this->input->post('author')) ? trim($this->input->post('author')) : 'Alpha Mindz Team',
+            'category' => !empty($this->input->post('category')) ? trim($this->input->post('category')) : 'Blogs',
+            'excerpt' => $excerpt,
+            'content' => $this->input->post('content'),
+            'status' => $this->input->post('status') ? $this->input->post('status') : 'published'
+        );
+
+        if (!empty($_FILES['image']['name'])) {
+            $upload_dir = FCPATH . 'assets/uploads/blogs/';
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+            $allowed_exts = array('jpg', 'jpeg', 'png', 'webp', 'gif');
+            if (in_array($ext, $allowed_exts)) {
+                $new_filename = 'blog_' . time() . '_' . rand(1000, 9999) . '.' . $ext;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_dir . $new_filename)) {
+                    $data['image'] = 'assets/uploads/blogs/' . $new_filename;
+                }
+            }
+        }
+
+        $this->db->where('id', $id);
+        $this->db->update('blogs', $data);
+
+        $this->session->set_flashdata('success', 'Blog updated successfully!');
+        redirect('admin/blogs');
+    }
+
+    public function delete_blog($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $this->db->where('id', $id);
+        $this->db->delete('blogs');
+
+        $this->session->set_flashdata('success', 'Blog deleted successfully.');
+        redirect('admin/blogs');
+    }
+
+    public function toggle_blog_status($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $blog = $this->db->get_where('blogs', array('id' => $id))->row();
+        if ($blog) {
+            $new_status = ($blog->status === 'published') ? 'draft' : 'published';
+            $this->db->where('id', $id)->update('blogs', array('status' => $new_status));
+            $this->session->set_flashdata('success', 'Blog status toggled to ' . $new_status);
+        }
+        redirect('admin/blogs');
+    }
+
+    // ==========================================
+    // CAREER FACTS MANAGEMENT
+    // ==========================================
+
+    public function career_facts() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get('career_facts');
+        $data['career_facts'] = $query ? $query->result() : array();
+        $data['page_title'] = 'Manage Career Facts';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/career_facts', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function add_career_fact() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $data['page_title'] = 'Add New Career Fact';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/career_fact_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function save_career_fact() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $title = trim($this->input->post('title'));
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
+        
+        $check = $this->db->get_where('career_facts', array('slug' => $slug))->num_rows();
+        if ($check > 0) {
+            $slug .= '-' . time();
+        }
+
+        $image_path = null;
+        if (!empty($_FILES['image']['name'])) {
+            $upload_dir = FCPATH . 'assets/uploads/career_facts/';
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+            $allowed_exts = array('jpg', 'jpeg', 'png', 'webp', 'gif');
+            if (in_array($ext, $allowed_exts)) {
+                $new_filename = 'cf_' . time() . '_' . rand(1000, 9999) . '.' . $ext;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_dir . $new_filename)) {
+                    $image_path = 'assets/uploads/career_facts/' . $new_filename;
+                }
+            }
+        }
+
+        $excerpt = trim($this->input->post('excerpt'));
+        if (empty($excerpt)) {
+            $raw_content = strip_tags($this->input->post('content'));
+            $excerpt = (mb_strlen($raw_content) > 120) ? mb_substr($raw_content, 0, 120) . '...' : $raw_content;
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $data = array(
+            'title' => $title,
+            'slug' => $slug,
+            'author' => !empty($this->input->post('author')) ? trim($this->input->post('author')) : 'Alpha Mindz Team',
+            'category' => !empty($this->input->post('category')) ? trim($this->input->post('category')) : 'Career Facts',
+            'image' => $image_path,
+            'excerpt' => $excerpt,
+            'content' => $this->input->post('content'),
+            'status' => $this->input->post('status') ? $this->input->post('status') : 'published',
+            'created_at' => $now,
+            'published_at' => $now
+        );
+
+        $this->db->insert('career_facts', $data);
+        $this->session->set_flashdata('success', 'Career Fact created successfully!');
+        redirect('admin/career_facts');
+    }
+
+    public function edit_career_fact($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $cf = $this->db->get_where('career_facts', array('id' => $id))->row();
+        if (!$cf) {
+            $this->session->set_flashdata('error', 'Career Fact not found.');
+            redirect('admin/career_facts');
+            return;
+        }
+
+        $data['career_fact'] = $cf;
+        $data['page_title'] = 'Edit Career Fact';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/career_fact_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function update_career_fact($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $title = trim($this->input->post('title'));
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
+
+        $excerpt = trim($this->input->post('excerpt'));
+        if (empty($excerpt)) {
+            $raw_content = strip_tags($this->input->post('content'));
+            $excerpt = (mb_strlen($raw_content) > 120) ? mb_substr($raw_content, 0, 120) . '...' : $raw_content;
+        }
+
+        $data = array(
+            'title' => $title,
+            'slug' => $slug,
+            'author' => !empty($this->input->post('author')) ? trim($this->input->post('author')) : 'Alpha Mindz Team',
+            'category' => !empty($this->input->post('category')) ? trim($this->input->post('category')) : 'Career Facts',
+            'excerpt' => $excerpt,
+            'content' => $this->input->post('content'),
+            'status' => $this->input->post('status') ? $this->input->post('status') : 'published'
+        );
+
+        if (!empty($_FILES['image']['name'])) {
+            $upload_dir = FCPATH . 'assets/uploads/career_facts/';
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+            $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+            $allowed_exts = array('jpg', 'jpeg', 'png', 'webp', 'gif');
+            if (in_array($ext, $allowed_exts)) {
+                $new_filename = 'cf_' . time() . '_' . rand(1000, 9999) . '.' . $ext;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_dir . $new_filename)) {
+                    $data['image'] = 'assets/uploads/career_facts/' . $new_filename;
+                }
+            }
+        }
+
+        $this->db->where('id', $id);
+        $this->db->update('career_facts', $data);
+
+        $this->session->set_flashdata('success', 'Career Fact updated successfully!');
+        redirect('admin/career_facts');
+    }
+
+    public function delete_career_fact($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $this->db->where('id', $id);
+        $this->db->delete('career_facts');
+
+        $this->session->set_flashdata('success', 'Career Fact deleted successfully.');
+        redirect('admin/career_facts');
+    }
+
+    public function toggle_career_fact_status($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $cf = $this->db->get_where('career_facts', array('id' => $id))->row();
+        if ($cf) {
+            $new_status = ($cf->status === 'published') ? 'draft' : 'published';
+            $this->db->where('id', $id)->update('career_facts', array('status' => $new_status));
+            $this->session->set_flashdata('success', 'Career Fact status toggled to ' . $new_status);
+        }
+        redirect('admin/career_facts');
+    }
+
+    // ==========================================
+    // GALLERY (PHOTOS & VIDEOS) MANAGEMENT
+    // ==========================================
+
+    public function gallery() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $type = $this->input->get('type');
+        if ($type && in_array($type, array('photo', 'video'))) {
+            $this->db->where('type', $type);
+        }
+
+        $this->db->order_by('sort_order', 'ASC');
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get('gallery');
+        $data['gallery_items'] = $query ? $query->result() : array();
+        $data['current_type'] = $type;
+        $data['page_title'] = 'Manage Gallery';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/gallery', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function add_gallery_item() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $data['page_title'] = 'Add Gallery Item';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/gallery_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function save_gallery_item() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $title = trim($this->input->post('title'));
+        $type = $this->input->post('type') === 'video' ? 'video' : 'photo';
+        $category = trim($this->input->post('category')) ?: 'General';
+        $description = trim($this->input->post('description'));
+        $video_url = trim($this->input->post('video_url'));
+        $status = $this->input->post('status') === 'inactive' ? 'inactive' : 'active';
+        $sort_order = (int)$this->input->post('sort_order');
+
+        $file_path = null;
+
+        if ($type === 'photo') {
+            if (!empty($_FILES['file']['name'])) {
+                $upload_dir = FCPATH . 'Galary/photos/';
+                if (!file_exists($upload_dir)) {
+                    mkdir($upload_dir, 0777, true);
+                }
+                $ext = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
+                $allowed = array('jpg', 'jpeg', 'png', 'webp', 'gif', 'svg');
+                if (in_array($ext, $allowed)) {
+                    $new_name = 'photo_' . time() . '_' . rand(1000, 9999) . '.' . $ext;
+                    if (move_uploaded_file($_FILES['file']['tmp_name'], $upload_dir . $new_name)) {
+                        $file_path = 'Galary/photos/' . $new_name;
+                    }
+                }
+            }
+        } else {
+            // Video: can be uploaded video file or embedded URL (YouTube, Vimeo, etc.)
+            if (!empty($_FILES['file']['name'])) {
+                $upload_dir = FCPATH . 'Galary/videos/';
+                if (!file_exists($upload_dir)) {
+                    mkdir($upload_dir, 0777, true);
+                }
+                $ext = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
+                $allowed = array('mp4', 'webm', 'ogg', 'mov', 'mkv');
+                if (in_array($ext, $allowed)) {
+                    $new_name = 'video_' . time() . '_' . rand(1000, 9999) . '.' . $ext;
+                    if (move_uploaded_file($_FILES['file']['tmp_name'], $upload_dir . $new_name)) {
+                        $file_path = 'Galary/videos/' . $new_name;
+                    }
+                }
+            }
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $data = array(
+            'title'       => $title,
+            'type'        => $type,
+            'file_path'   => $file_path,
+            'video_url'   => !empty($video_url) ? $video_url : null,
+            'category'    => $category,
+            'description' => $description,
+            'sort_order'  => $sort_order,
+            'status'      => $status,
+            'created_at'  => $now
+        );
+
+        $this->db->insert('gallery', $data);
+        $this->session->set_flashdata('success', 'Gallery item added successfully!');
+        redirect('admin/gallery');
+    }
+
+    public function edit_gallery_item($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $item = $this->db->get_where('gallery', array('id' => $id))->row();
+        if (!$item) {
+            $this->session->set_flashdata('error', 'Gallery item not found.');
+            redirect('admin/gallery');
+            return;
+        }
+
+        $data['item'] = $item;
+        $data['page_title'] = 'Edit Gallery Item';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/gallery_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function update_gallery_item($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $item = $this->db->get_where('gallery', array('id' => $id))->row();
+        if (!$item) {
+            $this->session->set_flashdata('error', 'Item not found.');
+            redirect('admin/gallery');
+            return;
+        }
+
+        $title = trim($this->input->post('title'));
+        $type = $this->input->post('type') === 'video' ? 'video' : 'photo';
+        $category = trim($this->input->post('category')) ?: 'General';
+        $description = trim($this->input->post('description'));
+        $video_url = trim($this->input->post('video_url'));
+        $status = $this->input->post('status') === 'inactive' ? 'inactive' : 'active';
+        $sort_order = (int)$this->input->post('sort_order');
+
+        $data = array(
+            'title'       => $title,
+            'type'        => $type,
+            'video_url'   => !empty($video_url) ? $video_url : null,
+            'category'    => $category,
+            'description' => $description,
+            'sort_order'  => $sort_order,
+            'status'      => $status
+        );
+
+        if ($type === 'photo') {
+            if (!empty($_FILES['file']['name'])) {
+                $upload_dir = FCPATH . 'Galary/photos/';
+                if (!file_exists($upload_dir)) {
+                    mkdir($upload_dir, 0777, true);
+                }
+                $ext = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
+                $allowed = array('jpg', 'jpeg', 'png', 'webp', 'gif', 'svg');
+                if (in_array($ext, $allowed)) {
+                    $new_name = 'photo_' . time() . '_' . rand(1000, 9999) . '.' . $ext;
+                    if (move_uploaded_file($_FILES['file']['tmp_name'], $upload_dir . $new_name)) {
+                        $data['file_path'] = 'Galary/photos/' . $new_name;
+                    }
+                }
+            }
+        } else {
+            if (!empty($_FILES['file']['name'])) {
+                $upload_dir = FCPATH . 'Galary/videos/';
+                if (!file_exists($upload_dir)) {
+                    mkdir($upload_dir, 0777, true);
+                }
+                $ext = strtolower(pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION));
+                $allowed = array('mp4', 'webm', 'ogg', 'mov', 'mkv');
+                if (in_array($ext, $allowed)) {
+                    $new_name = 'video_' . time() . '_' . rand(1000, 9999) . '.' . $ext;
+                    if (move_uploaded_file($_FILES['file']['tmp_name'], $upload_dir . $new_name)) {
+                        $data['file_path'] = 'Galary/videos/' . $new_name;
+                    }
+                }
+            }
+        }
+
+        $this->db->where('id', $id);
+        $this->db->update('gallery', $data);
+
+        $this->session->set_flashdata('success', 'Gallery item updated successfully!');
+        redirect('admin/gallery');
+    }
+
+    public function delete_gallery_item($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $item = $this->db->get_where('gallery', array('id' => $id))->row();
+        if ($item && !empty($item->file_path)) {
+            $full_path = FCPATH . $item->file_path;
+            if (file_exists($full_path)) {
+                @unlink($full_path);
+            }
+        }
+
+        $this->db->where('id', $id);
+        $this->db->delete('gallery');
+
+        $this->session->set_flashdata('success', 'Gallery item deleted successfully.');
+        redirect('admin/gallery');
+    }
+
+    public function toggle_gallery_status($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $item = $this->db->get_where('gallery', array('id' => $id))->row();
+        if ($item) {
+            $new_status = ($item->status === 'active') ? 'inactive' : 'active';
+            $this->db->where('id', $id)->update('gallery', array('status' => $new_status));
+            $this->session->set_flashdata('success', 'Status updated to ' . $new_status);
+        }
+        redirect('admin/gallery');
+    }
     // ==========================================
     // USERS MANAGEMENT
     // ==========================================

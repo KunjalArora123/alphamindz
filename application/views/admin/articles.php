@@ -47,7 +47,7 @@
                             </td>
                             <td style="padding: 12px;">
                                 <div style="font-weight: 600; color: #2c3e50; font-size: 15px;" class="search-title">
-                                    <a href="<?php echo site_url('blogs/view/'.$article->slug); ?>" target="_blank" style="color: inherit; text-decoration: none;">
+                                    <a href="<?php echo site_url('articles/'.$article->slug); ?>" target="_blank" style="color: inherit; text-decoration: none;">
                                         <?php echo htmlspecialchars($article->title); ?>
                                     </a>
                                 </div>
@@ -75,7 +75,7 @@
                                 <?php echo date('M d, Y', strtotime($article->created_at)); ?>
                             </td>
                             <td style="padding: 12px; text-align: right;">
-                                <a href="<?php echo site_url('blogs/view/'.$article->slug); ?>" target="_blank" style="color: #6c757d; text-decoration: none; margin-right: 12px; font-size: 18px;" title="Preview Article"><i class="ri-external-link-line"></i></a>
+                                <a href="<?php echo site_url('articles/'.$article->slug); ?>" target="_blank" style="color: #6c757d; text-decoration: none; margin-right: 12px; font-size: 18px;" title="Preview Article"><i class="ri-external-link-line"></i></a>
                                 <a href="<?php echo site_url('admin/edit_article/'.$article->id); ?>" style="color: #3498db; text-decoration: none; margin-right: 12px; font-size: 18px;" title="Edit Article"><i class="ri-edit-line"></i></a>
                                 <a href="<?php echo site_url('admin/delete_article/'.$article->id); ?>" style="color: #e74c3c; text-decoration: none; font-size: 18px;" title="Delete Article" onclick="return confirm('Are you sure you want to delete this article?');"><i class="ri-delete-bin-line"></i></a>
                             </td>

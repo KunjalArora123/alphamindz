@@ -113,7 +113,7 @@
             <div class="mixed-left">
                 <div class="section-header">
                     <h2>Recent Articles</h2>
-                    <a href="<?php echo site_url('blogs'); ?>" class="view-all">View all articles <i class="ri-arrow-right-line"></i></a>
+                    <a href="<?php echo site_url('articles'); ?>" class="view-all">View all articles <i class="ri-arrow-right-line"></i></a>
                 </div>
                 <div class="articles-grid">
                     <?php 
@@ -185,7 +185,7 @@
                         <article class="recent-article-card">
                             <div class="recent-article-body">
                                 <span class="tag <?php echo $article['tag_bg']; ?>"><?php echo htmlspecialchars($article['category']); ?></span>
-                                <h3><a href="<?php echo site_url('blogs/view/' . $article['slug']); ?>"><?php echo htmlspecialchars($article['title']); ?></a></h3>
+                                <h3><a href="<?php echo site_url('articles/' . $article['slug']); ?>"><?php echo htmlspecialchars($article['title']); ?></a></h3>
                                 <p><?php echo htmlspecialchars($article['excerpt']); ?></p>
                             </div>
                             <div class="recent-article-meta">

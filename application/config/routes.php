@@ -55,6 +55,23 @@ $route['courses/(:any)'] = 'courses/detail/$1';
 $route['verify'] = 'verify/index';
 $route['verify/(:any)'] = 'verify/index/$1';
 
+/* Free Resources Routes */
+$route['articles'] = 'articles/index';
+$route['articles/(:any)'] = 'articles/view/$1';
+$route['blogs'] = 'blogs/index';
+$route['blogs/(:any)'] = 'blogs/view/$1';
+$route['career-facts'] = 'career_facts/index';
+$route['career-facts/(:any)'] = 'career_facts/view/$1';
+$route['career_facts'] = 'career_facts/index';
+$route['career_facts/(:any)'] = 'career_facts/view/$1';
+$route['resources'] = 'resources/index';
+$route['resources/download/(:any)/(:any)'] = 'resources/download/$1/$2';
+$route['resources/(:any)'] = 'resources/category/$1';
+
+/* Gallery Routes */
+$route['gallery'] = 'gallery/index';
+$route['galary'] = 'gallery/index';
+
 /* Superadmin Routes */
 $route['superadmin'] = 'superadmin/index';
 $route['superadmin/login'] = 'superadmin/login';
