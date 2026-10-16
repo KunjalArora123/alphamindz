@@ -65,6 +65,11 @@
                 </a>
             </li>
             <li>
+                <a href="<?php echo site_url('admin/main_website'); ?>" class="<?php echo ($this->uri->segment(2) == 'main_website') ? 'active' : ''; ?>">
+                    <i class="ri-global-line"></i> Main Website
+                </a>
+            </li>
+            <li>
                 <a href="<?php echo site_url('admin/users'); ?>" class="<?php echo ($this->uri->segment(2) == 'users' || $this->uri->segment(2) == 'edit_user') ? 'active' : ''; ?>">
                     <i class="ri-group-line"></i> Users
                 </a>
@@ -85,5 +90,10 @@
             <?php if($this->session->flashdata('success')): ?>
                 <div style="color: #155724; background-color: #d4edda; padding: 10px; border-radius: 4px; margin-bottom: 16px;">
                     <?php echo $this->session->flashdata('success'); ?>
+                </div>
+            <?php endif; ?>
+            <?php if($this->session->flashdata('error')): ?>
+                <div style="color: #721c24; background-color: #f8d7da; padding: 10px; border-radius: 4px; margin-bottom: 16px;">
+                    <?php echo $this->session->flashdata('error'); ?>
                 </div>
             <?php endif; ?>

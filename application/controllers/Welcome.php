@@ -43,6 +43,10 @@ class Welcome extends CI_Controller {
 		$n_query = $this->db->get('latest_news');
 		$data['latest_news'] = $n_query ? $n_query->result() : array();
 
+		// Fetch homepage hero image setting
+		$hero_setting = $this->db->get_where('system_settings', array('setting_key' => 'home_hero_image'))->row();
+		$data['hero_image'] = ($hero_setting && !empty($hero_setting->setting_value)) ? $hero_setting->setting_value : null;
+
 		$this->load->view('public_header');
 		$this->load->view('home', $data);
 		$this->load->view('public_footer');

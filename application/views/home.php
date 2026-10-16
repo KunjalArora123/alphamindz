@@ -14,7 +14,21 @@
             </div>
             <div class="hero-visual">
                 <div class="image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Students collaborating">
+                    <?php 
+                        $default_hero_url = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80";
+                        if (!empty($hero_image)) {
+                            if (strpos($hero_image, "http") === 0) {
+                                $hero_src = $hero_image;
+                            } else {
+                                $file_full_path = FCPATH . $hero_image;
+                                $v_param = file_exists($file_full_path) ? "?v=" . filemtime($file_full_path) : "";
+                                $hero_src = base_url($hero_image) . $v_param;
+                            }
+                        } else {
+                            $hero_src = $default_hero_url;
+                        }
+                    ?>
+                    <img src="<?php echo htmlspecialchars($hero_src); ?>" alt="Students collaborating">
                     <div class="floating-badge badge-1">
                         <i class="ri-medal-fill"></i>
                         <div>

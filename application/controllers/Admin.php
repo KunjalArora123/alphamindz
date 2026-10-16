@@ -2847,6 +2847,91 @@ class Admin extends CI_Controller {
         $this->session->set_flashdata('success', 'News deleted successfully.');
         redirect('admin/latest_news');
     }
+
+    public function main_website() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $hero_row = $this->db->get_where('system_settings', array('setting_key' => 'home_hero_image'))->row();
+        $data['hero_image'] = ($hero_row && !empty($hero_row->setting_value)) ? $hero_row->setting_value : '';
+        $data['page_title'] = 'Main Website Management';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar', $data);
+        $this->load->view('admin/main_website', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function update_hero_image() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        if (!empty($_FILES['hero_image']['name'])) {
+            $upload_path = './assets/uploads/website/';
+            if (!is_dir($upload_path)) {
+                mkdir($upload_path, 0777, true);
+            }
+
+            $config['upload_path']   = $upload_path;
+            $config['allowed_types'] = 'jpg|jpeg|png|webp|gif';
+            $config['max_size']      = 12288; // 12MB
+            $config['encrypt_name']  = TRUE;
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('hero_image')) {
+                $upload_data   = $this->upload->data();
+                $relative_path = 'assets/uploads/website/' . $upload_data['file_name'];
+
+                $existing = $this->db->get_where('system_settings', array('setting_key' => 'home_hero_image'))->row();
+                if ($existing) {
+                    if (!empty($existing->setting_value) && strpos($existing->setting_value, 'assets/uploads/website/') !== false && file_exists(FCPATH . $existing->setting_value)) {
+                        @unlink(FCPATH . $existing->setting_value);
+                    }
+                    $this->db->where('id', $existing->id)->update('system_settings', array(
+                        'setting_value' => $relative_path,
+                        'updated_at'    => date('Y-m-d H:i:s')
+                    ));
+                } else {
+                    $this->db->insert('system_settings', array(
+                        'setting_key'   => 'home_hero_image',
+                        'setting_value' => $relative_path,
+                        'created_at'    => date('Y-m-d H:i:s'),
+                        'updated_at'    => date('Y-m-d H:i:s')
+                    ));
+                }
+
+                $this->session->set_flashdata('success', 'Homepage hero photo updated successfully!');
+            } else {
+                $error_msg = strip_tags($this->upload->display_errors());
+                $this->session->set_flashdata('error', 'Failed to upload photo: ' . $error_msg);
+            }
+        } else {
+            $this->session->set_flashdata('error', 'Please choose an image file to upload.');
+        }
+
+        redirect('admin/main_website');
+    }
+
+    public function reset_hero_image() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $existing = $this->db->get_where('system_settings', array('setting_key' => 'home_hero_image'))->row();
+        if ($existing) {
+            if (!empty($existing->setting_value) && strpos($existing->setting_value, 'assets/uploads/website/') !== false && file_exists(FCPATH . $existing->setting_value)) {
+                @unlink(FCPATH . $existing->setting_value);
+            }
+            $this->db->where('id', $existing->id)->update('system_settings', array(
+                'setting_value' => '',
+                'updated_at'    => date('Y-m-d H:i:s')
+            ));
+        }
+
+        $this->session->set_flashdata('success', 'Homepage hero photo has been reset to the default photo.');
+        redirect('admin/main_website');
+    }
 }
 
 
