@@ -57,7 +57,7 @@
                 <select name="course_id" id="cert_course_id" style="width: 100%;" required>
                     <option value="">-- Choose a Course --</option>
                     <?php if(!empty($courses)): foreach($courses as $c): ?>
-                        <option value="<?php echo $c->id; ?>"><?php echo htmlspecialchars($c->title); ?></option>
+                        <option value="<?php echo $c->id; ?>"><?php echo htmlspecialchars(html_entity_decode($c->title, ENT_QUOTES, 'UTF-8')); ?></option>
                     <?php endforeach; endif; ?>
                 </select>
             </div>

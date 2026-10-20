@@ -27,7 +27,15 @@
     <?php endif; ?>
 
     <div class="blog-body" style="line-height: 1.9; color: #334155; font-size: 1.15rem; word-break: break-word;">
-        <?php echo $blog->content; ?>
+        <?php 
+            $clean_content = preg_replace('/\s*<!-- wp:button[^\>]*-->\s*<div class="wp-block-button">.*?<\/div>\s*<!-- \/wp:button -->(\s*<!-- wp:spacer[^\>]*-->\s*<div style="height:50px"[^>]*><\/div>\s*<!-- \/wp:spacer -->)?/is', '', $blog->content);
+            $clean_content = preg_replace('/<div[^>]*class=[\'"][^\'"]*wp-block-button[^\'"]*[\'"][^>]*>.*?<\/div>/is', '', $clean_content);
+            $clean_content = preg_replace('/<a[^>]+href=[\'"][^\'"]*\.pdf[\'"][^>]*>.*?download.*?<\/a>/is', '', $clean_content);
+            $clean_content = preg_replace('/<br\s*\/?>\s*(<strong>)?\s*Email:\s*manu@localhost\/aplha_m\/public_html\s*(<\/strong>)?/i', '', $clean_content);
+            $clean_content = str_ireplace('Email: manu@localhost/aplha_m/public_html', '', $clean_content);
+            $clean_content = str_ireplace('manu@localhost/aplha_m/public_html', '', $clean_content);
+            echo $clean_content; 
+        ?>
     </div>
     
     <div style="margin-top: 50px; border-top: 1px solid #e2e8f0; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">

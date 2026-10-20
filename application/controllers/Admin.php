@@ -2792,12 +2792,12 @@ class Admin extends CI_Controller {
         $this->db->order_by('course_certificates.id', 'DESC');
         $certificates = $this->db->get()->result();
 
-        // Fetch students & courses for shortcut issue form
+        // Fetch students & courses for shortcut issue form (synced with published courses, newest first matching /admin/courses)
         $this->db->where_in('role', array('student', 'Student'));
         $this->db->order_by('first_name', 'ASC');
         $students = $this->db->get('users')->result();
 
-        $this->db->order_by('title', 'ASC');
+        $this->db->order_by('id', 'DESC');
         $courses = $this->db->get('courses')->result();
 
         $data['certificates'] = $certificates;
