@@ -138,7 +138,7 @@ if (!function_exists('formatMathSigns')) {
         <div class="form-group" style="margin-bottom: 20px;">
             <label for="question_image" style="font-weight: 600; color: #334155; margin-bottom: 6px; display: block;">Attach Question Image (Optional)</label>
             <input type="file" id="question_image" name="question_image" accept="image/*" style="width: 100%; max-width: 500px; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 14px; box-sizing: border-box; background: #f8fafc;">
-            <span style="font-size: 12px; color: #64748b; margin-top: 4px; display: block;"><i class="ri-image-line"></i> Images will be automatically stored in the <code>questions-images</code> directory.</span>
+            <span style="font-size: 12px; color: #64748b; margin-top: 4px; display: block;"><i class="ri-image-line"></i> Images will be automatically stored in the <code>assets/uploads/questions</code> directory.</span>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 20px;">

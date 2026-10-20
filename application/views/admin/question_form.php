@@ -47,7 +47,7 @@
         </div>
 
         <div class="form-group" style="margin-bottom: 20px; background-color: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <label for="question_image" style="font-weight: 600; color: #334155; margin-bottom: 6px; display: block;">Question Image (Stored in <code>questions-images/</code>)</label>
+            <label for="question_image" style="font-weight: 600; color: #334155; margin-bottom: 6px; display: block;">Question Image (Stored in <code>assets/uploads/questions/</code>)</label>
             
             <?php if(!empty($question->image_path) && file_exists(FCPATH . $question->image_path)): ?>
                 <div style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 16px;">

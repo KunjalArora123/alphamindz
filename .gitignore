@@ -17,6 +17,13 @@ user_guide_src/cilexer/dist/*
 user_guide_src/cilexer/pycilexer.egg-info/*
 /vendor/
 
+# Dynamic uploads (preserve in Git deployments)
+assets/uploads/questions/*
+!assets/uploads/questions/index.html
+questions-images/q_*
+questions-images/q2_*
+questions-images/opt_*
+
 # IDE Files
 #-------------------------
 /nbproject/

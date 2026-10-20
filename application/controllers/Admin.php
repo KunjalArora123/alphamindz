@@ -2226,17 +2226,18 @@ class Admin extends CI_Controller {
         $next_q_num = ($max_row && $max_row->question_number) ? ($max_row->question_number + 1) : 1;
 
         $image_path = null;
+        $upload_dir = FCPATH . 'assets/uploads/questions/';
+        if (!file_exists($upload_dir)) {
+            @mkdir($upload_dir, 0777, true);
+        }
+        $allowed = array('jpg', 'jpeg', 'png', 'gif', 'svg', 'webp');
+
         if (!empty($_FILES['question_image']['name']) && $_FILES['question_image']['error'] === UPLOAD_ERR_OK) {
-            $upload_dir = FCPATH . 'questions-images/';
-            if (!file_exists($upload_dir)) {
-                @mkdir($upload_dir, 0777, true);
-            }
             $file_ext = strtolower(pathinfo($_FILES['question_image']['name'], PATHINFO_EXTENSION));
-            $allowed = array('jpg', 'jpeg', 'png', 'gif', 'svg', 'webp');
             if (in_array($file_ext, $allowed)) {
                 $filename = 'q_' . time() . '_' . rand(1000, 9999) . '.' . $file_ext;
                 if (move_uploaded_file($_FILES['question_image']['tmp_name'], $upload_dir . $filename)) {
-                    $image_path = 'questions-images/' . $filename;
+                    $image_path = 'assets/uploads/questions/' . $filename;
                 }
             }
         }
@@ -2244,11 +2245,10 @@ class Admin extends CI_Controller {
         $image_path_2 = null;
         if (!empty($_FILES['question_image_2']['name']) && $_FILES['question_image_2']['error'] === UPLOAD_ERR_OK) {
             $file_ext = strtolower(pathinfo($_FILES['question_image_2']['name'], PATHINFO_EXTENSION));
-            $allowed = array('jpg', 'jpeg', 'png', 'gif', 'svg', 'webp');
             if (in_array($file_ext, $allowed)) {
                 $filename = 'q2_' . time() . '_' . rand(1000, 9999) . '.' . $file_ext;
                 if (move_uploaded_file($_FILES['question_image_2']['tmp_name'], $upload_dir . $filename)) {
-                    $image_path_2 = 'questions-images/' . $filename;
+                    $image_path_2 = 'assets/uploads/questions/' . $filename;
                 }
             }
         }
@@ -2259,11 +2259,6 @@ class Admin extends CI_Controller {
             'option_c_image' => null,
             'option_d_image' => null
         );
-        $allowed = array('jpg', 'jpeg', 'png', 'gif', 'svg', 'webp');
-        $upload_dir = FCPATH . 'questions-images/';
-        if (!file_exists($upload_dir)) {
-            @mkdir($upload_dir, 0777, true);
-        }
 
         foreach (array('a', 'b', 'c', 'd') as $opt) {
             $field = 'option_' . $opt . '_image';
@@ -2272,7 +2267,7 @@ class Admin extends CI_Controller {
                 if (in_array($file_ext, $allowed)) {
                     $filename = 'opt_' . $opt . '_' . time() . '_' . rand(1000, 9999) . '.' . $file_ext;
                     if (move_uploaded_file($_FILES[$field]['tmp_name'], $upload_dir . $filename)) {
-                        $option_images[$field] = 'questions-images/' . $filename;
+                        $option_images[$field] = 'assets/uploads/questions/' . $filename;
                     }
                 }
             }
@@ -2364,7 +2359,7 @@ class Admin extends CI_Controller {
             $image_path_2 = null;
         }
 
-        $upload_dir = FCPATH . 'questions-images/';
+        $upload_dir = FCPATH . 'assets/uploads/questions/';
         if (!file_exists($upload_dir)) {
             @mkdir($upload_dir, 0777, true);
         }
@@ -2378,7 +2373,7 @@ class Admin extends CI_Controller {
                 }
                 $filename = 'q_' . time() . '_' . rand(1000, 9999) . '.' . $file_ext;
                 if (move_uploaded_file($_FILES['question_image']['tmp_name'], $upload_dir . $filename)) {
-                    $image_path = 'questions-images/' . $filename;
+                    $image_path = 'assets/uploads/questions/' . $filename;
                 }
             }
         }
@@ -2391,7 +2386,7 @@ class Admin extends CI_Controller {
                 }
                 $filename = 'q2_' . time() . '_' . rand(1000, 9999) . '.' . $file_ext;
                 if (move_uploaded_file($_FILES['question_image_2']['tmp_name'], $upload_dir . $filename)) {
-                    $image_path_2 = 'questions-images/' . $filename;
+                    $image_path_2 = 'assets/uploads/questions/' . $filename;
                 }
             }
         }
@@ -2422,7 +2417,7 @@ class Admin extends CI_Controller {
                     }
                     $filename = 'opt_' . $opt . '_' . time() . '_' . rand(1000, 9999) . '.' . $file_ext;
                     if (move_uploaded_file($_FILES[$field]['tmp_name'], $upload_dir . $filename)) {
-                        $option_images[$field] = 'questions-images/' . $filename;
+                        $option_images[$field] = 'assets/uploads/questions/' . $filename;
                     }
                 }
             }
