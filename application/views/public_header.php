@@ -157,10 +157,9 @@
                 <div class="nav-item has-dropdown">
                     <a href="<?php echo site_url('assessments'); ?>" class="nav-link">Assessment <i class="ri-arrow-down-s-line"></i></a>
                     <div class="dropdown-menu">
-                        <a href="#">Career Assessment</a>
-                        <a href="#">Kids Interests Assessment</a>
-                        <a href="#">Personality Profile</a>
-                        <a href="#">Skill Assessment</a>
+                        <a href="<?php echo site_url('assessments'); ?>">Career Assessment</a>
+                        <a href="<?php echo site_url('assessments'); ?>">Personality Profile</a>
+                        <a href="<?php echo site_url('assessments'); ?>">Skill Assessment</a>
                     </div>
                 </div>
 
