@@ -80,6 +80,11 @@
                 </a>
             </li>
             <li>
+                <a href="<?php echo site_url('admin/about'); ?>" class="<?php echo in_array($this->uri->segment(2), array('about', 'add_team_member', 'edit_team_member')) ? 'active' : ''; ?>">
+                    <i class="ri-information-line"></i> About Us
+                </a>
+            </li>
+            <li>
                 <a href="<?php echo site_url('admin/users'); ?>" class="<?php echo ($this->uri->segment(2) == 'users' || $this->uri->segment(2) == 'edit_user') ? 'active' : ''; ?>">
                     <i class="ri-group-line"></i> Users
                 </a>

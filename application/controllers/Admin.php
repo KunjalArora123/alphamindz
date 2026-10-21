@@ -3477,6 +3477,242 @@ class Admin extends CI_Controller {
         $this->session->set_flashdata('success', 'Homepage hero photo has been reset to the default photo.');
         redirect('admin/main_website');
     }
+
+    public function about() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $defaults = array(
+            'about_hero_tag'        => 'Our Story',
+            'about_hero_title'      => 'About AlphaMindz',
+            'about_hero_subtitle'   => 'Empowering minds, inspiring futures, and motivating individuals to reach their highest potential since 2007.',
+            'about_team_heading'    => 'Meet Our Team',
+            'about_team_subheading' => 'The visionary leaders and dedicated professionals driving our mission forward across our regional hubs.',
+            'about_solan_title'     => 'Solan Branch (Himachal Pradesh)',
+            'about_solan_address'   => 'First Floor, Satish Complex, Kotla Nala, Solan, Himachal Pradesh 173212',
+            'about_solan_map_link'  => 'https://www.google.com/maps/place/First+Floor,+Alpha+Mindz+Solan,+Satish+Complex,+Kotla+Nala,+Solan,+Himachal+Pradesh+173212/data=!4m2!3m1!1s0x390f8138573242bb:0x1e78d5e86a03c187!18m1!1e1',
+            'about_goa_title'       => 'Goa Branch (Panaji)',
+            'about_goa_address'     => '302, Sai Plaza, opp. Gomantak Press, St. Inez, Altinho, Panaji, Goa 403001',
+            'about_goa_map_link'    => 'https://maps.app.goo.gl/orfvmi45fKQES2Mx6'
+        );
+
+        foreach ($defaults as $k => $def) {
+            $row = $this->db->get_where('system_settings', array('setting_key' => $k))->row();
+            $data[$k] = ($row && $row->setting_value !== null && $row->setting_value !== '') ? $row->setting_value : $def;
+        }
+
+        $this->db->order_by('branch_key', 'DESC');
+        $this->db->order_by('sort_order', 'ASC');
+        $this->db->order_by('id', 'ASC');
+        $data['team_members'] = $this->db->get('about_team_members')->result();
+        $data['page_title']   = 'Manage About Us';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar', $data);
+        $this->load->view('admin/about', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function update_about_content() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $allowed_keys = array(
+            'about_hero_tag',
+            'about_hero_title',
+            'about_hero_subtitle',
+            'about_team_heading',
+            'about_team_subheading',
+            'about_solan_title',
+            'about_solan_address',
+            'about_solan_map_link',
+            'about_goa_title',
+            'about_goa_address',
+            'about_goa_map_link'
+        );
+
+        $now = date('Y-m-d H:i:s');
+        foreach ($allowed_keys as $key) {
+            $val = trim($this->input->post($key));
+            $existing = $this->db->get_where('system_settings', array('setting_key' => $key))->row();
+            if ($existing) {
+                $this->db->where('id', $existing->id)->update('system_settings', array(
+                    'setting_value' => $val,
+                    'updated_at'    => $now
+                ));
+            } else {
+                $this->db->insert('system_settings', array(
+                    'setting_key'   => $key,
+                    'setting_value' => $val,
+                    'created_at'    => $now,
+                    'updated_at'    => $now
+                ));
+            }
+        }
+
+        $this->session->set_flashdata('success', 'About Us page content updated successfully!');
+        redirect('admin/about');
+    }
+
+    public function add_team_member() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $data['page_title'] = 'Add Team Member';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar', $data);
+        $this->load->view('admin/team_member_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function edit_team_member($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $member = $this->db->get_where('about_team_members', array('id' => $id))->row();
+        if (!$member) {
+            $this->session->set_flashdata('error', 'Team member not found.');
+            redirect('admin/about');
+        }
+
+        $data['member']     = $member;
+        $data['page_title'] = 'Edit Team Member';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar', $data);
+        $this->load->view('admin/team_member_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function save_team_member() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $name       = trim($this->input->post('name'));
+        $role_title = trim($this->input->post('role_title'));
+
+        if (empty($name) || empty($role_title)) {
+            $this->session->set_flashdata('error', 'Name and Role Title are required.');
+            redirect('admin/add_team_member');
+        }
+
+        $image_url = 'assets/images/team/manu.jpg';
+        if (!empty($_FILES['member_image']['name'])) {
+            $upload_path = './assets/uploads/website/';
+            if (!is_dir($upload_path)) {
+                mkdir($upload_path, 0777, true);
+            }
+
+            $config['upload_path']   = $upload_path;
+            $config['allowed_types'] = 'jpg|jpeg|png|webp|gif';
+            $config['max_size']      = 6144; // 6MB
+            $config['encrypt_name']  = TRUE;
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('member_image')) {
+                $upload_data = $this->upload->data();
+                $image_url   = 'assets/uploads/website/' . $upload_data['file_name'];
+            }
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $insert_data = array(
+            'name'             => $name,
+            'role_title'       => $role_title,
+            'branch_key'       => ($this->input->post('branch_key') === 'goa') ? 'goa' : 'solan',
+            'role_color_theme' => in_array($this->input->post('role_color_theme'), array('blue', 'orange', 'green', 'purple')) ? $this->input->post('role_color_theme') : 'blue',
+            'bio'              => trim($this->input->post('bio')),
+            'image_url'        => $image_url,
+            'sort_order'       => (int)$this->input->post('sort_order'),
+            'is_active'        => (int)$this->input->post('is_active'),
+            'created_at'       => $now,
+            'updated_at'       => $now
+        );
+
+        $this->db->insert('about_team_members', $insert_data);
+        $this->session->set_flashdata('success', 'Team member added successfully!');
+        redirect('admin/about');
+    }
+
+    public function update_team_member($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $member = $this->db->get_where('about_team_members', array('id' => $id))->row();
+        if (!$member) {
+            $this->session->set_flashdata('error', 'Team member not found.');
+            redirect('admin/about');
+        }
+
+        $name       = trim($this->input->post('name'));
+        $role_title = trim($this->input->post('role_title'));
+
+        if (empty($name) || empty($role_title)) {
+            $this->session->set_flashdata('error', 'Name and Role Title are required.');
+            redirect('admin/edit_team_member/' . $id);
+        }
+
+        $image_url = $member->image_url;
+        if (!empty($_FILES['member_image']['name'])) {
+            $upload_path = './assets/uploads/website/';
+            if (!is_dir($upload_path)) {
+                mkdir($upload_path, 0777, true);
+            }
+
+            $config['upload_path']   = $upload_path;
+            $config['allowed_types'] = 'jpg|jpeg|png|webp|gif';
+            $config['max_size']      = 6144;
+            $config['encrypt_name']  = TRUE;
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('member_image')) {
+                $upload_data = $this->upload->data();
+                $new_image_url = 'assets/uploads/website/' . $upload_data['file_name'];
+
+                if (!empty($member->image_url) && strpos($member->image_url, 'assets/uploads/website/') !== false && file_exists(FCPATH . $member->image_url)) {
+                    @unlink(FCPATH . $member->image_url);
+                }
+                $image_url = $new_image_url;
+            }
+        }
+
+        $update_data = array(
+            'name'             => $name,
+            'role_title'       => $role_title,
+            'branch_key'       => ($this->input->post('branch_key') === 'goa') ? 'goa' : 'solan',
+            'role_color_theme' => in_array($this->input->post('role_color_theme'), array('blue', 'orange', 'green', 'purple')) ? $this->input->post('role_color_theme') : 'blue',
+            'bio'              => trim($this->input->post('bio')),
+            'image_url'        => $image_url,
+            'sort_order'       => (int)$this->input->post('sort_order'),
+            'is_active'        => (int)$this->input->post('is_active'),
+            'updated_at'       => date('Y-m-d H:i:s')
+        );
+
+        $this->db->where('id', $id)->update('about_team_members', $update_data);
+        $this->session->set_flashdata('success', 'Team member updated successfully!');
+        redirect('admin/about');
+    }
+
+    public function delete_team_member($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $member = $this->db->get_where('about_team_members', array('id' => $id))->row();
+        if ($member) {
+            if (!empty($member->image_url) && strpos($member->image_url, 'assets/uploads/website/') !== false && file_exists(FCPATH . $member->image_url)) {
+                @unlink(FCPATH . $member->image_url);
+            }
+            $this->db->where('id', $id)->delete('about_team_members');
+            $this->session->set_flashdata('success', 'Team member deleted successfully!');
+        } else {
+            $this->session->set_flashdata('error', 'Team member not found.');
+        }
+
+        redirect('admin/about');
+    }
 }
 
 
