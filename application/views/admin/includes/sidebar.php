@@ -80,6 +80,11 @@
                 </a>
             </li>
             <li>
+                <a href="<?php echo site_url('admin/testimonials'); ?>" class="<?php echo in_array($this->uri->segment(2), array('testimonials', 'add_testimonial', 'edit_testimonial')) ? 'active' : ''; ?>">
+                    <i class="ri-feedback-line"></i> Testimonials
+                </a>
+            </li>
+            <li>
                 <a href="<?php echo site_url('admin/main_website'); ?>" class="<?php echo ($this->uri->segment(2) == 'main_website') ? 'active' : ''; ?>">
                     <i class="ri-global-line"></i> Main Website
                 </a>

@@ -4147,6 +4147,148 @@ class Admin extends CI_Controller {
             redirect('admin/downloadable_guides');
         }
     }
+
+    /* -------------------------------------------------------------
+     * STUDENT TESTIMONIALS MANAGEMENT
+     * -----------------------------------------------------------*/
+    public function testimonials() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $this->db->order_by('sort_order', 'ASC');
+        $this->db->order_by('id', 'DESC');
+        $data['testimonials'] = $this->db->get('testimonials')->result();
+        $data['page_title']   = 'Manage Student Testimonials';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/testimonials', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function add_testimonial() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $data['page_title'] = 'Add Student Testimonial';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/testimonial_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function edit_testimonial($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $testimonial = $this->db->get_where('testimonials', array('id' => (int)$id))->row();
+        if (!$testimonial) {
+            $this->session->set_flashdata('error', 'Testimonial not found.');
+            redirect('admin/testimonials');
+        }
+
+        $data['testimonial'] = $testimonial;
+        $data['page_title']  = 'Edit Testimonial';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/testimonial_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function save_testimonial() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $author_name = trim($this->input->post('author_name'));
+        $author_role = trim($this->input->post('author_role'));
+        $quote       = trim($this->input->post('quote'));
+
+        if (empty($author_name) || empty($author_role) || empty($quote)) {
+            $this->session->set_flashdata('error', 'Author Name, Role, and Quote are required.');
+            redirect('admin/add_testimonial');
+        }
+
+        $initials = strtoupper(trim($this->input->post('avatar_initials')));
+        if (empty($initials)) {
+            $parts = explode(' ', $author_name);
+            if (count($parts) >= 2) {
+                $initials = strtoupper(substr($parts[0], 0, 1) . substr($parts[count($parts) - 1], 0, 1));
+            } else {
+                $initials = strtoupper(substr($author_name, 0, 2));
+            }
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $insert_data = array(
+            'author_name'     => $author_name,
+            'author_role'     => $author_role,
+            'avatar_initials' => $initials,
+            'avatar_bg'       => trim($this->input->post('avatar_bg')) ?: 'bg-blue',
+            'quote'           => $quote,
+            'status'          => ($this->input->post('status') === 'inactive') ? 'inactive' : 'active',
+            'sort_order'      => (int)$this->input->post('sort_order'),
+            'created_at'      => $now,
+            'updated_at'      => $now
+        );
+
+        $this->db->insert('testimonials', $insert_data);
+        $this->session->set_flashdata('success', 'Testimonial created successfully!');
+        redirect('admin/testimonials');
+    }
+
+    public function update_testimonial($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $testimonial = $this->db->get_where('testimonials', array('id' => (int)$id))->row();
+        if (!$testimonial) {
+            $this->session->set_flashdata('error', 'Testimonial not found.');
+            redirect('admin/testimonials');
+        }
+
+        $author_name = trim($this->input->post('author_name'));
+        $author_role = trim($this->input->post('author_role'));
+        $quote       = trim($this->input->post('quote'));
+
+        if (empty($author_name) || empty($author_role) || empty($quote)) {
+            $this->session->set_flashdata('error', 'Author Name, Role, and Quote are required.');
+            redirect('admin/edit_testimonial/' . $id);
+        }
+
+        $initials = strtoupper(trim($this->input->post('avatar_initials')));
+        if (empty($initials)) {
+            $parts = explode(' ', $author_name);
+            if (count($parts) >= 2) {
+                $initials = strtoupper(substr($parts[0], 0, 1) . substr($parts[count($parts) - 1], 0, 1));
+            } else {
+                $initials = strtoupper(substr($author_name, 0, 2));
+            }
+        }
+
+        $update_data = array(
+            'author_name'     => $author_name,
+            'author_role'     => $author_role,
+            'avatar_initials' => $initials,
+            'avatar_bg'       => trim($this->input->post('avatar_bg')) ?: 'bg-blue',
+            'quote'           => $quote,
+            'status'          => ($this->input->post('status') === 'inactive') ? 'inactive' : 'active',
+            'sort_order'      => (int)$this->input->post('sort_order'),
+            'updated_at'      => date('Y-m-d H:i:s')
+        );
+
+        $this->db->where('id', (int)$id)->update('testimonials', $update_data);
+        $this->session->set_flashdata('success', 'Testimonial updated successfully!');
+        redirect('admin/testimonials');
+    }
+
+    public function delete_testimonial($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $this->db->where('id', (int)$id)->delete('testimonials');
+        $this->session->set_flashdata('success', 'Testimonial deleted successfully!');
+        redirect('admin/testimonials');
+    }
 }
 
 
