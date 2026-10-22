@@ -51,6 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'welcome';
 $route['reachus'] = 'reachus';
+$route['pay-online'] = 'pay_online';
+$route['pay-online-form'] = 'pay_online';
 $route['courses/(:any)'] = 'courses/detail/$1';
 $route['verify'] = 'verify/index';
 $route['verify/(:any)'] = 'verify/index/$1';

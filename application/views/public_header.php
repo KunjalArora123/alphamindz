@@ -81,7 +81,7 @@
             <div class="top-links">
                 <a href="<?php echo site_url('about'); ?>">About Us</a>
                 <a href="<?php echo site_url('reachus'); ?>">Reach Us</a>
-                <a href="https://www.alphamindz.com/pay-online-form">Pay Online</a>
+                <a href="<?php echo site_url('pay-online'); ?>">Pay Online</a>
                 
                 <?php if($this->session->userdata('user_logged_in')): ?>
                     <a href="<?php echo site_url('student'); ?>"><i class="ri-user-line"></i> My Account</a>
@@ -268,7 +268,7 @@
             <div class="mobile-nav-divider"></div>
             <a href="<?php echo site_url('about'); ?>" class="mobile-nav-link">About Us</a>
             <a href="<?php echo site_url('reachus'); ?>" class="mobile-nav-link">Reach Us</a>
-            <a href="https://www.alphamindz.com/pay-online-form" class="mobile-nav-link">Pay Online</a>
+            <a href="<?php echo site_url('pay-online'); ?>" class="mobile-nav-link">Pay Online</a>
             <div class="mobile-nav-divider"></div>
             <div style="font-size: 14px; color: #64748b; display: flex; flex-direction: column; gap: 8px;">
                 <span><i class="ri-phone-fill"></i> Solan: 8308770200</span>
