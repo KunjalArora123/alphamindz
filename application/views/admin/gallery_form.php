@@ -23,16 +23,30 @@
             </div>
 
             <div style="flex: 1; min-width: 200px;">
-                <label for="category" style="font-weight: 600; color: #343a40; display: block; margin-bottom: 6px;"><i class="ri-price-tag-3-line"></i> Category / Album</label>
-                <input type="text" id="category" name="category" list="category_list" value="<?php echo isset($item) ? htmlspecialchars($item->category) : 'Events'; ?>" placeholder="e.g. Events, Campus, Seminars, Workshops..." style="width: 100%; padding: 9px 12px; border: 1px solid #ced4da; border-radius: 6px;">
-                <datalist id="category_list">
-                    <option value="Events">
-                    <option value="Campus Life">
-                    <option value="Workshops">
-                    <option value="Seminars">
-                    <option value="Celebrations">
-                    <option value="Activities">
-                </datalist>
+                <label for="category" style="font-weight: 600; color: #343a40; display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span><i class="ri-price-tag-3-line"></i> Category / Album</span>
+                    <a href="<?php echo site_url('admin/gallery#categories-section'); ?>" style="font-size: 11px; color: #2563eb; text-decoration: none; font-weight: 600;" target="_blank"><i class="ri-settings-4-line"></i> Manage Categories</a>
+                </label>
+                <select id="category" name="category" style="width: 100%; padding: 9px 12px; border: 1px solid #ced4da; border-radius: 6px; background-color: #fff; font-weight: 500;">
+                    <?php 
+                        $current_cat = isset($item) ? $item->category : 'Events';
+                        $cat_found = false;
+                    ?>
+                    <?php if(!empty($categories)): ?>
+                        <?php foreach($categories as $c): ?>
+                            <?php 
+                                if($current_cat === $c->name) $cat_found = true; 
+                                $type_label = ($c->type === 'both') ? '' : ' (' . ucfirst($c->type) . ' only)';
+                            ?>
+                            <option value="<?php echo htmlspecialchars($c->name); ?>" data-type="<?php echo $c->type; ?>" <?php echo ($current_cat === $c->name) ? 'selected' : ''; ?>>
+                                <?php echo htmlspecialchars($c->name . $type_label); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <?php if(!$cat_found && !empty($current_cat)): ?>
+                        <option value="<?php echo htmlspecialchars($current_cat); ?>" selected><?php echo htmlspecialchars($current_cat); ?> (Custom)</option>
+                    <?php endif; ?>
+                </select>
             </div>
 
             <div style="width: 130px;">

@@ -1800,6 +1800,13 @@ class Admin extends CI_Controller {
         $query = $this->db->get('gallery');
         $data['gallery_items'] = $query ? $query->result() : array();
         $data['current_type'] = $type;
+
+        // Fetch gallery categories
+        $this->db->order_by('sort_order', 'ASC');
+        $this->db->order_by('name', 'ASC');
+        $cat_query = $this->db->get('gallery_categories');
+        $data['categories'] = $cat_query ? $cat_query->result() : array();
+
         $data['page_title'] = 'Manage Gallery';
 
         $this->load->view('admin/includes/header', $data);
@@ -1808,8 +1815,98 @@ class Admin extends CI_Controller {
         $this->load->view('admin/includes/footer');
     }
 
+    public function add_gallery_category() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $name = trim($this->input->post('name'));
+        $type = $this->input->post('type');
+        if (!in_array($type, array('both', 'photo', 'video'))) {
+            $type = 'both';
+        }
+        $sort_order = (int)$this->input->post('sort_order');
+
+        if (!empty($name)) {
+            $existing = $this->db->get_where('gallery_categories', array('name' => $name))->row();
+            if ($existing) {
+                $this->session->set_flashdata('error', 'Category "' . htmlspecialchars($name) . '" already exists.');
+            } else {
+                $this->db->insert('gallery_categories', array(
+                    'name' => $name,
+                    'type' => $type,
+                    'sort_order' => $sort_order
+                ));
+                $this->session->set_flashdata('success', 'Category added successfully!');
+            }
+        }
+        redirect('admin/gallery#categories-section');
+    }
+
+    public function update_gallery_category($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $cat = $this->db->get_where('gallery_categories', array('id' => $id))->row();
+        if (!$cat) {
+            $this->session->set_flashdata('error', 'Category not found.');
+            redirect('admin/gallery#categories-section');
+            return;
+        }
+
+        $name = trim($this->input->post('name'));
+        $type = $this->input->post('type');
+        if (!in_array($type, array('both', 'photo', 'video'))) {
+            $type = 'both';
+        }
+        $sort_order = (int)$this->input->post('sort_order');
+
+        if (!empty($name)) {
+            $check = $this->db->where('name', $name)->where('id !=', $id)->get('gallery_categories')->row();
+            if ($check) {
+                $this->session->set_flashdata('error', 'Category "' . htmlspecialchars($name) . '" already exists.');
+            } else {
+                $old_name = $cat->name;
+                $this->db->where('id', $id)->update('gallery_categories', array(
+                    'name' => $name,
+                    'type' => $type,
+                    'sort_order' => $sort_order
+                ));
+
+                // Sync category name across existing media items
+                if ($old_name !== $name) {
+                    $this->db->where('category', $old_name)->update('gallery', array('category' => $name));
+                }
+
+                $this->session->set_flashdata('success', 'Category updated successfully!');
+            }
+        }
+        redirect('admin/gallery#categories-section');
+    }
+
+    public function delete_gallery_category($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $cat = $this->db->get_where('gallery_categories', array('id' => $id))->row();
+        if ($cat) {
+            $this->db->where('category', $cat->name)->update('gallery', array('category' => 'General'));
+            $this->db->where('id', $id)->delete('gallery_categories');
+            $this->session->set_flashdata('success', 'Category deleted successfully.');
+        } else {
+            $this->session->set_flashdata('error', 'Category not found.');
+        }
+        redirect('admin/gallery#categories-section');
+    }
+
     public function add_gallery_item() {
         if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $this->db->order_by('sort_order', 'ASC');
+        $this->db->order_by('name', 'ASC');
+        $cat_query = $this->db->get('gallery_categories');
+        $data['categories'] = $cat_query ? $cat_query->result() : array();
+
         $data['page_title'] = 'Add Gallery Item';
 
         $this->load->view('admin/includes/header', $data);
@@ -1895,6 +1992,12 @@ class Admin extends CI_Controller {
         }
 
         $data['item'] = $item;
+
+        $this->db->order_by('sort_order', 'ASC');
+        $this->db->order_by('name', 'ASC');
+        $cat_query = $this->db->get('gallery_categories');
+        $data['categories'] = $cat_query ? $cat_query->result() : array();
+
         $data['page_title'] = 'Edit Gallery Item';
 
         $this->load->view('admin/includes/header', $data);
