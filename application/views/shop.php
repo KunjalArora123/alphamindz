@@ -1,23 +1,17 @@
 <?php
-$cat_titles = [
-    'all'       => 'Shop E-Books & Workbooks',
-    'ielts'     => 'IELTS Workbooks & Materials',
-    'achievers' => 'Achievers Series for Children',
-    'ebooks'    => 'Educational E-Books',
-    'kits'      => 'Training & Educational Kits'
-];
-
-$cat_descs = [
-    'all'       => 'Browse our complete collection of IELTS workbooks, Achievers series, e-books, and training kits.',
-    'ielts'     => 'Specialized IELTS reading, writing, and test preparation workbooks tailored for score enhancement.',
-    'achievers' => 'Grade-specific Achievers workbooks and foundational learning materials for school students.',
-    'ebooks'    => 'Digital guidebooks, self-improvement materials, and downloadable learning e-books.',
-    'kits'      => 'Interactive kits and comprehensive training bundles curated by AlphaMindz educators.'
-];
-
 $curr = isset($current_category) ? $current_category : 'all';
-$title_text = isset($cat_titles[$curr]) ? $cat_titles[$curr] : 'Shop E-Books & Workbooks';
-$desc_text  = isset($cat_descs[$curr]) ? $cat_descs[$curr] : $cat_descs['all'];
+
+$title_text = 'Shop E-Books & Workbooks';
+$desc_text  = 'Browse our complete collection of IELTS workbooks, Achievers series, e-books, and training kits.';
+
+if (!empty($active_category_obj)) {
+    $title_text = $active_category_obj->title;
+    if (!empty($active_category_obj->description)) {
+        $desc_text = $active_category_obj->description;
+    } else {
+        $desc_text = 'Browse materials and guides under ' . $active_category_obj->title . '.';
+    }
+}
 ?>
 
 <div class="page-header" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 65px 0 55px; text-align: center; border-bottom: 1px solid #334155; color: #fff;">
@@ -43,21 +37,11 @@ $desc_text  = isset($cat_descs[$curr]) ? $cat_descs[$curr] : $cat_descs['all'];
             <i class="ri-store-2-line"></i> All Products (<?php echo isset($total_count) ? $total_count : count($products); ?>)
         </a>
         
-        <a href="<?php echo site_url('shop/ielts'); ?>" style="padding: 9px 18px; border-radius: 30px; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; <?php echo ($curr === 'ielts') ? 'background: #2563eb; color: #fff; box-shadow: 0 4px 10px rgba(37,99,235,0.25);' : 'background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;'; ?>">
-            <i class="ri-file-text-line"></i> IELTS (<?php echo isset($ielts_count) ? $ielts_count : 0; ?>)
-        </a>
-
-        <a href="<?php echo site_url('shop/achievers'); ?>" style="padding: 9px 18px; border-radius: 30px; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; <?php echo ($curr === 'achievers') ? 'background: #2563eb; color: #fff; box-shadow: 0 4px 10px rgba(37,99,235,0.25);' : 'background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;'; ?>">
-            <i class="ri-medal-line"></i> Achievers (<?php echo isset($achievers_count) ? $achievers_count : 0; ?>)
-        </a>
-
-        <a href="<?php echo site_url('shop/ebooks'); ?>" style="padding: 9px 18px; border-radius: 30px; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; <?php echo ($curr === 'ebooks') ? 'background: #2563eb; color: #fff; box-shadow: 0 4px 10px rgba(37,99,235,0.25);' : 'background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;'; ?>">
-            <i class="ri-book-2-line"></i> E-Books (<?php echo isset($ebooks_count) ? $ebooks_count : 0; ?>)
-        </a>
-
-        <a href="<?php echo site_url('shop/kits'); ?>" style="padding: 9px 18px; border-radius: 30px; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; <?php echo ($curr === 'kits') ? 'background: #2563eb; color: #fff; box-shadow: 0 4px 10px rgba(37,99,235,0.25);' : 'background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;'; ?>">
-            <i class="ri-briefcase-4-line"></i> Training & Educational Kits (<?php echo isset($kits_count) ? $kits_count : 0; ?>)
-        </a>
+        <?php if(!empty($categories)): foreach($categories as $c): ?>
+            <a href="<?php echo site_url('shop/'.$c->slug); ?>" style="padding: 9px 18px; border-radius: 30px; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; <?php echo ($curr === $c->slug) ? 'background: #2563eb; color: #fff; box-shadow: 0 4px 10px rgba(37,99,235,0.25);' : 'background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1;'; ?>">
+                <i class="<?php echo !empty($c->icon) ? $c->icon : 'ri-folder-line'; ?>"></i> <?php echo htmlspecialchars($c->title); ?> (<?php echo isset($c->product_count) ? $c->product_count : 0; ?>)
+            </a>
+        <?php endforeach; endif; ?>
     </div>
 
     <!-- Search input -->
@@ -78,7 +62,9 @@ $desc_text  = isset($cat_descs[$curr]) ? $cat_descs[$curr] : $cat_descs['all'];
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 12px;">
         <span style="font-size: 14px; color: #64748b; font-weight: 600;">
             Showing <?php echo count($products); ?> item<?php echo count($products) != 1 ? 's' : ''; ?>
-            <?php if($curr !== 'all'): ?>
+            <?php if(!empty($active_category_obj)): ?>
+                under <strong><?php echo htmlspecialchars($active_category_obj->title); ?></strong>
+            <?php elseif($curr !== 'all'): ?>
                 under <strong><?php echo ucfirst($curr); ?></strong>
             <?php endif; ?>
         </span>
@@ -88,15 +74,24 @@ $desc_text  = isset($cat_descs[$curr]) ? $cat_descs[$curr] : $cat_descs['all'];
     <div class="shop-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px;">
         <?php if(!empty($products)): foreach($products as $product): ?>
             <?php 
-                $is_ielts = (isset($product->category) && $product->category === 'ielts') || stripos($product->title, 'IELTS') !== false;
-                $is_achiever = (isset($product->category) && $product->category === 'achievers') || stripos($product->title, 'Achievers') !== false;
-                $badge_label = $is_ielts ? 'IELTS' : ($is_achiever ? 'Achievers' : 'E-Book');
+                $cat_slug = !empty($product->category) ? $product->category : 'ebooks';
+                $badge_title = ucfirst($cat_slug);
+                if (!empty($categories)) {
+                    foreach ($categories as $cat_item) {
+                        if ($cat_item->slug === $cat_slug) {
+                            $badge_title = $cat_item->title;
+                            break;
+                        }
+                    }
+                }
+                $is_ielts = ($cat_slug === 'ielts') || stripos($product->title, 'IELTS') !== false;
+                $is_achiever = ($cat_slug === 'achievers') || stripos($product->title, 'Achievers') !== false;
                 $badge_color = $is_ielts ? '#2563eb' : ($is_achiever ? '#10b981' : '#f59e0b');
             ?>
             <div class="product-card" style="border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; text-align: center; background: #fff; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
                 
                 <span style="position: absolute; top: 12px; left: 12px; background: <?php echo $badge_color; ?>; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 12px; letter-spacing: 0.5px;">
-                    <?php echo $badge_label; ?>
+                    <?php echo htmlspecialchars($badge_title); ?>
                 </span>
 
                 <div>

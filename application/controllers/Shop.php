@@ -18,9 +18,19 @@ class Shop extends CI_Controller {
 
         $search_query = $this->input->get('q');
 
+        // Fetch dynamic categories from product_categories table
+        $this->db->where('is_active', 1)->order_by('sort_order', 'ASC')->order_by('id', 'ASC');
+        $categories = $this->db->get('product_categories')->result();
+
+        // Calculate count for each category
+        foreach ($categories as &$cat) {
+            $this->db->where('category', $cat->slug);
+            $cat->product_count = $this->db->count_all_results('products');
+        }
+
         $this->db->order_by('id', 'ASC');
 
-        if (!empty($category) && in_array(strtolower($category), array('ielts', 'achievers', 'ebooks', 'kits'))) {
+        if (!empty($category) && $category !== 'all') {
             $this->db->where('category', strtolower($category));
         }
 
@@ -35,19 +45,24 @@ class Shop extends CI_Controller {
         $data['products'] = $query->result();
         $data['search_query'] = $search_query;
         $data['current_category'] = !empty($category) ? strtolower($category) : 'all';
+        $data['categories'] = $categories;
+        $data['total_count'] = $this->db->count_all('products');
 
-        // Counts per category
-        $data['total_count']     = $this->db->count_all('products');
-        $data['ielts_count']     = $this->db->where('category', 'ielts')->count_all_results('products');
-        $data['achievers_count'] = $this->db->where('category', 'achievers')->count_all_results('products');
-        $data['ebooks_count']    = $this->db->where('category', 'ebooks')->count_all_results('products');
-        $data['kits_count']      = $this->db->where('category', 'kits')->count_all_results('products');
+        // Find active category object for title & description
+        $active_cat_obj = null;
+        if (!empty($category) && $category !== 'all') {
+            foreach ($categories as $cat) {
+                if (strtolower($cat->slug) === strtolower($category)) {
+                    $active_cat_obj = $cat;
+                    break;
+                }
+            }
+        }
+        $data['active_category_obj'] = $active_cat_obj;
 
         $page_title = 'Shop E-Books & Workbooks | AlphaMindz';
-        if ($data['current_category'] === 'ielts') {
-            $page_title = 'IELTS Workbooks & Materials | AlphaMindz Shop';
-        } elseif ($data['current_category'] === 'achievers') {
-            $page_title = 'Achievers Workbooks for Children | AlphaMindz Shop';
+        if ($active_cat_obj) {
+            $page_title = $active_cat_obj->title . ' | AlphaMindz Shop';
         }
 
         $this->load->view('public_header', array('title' => $page_title));

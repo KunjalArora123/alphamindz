@@ -179,10 +179,25 @@
                 <div class="nav-item has-dropdown">
                     <a href="<?php echo site_url('shop'); ?>" class="nav-link">Shop <i class="ri-arrow-down-s-line"></i></a>
                     <div class="dropdown-menu" style="min-width: 260px;">
-                        <a href="<?php echo site_url('shop/ebooks'); ?>"><i class="ri-book-2-line"></i> E-Books</a>
-                        <a href="<?php echo site_url('shop/ielts'); ?>"><i class="ri-file-text-line"></i> IELTS</a>
-                        <a href="<?php echo site_url('shop/achievers'); ?>"><i class="ri-medal-line"></i> Achievers</a>
-                        <a href="<?php echo site_url('shop/kits'); ?>"><i class="ri-briefcase-4-line"></i> Training & Educational Kits</a>
+                        <a href="<?php echo site_url('shop'); ?>"><i class="ri-store-2-line"></i> All Products</a>
+                        <div style="height: 1px; background: #e2e8f0; margin: 6px 12px;"></div>
+                        <?php 
+                            $_ci =& get_instance();
+                            $_ci->load->database();
+                            $_active_shop_cats = $_ci->db->where('is_active', 1)->order_by('sort_order', 'ASC')->order_by('id', 'ASC')->get('product_categories')->result();
+                            if(!empty($_active_shop_cats)):
+                                foreach($_active_shop_cats as $_sc):
+                        ?>
+                            <a href="<?php echo site_url('shop/'.$_sc->slug); ?>"><i class="<?php echo !empty($_sc->icon) ? $_sc->icon : 'ri-folder-line'; ?>"></i> <?php echo htmlspecialchars($_sc->title); ?></a>
+                        <?php 
+                                endforeach;
+                            else:
+                        ?>
+                            <a href="<?php echo site_url('shop/ebooks'); ?>"><i class="ri-book-2-line"></i> E-Books</a>
+                            <a href="<?php echo site_url('shop/ielts'); ?>"><i class="ri-file-text-line"></i> IELTS</a>
+                            <a href="<?php echo site_url('shop/achievers'); ?>"><i class="ri-medal-line"></i> Achievers</a>
+                            <a href="<?php echo site_url('shop/kits'); ?>"><i class="ri-briefcase-4-line"></i> Training & Educational Kits</a>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -271,10 +286,20 @@
                 </button>
                 <div class="mobile-dropdown-content" id="shopMobileMenu">
                     <a href="<?php echo site_url('shop'); ?>" class="mobile-sublink"><i class="ri-store-2-line"></i> All Shop Products</a>
-                    <a href="<?php echo site_url('shop/ebooks'); ?>" class="mobile-sublink"><i class="ri-book-2-line"></i> E-Books</a>
-                    <a href="<?php echo site_url('shop/ielts'); ?>" class="mobile-sublink"><i class="ri-file-text-line"></i> IELTS</a>
-                    <a href="<?php echo site_url('shop/achievers'); ?>" class="mobile-sublink"><i class="ri-medal-line"></i> Achievers</a>
-                    <a href="<?php echo site_url('shop/kits'); ?>" class="mobile-sublink"><i class="ri-briefcase-4-line"></i> Training & Educational Kits</a>
+                    <?php 
+                        if(!empty($_active_shop_cats)):
+                            foreach($_active_shop_cats as $_sc):
+                    ?>
+                        <a href="<?php echo site_url('shop/'.$_sc->slug); ?>" class="mobile-sublink"><i class="<?php echo !empty($_sc->icon) ? $_sc->icon : 'ri-folder-line'; ?>"></i> <?php echo htmlspecialchars($_sc->title); ?></a>
+                    <?php 
+                            endforeach;
+                        else:
+                    ?>
+                        <a href="<?php echo site_url('shop/ebooks'); ?>" class="mobile-sublink"><i class="ri-book-2-line"></i> E-Books</a>
+                        <a href="<?php echo site_url('shop/ielts'); ?>" class="mobile-sublink"><i class="ri-file-text-line"></i> IELTS</a>
+                        <a href="<?php echo site_url('shop/achievers'); ?>" class="mobile-sublink"><i class="ri-medal-line"></i> Achievers</a>
+                        <a href="<?php echo site_url('shop/kits'); ?>" class="mobile-sublink"><i class="ri-briefcase-4-line"></i> Training & Educational Kits</a>
+                    <?php endif; ?>
                 </div>
             </div>
             <a href="<?php echo site_url('gallery'); ?>" class="mobile-nav-link"><i class="ri-gallery-line" style="color: #2563eb;"></i> Gallery</a>

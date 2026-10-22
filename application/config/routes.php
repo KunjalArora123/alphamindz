@@ -58,10 +58,8 @@ $route['verify'] = 'verify/index';
 $route['verify/(:any)'] = 'verify/index/$1';
 
 /* Shop Section Routes */
-$route['shop/ielts'] = 'shop/index/ielts';
-$route['shop/achievers'] = 'shop/index/achievers';
-$route['shop/ebooks'] = 'shop/index/ebooks';
-$route['shop/kits'] = 'shop/index/kits';
+$route['shop/(:any)'] = 'shop/index/$1';
+$route['shop'] = 'shop/index';
 
 /* Free Resources Routes */
 $route['articles'] = 'articles/index';

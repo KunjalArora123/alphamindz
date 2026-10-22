@@ -11,12 +11,23 @@
             </div>
 
             <div class="form-group" style="margin-bottom: 15px;">
-                <label for="category" style="display: block; margin-bottom: 5px; font-weight: 500;">Shop Section / Category <span style="color: red;">*</span></label>
-                <select name="category" id="category" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px; background: #fff;">
-                    <option value="ielts" <?php echo (isset($product) && $product->category === 'ielts') ? 'selected' : ''; ?>>IELTS (Specialized IELTS Workbooks)</option>
-                    <option value="achievers" <?php echo (isset($product) && $product->category === 'achievers') ? 'selected' : ''; ?>>Achievers (Achievers Series for Children)</option>
-                    <option value="ebooks" <?php echo (isset($product) && $product->category === 'ebooks') ? 'selected' : ''; ?>>E-Books (Educational & Digital Guides)</option>
-                    <option value="kits" <?php echo (isset($product) && $product->category === 'kits') ? 'selected' : ''; ?>>Training & Educational Kits</option>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <label for="category" style="font-weight: 500; margin: 0;">Shop Section / Category <span style="color: red;">*</span></label>
+                    <a href="<?php echo site_url('admin/add_product_category'); ?>" target="_blank" style="font-size: 12px; color: #2563eb; text-decoration: none; font-weight: 600;">+ New Category</a>
+                </div>
+                <select name="category" id="category" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px; background: #fff;" required>
+                    <?php if(!empty($categories)): ?>
+                        <?php foreach($categories as $cat): ?>
+                            <option value="<?php echo htmlspecialchars($cat->slug); ?>" <?php echo (isset($product) && $product->category === $cat->slug) ? 'selected' : ''; ?>>
+                                <?php echo htmlspecialchars($cat->title); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <option value="ielts" <?php echo (isset($product) && $product->category === 'ielts') ? 'selected' : ''; ?>>IELTS</option>
+                        <option value="achievers" <?php echo (isset($product) && $product->category === 'achievers') ? 'selected' : ''; ?>>Achievers</option>
+                        <option value="ebooks" <?php echo (isset($product) && $product->category === 'ebooks') ? 'selected' : ''; ?>>E-Books</option>
+                        <option value="kits" <?php echo (isset($product) && $product->category === 'kits') ? 'selected' : ''; ?>>Training & Educational Kits</option>
+                    <?php endif; ?>
                 </select>
                 <small style="color: #6c757d; display: block; margin-top: 4px;">Controls which dropdown section and filter tab this product appears under.</small>
             </div>
@@ -49,10 +60,11 @@
                 <small style="color: #6c757d; display: block; margin-top: 5px;">Upload the PDF file to be stored in books_pdfs. Leave empty to keep existing.</small>
             </div>
 
-            <div class="form-group">
-                <button type="submit" class="btn-primary" style="padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Save Product</button>
-                <a href="<?php echo site_url('admin/products'); ?>" style="margin-left: 10px; color: #6c757d; text-decoration: none;">Cancel</a>
-            </div>
+            <button type="submit" class="btn-primary" style="padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+                <?php echo isset($product) ? 'Update Product' : 'Add Product'; ?>
+            </button>
+            <a href="<?php echo site_url('admin/products'); ?>" class="btn-secondary" style="padding: 10px 20px; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; color: #333; margin-left: 10px;">Cancel</a>
+
         </form>
     </div>
 </div>

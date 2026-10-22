@@ -980,6 +980,17 @@ class Admin extends CI_Controller {
         if (!$this->session->userdata('admin_logged_in')) redirect('admin');
         $this->load->database();
 
+        // Fetch categories from product_categories table
+        $this->db->order_by('sort_order', 'ASC');
+        $this->db->order_by('id', 'ASC');
+        $categories = $this->db->get('product_categories')->result();
+
+        // Calculate count of products per category
+        foreach ($categories as &$c) {
+            $this->db->where('category', $c->slug);
+            $c->product_count = $this->db->count_all_results('products');
+        }
+
         $category = $this->input->get('category');
         if (!empty($category)) {
             $this->db->where('category', $category);
@@ -987,13 +998,8 @@ class Admin extends CI_Controller {
         $this->db->order_by('id', 'DESC');
         $data['products'] = $this->db->get('products')->result();
         $data['current_cat'] = $category;
-
-        // Counts per category
+        $data['categories']  = $categories;
         $data['total_count'] = $this->db->count_all_results('products');
-        $data['ielts_count'] = $this->db->where('category', 'ielts')->count_all_results('products');
-        $data['achievers_count'] = $this->db->where('category', 'achievers')->count_all_results('products');
-        $data['ebooks_count'] = $this->db->where('category', 'ebooks')->count_all_results('products');
-        $data['kits_count'] = $this->db->where('category', 'kits')->count_all_results('products');
 
         $data['page_title'] = 'Manage Shop Products';
         
@@ -1169,6 +1175,9 @@ class Admin extends CI_Controller {
 
     public function add_product() {
         if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+        $this->db->where('is_active', 1)->order_by('sort_order', 'ASC');
+        $data['categories'] = $this->db->get('product_categories')->result();
         $data['page_title'] = 'Add New Product';
         $data['use_editor'] = true;
         
@@ -1232,6 +1241,8 @@ class Admin extends CI_Controller {
         $this->load->database();
         
         $data['product'] = $this->db->get_where('products', array('id' => $id))->row();
+        $this->db->order_by('sort_order', 'ASC');
+        $data['categories'] = $this->db->get('product_categories')->result();
         $data['page_title'] = 'Edit Product';
         $data['use_editor'] = true;
 
@@ -1298,6 +1309,137 @@ class Admin extends CI_Controller {
         $this->db->where('id', $id);
         $this->db->delete('products');
         $this->session->set_flashdata('success', 'Product deleted successfully!');
+        redirect('admin/products');
+    }
+
+    public function add_product_category() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $data['page_title'] = 'Add Shop Category';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/product_category_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function edit_product_category($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $category = $this->db->get_where('product_categories', array('id' => $id))->row();
+        if (!$category) {
+            $this->session->set_flashdata('error', 'Category not found.');
+            redirect('admin/products');
+        }
+
+        $data['category']   = $category;
+        $data['page_title'] = 'Edit Shop Category';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/product_category_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function save_product_category() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $title = trim($this->input->post('title'));
+        $slug  = trim($this->input->post('slug'));
+
+        if (empty($title) || empty($slug)) {
+            $this->session->set_flashdata('error', 'Category Name and Slug are required.');
+            redirect('admin/add_product_category');
+        }
+
+        $slug = url_title($slug, '-', TRUE);
+
+        // Check unique slug
+        $chk = $this->db->get_where('product_categories', array('slug' => $slug))->row();
+        if ($chk) {
+            $this->session->set_flashdata('error', 'A category with this URL slug already exists. Please choose a different slug.');
+            redirect('admin/add_product_category');
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $insert_data = array(
+            'title'       => $title,
+            'slug'        => $slug,
+            'description' => trim($this->input->post('description')),
+            'icon'        => trim($this->input->post('icon')) ? trim($this->input->post('icon')) : 'ri-store-2-line',
+            'sort_order'  => (int)$this->input->post('sort_order'),
+            'is_active'   => (int)$this->input->post('is_active'),
+            'created_at'  => $now,
+            'updated_at'  => $now
+        );
+
+        $this->db->insert('product_categories', $insert_data);
+        $this->session->set_flashdata('success', 'Shop category created successfully!');
+        redirect('admin/products');
+    }
+
+    public function update_product_category($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $category = $this->db->get_where('product_categories', array('id' => $id))->row();
+        if (!$category) {
+            $this->session->set_flashdata('error', 'Category not found.');
+            redirect('admin/products');
+        }
+
+        $title = trim($this->input->post('title'));
+        $slug  = trim($this->input->post('slug'));
+
+        if (empty($title) || empty($slug)) {
+            $this->session->set_flashdata('error', 'Category Name and Slug are required.');
+            redirect('admin/edit_product_category/' . $id);
+        }
+
+        $slug = url_title($slug, '-', TRUE);
+
+        // Check slug collision
+        $chk = $this->db->where('slug', $slug)->where('id !=', $id)->get('product_categories')->row();
+        if ($chk) {
+            $this->session->set_flashdata('error', 'Another category is already using this URL slug.');
+            redirect('admin/edit_product_category/' . $id);
+        }
+
+        $old_slug = $category->slug;
+
+        $update_data = array(
+            'title'       => $title,
+            'slug'        => $slug,
+            'description' => trim($this->input->post('description')),
+            'icon'        => trim($this->input->post('icon')) ? trim($this->input->post('icon')) : 'ri-store-2-line',
+            'sort_order'  => (int)$this->input->post('sort_order'),
+            'is_active'   => (int)$this->input->post('is_active'),
+            'updated_at'  => date('Y-m-d H:i:s')
+        );
+
+        $this->db->where('id', $id);
+        $this->db->update('product_categories', $update_data);
+
+        // If slug changed, update products that had old slug
+        if ($old_slug !== $slug) {
+            $this->db->where('category', $old_slug)->update('products', array('category' => $slug));
+        }
+
+        $this->session->set_flashdata('success', 'Shop category updated successfully!');
+        redirect('admin/products');
+    }
+
+    public function delete_product_category($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $category = $this->db->get_where('product_categories', array('id' => $id))->row();
+        if ($category) {
+            $this->db->where('id', $id)->delete('product_categories');
+            $this->session->set_flashdata('success', 'Category deleted successfully.');
+        }
+
         redirect('admin/products');
     }
     // ==========================================
