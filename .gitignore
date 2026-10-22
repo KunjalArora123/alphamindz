@@ -20,6 +20,23 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 # Dynamic uploads (preserve in Git deployments)
 assets/uploads/questions/*
 !assets/uploads/questions/index.html
+assets/uploads/website/*
+!assets/uploads/website/index.html
+assets/uploads/materials/*
+!assets/uploads/materials/index.html
+assets/uploads/payment_proofs/*
+!assets/uploads/payment_proofs/index.html
+assets/uploads/articles/*
+!assets/uploads/articles/index.html
+assets/uploads/course_thumbnails/*
+!assets/uploads/course_thumbnails/index.html
+
+Galary/photos/*
+!Galary/photos/index.html
+Galary/videos/*
+!Galary/videos/index.html
+!Galary/videos/Mentors-Basket-Promo-1.mp4
+
 questions-images/q_*
 questions-images/q2_*
 questions-images/opt_*
