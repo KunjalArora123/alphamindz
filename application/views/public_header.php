@@ -103,40 +103,7 @@
             <div class="nav-links">
                 <a href="<?php echo base_url(); ?>" class="nav-link">Home</a>
                 
-                <div class="nav-item has-dropdown mega-dropdown">
-                    <a href="<?php echo site_url('courses'); ?>" class="nav-link">Courses <i class="ri-arrow-down-s-line"></i></a>
-                    <div class="dropdown-menu mega-menu">
-                        <?php 
-                        $ci_header =& get_instance();
-                        $ci_header->load->database();
-
-                        // Dynamically fetch published courses directly from the 'courses' table (matching /courses page)
-                        $published_courses = $ci_header->db->where('status', 'publish')
-                                                          ->order_by('id', 'DESC')
-                                                          ->limit(14)
-                                                          ->get('courses')
-                                                          ->result();
-
-                        $half_count = ceil(count($published_courses) / 2);
-                        $col1_items = array_slice($published_courses, 0, $half_count);
-                        $col2_items = array_slice($published_courses, $half_count);
-                        ?>
-                        <div class="mega-column">
-                            <?php foreach ($col1_items as $c_item): ?>
-                                <a href="<?php echo site_url('courses/' . ($c_item->slug ? $c_item->slug : $c_item->id)); ?>">
-                                    <?php echo htmlspecialchars(html_entity_decode($c_item->title, ENT_QUOTES, 'UTF-8')); ?>
-                                </a>
-                            <?php endforeach; ?>
-                        </div>
-                        <div class="mega-column">
-                            <?php foreach ($col2_items as $c_item): ?>
-                                <a href="<?php echo site_url('courses/' . ($c_item->slug ? $c_item->slug : $c_item->id)); ?>">
-                                    <?php echo htmlspecialchars(html_entity_decode($c_item->title, ENT_QUOTES, 'UTF-8')); ?>
-                                </a>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                </div>
+                <a href="<?php echo site_url('courses'); ?>" class="nav-link">Courses</a>
 
                 <div class="nav-item has-dropdown">
                     <a href="<?php echo site_url('resources'); ?>" class="nav-link">Free Resources <i class="ri-arrow-down-s-line"></i></a>
