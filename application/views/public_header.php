@@ -146,11 +146,24 @@
                         <a href="<?php echo site_url('career-facts'); ?>"><i class="ri-briefcase-line"></i> Career Facts</a>
                         <div style="height: 1px; background: #e2e8f0; margin: 6px 12px;"></div>
                         <div style="padding: 4px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.5px;">Downloadable Guides</div>
-                        <a href="<?php echo site_url('resources/business-excellence'); ?>"><i class="ri-line-chart-line"></i> Business Excellence</a>
-                        <a href="<?php echo site_url('resources/career-guidance'); ?>"><i class="ri-compass-3-line"></i> Career Guidance</a>
-                        <a href="<?php echo site_url('resources/ielts-download'); ?>"><i class="ri-book-read-line"></i> IELTS Download</a>
-                        <a href="<?php echo site_url('resources/language-power'); ?>"><i class="ri-speak-line"></i> Language Power</a>
-                        <a href="<?php echo site_url('resources/personal-growth'); ?>"><i class="ri-user-star-line"></i> Personal Growth</a>
+                        <?php 
+                            $_ci =& get_instance();
+                            $_ci->load->database();
+                            $_active_guides = $_ci->db->where('is_active', 1)->order_by('sort_order', 'ASC')->order_by('id', 'ASC')->get('guide_categories')->result();
+                            if(!empty($_active_guides)):
+                                foreach($_active_guides as $_g):
+                        ?>
+                            <a href="<?php echo site_url('resources/'.$_g->slug); ?>"><i class="<?php echo !empty($_g->icon) ? $_g->icon : 'ri-file-pdf-line'; ?>"></i> <?php echo htmlspecialchars($_g->title); ?></a>
+                        <?php 
+                                endforeach;
+                            else:
+                        ?>
+                            <a href="<?php echo site_url('resources/business-excellence'); ?>"><i class="ri-line-chart-line"></i> Business Excellence</a>
+                            <a href="<?php echo site_url('resources/career-guidance'); ?>"><i class="ri-compass-3-line"></i> Career Guidance</a>
+                            <a href="<?php echo site_url('resources/ielts-download'); ?>"><i class="ri-book-read-line"></i> IELTS Download</a>
+                            <a href="<?php echo site_url('resources/language-power'); ?>"><i class="ri-speak-line"></i> Language Power</a>
+                            <a href="<?php echo site_url('resources/personal-growth'); ?>"><i class="ri-user-star-line"></i> Personal Growth</a>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -231,11 +244,21 @@
                     <a href="<?php echo site_url('blogs'); ?>" class="mobile-sublink"><i class="ri-quill-pen-line"></i> Blogs</a>
                     <a href="<?php echo site_url('career-facts'); ?>" class="mobile-sublink"><i class="ri-briefcase-line"></i> Career Facts</a>
                     <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.5px; margin: 8px 0 4px;">Downloadable Guides</div>
-                    <a href="<?php echo site_url('resources/business-excellence'); ?>" class="mobile-sublink"><i class="ri-line-chart-line"></i> Business Excellence</a>
-                    <a href="<?php echo site_url('resources/career-guidance'); ?>" class="mobile-sublink"><i class="ri-compass-3-line"></i> Career Guidance</a>
-                    <a href="<?php echo site_url('resources/ielts-download'); ?>" class="mobile-sublink"><i class="ri-book-read-line"></i> IELTS Download</a>
-                    <a href="<?php echo site_url('resources/language-power'); ?>" class="mobile-sublink"><i class="ri-speak-line"></i> Language Power</a>
-                    <a href="<?php echo site_url('resources/personal-growth'); ?>" class="mobile-sublink"><i class="ri-user-star-line"></i> Personal Growth</a>
+                    <?php 
+                        if(!empty($_active_guides)):
+                            foreach($_active_guides as $_g):
+                    ?>
+                        <a href="<?php echo site_url('resources/'.$_g->slug); ?>" class="mobile-sublink"><i class="<?php echo !empty($_g->icon) ? $_g->icon : 'ri-file-pdf-line'; ?>"></i> <?php echo htmlspecialchars($_g->title); ?></a>
+                    <?php 
+                            endforeach;
+                        else:
+                    ?>
+                        <a href="<?php echo site_url('resources/business-excellence'); ?>" class="mobile-sublink"><i class="ri-line-chart-line"></i> Business Excellence</a>
+                        <a href="<?php echo site_url('resources/career-guidance'); ?>" class="mobile-sublink"><i class="ri-compass-3-line"></i> Career Guidance</a>
+                        <a href="<?php echo site_url('resources/ielts-download'); ?>" class="mobile-sublink"><i class="ri-book-read-line"></i> IELTS Download</a>
+                        <a href="<?php echo site_url('resources/language-power'); ?>" class="mobile-sublink"><i class="ri-speak-line"></i> Language Power</a>
+                        <a href="<?php echo site_url('resources/personal-growth'); ?>" class="mobile-sublink"><i class="ri-user-star-line"></i> Personal Growth</a>
+                    <?php endif; ?>
                 </div>
             </div>
 

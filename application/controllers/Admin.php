@@ -3713,6 +3713,374 @@ class Admin extends CI_Controller {
 
         redirect('admin/about');
     }
+
+    /* -------------------------------------------------------------
+     * DOWNLOADABLE GUIDES & FREE RESOURCES MANAGEMENT
+     * -----------------------------------------------------------*/
+    public function downloadable_guides() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $cat_id = $this->input->get('category_id');
+
+        $this->db->order_by('sort_order', 'ASC');
+        $this->db->order_by('id', 'ASC');
+        $categories = $this->db->get('guide_categories')->result();
+
+        // Calculate count of files per category
+        foreach ($categories as &$c) {
+            $this->db->where('category_id', $c->id);
+            $c->file_count = $this->db->count_all_results('guide_files');
+        }
+
+        $this->db->select('guide_files.*, guide_categories.title as category_title, guide_categories.slug as category_slug');
+        $this->db->from('guide_files');
+        $this->db->join('guide_categories', 'guide_categories.id = guide_files.category_id');
+        if (!empty($cat_id)) {
+            $this->db->where('guide_files.category_id', (int)$cat_id);
+        }
+        $this->db->order_by('guide_files.sort_order', 'ASC');
+        $this->db->order_by('guide_files.id', 'DESC');
+        $data['guide_files'] = $this->db->get()->result();
+
+        $data['categories']         = $categories;
+        $data['current_cat_id']     = $cat_id;
+        $data['current_category']   = !empty($cat_id) ? $this->db->get_where('guide_categories', array('id' => (int)$cat_id))->row() : null;
+        $data['total_files_count']  = $this->db->count_all('guide_files');
+        $data['page_title']         = 'Manage Downloadable Guides';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar', $data);
+        $this->load->view('admin/downloadable_guides', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function add_guide_category() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $data['page_title'] = 'Add Guide Category';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar', $data);
+        $this->load->view('admin/guide_category_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function edit_guide_category($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $category = $this->db->get_where('guide_categories', array('id' => $id))->row();
+        if (!$category) {
+            $this->session->set_flashdata('error', 'Category not found.');
+            redirect('admin/downloadable_guides');
+        }
+
+        $data['category']   = $category;
+        $data['page_title'] = 'Edit Guide Category';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar', $data);
+        $this->load->view('admin/guide_category_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function save_guide_category() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $title = trim($this->input->post('title'));
+        $slug  = trim($this->input->post('slug'));
+
+        if (empty($title) || empty($slug)) {
+            $this->session->set_flashdata('error', 'Category Title and Slug are required.');
+            redirect('admin/add_guide_category');
+        }
+
+        $slug = url_title($slug, '-', TRUE);
+
+        // Check if slug already exists
+        $chk = $this->db->get_where('guide_categories', array('slug' => $slug))->row();
+        if ($chk) {
+            $this->session->set_flashdata('error', 'A category with this URL slug already exists. Please choose a different slug.');
+            redirect('admin/add_guide_category');
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $insert_data = array(
+            'title'       => $title,
+            'slug'        => $slug,
+            'folder_name' => $title,
+            'description' => trim($this->input->post('description')),
+            'icon'        => trim($this->input->post('icon')) ?: 'ri-file-pdf-line',
+            'badge'       => trim($this->input->post('badge')) ?: 'Guide',
+            'sort_order'  => (int)$this->input->post('sort_order'),
+            'is_active'   => (int)$this->input->post('is_active'),
+            'created_at'  => $now,
+            'updated_at'  => $now
+        );
+
+        $this->db->insert('guide_categories', $insert_data);
+        $this->session->set_flashdata('success', 'Guide category created successfully!');
+        redirect('admin/downloadable_guides');
+    }
+
+    public function update_guide_category($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $category = $this->db->get_where('guide_categories', array('id' => $id))->row();
+        if (!$category) {
+            $this->session->set_flashdata('error', 'Category not found.');
+            redirect('admin/downloadable_guides');
+        }
+
+        $title = trim($this->input->post('title'));
+        $slug  = trim($this->input->post('slug'));
+
+        if (empty($title) || empty($slug)) {
+            $this->session->set_flashdata('error', 'Category Title and Slug are required.');
+            redirect('admin/edit_guide_category/' . $id);
+        }
+
+        $slug = url_title($slug, '-', TRUE);
+
+        // Check slug collision
+        $chk = $this->db->where('slug', $slug)->where('id !=', $id)->get('guide_categories')->row();
+        if ($chk) {
+            $this->session->set_flashdata('error', 'Another category is already using this URL slug.');
+            redirect('admin/edit_guide_category/' . $id);
+        }
+
+        $update_data = array(
+            'title'       => $title,
+            'slug'        => $slug,
+            'description' => trim($this->input->post('description')),
+            'icon'        => trim($this->input->post('icon')) ?: 'ri-file-pdf-line',
+            'badge'       => trim($this->input->post('badge')) ?: 'Guide',
+            'sort_order'  => (int)$this->input->post('sort_order'),
+            'is_active'   => (int)$this->input->post('is_active'),
+            'updated_at'  => date('Y-m-d H:i:s')
+        );
+
+        $this->db->where('id', $id)->update('guide_categories', $update_data);
+        $this->session->set_flashdata('success', 'Guide category updated successfully!');
+        redirect('admin/downloadable_guides');
+    }
+
+    public function delete_guide_category($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $category = $this->db->get_where('guide_categories', array('id' => $id))->row();
+        if ($category) {
+            // Delete all associated physical files uploaded via admin
+            $files = $this->db->get_where('guide_files', array('category_id' => $id))->result();
+            foreach ($files as $f) {
+                if (strpos($f->file_path, 'assets/uploads/guides/') !== false && file_exists(FCPATH . $f->file_path)) {
+                    @unlink(FCPATH . $f->file_path);
+                }
+            }
+            $this->db->where('id', $id)->delete('guide_categories');
+            $this->session->set_flashdata('success', 'Category and its files deleted successfully!');
+        } else {
+            $this->session->set_flashdata('error', 'Category not found.');
+        }
+
+        redirect('admin/downloadable_guides');
+    }
+
+    public function add_guide_file() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $data['categories']  = $this->db->order_by('sort_order', 'ASC')->get('guide_categories')->result();
+        $data['category_id'] = $this->input->get('category_id');
+        $data['page_title']  = 'Upload Guide PDF';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar', $data);
+        $this->load->view('admin/guide_file_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function edit_guide_file($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $file = $this->db->get_where('guide_files', array('id' => $id))->row();
+        if (!$file) {
+            $this->session->set_flashdata('error', 'Guide file not found.');
+            redirect('admin/downloadable_guides');
+        }
+
+        $data['file']        = $file;
+        $data['categories']  = $this->db->order_by('sort_order', 'ASC')->get('guide_categories')->result();
+        $data['page_title']  = 'Edit Guide PDF';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar', $data);
+        $this->load->view('admin/guide_file_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function save_guide_file() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $title       = trim($this->input->post('title'));
+        $category_id = (int)$this->input->post('category_id');
+
+        if (empty($title) || empty($category_id)) {
+            $this->session->set_flashdata('error', 'Guide Title and Category are required.');
+            redirect('admin/add_guide_file');
+        }
+
+        if (empty($_FILES['pdf_file']['name'])) {
+            $this->session->set_flashdata('error', 'Please select a PDF file to upload.');
+            redirect('admin/add_guide_file?category_id=' . $category_id);
+        }
+
+        $upload_dir = './assets/uploads/guides/';
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+
+        $config['upload_path']   = $upload_dir;
+        $config['allowed_types'] = 'pdf';
+        $config['max_size']      = 51200; // 50MB
+        $config['encrypt_name']  = TRUE;
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if (!$this->upload->do_upload('pdf_file')) {
+            $err = strip_tags($this->upload->display_errors());
+            $this->session->set_flashdata('error', 'PDF upload failed: ' . $err);
+            redirect('admin/add_guide_file?category_id=' . $category_id);
+        }
+
+        $upload_data = $this->upload->data();
+        $rel_path    = 'assets/uploads/guides/' . $upload_data['file_name'];
+        $original_fn = $upload_data['client_name'];
+        
+        $filesize_bytes = (float)$upload_data['file_size'] * 1024;
+        $units = array('B', 'KB', 'MB', 'GB');
+        $pow = floor(($filesize_bytes ? log($filesize_bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+        $filesize_str = round($filesize_bytes / pow(1024, $pow), 1) . ' ' . $units[$pow];
+
+        $now = date('Y-m-d H:i:s');
+        $insert_data = array(
+            'category_id' => $category_id,
+            'title'       => $title,
+            'filename'    => $original_fn,
+            'file_path'   => $rel_path,
+            'file_size'   => $filesize_str,
+            'sort_order'  => (int)$this->input->post('sort_order'),
+            'is_active'   => (int)$this->input->post('is_active'),
+            'created_at'  => $now,
+            'updated_at'  => $now
+        );
+
+        $this->db->insert('guide_files', $insert_data);
+        $this->session->set_flashdata('success', 'PDF guide uploaded successfully!');
+        redirect('admin/downloadable_guides?category_id=' . $category_id);
+    }
+
+    public function update_guide_file($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $file = $this->db->get_where('guide_files', array('id' => $id))->row();
+        if (!$file) {
+            $this->session->set_flashdata('error', 'File not found.');
+            redirect('admin/downloadable_guides');
+        }
+
+        $title       = trim($this->input->post('title'));
+        $category_id = (int)$this->input->post('category_id');
+
+        if (empty($title) || empty($category_id)) {
+            $this->session->set_flashdata('error', 'Guide Title and Category are required.');
+            redirect('admin/edit_guide_file/' . $id);
+        }
+
+        $rel_path    = $file->file_path;
+        $original_fn = $file->filename;
+        $filesize_str = $file->file_size;
+
+        if (!empty($_FILES['pdf_file']['name'])) {
+            $upload_dir = './assets/uploads/guides/';
+            if (!is_dir($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+
+            $config['upload_path']   = $upload_dir;
+            $config['allowed_types'] = 'pdf';
+            $config['max_size']      = 51200; // 50MB
+            $config['encrypt_name']  = TRUE;
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('pdf_file')) {
+                $upload_data = $this->upload->data();
+                $new_rel_path = 'assets/uploads/guides/' . $upload_data['file_name'];
+
+                // Remove previous file if in uploads directory
+                if (strpos($file->file_path, 'assets/uploads/guides/') !== false && file_exists(FCPATH . $file->file_path)) {
+                    @unlink(FCPATH . $file->file_path);
+                }
+
+                $rel_path    = $new_rel_path;
+                $original_fn = $upload_data['client_name'];
+
+                $filesize_bytes = (float)$upload_data['file_size'] * 1024;
+                $units = array('B', 'KB', 'MB', 'GB');
+                $pow = floor(($filesize_bytes ? log($filesize_bytes) : 0) / log(1024));
+                $pow = min($pow, count($units) - 1);
+                $filesize_str = round($filesize_bytes / pow(1024, $pow), 1) . ' ' . $units[$pow];
+            } else {
+                $err = strip_tags($this->upload->display_errors());
+                $this->session->set_flashdata('error', 'New PDF upload failed: ' . $err);
+                redirect('admin/edit_guide_file/' . $id);
+            }
+        }
+
+        $update_data = array(
+            'category_id' => $category_id,
+            'title'       => $title,
+            'filename'    => $original_fn,
+            'file_path'   => $rel_path,
+            'file_size'   => $filesize_str,
+            'sort_order'  => (int)$this->input->post('sort_order'),
+            'is_active'   => (int)$this->input->post('is_active'),
+            'updated_at'  => date('Y-m-d H:i:s')
+        );
+
+        $this->db->where('id', $id)->update('guide_files', $update_data);
+        $this->session->set_flashdata('success', 'Guide PDF details updated successfully!');
+        redirect('admin/downloadable_guides?category_id=' . $category_id);
+    }
+
+    public function delete_guide_file($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $file = $this->db->get_where('guide_files', array('id' => $id))->row();
+        if ($file) {
+            $cat_id = $file->category_id;
+            if (strpos($file->file_path, 'assets/uploads/guides/') !== false && file_exists(FCPATH . $file->file_path)) {
+                @unlink(FCPATH . $file->file_path);
+            }
+            $this->db->where('id', $id)->delete('guide_files');
+            $this->session->set_flashdata('success', 'PDF guide deleted successfully!');
+            redirect('admin/downloadable_guides?category_id=' . $cat_id);
+        } else {
+            $this->session->set_flashdata('error', 'Guide file not found.');
+            redirect('admin/downloadable_guides');
+        }
+    }
 }
 
 

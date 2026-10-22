@@ -65,6 +65,11 @@
                 </a>
             </li>
             <li>
+                <a href="<?php echo site_url('admin/downloadable_guides'); ?>" class="<?php echo in_array($this->uri->segment(2), array('downloadable_guides', 'add_guide_category', 'edit_guide_category', 'add_guide_file', 'edit_guide_file')) ? 'active' : ''; ?>">
+                    <i class="ri-file-pdf-line"></i> Downloadable Guides
+                </a>
+            </li>
+            <li>
                 <a href="<?php echo site_url('admin/gallery'); ?>" class="<?php echo in_array($this->uri->segment(2), array('gallery', 'add_gallery_item', 'edit_gallery_item')) ? 'active' : ''; ?>">
                     <i class="ri-gallery-line"></i> Gallery
                 </a>

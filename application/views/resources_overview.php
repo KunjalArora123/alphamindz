@@ -11,13 +11,7 @@
     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px;">
         <?php foreach($categories as $slug => $cat): ?>
             <?php 
-                $folder = FCPATH . 'assets/free_resources/' . $cat['folder'];
-                $count = 0;
-                if (is_dir($folder)) {
-                    foreach (scandir($folder) as $f) {
-                        if (strtolower(pathinfo($f, PATHINFO_EXTENSION)) === 'pdf') $count++;
-                    }
-                }
+                $count = isset($cat['pdf_count']) ? $cat['pdf_count'] : 0;
             ?>
             <div style="background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 32px 28px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
                 <div>
@@ -26,7 +20,7 @@
                             <i class="<?php echo $cat['icon']; ?>"></i>
                         </div>
                         <span style="display: inline-block; padding: 4px 10px; background: #f1f5f9; color: #475569; font-size: 12px; font-weight: 700; border-radius: 20px; text-transform: uppercase;">
-                            <?php echo $count; ?> PDF<?php echo $count > 1 ? 's' : ''; ?>
+                            <?php echo $count; ?> PDF<?php echo $count != 1 ? 's' : ''; ?>
                         </span>
                     </div>
                     <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin: 0 0 12px 0; color: #1e293b;">
