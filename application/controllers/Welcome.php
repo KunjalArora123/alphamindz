@@ -47,6 +47,13 @@ class Welcome extends CI_Controller {
 		$hero_setting = $this->db->get_where('system_settings', array('setting_key' => 'home_hero_image'))->row();
 		$data['hero_image'] = ($hero_setting && !empty($hero_setting->setting_value)) ? $hero_setting->setting_value : null;
 
+		// Fetch promotional showcase video settings
+		$video_setting = $this->db->get_where('system_settings', array('setting_key' => 'home_promo_video'))->row();
+		$data['promo_video'] = ($video_setting && !empty($video_setting->setting_value)) ? $video_setting->setting_value : null;
+
+		$video_type_setting = $this->db->get_where('system_settings', array('setting_key' => 'home_promo_video_type'))->row();
+		$data['promo_video_type'] = ($video_type_setting && !empty($video_type_setting->setting_value)) ? $video_type_setting->setting_value : 'file';
+
 		$this->load->view('public_header');
 		$this->load->view('home', $data);
 		$this->load->view('public_footer');

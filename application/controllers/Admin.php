@@ -3623,12 +3623,117 @@ class Admin extends CI_Controller {
 
         $hero_row = $this->db->get_where('system_settings', array('setting_key' => 'home_hero_image'))->row();
         $data['hero_image'] = ($hero_row && !empty($hero_row->setting_value)) ? $hero_row->setting_value : '';
+
+        $video_row = $this->db->get_where('system_settings', array('setting_key' => 'home_promo_video'))->row();
+        $data['promo_video'] = ($video_row && !empty($video_row->setting_value)) ? $video_row->setting_value : '';
+
+        $video_type_row = $this->db->get_where('system_settings', array('setting_key' => 'home_promo_video_type'))->row();
+        $data['promo_video_type'] = ($video_type_row && !empty($video_type_row->setting_value)) ? $video_type_row->setting_value : 'file';
+
         $data['page_title'] = 'Main Website Management';
 
         $this->load->view('admin/includes/header', $data);
         $this->load->view('admin/includes/sidebar', $data);
         $this->load->view('admin/main_website', $data);
         $this->load->view('admin/includes/footer');
+    }
+
+    public function update_promo_video() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $source_type = $this->input->post('source_type'); // 'upload' or 'url'
+
+        if ($source_type === 'url') {
+            $video_url = trim($this->input->post('video_url'));
+            if (empty($video_url)) {
+                $this->session->set_flashdata('error', 'Please provide a valid YouTube / Vimeo / MP4 URL.');
+                redirect('admin/main_website');
+            }
+
+            // Save as URL/YouTube
+            $this->save_setting('home_promo_video', $video_url);
+            $this->save_setting('home_promo_video_type', 'youtube');
+            $this->session->set_flashdata('success', 'Promotional video URL updated successfully!');
+            redirect('admin/main_website');
+        }
+
+        // File upload
+        if (!empty($_FILES['promo_video']['name'])) {
+            $upload_path = './assets/uploads/website/';
+            if (!is_dir($upload_path)) {
+                mkdir($upload_path, 0777, true);
+            }
+
+            $config['upload_path']   = $upload_path;
+            $config['allowed_types'] = 'mp4|webm|mov|mkv|ogg';
+            $config['max_size']      = 61440; // 60MB
+            $config['encrypt_name']  = TRUE;
+
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('promo_video')) {
+                $upload_data   = $this->upload->data();
+                $relative_path = 'assets/uploads/website/' . $upload_data['file_name'];
+
+                $existing = $this->db->get_where('system_settings', array('setting_key' => 'home_promo_video'))->row();
+                if ($existing && !empty($existing->setting_value) && strpos($existing->setting_value, 'assets/uploads/website/') !== false && file_exists(FCPATH . $existing->setting_value)) {
+                    @unlink(FCPATH . $existing->setting_value);
+                }
+
+                $this->save_setting('home_promo_video', $relative_path);
+                $this->save_setting('home_promo_video_type', 'file');
+
+                $this->session->set_flashdata('success', 'Promotional showcase video file uploaded and published successfully!');
+            } else {
+                $error_msg = strip_tags($this->upload->display_errors());
+                $this->session->set_flashdata('error', 'Failed to upload video: ' . $error_msg);
+            }
+        } else {
+            $this->session->set_flashdata('error', 'Please choose a video file to upload or enter a video URL.');
+        }
+
+        redirect('admin/main_website');
+    }
+
+    private function save_setting($key, $val) {
+        $now = date('Y-m-d H:i:s');
+        $existing = $this->db->get_where('system_settings', array('setting_key' => $key))->row();
+        if ($existing) {
+            $this->db->where('id', $existing->id)->update('system_settings', array(
+                'setting_value' => $val,
+                'updated_at'    => $now
+            ));
+        } else {
+            $this->db->insert('system_settings', array(
+                'setting_key'   => $key,
+                'setting_value' => $val,
+                'created_at'    => $now,
+                'updated_at'    => $now
+            ));
+        }
+    }
+
+    public function reset_promo_video() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $existing = $this->db->get_where('system_settings', array('setting_key' => 'home_promo_video'))->row();
+        if ($existing) {
+            if (!empty($existing->setting_value) && strpos($existing->setting_value, 'assets/uploads/website/') !== false && file_exists(FCPATH . $existing->setting_value)) {
+                @unlink(FCPATH . $existing->setting_value);
+            }
+            $this->db->where('id', $existing->id)->update('system_settings', array(
+                'setting_value' => '',
+                'updated_at'    => date('Y-m-d H:i:s')
+            ));
+        }
+
+        $this->save_setting('home_promo_video_type', 'file');
+
+        $this->session->set_flashdata('success', 'Promotional video reset to default (assets/video/index.mp4).');
+        redirect('admin/main_website');
     }
 
     public function update_hero_image() {

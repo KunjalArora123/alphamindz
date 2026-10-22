@@ -49,17 +49,43 @@
     </header>
 
     <!-- Main Showcase Video -->
+    <?php
+        $default_video = 'assets/video/index.mp4';
+        $active_video = !empty($promo_video) ? $promo_video : $default_video;
+        $active_type  = !empty($promo_video_type) ? $promo_video_type : 'file';
+
+        $youtube_embed_url = '';
+        if ($active_type === 'youtube' || $active_type === 'url') {
+            if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $active_video, $yt_matches)) {
+                $youtube_embed_url = 'https://www.youtube.com/embed/' . $yt_matches[1] . '?autoplay=1&mute=1&loop=1&playlist=' . $yt_matches[1] . '&enablejsapi=1';
+            } elseif (strpos($active_video, 'http') === 0 && (strpos($active_video, '.mp4') !== false || strpos($active_video, '.webm') !== false)) {
+                $active_type = 'file';
+            } else {
+                $youtube_embed_url = $active_video;
+            }
+        }
+    ?>
     <section class="main-video-section" id="showcaseVideoSection">
         <div class="section-container">
-            <div class="video-container">
-                <video autoplay loop muted playsinline class="showcase-video">
-                    <source src="<?php echo base_url('assets/video/index.mp4'); ?>" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-overlay" style="display: flex; gap: 10px; justify-content: center; align-items: center;">
-                    <button class="video-play-pause"><i class="ri-pause-fill"></i></button>
-                    <button class="video-mute-unmute"><i class="ri-volume-mute-fill"></i></button>
-                </div>
+            <div class="video-container" style="position: relative;">
+                <?php if (!empty($youtube_embed_url)): ?>
+                    <iframe id="showcaseIframe" src="<?php echo htmlspecialchars($youtube_embed_url); ?>" style="width: 100%; height: 100%; border: none; aspect-ratio: 21 / 9;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <?php else: ?>
+                    <?php 
+                        $video_src = (strpos($active_video, 'http') === 0) ? $active_video : base_url($active_video);
+                        if (file_exists(FCPATH . $active_video)) {
+                            $video_src .= '?v=' . filemtime(FCPATH . $active_video);
+                        }
+                    ?>
+                    <video autoplay loop muted playsinline class="showcase-video">
+                        <source src="<?php echo htmlspecialchars($video_src); ?>" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay" style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                        <button class="video-play-pause" type="button" title="Play / Pause"><i class="ri-pause-fill"></i></button>
+                        <button class="video-mute-unmute" type="button" title="Mute / Unmute"><i class="ri-volume-mute-fill"></i></button>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </section>
