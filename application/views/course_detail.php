@@ -38,6 +38,40 @@
         </section>
         <?php endif; ?>
 
+        <!-- Course Media / Images Showcase -->
+        <?php if (!empty($media) || !empty($course->thumbnail)): ?>
+        <section style="background: #fff; border-radius: 12px; padding: 32px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 40px;">
+            <h2 style="font-size: 24px; color: #2c3e50; margin-top: 0; border-bottom: 2px solid #3498db; padding-bottom: 10px; display: inline-block;">
+                <i class="ri-image-2-line"></i> Course Media & Gallery
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-top: 20px;">
+                <?php if (!empty($course->thumbnail)): ?>
+                    <div style="border-radius: 10px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 10px rgba(0,0,0,0.04); background: #f8fafc;">
+                        <a href="<?php echo base_url($course->thumbnail); ?>" target="_blank" style="display: block; aspect-ratio: 16/10; overflow: hidden;">
+                            <img src="<?php echo base_url($course->thumbnail); ?>" alt="Course Cover" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+                        </a>
+                        <div style="padding: 10px 14px; font-size: 13px; font-weight: 600; color: #334155; display: flex; align-items: center; justify-content: space-between;">
+                            <span><i class="ri-star-fill" style="color: #f59e0b;"></i> Primary Cover</span>
+                            <span style="font-size: 11px; color: #94a3b8;">Thumbnail</span>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <?php if (!empty($media)): foreach ($media as $med): ?>
+                    <div style="border-radius: 10px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 10px rgba(0,0,0,0.04); background: #f8fafc;">
+                        <a href="<?php echo base_url($med->image_path); ?>" target="_blank" style="display: block; aspect-ratio: 16/10; overflow: hidden;">
+                            <img src="<?php echo base_url($med->image_path); ?>" alt="<?php echo htmlspecialchars($med->caption ?: 'Course Visual'); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'">
+                        </a>
+                        <?php if (!empty($med->caption)): ?>
+                            <div style="padding: 10px 14px; font-size: 13px; color: #334155; line-height: 1.4;">
+                                <?php echo htmlspecialchars($med->caption); ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; endif; ?>
+            </div>
+        </section>
+        <?php endif; ?>
+
         <!-- Differential Pricing Tiers Section -->
         <section style="margin-bottom: 60px;">
             <div style="text-align: center; margin-bottom: 32px;">

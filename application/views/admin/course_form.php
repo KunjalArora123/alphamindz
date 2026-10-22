@@ -19,16 +19,72 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="thumbnail"><i class="ri-image-line"></i> Course Thumbnail Image</label>
-                        <?php if (isset($course) && !empty($course->thumbnail)): ?>
-                            <div style="margin-bottom: 10px;">
-                                <img src="<?php echo base_url($course->thumbnail); ?>" alt="Thumbnail Preview" style="max-width: 180px; max-height: 120px; object-fit: cover; border-radius: 8px; border: 1px solid #ccc; display: block; margin-bottom: 6px;">
-                                <span style="font-size: 12px; color: #666;">Current Thumbnail: <code><?php echo htmlspecialchars($course->thumbnail); ?></code></span>
+                    <!-- Course Media & Custom Images Section -->
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin-bottom: 24px;">
+                        <h4 style="margin: 0 0 4px 0; color: #0f172a; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                            <i class="ri-image-2-line" style="color: #2563eb; font-size: 20px;"></i> Course Media & Custom Listing Images
+                        </h4>
+                        <p style="margin: 0 0 16px 0; color: #64748b; font-size: 13px;">Manage the primary cover thumbnail and upload additional gallery photos displayed on the course listing and details pages.</p>
+                        
+                        <!-- Primary Thumbnail -->
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="thumbnail" style="font-weight: 600; color: #334155; display: block; margin-bottom: 6px;">
+                                <i class="ri-image-line"></i> Primary Cover Thumbnail (Main Card Image)
+                            </label>
+                            <?php if (isset($course) && !empty($course->thumbnail)): ?>
+                                <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 10px; background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; max-width: 450px;">
+                                    <img src="<?php echo base_url($course->thumbnail); ?>" alt="Thumbnail Preview" style="width: 100px; height: 62px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                    <div>
+                                        <span style="font-size: 12px; font-weight: 600; color: #0f172a; display: block;">Active Cover Image</span>
+                                        <code style="font-size: 11px; color: #64748b; word-break: break-all;"><?php echo htmlspecialchars($course->thumbnail); ?></code>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            <input type="file" id="thumbnail" name="thumbnail" accept="image/*" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; width: 100%; background: #fff;">
+                            <small style="color: #64748b; font-size: 12px; display: block; margin-top: 4px;">Formats: JPG, JPEG, PNG, WEBP, GIF. Recommended: 16:9 ratio (e.g. 800x450 px).</small>
+                        </div>
+
+                        <!-- Existing Custom Images (if editing) -->
+                        <?php if (isset($course) && isset($media)): ?>
+                            <div style="border-top: 1px dashed #cbd5e1; padding-top: 16px; margin-top: 16px;">
+                                <label style="font-weight: 600; color: #334155; display: block; margin-bottom: 8px;">
+                                    <i class="ri-gallery-line"></i> Additional Custom Media & Gallery Photos (<?php echo count($media); ?>)
+                                </label>
+
+                                <?php if (!empty($media)): ?>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 18px;">
+                                        <?php foreach ($media as $med): ?>
+                                            <div style="background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                                                <div style="position: relative; aspect-ratio: 16/10; border-radius: 6px; overflow: hidden; background: #eee;">
+                                                    <img src="<?php echo base_url($med->image_path); ?>" alt="Media Image" style="width: 100%; height: 100%; object-fit: cover;">
+                                                    <a href="<?php echo site_url('admin/delete_course_media/'.$med->id.'/'.$course->id); ?>" onclick="return confirm('Remove this custom image from course?');" style="position: absolute; top: 6px; right: 6px; background: rgba(220, 38, 38, 0.9); color: #fff; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 14px;" title="Delete Image">
+                                                        <i class="ri-close-line"></i>
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <input type="text" name="existing_media[<?php echo $med->id; ?>][caption]" value="<?php echo htmlspecialchars($med->caption); ?>" placeholder="Caption / description..." style="width: 100%; padding: 6px 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px; box-sizing: border-box; margin-bottom: 6px;">
+                                                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                                                        <span style="font-size: 11px; color: #64748b;">Order:</span>
+                                                        <input type="number" name="existing_media[<?php echo $med->id; ?>][sort_order]" value="<?php echo (int)$med->sort_order; ?>" style="width: 60px; padding: 4px 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php else: ?>
+                                    <p style="font-size: 12px; color: #64748b; margin: 0 0 14px 0;">No additional gallery photos added yet for this course.</p>
+                                <?php endif; ?>
                             </div>
                         <?php endif; ?>
-                        <input type="file" id="thumbnail" name="thumbnail" accept="image/*" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 100%;">
-                        <small style="color: #666; font-size: 12px; display: block; margin-top: 4px;">Supported formats: JPG, JPEG, PNG, WEBP, GIF. Recommended ratio: 16:9.</small>
+
+                        <!-- Upload New Additional Images -->
+                        <div style="background: #fff; border: 1px dashed #94a3b8; border-radius: 8px; padding: 14px; margin-top: 10px;">
+                            <label style="font-size: 13px; font-weight: 600; color: #1e40af; display: block; margin-bottom: 4px;">
+                                <i class="ri-upload-cloud-line"></i> Add New Custom Images to Course Gallery
+                            </label>
+                            <span style="font-size: 11px; color: #64748b; display: block; margin-bottom: 10px;">Select one or multiple images (Hold Ctrl/Cmd to select multiple).</span>
+                            <input type="file" name="course_media[]" multiple accept="image/*" style="font-size: 13px;">
+                        </div>
                     </div>
 
                     <div class="form-group">

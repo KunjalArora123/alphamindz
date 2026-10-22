@@ -143,6 +143,7 @@ class Admin extends CI_Controller {
             $tiers[$t->tier_key] = $t;
         }
         $data['tiers'] = $tiers;
+        $data['media'] = $this->db->order_by('sort_order', 'ASC')->order_by('id', 'ASC')->get_where('course_media', array('course_id' => $id))->result();
         $data['page_title'] = 'Edit Course';
 
         $this->load->view('admin/includes/header', $data);
@@ -188,8 +189,11 @@ class Admin extends CI_Controller {
 
         $this->save_course_tiers($id, $tiers_post);
 
+        // Process Additional Custom Media Images
+        $this->save_course_media($id);
+
         $this->session->set_flashdata('success', 'Course updated successfully!');
-        redirect('admin/courses');
+        redirect('admin/edit_course/' . $id);
     }
 
     private function save_course_tiers($course_id, $tiers_post) {
@@ -236,6 +240,68 @@ class Admin extends CI_Controller {
                 $this->db->delete('course_tiers');
             }
         }
+    }
+
+    private function save_course_media($course_id) {
+        // 1. Update existing media captions & sort orders
+        $existing_media = $this->input->post('existing_media');
+        if (!empty($existing_media) && is_array($existing_media)) {
+            foreach ($existing_media as $m_id => $m_data) {
+                $this->db->where('id', (int)$m_id)->where('course_id', (int)$course_id)->update('course_media', array(
+                    'caption'    => isset($m_data['caption']) ? trim($m_data['caption']) : '',
+                    'sort_order' => isset($m_data['sort_order']) ? (int)$m_data['sort_order'] : 0
+                ));
+            }
+        }
+
+        // 2. Handle new media file uploads
+        if (!empty($_FILES['course_media']['name']) && is_array($_FILES['course_media']['name'])) {
+            $upload_dir = FCPATH . 'assets/uploads/course_media/';
+            if (!file_exists($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+
+            $allowed_exts = array('jpg', 'jpeg', 'png', 'webp', 'gif');
+            $new_captions = $this->input->post('new_media_captions');
+
+            foreach ($_FILES['course_media']['name'] as $idx => $fname) {
+                if (empty($fname)) continue;
+                if ($_FILES['course_media']['error'][$idx] !== UPLOAD_ERR_OK) continue;
+
+                $ext = strtolower(pathinfo($fname, PATHINFO_EXTENSION));
+                if (in_array($ext, $allowed_exts)) {
+                    $new_filename = 'course_' . $course_id . '_' . time() . '_' . rand(1000, 9999) . '.' . $ext;
+                    if (move_uploaded_file($_FILES['course_media']['tmp_name'][$idx], $upload_dir . $new_filename)) {
+                        $cap = isset($new_captions[$idx]) ? trim($new_captions[$idx]) : '';
+                        $this->db->insert('course_media', array(
+                            'course_id'  => (int)$course_id,
+                            'image_path' => 'assets/uploads/course_media/' . $new_filename,
+                            'caption'    => $cap,
+                            'sort_order' => $idx + 1,
+                            'created_at' => date('Y-m-d H:i:s')
+                        ));
+                    }
+                }
+            }
+        }
+    }
+
+    public function delete_course_media($media_id, $course_id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $media = $this->db->get_where('course_media', array('id' => (int)$media_id, 'course_id' => (int)$course_id))->row();
+        if ($media) {
+            if (!empty($media->image_path) && file_exists(FCPATH . $media->image_path)) {
+                @unlink(FCPATH . $media->image_path);
+            }
+            $this->db->where('id', (int)$media_id)->delete('course_media');
+            $this->session->set_flashdata('success', 'Course image deleted successfully!');
+        } else {
+            $this->session->set_flashdata('error', 'Image not found.');
+        }
+
+        redirect('admin/edit_course/' . $course_id);
     }
 
     public function delete_course($id) {

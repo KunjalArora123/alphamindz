@@ -16,6 +16,7 @@ class Courses extends CI_Controller {
 
         foreach ($courses as &$c) {
             $c->tiers = $this->db->order_by('sort_order', 'ASC')->get_where('course_tiers', array('course_id' => $c->id))->result();
+            $c->media = $this->db->order_by('sort_order', 'ASC')->order_by('id', 'ASC')->get_where('course_media', array('course_id' => $c->id))->result();
         }
 
         $data['courses'] = $courses;
@@ -37,9 +38,11 @@ class Courses extends CI_Controller {
         }
 
         $tiers = $this->db->order_by('sort_order', 'ASC')->get_where('course_tiers', array('course_id' => $course->id))->result();
+        $media = $this->db->order_by('sort_order', 'ASC')->order_by('id', 'ASC')->get_where('course_media', array('course_id' => $course->id))->result();
 
         $data['course'] = $course;
-        $data['tiers'] = $tiers;
+        $data['tiers']  = $tiers;
+        $data['media']  = $media;
 
         $this->load->view('public_header', array('title' => $course->title . ' | AlphaMindz'));
         $this->load->view('course_detail', $data);
