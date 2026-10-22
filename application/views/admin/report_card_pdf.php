@@ -678,17 +678,16 @@
     <!-- Main Report Page Document -->
     <div class="report-page" id="reportContent">
 
-        <!-- Header: Official Logo and Academy Details -->
+        <!-- Header: Official Logo and Details -->
         <header class="report-header">
             <div class="logo-box">
                 <img src="<?php echo base_url('assets/images/logo.png?v='.filemtime(FCPATH.'assets/images/logo.png')); ?>" alt="AlphaMindz Logo" onerror="this.style.display='none'; document.getElementById('alt-brand-title').style.display='block';">
                 <div id="alt-brand-title" style="display: none;">
                     <h2 style="font-family: 'Cinzel', serif; font-size: 24px; color: #1e3a8a; margin: 0; font-weight: 800;">ALPHAMINDZ</h2>
-                    <p style="font-size: 11px; color: #16a34a; font-weight: 700; margin: 0;">ACADEMY OF EXCELLENCE</p>
                 </div>
             </div>
             <div class="org-details">
-                <h2>ALPHAMINDZ ACADEMY</h2>
+                <h2>ALPHAMINDZ</h2>
                 <p>Cognitive Aptitude & Career Assessment Bureau</p>
                 <div class="report-ref-badge">
                     REF ID: <?php echo htmlspecialchars($report_id); ?>
@@ -1060,7 +1059,7 @@
         </footer>
 
         <div class="confidentiality-notice">
-            This diagnostic report card is an official educational record issued by AlphaMindz Academy. Registered Office CIN: U80903GA2008PTC005856. All scores verified against standardized psychometric benchmarks.
+            This diagnostic report card is an official educational record issued by AlphaMindz. Registered Office CIN: U80903GA2008PTC005856. All scores verified against standardized psychometric benchmarks.
         </div>
 
     </div>
