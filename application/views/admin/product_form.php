@@ -11,6 +11,17 @@
             </div>
 
             <div class="form-group" style="margin-bottom: 15px;">
+                <label for="category" style="display: block; margin-bottom: 5px; font-weight: 500;">Shop Section / Category <span style="color: red;">*</span></label>
+                <select name="category" id="category" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px; background: #fff;">
+                    <option value="ielts" <?php echo (isset($product) && $product->category === 'ielts') ? 'selected' : ''; ?>>IELTS (Specialized IELTS Workbooks)</option>
+                    <option value="achievers" <?php echo (isset($product) && $product->category === 'achievers') ? 'selected' : ''; ?>>Achievers (Achievers Series for Children)</option>
+                    <option value="ebooks" <?php echo (isset($product) && $product->category === 'ebooks') ? 'selected' : ''; ?>>E-Books (Educational & Digital Guides)</option>
+                    <option value="kits" <?php echo (isset($product) && $product->category === 'kits') ? 'selected' : ''; ?>>Training & Educational Kits</option>
+                </select>
+                <small style="color: #6c757d; display: block; margin-top: 4px;">Controls which dropdown section and filter tab this product appears under.</small>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
                 <label for="price" style="display: block; margin-bottom: 5px; font-weight: 500;">Price</label>
                 <input type="text" name="price" id="price" class="form-control" style="width: 100%; padding: 8px; border: 1px solid #ced4da; border-radius: 4px;" value="<?php echo isset($product) ? $product->price : ''; ?>" placeholder="E.g. $19.99 or Rs 500" required>
             </div>

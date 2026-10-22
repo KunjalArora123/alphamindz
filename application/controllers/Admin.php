@@ -979,8 +979,22 @@ class Admin extends CI_Controller {
     public function products() {
         if (!$this->session->userdata('admin_logged_in')) redirect('admin');
         $this->load->database();
+
+        $category = $this->input->get('category');
+        if (!empty($category)) {
+            $this->db->where('category', $category);
+        }
         $this->db->order_by('id', 'DESC');
         $data['products'] = $this->db->get('products')->result();
+        $data['current_cat'] = $category;
+
+        // Counts per category
+        $data['total_count'] = $this->db->count_all_results('products');
+        $data['ielts_count'] = $this->db->where('category', 'ielts')->count_all_results('products');
+        $data['achievers_count'] = $this->db->where('category', 'achievers')->count_all_results('products');
+        $data['ebooks_count'] = $this->db->where('category', 'ebooks')->count_all_results('products');
+        $data['kits_count'] = $this->db->where('category', 'kits')->count_all_results('products');
+
         $data['page_title'] = 'Manage Shop Products';
         
         $this->load->view('admin/includes/header', $data);
@@ -1202,6 +1216,7 @@ class Admin extends CI_Controller {
         $data = array(
             'title' => $this->input->post('title'),
             'slug' => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->input->post('title')))),
+            'category' => $this->input->post('category') ? $this->input->post('category') : 'ebooks',
             'price' => $this->input->post('price'),
             'image_url' => $image_url,
             'created_at' => date('Y-m-d H:i:s'),
@@ -1233,6 +1248,7 @@ class Admin extends CI_Controller {
         $data = array(
             'title' => $this->input->post('title'),
             'slug' => strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->input->post('title')))),
+            'category' => $this->input->post('category') ? $this->input->post('category') : 'ebooks',
             'price' => $this->input->post('price')
         );
 
