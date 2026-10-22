@@ -82,6 +82,32 @@
                 observer.observe(el);
             });
 
+            // Global function to scroll & play showcase video when clicking "Watch Video"
+            window.playHeroVideo = function(e) {
+                if (e) e.preventDefault();
+                const videoSec = document.getElementById('showcaseVideoSection') || document.querySelector('.main-video-section');
+                const videoEl = document.querySelector('.showcase-video');
+                const playBtn = document.querySelector('.video-play-pause');
+                const playIcon = playBtn?.querySelector('i');
+                const muteBtn = document.querySelector('.video-mute-unmute');
+                const muteIcon = muteBtn?.querySelector('i');
+
+                if (videoSec) {
+                    videoSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                if (videoEl) {
+                    videoEl.muted = false; // Unmute so user hears audio on click
+                    if (muteIcon) muteIcon.className = 'ri-volume-up-fill';
+                    videoEl.play().catch(function() {
+                        // In case of browser autoplay policy without mute, fallback to muted play
+                        videoEl.muted = true;
+                        if (muteIcon) muteIcon.className = 'ri-volume-mute-fill';
+                        videoEl.play();
+                    });
+                    if (playIcon) playIcon.className = 'ri-pause-fill';
+                }
+            };
+
             // Video Play/Pause toggle
             const showcaseVideo = document.querySelector('.showcase-video');
             const playPauseBtn = document.querySelector('.video-play-pause');

@@ -8,8 +8,8 @@
                 <p class="hero-subtitle">Discover personalized career counselling and industry-accredited courses designed to guide your education journey.</p>
                 
                 <div class="hero-cta">
-                    <a href="#" class="btn-solid-blue">Start Assessment</a>
-                    <a href="#" class="btn-outline"><i class="ri-play-circle-line"></i> Watch Video</a>
+                    <a href="<?php echo site_url('assessments'); ?>" class="btn-solid-blue">Start Assessment</a>
+                    <a href="#showcaseVideoSection" class="btn-outline" onclick="playHeroVideo(event)"><i class="ri-play-circle-line"></i> Watch Video</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -49,7 +49,7 @@
     </header>
 
     <!-- Main Showcase Video -->
-    <section class="main-video-section">
+    <section class="main-video-section" id="showcaseVideoSection">
         <div class="section-container">
             <div class="video-container">
                 <video autoplay loop muted playsinline class="showcase-video">
