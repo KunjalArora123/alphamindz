@@ -170,17 +170,17 @@
                                             <input type="number" step="0.01" name="tiers[<?php echo $key; ?>][price]" value="<?php echo htmlspecialchars($tier_info['price']); ?>" placeholder="e.g. 999.00" style="padding: 8px;">
                                         </div>
                                         <div style="flex: 2;">
-                                            <label style="font-size: 12px; margin-bottom: 4px;">Module Composition / Summary</label>
+                                            <label style="font-size: 12px; margin-bottom: 4px;">Course Name / Description</label>
                                             <input type="text" name="tiers[<?php echo $key; ?>][description]" value="<?php echo htmlspecialchars($tier_info['desc']); ?>" placeholder="Module contents included in tier" style="padding: 8px;">
                                         </div>
                                     </div>
                                     <div style="display: flex; gap: 16px;">
                                         <div style="flex: 1;">
-                                            <label style="font-size: 12px; margin-bottom: 4px;">Delivery Security Policy</label>
+                                            <label style="font-size: 12px; margin-bottom: 4px;">Duration</label>
                                             <input type="text" name="tiers[<?php echo $key; ?>][delivery_policy]" value="<?php echo htmlspecialchars($tier_info['delivery']); ?>" style="padding: 6px; font-size: 12px;">
                                         </div>
                                         <div style="flex: 1;">
-                                            <label style="font-size: 12px; margin-bottom: 4px;">E-Book Policy</label>
+                                            <label style="font-size: 12px; margin-bottom: 4px;">Highlights</label>
                                             <input type="text" name="tiers[<?php echo $key; ?>][ebook_policy]" value="<?php echo htmlspecialchars($tier_info['ebook']); ?>" style="padding: 6px; font-size: 12px;">
                                         </div>
                                     </div>

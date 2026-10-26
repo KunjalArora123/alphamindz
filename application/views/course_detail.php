@@ -105,7 +105,7 @@
                                     
                                     <!-- Module Composition -->
                                     <div style="margin-bottom: 20px;">
-                                        <h5 style="font-size: 12px; text-transform: uppercase; color: #888; margin: 0 0 6px 0; letter-spacing: 0.5px;">Module Composition</h5>
+                                        <h5 style="font-size: 12px; text-transform: uppercase; color: #888; margin: 0 0 6px 0; letter-spacing: 0.5px;">Course Name</h5>
                                         <p style="font-size: 14px; font-weight: 600; color: #2c3e50; margin: 0; line-height: 1.4;">
                                             <i class="ri-checkbox-circle-fill" style="color: <?php echo $style['header_bg']; ?>; margin-right: 4px;"></i>
                                             <?php echo htmlspecialchars($tier->description); ?>
@@ -115,7 +115,7 @@
                                     <!-- Delivery Security Policy -->
                                     <?php if (!empty($tier->delivery_policy)): ?>
                                     <div style="margin-bottom: 20px; background: #f8f9fa; padding: 12px; border-radius: 8px;">
-                                        <h5 style="font-size: 11px; text-transform: uppercase; color: #666; margin: 0 0 4px 0; font-weight: bold;"><i class="ri-shield-check-line"></i> Delivery Security Policy</h5>
+                                        <h5 style="font-size: 11px; text-transform: uppercase; color: #666; margin: 0 0 4px 0; font-weight: bold;"><i class="ri-time-line"></i> Duration</h5>
                                         <p style="font-size: 12px; color: #555; margin: 0; line-height: 1.4;">
                                             <?php echo htmlspecialchars($tier->delivery_policy); ?>
                                         </p>
@@ -125,7 +125,7 @@
                                     <!-- E-Book Policy -->
                                     <?php if (!empty($tier->ebook_policy)): ?>
                                     <div style="margin-bottom: 20px; background: #f8f9fa; padding: 12px; border-radius: 8px;">
-                                        <h5 style="font-size: 11px; text-transform: uppercase; color: #666; margin: 0 0 4px 0; font-weight: bold;"><i class="ri-book-3-line"></i> Digital Asset Policy</h5>
+                                        <h5 style="font-size: 11px; text-transform: uppercase; color: #666; margin: 0 0 4px 0; font-weight: bold;"><i class="ri-star-line"></i> Highlights</h5>
                                         <p style="font-size: 12px; color: #555; margin: 0; line-height: 1.4;">
                                             <?php echo htmlspecialchars($tier->ebook_policy); ?>
                                         </p>
