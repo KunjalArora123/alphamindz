@@ -107,7 +107,15 @@
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </div>
-                            <div style="font-weight: 800; color: #dc2626; font-size: 1.05rem;">
+                            <?php if(!empty($o->coupon_code) && isset($o->discount_amount) && $o->discount_amount > 0): ?>
+                                <div style="font-size: 0.8rem; color: #64748b; margin-top: 4px;">
+                                    Subtotal: ₹<?php echo number_format(isset($o->subtotal_amount) && $o->subtotal_amount > 0 ? $o->subtotal_amount : ($o->total_amount + $o->discount_amount), 2); ?>
+                                </div>
+                                <div style="font-size: 0.8rem; color: #16a34a; font-weight: 600;">
+                                    <i class="ri-coupon-3-line"></i> <?php echo htmlspecialchars($o->coupon_code); ?> (-₹<?php echo number_format($o->discount_amount, 2); ?>)
+                                </div>
+                            <?php endif; ?>
+                            <div style="font-weight: 800; color: #dc2626; font-size: 1.05rem; margin-top: 2px;">
                                 ₹<?php echo number_format($o->total_amount, 2); ?>
                             </div>
                         </td>

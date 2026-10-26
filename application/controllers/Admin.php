@@ -4655,6 +4655,259 @@ class Admin extends CI_Controller {
         $this->session->set_flashdata('success', 'Testimonial deleted successfully!');
         redirect('admin/testimonials');
     }
+
+    // ==========================================
+    // COUPON MANAGEMENT
+    // ==========================================
+
+    public function coupons() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $this->db->order_by('created_at', 'DESC');
+        $coupons = $this->db->get('coupons')->result();
+
+        $today = date('Y-m-d');
+        $active_count = 0;
+        $expired_count = 0;
+        $total_used = 0;
+
+        foreach ($coupons as $c) {
+            $total_used += (int)$c->used_count;
+            if ($c->status == 1 && $c->valid_till >= $today) {
+                $active_count++;
+            } else {
+                $expired_count++;
+            }
+        }
+
+        $data['coupons'] = $coupons;
+        $data['counts'] = array(
+            'total' => count($coupons),
+            'active' => $active_count,
+            'expired' => $expired_count,
+            'total_used' => $total_used
+        );
+        $data['page_title'] = 'Manage Discount Coupons';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/coupons', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function add_coupon() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+
+        $data['coupon'] = null;
+        $data['page_title'] = 'Create Coupon Code';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/coupon_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function edit_coupon($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $coupon = $this->db->get_where('coupons', array('id' => (int)$id))->row();
+        if (!$coupon) {
+            $this->session->set_flashdata('error', 'Coupon not found.');
+            redirect('admin/coupons');
+            return;
+        }
+
+        $data['coupon'] = $coupon;
+        $data['page_title'] = 'Edit Coupon Code';
+
+        $this->load->view('admin/includes/header', $data);
+        $this->load->view('admin/includes/sidebar');
+        $this->load->view('admin/coupon_form', $data);
+        $this->load->view('admin/includes/footer');
+    }
+
+    public function save_coupon() {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $code = strtoupper(trim($this->input->post('code')));
+        $discount_type = trim($this->input->post('discount_type'));
+        $discount_value = floatval($this->input->post('discount_value'));
+        $min_spend = trim($this->input->post('min_spend'));
+        $valid_till = trim($this->input->post('valid_till'));
+        $status = ($this->input->post('status') == '0') ? 0 : 1;
+
+        if (empty($code)) {
+            $this->session->set_flashdata('error', 'Coupon code is required.');
+            redirect('admin/add_coupon');
+            return;
+        }
+
+        if (!preg_match('/^[A-Z0-9_\-]+$/', $code)) {
+            $this->session->set_flashdata('error', 'Coupon code can only contain letters, numbers, hyphens, and underscores.');
+            redirect('admin/add_coupon');
+            return;
+        }
+
+        $existing = $this->db->get_where('coupons', array('code' => $code))->row();
+        if ($existing) {
+            $this->session->set_flashdata('error', 'Coupon code "' . htmlspecialchars($code) . '" already exists. Please choose a different code.');
+            redirect('admin/add_coupon');
+            return;
+        }
+
+        if (!in_array($discount_type, array('percentage', 'fixed'))) {
+            $discount_type = 'percentage';
+        }
+
+        if ($discount_value <= 0) {
+            $this->session->set_flashdata('error', 'Discount value must be greater than 0.');
+            redirect('admin/add_coupon');
+            return;
+        }
+
+        if ($discount_type === 'percentage' && $discount_value > 100) {
+            $this->session->set_flashdata('error', 'Percentage discount cannot exceed 100%.');
+            redirect('admin/add_coupon');
+            return;
+        }
+
+        if (empty($valid_till) || !strtotime($valid_till)) {
+            $this->session->set_flashdata('error', 'Please provide a valid expiration date.');
+            redirect('admin/add_coupon');
+            return;
+        }
+
+        $min_spend_val = (is_numeric($min_spend) && floatval($min_spend) > 0) ? floatval($min_spend) : null;
+
+        $insert_data = array(
+            'code'           => $code,
+            'discount_type'  => $discount_type,
+            'discount_value' => $discount_value,
+            'min_spend'      => $min_spend_val,
+            'valid_till'     => date('Y-m-d', strtotime($valid_till)),
+            'status'         => $status,
+            'used_count'     => 0,
+            'created_at'     => date('Y-m-d H:i:s')
+        );
+
+        $this->db->insert('coupons', $insert_data);
+        $this->session->set_flashdata('success', 'Coupon <strong>' . htmlspecialchars($code) . '</strong> created successfully!');
+        redirect('admin/coupons');
+    }
+
+    public function update_coupon($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $coupon = $this->db->get_where('coupons', array('id' => (int)$id))->row();
+        if (!$coupon) {
+            $this->session->set_flashdata('error', 'Coupon not found.');
+            redirect('admin/coupons');
+            return;
+        }
+
+        $code = strtoupper(trim($this->input->post('code')));
+        $discount_type = trim($this->input->post('discount_type'));
+        $discount_value = floatval($this->input->post('discount_value'));
+        $min_spend = trim($this->input->post('min_spend'));
+        $valid_till = trim($this->input->post('valid_till'));
+        $status = ($this->input->post('status') == '0') ? 0 : 1;
+
+        if (empty($code)) {
+            $this->session->set_flashdata('error', 'Coupon code is required.');
+            redirect('admin/edit_coupon/' . $id);
+            return;
+        }
+
+        if (!preg_match('/^[A-Z0-9_\-]+$/', $code)) {
+            $this->session->set_flashdata('error', 'Coupon code can only contain letters, numbers, hyphens, and underscores.');
+            redirect('admin/edit_coupon/' . $id);
+            return;
+        }
+
+        $existing = $this->db->where('code', $code)->where('id !=', (int)$id)->get('coupons')->row();
+        if ($existing) {
+            $this->session->set_flashdata('error', 'Coupon code "' . htmlspecialchars($code) . '" is already in use by another coupon.');
+            redirect('admin/edit_coupon/' . $id);
+            return;
+        }
+
+        if (!in_array($discount_type, array('percentage', 'fixed'))) {
+            $discount_type = 'percentage';
+        }
+
+        if ($discount_value <= 0) {
+            $this->session->set_flashdata('error', 'Discount value must be greater than 0.');
+            redirect('admin/edit_coupon/' . $id);
+            return;
+        }
+
+        if ($discount_type === 'percentage' && $discount_value > 100) {
+            $this->session->set_flashdata('error', 'Percentage discount cannot exceed 100%.');
+            redirect('admin/edit_coupon/' . $id);
+            return;
+        }
+
+        if (empty($valid_till) || !strtotime($valid_till)) {
+            $this->session->set_flashdata('error', 'Please provide a valid expiration date.');
+            redirect('admin/edit_coupon/' . $id);
+            return;
+        }
+
+        $min_spend_val = (is_numeric($min_spend) && floatval($min_spend) > 0) ? floatval($min_spend) : null;
+
+        $update_data = array(
+            'code'           => $code,
+            'discount_type'  => $discount_type,
+            'discount_value' => $discount_value,
+            'min_spend'      => $min_spend_val,
+            'valid_till'     => date('Y-m-d', strtotime($valid_till)),
+            'status'         => $status,
+            'updated_at'     => date('Y-m-d H:i:s')
+        );
+
+        $this->db->where('id', (int)$id)->update('coupons', $update_data);
+        $this->session->set_flashdata('success', 'Coupon <strong>' . htmlspecialchars($code) . '</strong> updated successfully!');
+        redirect('admin/coupons');
+    }
+
+    public function delete_coupon($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $coupon = $this->db->get_where('coupons', array('id' => (int)$id))->row();
+        if (!$coupon) {
+            $this->session->set_flashdata('error', 'Coupon not found.');
+            redirect('admin/coupons');
+            return;
+        }
+
+        $this->db->where('id', (int)$id)->delete('coupons');
+        $this->session->set_flashdata('success', 'Coupon <strong>' . htmlspecialchars($coupon->code) . '</strong> deleted successfully.');
+        redirect('admin/coupons');
+    }
+
+    public function toggle_coupon_status($id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+
+        $coupon = $this->db->get_where('coupons', array('id' => (int)$id))->row();
+        if (!$coupon) {
+            $this->session->set_flashdata('error', 'Coupon not found.');
+            redirect('admin/coupons');
+            return;
+        }
+
+        $new_status = ($coupon->status == 1) ? 0 : 1;
+        $this->db->where('id', (int)$id)->update('coupons', array('status' => $new_status));
+
+        $status_label = ($new_status == 1) ? 'activated' : 'deactivated';
+        $this->session->set_flashdata('success', 'Coupon <strong>' . htmlspecialchars($coupon->code) . '</strong> has been ' . $status_label . '.');
+        redirect('admin/coupons');
+    }
 }
 
 

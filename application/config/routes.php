@@ -91,5 +91,16 @@ $route['superadmin/toggle_maintenance'] = 'superadmin/toggle_maintenance';
 $route['superadmin/update_maintenance_message'] = 'superadmin/update_maintenance_message';
 $route['superadmin/logout'] = 'superadmin/logout';
 
+/* Coupon & Cart Routes */
+$route['cart/apply_coupon'] = 'cart/apply_coupon';
+$route['cart/remove_coupon'] = 'cart/remove_coupon';
+$route['admin/coupons'] = 'admin/coupons';
+$route['admin/add_coupon'] = 'admin/add_coupon';
+$route['admin/save_coupon'] = 'admin/save_coupon';
+$route['admin/edit_coupon/(:num)'] = 'admin/edit_coupon/$1';
+$route['admin/update_coupon/(:num)'] = 'admin/update_coupon/$1';
+$route['admin/delete_coupon/(:num)'] = 'admin/delete_coupon/$1';
+$route['admin/toggle_coupon_status/(:num)'] = 'admin/toggle_coupon_status/$1';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

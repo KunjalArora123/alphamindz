@@ -40,6 +40,11 @@
                 </a>
             </li>
             <li>
+                <a href="<?php echo site_url('admin/coupons'); ?>" class="<?php echo in_array($this->uri->segment(2), array('coupons', 'add_coupon', 'edit_coupon')) ? 'active' : ''; ?>">
+                    <i class="ri-coupon-3-line"></i> Coupons
+                </a>
+            </li>
+            <li>
                 <a href="<?php echo site_url('admin/certificates'); ?>" class="<?php echo ($this->uri->segment(2) == 'certificates') ? 'active' : ''; ?>">
                     <i class="ri-award-line"></i> Certification
                 </a>

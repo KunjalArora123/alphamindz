@@ -49,6 +49,8 @@
                                         <div style="margin-bottom: 4px;">
                                             <?php if($item['type'] === 'assessment'): ?>
                                                 <span style="background: #ebf5fb; color: #2980b9; font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 4px;">Assessment Test</span>
+                                            <?php elseif($item['type'] === 'course'): ?>
+                                                <span style="background: #fdf2e9; color: #d35400; font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 4px;">Course</span>
                                             <?php else: ?>
                                                 <span style="background: #eafaf1; color: #27ae60; font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 4px;">Product</span>
                                             <?php endif; ?>
@@ -64,7 +66,7 @@
 
                                 <!-- Quantity Controls -->
                                 <div style="display: flex; align-items: center; gap: 10px;">
-                                    <?php if($item['type'] === 'assessment'): ?>
+                                    <?php if($item['type'] === 'assessment' || $item['type'] === 'course'): ?>
                                         <span style="font-size: 0.85rem; color: #7f8c8d; background: #f8f9fa; padding: 6px 12px; border-radius: 4px; border: 1px solid #dee2e6;">Single Access</span>
                                     <?php else: ?>
                                         <div style="display: flex; align-items: center; border: 1px solid #ced4da; border-radius: 4px; overflow: hidden;">
@@ -101,11 +103,62 @@
             <div class="cart-summary-section" style="background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
                 <h3 style="font-family: 'Playfair Display', serif; margin: 0 0 20px 0; color: #2c3e50; font-size: 1.4rem;">Order Summary</h3>
                 
+                <!-- Coupon Code Box -->
+                <div class="coupon-section" style="margin-bottom: 20px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 14px;">
+                    <div style="font-size: 0.88rem; font-weight: 600; color: #334155; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                        <i class="ri-coupon-3-line" style="color: #2563eb; font-size: 1.05rem;"></i> Have a Coupon Code?
+                    </div>
+
+                    <?php if(!empty($applied_coupon)): ?>
+                        <!-- Applied Coupon State -->
+                        <div id="appliedCouponBox" style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 6px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <span style="font-weight: 700; color: #065f46; font-family: monospace; font-size: 0.95rem; background: #d1fae5; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px;">
+                                    <?php echo htmlspecialchars($applied_coupon['code']); ?>
+                                </span>
+                                <div style="font-size: 0.78rem; color: #047857; margin-top: 3px;">
+                                    <i class="ri-check-line"></i> <?php echo ($applied_coupon['discount_type'] === 'percentage') ? floatval($applied_coupon['discount_value']) . '% OFF' : '₹' . number_format($applied_coupon['discount_value'], 2) . ' OFF'; ?> applied
+                                </div>
+                            </div>
+                            <button type="button" onclick="removeCoupon()" title="Remove coupon" style="background: none; border: none; color: #ef4444; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 4px; transition: background 0.2s;" onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='none'">
+                                <i class="ri-close-line"></i> Remove
+                            </button>
+                        </div>
+                    <?php else: ?>
+                        <!-- Coupon Input Form -->
+                        <div id="couponInputContainer">
+                            <form id="couponForm" onsubmit="applyCoupon(event)" style="display: flex; gap: 8px;">
+                                <input type="text" 
+                                       id="couponCodeInput" 
+                                       name="coupon_code" 
+                                       placeholder="Enter coupon code" 
+                                       required
+                                       style="flex: 1; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.88rem; text-transform: uppercase; font-family: monospace; font-weight: 700; outline: none; letter-spacing: 0.5px; box-sizing: border-box;"
+                                       oninput="this.value = this.value.toUpperCase()">
+                                <button type="submit" 
+                                        id="btnApplyCoupon" 
+                                        style="background: #2563eb; color: #ffffff; border: none; padding: 9px 16px; border-radius: 6px; font-weight: 600; font-size: 0.88rem; cursor: pointer; white-space: nowrap; transition: background 0.2s;"
+                                        onmouseover="this.style.background='#1d4ed8'"
+                                        onmouseout="this.style.background='#2563eb'">
+                                    Apply
+                                </button>
+                            </form>
+                            <div id="couponMsg" style="margin-top: 8px; font-size: 0.82rem; display: none;"></div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
                 <div style="display: flex; justify-content: space-between; margin-bottom: 12px; color: #6c757d; font-size: 0.95rem;">
                     <span>Subtotal</span>
                     <span style="font-weight: 600; color: #2c3e50;">₹<span id="cartSubtotal"><?php echo number_format($subtotal, 2); ?></span></span>
                 </div>
                 
+                <!-- Coupon Discount Row -->
+                <div id="discountRow" style="display: <?php echo (!empty($applied_coupon) && $discount > 0) ? 'flex' : 'none'; ?>; justify-content: space-between; margin-bottom: 12px; color: #16a34a; font-size: 0.95rem;">
+                    <span>Coupon Discount (<strong id="appliedCodeText" style="font-family: monospace;"><?php echo !empty($applied_coupon) ? htmlspecialchars($applied_coupon['code']) : ''; ?></strong>)</span>
+                    <span style="font-weight: 700;">-₹<span id="cartDiscount"><?php echo number_format($discount, 2); ?></span></span>
+                </div>
+
                 <div style="display: flex; justify-content: space-between; margin-bottom: 20px; color: #6c757d; font-size: 0.95rem;">
                     <span>Instant Digital Access</span>
                     <span style="color: #27ae60; font-weight: 600;">FREE</span>
@@ -141,6 +194,74 @@
 </div>
 
 <script>
+function applyCoupon(e) {
+    if (e) e.preventDefault();
+    var codeInput = document.getElementById('couponCodeInput');
+    var code = codeInput ? codeInput.value.trim() : '';
+    if (!code) return;
+
+    var btn = document.getElementById('btnApplyCoupon');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'Applying...';
+    }
+
+    var msgBox = document.getElementById('couponMsg');
+    if (msgBox) {
+        msgBox.style.display = 'none';
+    }
+
+    var formData = new FormData();
+    formData.append('coupon_code', code);
+
+    fetch('<?php echo site_url("cart/apply_coupon"); ?>', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = 'Apply';
+        }
+        if (data.status === 'success') {
+            window.location.reload();
+        } else {
+            if (msgBox) {
+                msgBox.style.display = 'block';
+                msgBox.style.color = '#dc2626';
+                msgBox.innerHTML = '<i class="ri-error-warning-line"></i> ' + (data.message || 'Failed to apply coupon.');
+            }
+        }
+    })
+    .catch(err => {
+        if (btn) {
+            btn.disabled = false;
+            btn.innerText = 'Apply';
+        }
+        console.error(err);
+    });
+}
+
+function removeCoupon() {
+    fetch('<?php echo site_url("cart/remove_coupon"); ?>', {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        window.location.reload();
+    })
+    .catch(err => {
+        window.location.href = '<?php echo site_url("cart/remove_coupon"); ?>';
+    });
+}
+
 function updateQty(key, newQty) {
     var formData = new FormData();
     formData.append('key', key);
@@ -164,7 +285,10 @@ function updateQty(key, newQty) {
                 if (subElem) subElem.innerText = data.item_subtotal;
             }
             document.getElementById('cartSubtotal').innerText = data.subtotal;
-            document.getElementById('cartTotal').innerText = data.subtotal;
+            if (document.getElementById('cartDiscount')) {
+                document.getElementById('cartDiscount').innerText = data.discount;
+            }
+            document.getElementById('cartTotal').innerText = data.total;
             var badge = document.getElementById('headerCartCount');
             if (badge) badge.innerText = data.cart_count;
 

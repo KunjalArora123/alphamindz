@@ -73,6 +73,16 @@
                     </div>
                 <?php endforeach; ?>
                 <hr style="border: none; border-top: 1px solid #f1f3f5; margin: 15px 0;">
+                <?php if(!empty($order->coupon_code) && isset($order->discount_amount) && floatval($order->discount_amount) > 0): ?>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem; color: #64748b;">
+                        <span>Subtotal</span>
+                        <span style="font-weight: 600; color: #2c3e50;">₹<?php echo number_format(isset($order->subtotal_amount) && floatval($order->subtotal_amount) > 0 ? $order->subtotal_amount : ($order->total_amount + $order->discount_amount), 2); ?></span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; color: #27ae60;">
+                        <span><i class="ri-coupon-3-line"></i> Coupon Discount (<strong><?php echo htmlspecialchars($order->coupon_code); ?></strong>)</span>
+                        <span style="font-weight: 700;">-₹<?php echo number_format($order->discount_amount, 2); ?></span>
+                    </div>
+                <?php endif; ?>
                 <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; color: #2c3e50;">
                     <span>Total Amount</span>
                     <span style="color: #e74c3c;">₹<?php echo number_format($order->total_amount, 2); ?></span>

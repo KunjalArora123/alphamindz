@@ -89,9 +89,14 @@
                             <div style="font-size: 2rem; font-weight: 800; color: #1e293b; margin-top: 2px;">
                                 ₹<?php echo number_format($total, 2); ?>
                             </div>
+                            <?php if(!empty($applied_coupon) && $discount > 0): ?>
+                                <div style="font-size: 0.85rem; color: #16a34a; font-weight: 600; margin-top: 6px; display: inline-flex; align-items: center; gap: 4px; background: #ecfdf5; padding: 3px 10px; border-radius: 12px;">
+                                    <i class="ri-coupon-3-line"></i> Coupon <?php echo htmlspecialchars($applied_coupon['code']); ?> applied (-₹<?php echo number_format($discount, 2); ?>)
+                                </div>
+                            <?php endif; ?>
                         </div>
 
-                        <div style="margin-top: 10px; font-size: 0.85rem; color: #64748b;">
+                        <div style="margin-top: 12px; font-size: 0.85rem; color: #64748b;">
                             <i class="ri-phone-find-line"></i> Open Google Pay, PhonePe, Paytm or any UPI App to scan
                         </div>
                     </div>
@@ -151,6 +156,18 @@
                 </div>
 
                 <hr style="border: none; border-top: 1px solid #e9ecef; margin: 15px 0;">
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; color: #64748b; font-size: 0.9rem;">
+                    <span>Subtotal</span>
+                    <span style="font-weight: 600; color: #2c3e50;">₹<?php echo number_format($subtotal, 2); ?></span>
+                </div>
+
+                <?php if(!empty($applied_coupon) && $discount > 0): ?>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 12px; color: #16a34a; font-size: 0.9rem;">
+                        <span>Coupon (<strong style="font-family: monospace;"><?php echo htmlspecialchars($applied_coupon['code']); ?></strong>)</span>
+                        <span style="font-weight: 700;">-₹<?php echo number_format($discount, 2); ?></span>
+                    </div>
+                <?php endif; ?>
 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
                     <span style="font-weight: 700; color: #2c3e50; font-size: 1.1rem;">Total Amount</span>
