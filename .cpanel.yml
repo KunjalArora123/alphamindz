@@ -1,12 +1,5 @@
 ---
 deployment:
   tasks:
-    # Set deployment path
     - export DEPLOYPATH=/home/befms79lg357/public_html/
-
-    # If repository is cloned outside public_html, copy files. If already in public_html, skip copy.
-    - if [ "$PWD" != "$DEPLOYPATH" ] && [ "$PWD/" != "$DEPLOYPATH" ]; then /bin/cp -R * $DEPLOYPATH; /bin/cp .htaccess $DEPLOYPATH 2>/dev/null || true; /bin/cp .env $DEPLOYPATH 2>/dev/null || true; fi
-
-    # Clear application cache and set proper write permissions
-    - /bin/rm -f application/cache/*.php 2>/dev/null || true
-    - /bin/chmod -R 777 application/cache application/logs assets/uploads 2>/dev/null || true
+    - /bin/touch $DEPLOYPATH/.deployed

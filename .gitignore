@@ -46,6 +46,17 @@ questions-images/opt_*
 /nbproject/
 .idea/*
 
+# cPanel & Server generated files
+error_log
+*/error_log
+cgi-bin/
+.well-known/
+.user.ini
+php.ini
+.cpanel/
+.cpanel.dat
+.deployed
+
 ## Sublime Text cache files
 *.tmlanguage.cache
 *.tmPreferences.cache
