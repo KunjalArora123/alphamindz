@@ -59,6 +59,44 @@ class Admin extends CI_Controller {
         $this->load->view('admin/includes/footer');
     }
 
+    public function clear_cache() {
+        if (!$this->session->userdata('admin_logged_in')) {
+            redirect('admin');
+        }
+
+        // 1. Purge CI cache files
+        $cache_dir = APPPATH . 'cache/';
+        $cleared_files = 0;
+        if (is_dir($cache_dir)) {
+            $files = glob($cache_dir . '*');
+            if ($files) {
+                foreach ($files as $file) {
+                    if (is_file($file) && !in_array(basename($file), ['index.html', '.htaccess'])) {
+                        @unlink($file);
+                        $cleared_files++;
+                    }
+                }
+            }
+        }
+
+        // 2. Clear PHP OpCache if enabled on server
+        $opcache_status = false;
+        if (function_exists('opcache_reset')) {
+            $opcache_status = @opcache_reset();
+        }
+
+        // 3. Touch CSS/JS to bump browser cache timestamp
+        if (file_exists(FCPATH . 'style.css')) {
+            @touch(FCPATH . 'style.css');
+        }
+
+        $msg = 'Cache cleared successfully! Purged ' . $cleared_files . ' CI cache file(s)' . ($opcache_status ? ', reset PHP OpCache' : '') . ' and refreshed static asset timestamps.';
+        $this->session->set_flashdata('success', $msg);
+
+        $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : site_url('admin/dashboard');
+        redirect($referer);
+    }
+
     public function courses() {
         if (!$this->session->userdata('admin_logged_in')) {
             redirect('admin');

@@ -1,0 +1,20 @@
+---
+deployment:
+  tasks:
+    # 1. Target directory (default: public_html for main domain).
+    # If deploying to a subdomain or subfolder, change to: $HOME/public_html/subfolder/
+    - export DEPLOYPATH=$HOME/public_html/
+
+    # 2. Copy all files and folders to the deployment path
+    - /bin/cp -R * $DEPLOYPATH
+
+    # 3. Explicitly copy dotfiles (.htaccess and .env) which are skipped by '*'
+    - /bin/cp .htaccess $DEPLOYPATH
+    - /bin/cp .env $DEPLOYPATH 2>/dev/null || true
+
+    # 4. Clear old application cache files (preserve index.html)
+    - /bin/rm -f $DEPLOYPATH/application/cache/*.php 2>/dev/null || true
+
+    # 5. Ensure required directories have proper write permissions
+    - /bin/chmod -R 777 $DEPLOYPATH/application/cache $DEPLOYPATH/application/logs 2>/dev/null || true
+    - /bin/chmod -R 777 $DEPLOYPATH/assets/uploads 2>/dev/null || true

@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo base_url('style.css?v=4'); ?>">
+    <link rel="stylesheet" href="<?php echo base_url('style.css?v=' . (file_exists(FCPATH . 'style.css') ? filemtime(FCPATH . 'style.css') : time())); ?>">
 
     <style>
     @media (max-width: 1023px) {

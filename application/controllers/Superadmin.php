@@ -156,6 +156,39 @@ class Superadmin extends CI_Controller {
         $this->load->view('superadmin/includes/footer');
     }
 
+    public function clear_cache() {
+        $this->_check_auth();
+
+        $cache_dir = APPPATH . 'cache/';
+        $cleared_files = 0;
+        if (is_dir($cache_dir)) {
+            $files = glob($cache_dir . '*');
+            if ($files) {
+                foreach ($files as $file) {
+                    if (is_file($file) && !in_array(basename($file), ['index.html', '.htaccess'])) {
+                        @unlink($file);
+                        $cleared_files++;
+                    }
+                }
+            }
+        }
+
+        $opcache_status = false;
+        if (function_exists('opcache_reset')) {
+            $opcache_status = @opcache_reset();
+        }
+
+        if (file_exists(FCPATH . 'style.css')) {
+            @touch(FCPATH . 'style.css');
+        }
+
+        $msg = 'Cache cleared successfully! Purged ' . $cleared_files . ' CI cache file(s)' . ($opcache_status ? ', reset PHP OpCache' : '') . ' and refreshed static asset timestamps.';
+        $this->session->set_flashdata('success', $msg);
+
+        $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : site_url('superadmin/dashboard');
+        redirect($referer);
+    }
+
     public function users() {
         $this->_check_auth();
 

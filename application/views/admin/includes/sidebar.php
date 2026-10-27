@@ -104,6 +104,11 @@
                     <i class="ri-group-line"></i> Users
                 </a>
             </li>
+            <li>
+                <a href="<?php echo site_url('admin/clear_cache'); ?>" onclick="return confirm('Clear application and system cache?');" style="color: #0284c7;">
+                    <i class="ri-refresh-line"></i> Clear Cache
+                </a>
+            </li>
         </ul>
     </div>
 
@@ -112,7 +117,10 @@
         <!-- Top Navbar -->
         <div class="top-navbar">
             <h1><?php echo isset($page_title) ? $page_title : 'Admin Dashboard'; ?></h1>
-            <a href="<?php echo site_url('admin/logout'); ?>" class="btn-logout"><i class="ri-logout-circle-r-line"></i> Logout</a>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <a href="<?php echo site_url('admin/clear_cache'); ?>" title="Clear System Cache" onclick="return confirm('Clear application and system cache?');" style="background: #0284c7; color: #fff; padding: 7px 14px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; transition: background 0.2s;"><i class="ri-refresh-line"></i> Clear Cache</a>
+                <a href="<?php echo site_url('admin/logout'); ?>" class="btn-logout"><i class="ri-logout-circle-r-line"></i> Logout</a>
+            </div>
         </div>
 
         <!-- Page Content Start -->
