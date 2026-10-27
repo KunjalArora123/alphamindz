@@ -88,6 +88,26 @@
                 </div>
 
                 <div>
+                    <label style="display: block; margin-bottom: 4px; font-weight: 600; color: #1e293b; font-size: 13px;">Auto-Enroll in Course</label>
+                    <select name="auto_enroll_course" style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box; background: #fff;">
+                        <option value="">-- Do Not Enroll in Course --</option>
+                        <?php if(!empty($all_courses)): foreach($all_courses as $c): ?>
+                            <option value="<?php echo $c->id; ?>"><?php echo htmlspecialchars($c->title); ?></option>
+                        <?php endforeach; endif; ?>
+                    </select>
+                </div>
+
+                <div>
+                    <label style="display: block; margin-bottom: 4px; font-weight: 600; color: #1e293b; font-size: 13px;">Course Tier</label>
+                    <select name="auto_enroll_tier" style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; outline: none; box-sizing: border-box; background: #fff;">
+                        <option value="basic">Basic Tier</option>
+                        <option value="standard">Standard Tier</option>
+                        <option value="advanced">Advanced Tier</option>
+                        <option value="premium">Premium Tier</option>
+                    </select>
+                </div>
+
+                <div>
                     <button type="submit" style="background-color: #2563eb; color: #fff; border: none; padding: 9px 18px; font-size: 14px; border-radius: 6px; cursor: pointer; height: 39px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; box-shadow: 0 2px 6px rgba(37,99,235,0.25);">
                         <i class="ri-user-add-fill"></i> Add Student
                     </button>

@@ -352,10 +352,72 @@ class Admin extends CI_Controller {
         redirect('admin/courses');
     }
 
+    private function _ensure_enrollment_tables() {
+        $this->db->query("CREATE TABLE IF NOT EXISTS `user_enrollments` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `user_id` INT NOT NULL,
+            `entity_type` VARCHAR(50) NOT NULL DEFAULT 'course',
+            `entity_id` INT NOT NULL,
+            `tier_key` VARCHAR(50) NOT NULL DEFAULT 'basic',
+            `tier_id` INT NULL,
+            `enrolled_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+            `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            `created_by` INT NULL,
+            `updated_by` INT NULL,
+            INDEX `idx_user_entity` (`user_id`, `entity_type`, `entity_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+        $this->db->query("CREATE TABLE IF NOT EXISTS `course_tiers` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `course_id` INT NOT NULL,
+            `tier_key` VARCHAR(50) NOT NULL,
+            `tier_name` VARCHAR(100) NOT NULL,
+            `price` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+            `description` TEXT,
+            `features` TEXT,
+            `delivery_policy` TEXT,
+            `ebook_policy` TEXT,
+            `sort_order` INT DEFAULT 0,
+            `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            `created_by` INT NULL,
+            `updated_by` INT NULL,
+            INDEX `idx_course_tier` (`course_id`, `tier_key`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+        $this->db->query("CREATE TABLE IF NOT EXISTS `course_modules` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `course_id` INT NOT NULL,
+            `module_tier` VARCHAR(50) NOT NULL DEFAULT 'basic',
+            `title` VARCHAR(255) NOT NULL,
+            `content_type` VARCHAR(50) DEFAULT 'pdf',
+            `file_path` TEXT,
+            `description` TEXT,
+            `sort_order` INT DEFAULT 0,
+            `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+            INDEX `idx_course_module` (`course_id`, `module_tier`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+        $this->db->query("CREATE TABLE IF NOT EXISTS `course_certificates` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `user_id` INT NOT NULL,
+            `course_id` INT NOT NULL,
+            `credential_id` VARCHAR(100) NOT NULL UNIQUE,
+            `tier_key` VARCHAR(50) NOT NULL DEFAULT 'basic',
+            `status` VARCHAR(20) NOT NULL DEFAULT 'granted',
+            `issue_date` DATE NOT NULL,
+            `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+            INDEX `idx_user_course` (`user_id`, `course_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+    }
+
     public function enroll_students($course_id) {
         if (!$this->session->userdata('admin_logged_in')) redirect('admin');
         
         $this->load->database();
+        $this->_ensure_enrollment_tables();
+
         $data['course'] = $this->db->get_where('courses', ['id' => $course_id])->row();
         $data['tiers'] = $this->db->order_by('sort_order', 'ASC')->get_where('course_tiers', ['course_id' => $course_id])->result();
         
@@ -379,11 +441,106 @@ class Admin extends CI_Controller {
         $this->load->view('admin/includes/footer');
     }
 
+    public function register_and_enroll_student($course_id) {
+        if (!$this->session->userdata('admin_logged_in')) redirect('admin');
+        $this->load->database();
+        $this->_ensure_enrollment_tables();
+
+        $name = trim($this->input->post('name'));
+        $username = trim($this->input->post('username'));
+        $email = trim($this->input->post('email'));
+        $phone = trim($this->input->post('phone'));
+        $password = trim($this->input->post('password'));
+        $tier_key = strtolower(trim($this->input->post('tier_key')));
+        if (empty($tier_key)) $tier_key = 'basic';
+        if (empty($password)) $password = 'Alpha@1234';
+
+        if (empty($name) || empty($email)) {
+            $this->session->set_flashdata('error', 'Please provide student name and email.');
+            redirect('admin/enroll_students/'.$course_id);
+            return;
+        }
+
+        if (empty($username)) {
+            $email_parts = explode('@', $email);
+            $username = $email_parts[0];
+            $base_username = $username;
+            $counter = 1;
+            while ($this->db->get_where('users', ['username' => $username])->num_rows() > 0) {
+                $username = $base_username . $counter;
+                $counter++;
+            }
+        }
+
+        $parts = explode(' ', $name, 2);
+        $first_name = $parts[0];
+        $last_name = isset($parts[1]) ? $parts[1] : '';
+
+        // Check if user exists by email or username
+        $existing = $this->db->group_start()
+                            ->where('email', $email)
+                            ->or_where('username', $username)
+                            ->group_end()
+                            ->get('users')->row();
+
+        if ($existing) {
+            $user_id = $existing->id;
+            $status_msg = 'Existing student account (' . htmlspecialchars($existing->email) . ') found. ';
+        } else {
+            $user_data = array(
+                'first_name' => $first_name,
+                'last_name' => $last_name,
+                'username' => $username,
+                'email' => $email,
+                'phone' => $phone,
+                'password' => password_hash($password, PASSWORD_BCRYPT),
+                'role' => 'student',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            );
+            $this->db->insert('users', $user_data);
+            $user_id = $this->db->insert_id();
+            $status_msg = 'New student registered! Login: <strong>' . htmlspecialchars($email) . '</strong> (Password: <strong>' . htmlspecialchars($password) . '</strong>). ';
+        }
+
+        // Enroll in course
+        $exists_enrollment = $this->db->get_where('user_enrollments', [
+            'user_id' => $user_id,
+            'entity_id' => $course_id,
+            'entity_type' => 'course'
+        ])->row();
+
+        if (!$exists_enrollment) {
+            $this->db->insert('user_enrollments', [
+                'user_id' => $user_id,
+                'entity_type' => 'course',
+                'entity_id' => $course_id,
+                'tier_key' => $tier_key,
+                'enrolled_at' => date('Y-m-d H:i:s'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+            $status_msg .= 'Enrolled in course with <strong>' . strtoupper($tier_key) . '</strong> tier!';
+        } else {
+            $this->db->where('id', $exists_enrollment->id);
+            $this->db->update('user_enrollments', [
+                'tier_key' => $tier_key,
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+            $status_msg .= 'Course enrollment updated to <strong>' . strtoupper($tier_key) . '</strong> tier!';
+        }
+
+        $this->session->set_flashdata('success', $status_msg);
+        redirect('admin/enroll_students/'.$course_id);
+    }
+
     public function process_enrollment($course_id) {
         if (!$this->session->userdata('admin_logged_in')) redirect('admin');
         $this->load->database();
+        $this->_ensure_enrollment_tables();
+
         $user_id = $this->input->post('user_id');
-        $tier_key = $this->input->post('tier_key');
+        $tier_key = strtolower(trim($this->input->post('tier_key')));
         if (empty($tier_key)) $tier_key = 'basic';
         
         if(!$user_id) {
@@ -400,12 +557,17 @@ class Admin extends CI_Controller {
                 'entity_type' => 'course',
                 'entity_id' => $course_id,
                 'tier_key' => $tier_key,
-                'enrolled_at' => date('Y-m-d H:i:s')
+                'enrolled_at' => date('Y-m-d H:i:s'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
             ]);
             $this->session->set_flashdata('success', 'Student enrolled successfully in ' . strtoupper($tier_key) . ' tier.');
         } else {
             $this->db->where('id', $exists->id);
-            $this->db->update('user_enrollments', ['tier_key' => $tier_key]);
+            $this->db->update('user_enrollments', [
+                'tier_key' => $tier_key,
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
             $this->session->set_flashdata('success', 'Updated student enrollment tier to ' . strtoupper($tier_key) . '.');
         }
         redirect('admin/enroll_students/'.$course_id);
@@ -1075,6 +1237,9 @@ class Admin extends CI_Controller {
         $this->db->order_by('user_test_permissions.updated_at', 'DESC');
         $data['students_permissions'] = $this->db->get()->result();
 
+        // Get all courses for quick enroll
+        $data['all_courses'] = $this->db->get('courses')->result();
+
         $data['page_title'] = 'Manage Assessments & Multi-Test Authorizations';
 
         $this->load->view('admin/includes/header', $data);
@@ -1145,12 +1310,16 @@ class Admin extends CI_Controller {
     public function quick_add_student() {
         if (!$this->session->userdata('admin_logged_in')) redirect('admin');
         $this->load->database();
+        $this->_ensure_enrollment_tables();
 
         $name = trim($this->input->post('name'));
         $username = trim($this->input->post('username'));
         $email = trim($this->input->post('email'));
         $phone = trim($this->input->post('phone'));
         $test_title = trim($this->input->post('auto_authorize_test'));
+        $course_id = $this->input->post('auto_enroll_course');
+        $course_tier = strtolower(trim($this->input->post('auto_enroll_tier')));
+        if (empty($course_tier)) $course_tier = 'basic';
 
         if (empty($name) || empty($username) || empty($email)) {
             $this->session->set_flashdata('error', 'Please fill in Name, Username, and Email address.');
@@ -1204,7 +1373,36 @@ class Admin extends CI_Controller {
                     'updated_at' => date('Y-m-d H:i:s')
                 ));
             }
-            $msg .= 'Test access enabled for "' . htmlspecialchars($test_title) . '".';
+            $msg .= 'Test access enabled for "' . htmlspecialchars($test_title) . '". ';
+        }
+
+        // Auto enroll in course if selected
+        if (!empty($course_id)) {
+            $existing_en = $this->db->get_where('user_enrollments', [
+                'user_id' => $user_id,
+                'entity_id' => $course_id,
+                'entity_type' => 'course'
+            ])->row();
+
+            if (!$existing_en) {
+                $this->db->insert('user_enrollments', [
+                    'user_id' => $user_id,
+                    'entity_type' => 'course',
+                    'entity_id' => $course_id,
+                    'tier_key' => $course_tier,
+                    'enrolled_at' => date('Y-m-d H:i:s'),
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]);
+            } else {
+                $this->db->where('id', $existing_en->id);
+                $this->db->update('user_enrollments', [
+                    'tier_key' => $course_tier,
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]);
+            }
+            $course_obj = $this->db->get_where('courses', ['id' => $course_id])->row();
+            $msg .= 'Enrolled in course: <strong>' . ($course_obj ? htmlspecialchars($course_obj->title) : 'Course #'.$course_id) . '</strong> (' . strtoupper($course_tier) . ' tier).';
         }
 
         $this->session->set_flashdata('success', $msg);

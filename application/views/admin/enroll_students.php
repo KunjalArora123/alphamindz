@@ -49,9 +49,65 @@
             </div>
         <?php endif; ?>
 
-        <!-- Enrollment Form -->
+        <!-- Quick Register & Enroll New Student -->
+        <div style="background: linear-gradient(135deg, #eff6ff, #f0fdf4); padding: 22px; border-radius: 8px; margin-bottom: 26px; border: 1px solid #bfdbfe; box-shadow: 0 2px 8px rgba(37,99,235,0.06);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+                <h4 style="margin: 0; color: #1e3a8a; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+                    <i class="ri-user-add-line" style="color: #2563eb; font-size: 20px;"></i> Register & Enroll New Student
+                </h4>
+                <span style="font-size: 12px; color: #2563eb; font-weight: 600; background: #dbeafe; padding: 4px 12px; border-radius: 12px;">Instant Account Registration & Course Access</span>
+            </div>
+
+            <div style="font-size: 13px; color: #1e40af; background: #e0f2fe; padding: 8px 14px; border-radius: 6px; border: 1px solid #bae6fd; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                <i class="ri-information-fill" style="color: #0284c7; font-size: 18px; flex-shrink: 0;"></i>
+                <span>Creates student account and immediately assigns them to this course so it appears in their student panel. Default password: <code style="background: #ffffff; padding: 2px 8px; border-radius: 4px; border: 1px solid #93c5fd; font-weight: 700; color: #1d4ed8; font-size: 13px;">Alpha@1234</code></span>
+            </div>
+
+            <form action="<?php echo site_url('admin/register_and_enroll_student/'.$course->id); ?>" method="POST" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; align-items: flex-end;">
+                <div>
+                    <label style="display: block; margin-bottom: 4px; font-weight: 600; color: #1e3a8a; font-size: 13px;">Student Full Name *</label>
+                    <input type="text" name="name" required placeholder="e.g. Rahul Sharma" style="width: 100%; padding: 9px 12px; border: 1px solid #93c5fd; border-radius: 6px; font-size: 14px; box-sizing: border-box; background: #fff;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 4px; font-weight: 600; color: #1e3a8a; font-size: 13px;">Email Address *</label>
+                    <input type="email" name="email" required placeholder="student@example.com" style="width: 100%; padding: 9px 12px; border: 1px solid #93c5fd; border-radius: 6px; font-size: 14px; box-sizing: border-box; background: #fff;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 4px; font-weight: 600; color: #1e3a8a; font-size: 13px;">Username (Optional)</label>
+                    <input type="text" name="username" placeholder="Auto from email" style="width: 100%; padding: 9px 12px; border: 1px solid #93c5fd; border-radius: 6px; font-size: 14px; box-sizing: border-box; background: #fff;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 4px; font-weight: 600; color: #1e3a8a; font-size: 13px;">Phone (Optional)</label>
+                    <input type="tel" name="phone" placeholder="9876543210" style="width: 100%; padding: 9px 12px; border: 1px solid #93c5fd; border-radius: 6px; font-size: 14px; box-sizing: border-box; background: #fff;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 4px; font-weight: 600; color: #1e3a8a; font-size: 13px;">Password</label>
+                    <input type="text" name="password" value="Alpha@1234" style="width: 100%; padding: 9px 12px; border: 1px solid #93c5fd; border-radius: 6px; font-size: 14px; box-sizing: border-box; font-weight: 600; color: #1d4ed8; background: #fff;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 4px; font-weight: 600; color: #1e3a8a; font-size: 13px;">Course Tier *</label>
+                    <select name="tier_key" style="width: 100%; padding: 9px 12px; border: 1px solid #93c5fd; border-radius: 6px; font-size: 14px; height: 38px; box-sizing: border-box; background: #fff;" required>
+                        <?php if(!empty($tiers)): foreach($tiers as $tier): ?>
+                            <option value="<?php echo htmlspecialchars($tier->tier_key); ?>"><?php echo htmlspecialchars($tier->tier_name); ?> Tier</option>
+                        <?php endforeach; else: ?>
+                            <option value="basic">Basic Tier</option>
+                            <option value="standard">Standard Tier</option>
+                            <option value="advanced">Advanced Tier</option>
+                            <option value="premium">Premium Tier</option>
+                        <?php endif; ?>
+                    </select>
+                </div>
+                <div style="grid-column: 1 / -1; display: flex; justify-content: flex-end; margin-top: 4px;">
+                    <button type="submit" style="background: #2563eb; color: #fff; border: none; padding: 10px 22px; font-size: 14px; border-radius: 6px; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 6px rgba(37,99,235,0.3);">
+                        <i class="ri-user-add-line"></i> Register & Enroll New Student
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Enroll Existing Registered Student Form -->
         <div style="background-color: #f8fafc; padding: 22px; border-radius: 8px; margin-bottom: 30px; border: 1px solid #e2e8f0;">
-            <h4 style="margin-top: 0; margin-bottom: 16px; color: #0f172a; font-size: 16px; font-weight: 700;">Add Student Manually</h4>
+            <h4 style="margin-top: 0; margin-bottom: 16px; color: #0f172a; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px;"><i class="ri-user-shared-line" style="color: #10b981;"></i> Enroll Existing Registered Student</h4>
             <form action="<?php echo site_url('admin/process_enrollment/'.$course->id); ?>" method="POST" style="display: flex; gap: 18px; align-items: flex-end; flex-wrap: wrap;">
                 <div style="flex: 2; min-width: 260px;">
                     <label for="user_id" style="display: block; margin-bottom: 6px; font-weight: 600; color: #334155; font-size: 14px;">Select Student (Searchable)</label>

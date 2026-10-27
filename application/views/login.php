@@ -21,8 +21,8 @@
 
         <form action="<?php echo site_url('auth/login'); ?>" method="post">
             <div style="margin-bottom: 20px;">
-                <label for="email" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Email Address</label>
-                <input type="email" name="email" id="email" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; box-sizing: border-box;">
+                <label for="email" style="display: block; margin-bottom: 8px; font-weight: 500; color: #333;">Email Address or Username</label>
+                <input type="text" name="email" id="email" placeholder="Enter your email or username" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; box-sizing: border-box;">
             </div>
 
             <div style="margin-bottom: 25px;">

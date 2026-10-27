@@ -16,10 +16,14 @@ class Auth extends CI_Controller {
         }
 
         if ($this->input->server('REQUEST_METHOD') == 'POST') {
-            $email = trim($this->input->post('email'));
+            $login_input = trim($this->input->post('email'));
             $password = $this->input->post('password');
 
-            $user = $this->db->get_where('users', array('email' => $email))->row();
+            $user = $this->db->group_start()
+                             ->where('email', $login_input)
+                             ->or_where('username', $login_input)
+                             ->group_end()
+                             ->get('users')->row();
 
             if ($user && password_verify($password, $user->password)) {
                 $userdata = array(
@@ -34,7 +38,7 @@ class Auth extends CI_Controller {
                 $this->session->set_flashdata('success', 'Welcome back, ' . $user->first_name . '!');
                 redirect('student');
             } else {
-                $this->session->set_flashdata('error', 'Invalid email or password.');
+                $this->session->set_flashdata('error', 'Invalid email/username or password.');
                 redirect('auth/login');
             }
         }

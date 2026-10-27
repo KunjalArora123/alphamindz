@@ -16,8 +16,69 @@ class Student extends CI_Controller {
         }
     }
 
+    private function _ensure_enrollment_tables() {
+        $this->db->query("CREATE TABLE IF NOT EXISTS `user_enrollments` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `user_id` INT NOT NULL,
+            `entity_type` VARCHAR(50) NOT NULL DEFAULT 'course',
+            `entity_id` INT NOT NULL,
+            `tier_key` VARCHAR(50) NOT NULL DEFAULT 'basic',
+            `tier_id` INT NULL,
+            `enrolled_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+            `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            `created_by` INT NULL,
+            `updated_by` INT NULL,
+            INDEX `idx_user_entity` (`user_id`, `entity_type`, `entity_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+        $this->db->query("CREATE TABLE IF NOT EXISTS `course_tiers` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `course_id` INT NOT NULL,
+            `tier_key` VARCHAR(50) NOT NULL,
+            `tier_name` VARCHAR(100) NOT NULL,
+            `price` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+            `description` TEXT,
+            `features` TEXT,
+            `delivery_policy` TEXT,
+            `ebook_policy` TEXT,
+            `sort_order` INT DEFAULT 0,
+            `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+            `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            `created_by` INT NULL,
+            `updated_by` INT NULL,
+            INDEX `idx_course_tier` (`course_id`, `tier_key`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+        $this->db->query("CREATE TABLE IF NOT EXISTS `course_modules` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `course_id` INT NOT NULL,
+            `module_tier` VARCHAR(50) NOT NULL DEFAULT 'basic',
+            `title` VARCHAR(255) NOT NULL,
+            `content_type` VARCHAR(50) DEFAULT 'pdf',
+            `file_path` TEXT,
+            `description` TEXT,
+            `sort_order` INT DEFAULT 0,
+            `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+            INDEX `idx_course_module` (`course_id`, `module_tier`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+
+        $this->db->query("CREATE TABLE IF NOT EXISTS `course_certificates` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `user_id` INT NOT NULL,
+            `course_id` INT NOT NULL,
+            `credential_id` VARCHAR(100) NOT NULL UNIQUE,
+            `tier_key` VARCHAR(50) NOT NULL DEFAULT 'basic',
+            `status` VARCHAR(20) NOT NULL DEFAULT 'granted',
+            `issue_date` DATE NOT NULL,
+            `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+            INDEX `idx_user_course` (`user_id`, `course_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+    }
+
     public function index() {
         $user_id = $this->session->userdata('user_id');
+        $this->_ensure_enrollment_tables();
         
         // Fetch recent test attempts
         $this->db->where('user_id', $user_id);
@@ -26,11 +87,11 @@ class Student extends CI_Controller {
         $data['recent_attempts'] = $this->db->get('test_attempts')->result();
 
         // Fetch enrolled courses with tier level
-        $this->db->select('courses.*, user_enrollments.tier_key, user_enrollments.enrolled_at');
+        $this->db->select('courses.*, user_enrollments.tier_key, user_enrollments.enrolled_at, courses.id as id');
         $this->db->from('user_enrollments');
         $this->db->join('courses', 'courses.id = user_enrollments.entity_id');
         $this->db->where('user_enrollments.user_id', $user_id);
-        $this->db->where('user_enrollments.entity_type', 'course');
+        $this->db->where('LOWER(TRIM(user_enrollments.entity_type))', 'course');
         $enrolled_courses = $this->db->get()->result();
 
         // Fetch granted certificates
@@ -117,13 +178,13 @@ class Student extends CI_Controller {
 
     public function course($course_id) {
         $user_id = $this->session->userdata('user_id');
+        $this->_ensure_enrollment_tables();
 
         // Verify student enrollment
-        $enrollment = $this->db->get_where('user_enrollments', array(
-            'user_id' => $user_id,
-            'entity_id' => $course_id,
-            'entity_type' => 'course'
-        ))->row();
+        $this->db->where('user_id', $user_id);
+        $this->db->where('entity_id', $course_id);
+        $this->db->where('LOWER(TRIM(entity_type))', 'course');
+        $enrollment = $this->db->get('user_enrollments')->row();
 
         if (!$enrollment) {
             $this->session->set_flashdata('error', 'You are not enrolled in this course.');
