@@ -1,9 +1,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Redirect all HTTP traffic to HTTPS (preserving host, URI, and query string)
-    RewriteCond %{HTTPS} off [OR]
-    RewriteCond %{HTTP:X-Forwarded-Proto} =http
+    # Redirect all HTTP traffic to HTTPS safely (works directly and behind reverse proxies/CDNs)
+    RewriteCond %{HTTPS} !on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # CodeIgniter routing
@@ -12,8 +12,11 @@
     RewriteRule ^(.*)$ index.php/$1 [L]
 </IfModule>
 
-# Cache-Control: Prevent browser from caching dynamic PHP responses
+# Security & Cache-Control Headers
 <IfModule mod_headers.c>
+    # Automatically upgrade any insecure HTTP image/media/script requests to HTTPS
+    Header always set Content-Security-Policy "upgrade-insecure-requests;"
+
     <FilesMatch "\.(php|html|htm)$">
         Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
         Header set Pragma "no-cache"

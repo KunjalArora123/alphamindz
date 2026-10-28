@@ -23,14 +23,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-if (isset($_SERVER['SITE_URL'])) {
-	$config['base_url'] = rtrim($_SERVER['SITE_URL'], '/') . '/';
+$is_https = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
+	|| (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)
+	|| (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https')
+	|| (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) === 'on');
+
+if (isset($_SERVER['SITE_URL']) && !empty($_SERVER['SITE_URL'])) {
+	$base_url = rtrim($_SERVER['SITE_URL'], '/') . '/';
+	// If site is accessed via HTTPS or in production, ensure base_url protocol matches HTTPS
+	if ($is_https && strpos($base_url, 'http://') === 0 && strpos($base_url, 'localhost') === false && strpos($base_url, '127.0.0.1') === false) {
+		$base_url = 'https://' . substr($base_url, 7);
+	}
+	$config['base_url'] = $base_url;
 } elseif (isset($_SERVER['HTTP_HOST']) && ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '[::1]' || $_SERVER['HTTP_HOST'] == '127.0.0.1')) {
 	$config['base_url'] = 'http://localhost/AlphaMindz/';
 } else {
 	// Fallback dynamic URL for production if SITE_URL is not set
-	$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-	$config['base_url'] = $protocol . $_SERVER['HTTP_HOST'] . '/';
+	$protocol = $is_https ? "https://" : "http://";
+	$config['base_url'] = $protocol . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'alphamindz.com') . '/';
 }
 
 /*
