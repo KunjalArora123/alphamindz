@@ -8,7 +8,7 @@
 
 <div class="container" style="padding: 70px 20px 100px; max-width: 1200px; margin: 0 auto;">
     
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
         <?php foreach($categories as $slug => $cat): ?>
             <?php 
                 $count = isset($cat['pdf_count']) ? $cat['pdf_count'] : 0;

@@ -1,3 +1,104 @@
+<style>
+.pdf-row-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    transition: all 0.25s ease;
+}
+.pdf-row-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+}
+.pdf-info-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    flex: 1;
+}
+.pdf-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #fee2e2;
+    color: #ef4444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+}
+.pdf-text-content {
+    min-width: 0;
+    flex: 1;
+}
+.pdf-text-content h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 6px 0;
+    line-height: 1.4;
+    overflow-wrap: break-word;
+    word-break: normal;
+}
+.pdf-meta-info {
+    font-size: 0.85rem;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.pdf-actions-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+@media (max-width: 768px) {
+    .pdf-row-card {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+        gap: 14px;
+    }
+    .pdf-info-wrap {
+        width: 100%;
+        align-items: flex-start;
+        gap: 14px;
+    }
+    .pdf-icon-box {
+        width: 42px;
+        height: 42px;
+        font-size: 1.4rem;
+    }
+    .pdf-text-content h3 {
+        font-size: 1.05rem;
+    }
+    .pdf-actions-wrap {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+        padding-top: 12px;
+        border-top: 1px solid #f1f5f9;
+    }
+    .pdf-actions-wrap a {
+        flex: 1;
+        justify-content: center;
+        text-align: center;
+        padding: 10px 14px !important;
+        font-size: 14px !important;
+    }
+}
+</style>
+
 <div class="page-header" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff; padding: 70px 0; border-bottom: 1px solid #334155;">
     <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 0 20px;">
         <div style="margin-bottom: 16px;">
@@ -32,16 +133,16 @@
     <?php if(!empty($pdfs)): ?>
         <div style="display: flex; flex-direction: column; gap: 16px;">
             <?php foreach($pdfs as $idx => $pdf): ?>
-                <div class="pdf-row-card" style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); transition: all 0.25s ease;">
-                    <div style="display: flex; align-items: center; gap: 18px; min-width: 0; flex: 1;">
-                        <div style="width: 48px; height: 48px; border-radius: 10px; background: #fee2e2; color: #ef4444; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0;">
+                <div class="pdf-row-card">
+                    <div class="pdf-info-wrap">
+                        <div class="pdf-icon-box">
                             <i class="ri-file-pdf-fill"></i>
                         </div>
-                        <div style="min-width: 0;">
-                            <h3 style="font-size: 1.1rem; font-weight: 600; color: #1e293b; margin: 0 0 6px 0; word-break: break-word;">
+                        <div class="pdf-text-content">
+                            <h3>
                                 <?php echo htmlspecialchars($pdf['title']); ?>
                             </h3>
-                            <div style="font-size: 0.85rem; color: #64748b; display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <div class="pdf-meta-info">
                                 <span><i class="ri-attachment-line"></i> <?php echo htmlspecialchars($pdf['filename']); ?></span>
                                 <span>•</span>
                                 <span><i class="ri-hard-drive-2-line"></i> <?php echo $pdf['size']; ?></span>
@@ -49,7 +150,7 @@
                         </div>
                     </div>
                     
-                    <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0; flex-wrap: wrap;">
+                    <div class="pdf-actions-wrap">
                         <a href="<?php echo $pdf['view_url']; ?>" target="_blank" class="btn-outline" style="padding: 10px 18px; font-size: 14px; border-radius: 8px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid #cbd5e1; color: #475569; background: #fff;" title="Preview PDF in new tab">
                             <i class="ri-eye-line"></i> View
                         </a>
