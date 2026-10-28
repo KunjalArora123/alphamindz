@@ -9,10 +9,22 @@
 <div class="container" style="padding: 60px 20px; max-width: 1200px; margin: 0 auto;">
     <div class="blog-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;">
         <?php if(!empty($career_facts)): foreach($career_facts as $fact): ?>
+            <?php 
+                $raw_img = !empty($fact->image) ? $fact->image : (!empty($fact->image_url) ? $fact->image_url : '');
+                $has_valid_img = !empty($raw_img) 
+                    && stripos($raw_img, 'localhost') === false 
+                    && stripos($raw_img, '127.0.0.1') === false;
+                $img_src = '';
+                if ($has_valid_img) {
+                    $img_src = (strpos($raw_img, 'http://') === 0 || strpos($raw_img, 'https://') === 0) 
+                        ? $raw_img 
+                        : base_url($raw_img);
+                }
+            ?>
             <div class="blog-card" style="border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background: #fff; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
-                <?php if(!empty($fact->image)): ?>
+                <?php if($has_valid_img): ?>
                     <div style="height: 200px; overflow: hidden; background: #f1f5f9;">
-                        <img src="<?php echo htmlspecialchars($fact->image); ?>" alt="<?php echo htmlspecialchars($fact->title); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;" onerror="this.parentElement.style.display='none';">
+                        <img src="<?php echo htmlspecialchars($img_src); ?>" alt="<?php echo htmlspecialchars($fact->title); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;" onerror="this.parentElement.style.display='none';">
                     </div>
                 <?php endif; ?>
                 <div class="blog-content" style="padding: 24px; flex: 1; display: flex; flex-direction: column;">

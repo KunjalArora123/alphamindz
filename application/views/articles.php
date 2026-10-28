@@ -9,10 +9,21 @@
 <div class="container" style="padding: 60px 20px; max-width: 1200px; margin: 0 auto;">
     <div class="blog-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;">
         <?php if(!empty($articles)): foreach($articles as $article): ?>
+            <?php 
+                $has_valid_img = !empty($article->image_url) 
+                    && stripos($article->image_url, 'localhost') === false 
+                    && stripos($article->image_url, '127.0.0.1') === false;
+                $img_src = '';
+                if ($has_valid_img) {
+                    $img_src = (strpos($article->image_url, 'http://') === 0 || strpos($article->image_url, 'https://') === 0) 
+                        ? $article->image_url 
+                        : base_url($article->image_url);
+                }
+            ?>
             <div class="blog-card" style="border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background: #fff; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
-                <?php if(!empty($article->image_url)): ?>
+                <?php if($has_valid_img): ?>
                     <div style="height: 200px; overflow: hidden; background: #f1f5f9;">
-                        <img src="<?php echo htmlspecialchars($article->image_url); ?>" alt="<?php echo htmlspecialchars($article->title); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;" onerror="this.parentElement.style.display='none';">
+                        <img src="<?php echo htmlspecialchars($img_src); ?>" alt="<?php echo htmlspecialchars($article->title); ?>" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;" onerror="this.parentElement.style.display='none';">
                     </div>
                 <?php endif; ?>
                 <div class="blog-content" style="padding: 24px; flex: 1; display: flex; flex-direction: column;">

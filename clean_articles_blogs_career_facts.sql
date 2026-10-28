@@ -85,3 +85,14 @@ UPDATE `career_facts` SET `content` = REPLACE(`content`, 'Email: manu@localhost/
 UPDATE `articles` SET `content` = REPLACE(`content`, 'manu@localhost/aplha_m/public_html', '') WHERE `content` LIKE '%manu@localhost%';
 UPDATE `blogs` SET `content` = REPLACE(`content`, 'manu@localhost/aplha_m/public_html', '') WHERE `content` LIKE '%manu@localhost%';
 UPDATE `career_facts` SET `content` = REPLACE(`content`, 'manu@localhost/aplha_m/public_html', '') WHERE `content` LIKE '%manu@localhost%';
+
+-- ------------------------------------------------------------
+-- 5. Clean up localhost/127.0.0.1 image URLs that trigger Chrome PNA permission prompt
+-- ------------------------------------------------------------
+UPDATE `articles` SET `image_url` = NULL WHERE `image_url` LIKE '%localhost%' OR `image_url` LIKE '%127.0.0.1%';
+UPDATE `blogs` SET `image` = NULL WHERE `image` LIKE '%localhost%' OR `image` LIKE '%127.0.0.1%';
+UPDATE `career_facts` SET `image` = NULL WHERE `image` LIKE '%localhost%' OR `image` LIKE '%127.0.0.1%';
+
+UPDATE `articles` SET `content` = REGEXP_REPLACE(`content`, '<figure[^>]*>\\s*<img[^>]+src=[\'"][^\'"]*(localhost|127\\.0\\.0\\.1)[^\'"]*[\'"][^>]*>\\s*</figure>', '') WHERE `content` LIKE '%localhost%';
+UPDATE `blogs` SET `content` = REGEXP_REPLACE(`content`, '<figure[^>]*>\\s*<img[^>]+src=[\'"][^\'"]*(localhost|127\\.0\\.0\\.1)[^\'"]*[\'"][^>]*>\\s*</figure>', '') WHERE `content` LIKE '%localhost%';
+UPDATE `career_facts` SET `content` = REGEXP_REPLACE(`content`, '<figure[^>]*>\\s*<img[^>]+src=[\'"][^\'"]*(localhost|127\\.0\\.0\\.1)[^\'"]*[\'"][^>]*>\\s*</figure>', '') WHERE `content` LIKE '%localhost%';

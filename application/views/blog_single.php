@@ -20,9 +20,21 @@
 </div>
 
 <div class="container" style="padding: 50px 20px 80px; max-width: 860px; margin: 0 auto;">
-    <?php if(!empty($blog->image)): ?>
+    <?php 
+        $raw_img = !empty($blog->image) ? $blog->image : (!empty($blog->image_url) ? $blog->image_url : '');
+        $has_valid_img = !empty($raw_img) 
+            && stripos($raw_img, 'localhost') === false 
+            && stripos($raw_img, '127.0.0.1') === false;
+        $img_src = '';
+        if ($has_valid_img) {
+            $img_src = (strpos($raw_img, 'http://') === 0 || strpos($raw_img, 'https://') === 0) 
+                ? $raw_img 
+                : base_url($raw_img);
+        }
+    ?>
+    <?php if($has_valid_img): ?>
         <div style="margin-bottom: 40px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.08);">
-            <img src="<?php echo htmlspecialchars($blog->image); ?>" alt="<?php echo htmlspecialchars($blog->title); ?>" style="width: 100%; max-height: 480px; object-fit: cover; display: block;" onerror="this.style.display='none';">
+            <img src="<?php echo htmlspecialchars($img_src); ?>" alt="<?php echo htmlspecialchars($blog->title); ?>" style="width: 100%; max-height: 480px; object-fit: cover; display: block;" onerror="this.style.display='none';">
         </div>
     <?php endif; ?>
 
@@ -34,6 +46,10 @@
             $clean_content = preg_replace('/<br\s*\/?>\s*(<strong>)?\s*Email:\s*manu@localhost\/aplha_m\/public_html\s*(<\/strong>)?/i', '', $clean_content);
             $clean_content = str_ireplace('Email: manu@localhost/aplha_m/public_html', '', $clean_content);
             $clean_content = str_ireplace('manu@localhost/aplha_m/public_html', '', $clean_content);
+            // Remove any legacy local WordPress image tags pointing to localhost
+            $clean_content = preg_replace('/<figure[^>]*>\s*<img[^>]+src=[\'"][^\'"]*(localhost|127\.0\.0\.1)[^\'"]*[\'"][^>]*>\s*<\/figure>/is', '', $clean_content);
+            $clean_content = preg_replace('/<img[^>]+src=[\'"][^\'"]*(localhost|127\.0\.0\.1)[^\'"]*[\'"][^>]*>/is', '', $clean_content);
+            $clean_content = preg_replace('/<a[^>]+href=[\'"][^\'"]*(localhost|127\.0\.0\.1)[^\'"]*[\'"][^>]*>.*?<\/a>/is', '', $clean_content);
             echo $clean_content; 
         ?>
     </div>
