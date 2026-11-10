@@ -26,10 +26,15 @@ class Auth extends CI_Controller {
                              ->get('users')->row();
 
             if ($user && password_verify($password, $user->password)) {
+                // Regenerate session ID upon login to prevent session fixation and stale session leaks
+                $this->session->sess_regenerate(TRUE);
+
                 $userdata = array(
                     'user_id' => $user->id,
-                    'user_name' => $user->first_name . ' ' . $user->last_name,
-                    'first_name' => $user->first_name, // Store first_name separately for greetings
+                    'user_name' => trim($user->first_name . ' ' . $user->last_name),
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'username' => $user->username,
                     'user_email' => $user->email,
                     'user_role' => $user->role,
                     'user_logged_in' => TRUE
@@ -231,7 +236,20 @@ class Auth extends CI_Controller {
     }
 
     public function logout() {
-        $this->session->unset_userdata(array('user_id', 'user_name', 'user_email', 'user_role', 'user_logged_in'));
+        // Clear all student user session keys
+        $user_keys = array(
+            'user_id', 'user_name', 'first_name', 'last_name', 'username', 'user_email', 'user_role', 'user_logged_in',
+            'test_started', 'test_subject', 'target_test', 'completed_interest', 'completed_mbti'
+        );
+        $this->session->unset_userdata($user_keys);
+        $this->session->sess_destroy();
+
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_regenerate_id(true);
+        }
+
+        // Restart session clean to carry flashdata message
+        session_start();
         $this->session->set_flashdata('success', 'You have been logged out.');
         redirect('auth/login');
     }

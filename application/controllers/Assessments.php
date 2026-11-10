@@ -171,6 +171,12 @@ class Assessments extends CI_Controller {
         if (empty($subject)) {
             $subject = $this->session->userdata('test_subject');
         }
+        if (empty($subject)) {
+            $subject = $this->session->userdata('target_test');
+        }
+        if (empty($subject)) {
+            $subject = 'Class 10 Assessment';
+        }
         $started_at = $this->session->userdata('test_started');
         if (empty($started_at)) {
             $started_at = time();

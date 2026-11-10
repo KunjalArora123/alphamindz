@@ -106,10 +106,17 @@ class Student extends CI_Controller {
         }
         $data['enrolled_courses'] = $enrolled_courses;
 
-        $data['first_name'] = $this->session->userdata('first_name');
-        if (empty($data['first_name'])) {
-            $name_parts = explode(' ', $this->session->userdata('user_name'));
-            $data['first_name'] = $name_parts[0];
+        // Always resolve latest profile data directly from database for the active user_id
+        $user_profile = $this->db->get_where('users', array('id' => $user_id))->row();
+        if ($user_profile) {
+            $data['first_name'] = !empty($user_profile->first_name) ? $user_profile->first_name : $user_profile->username;
+            $data['user_name'] = trim($user_profile->first_name . ' ' . $user_profile->last_name);
+        } else {
+            $data['first_name'] = $this->session->userdata('first_name');
+            if (empty($data['first_name'])) {
+                $name_parts = explode(' ', (string)$this->session->userdata('user_name'));
+                $data['first_name'] = $name_parts[0];
+            }
         }
 
         $this->load->view('student/includes/header', array('title' => 'Student Dashboard | AlphaMindz'));
