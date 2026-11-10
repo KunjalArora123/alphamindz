@@ -5,7 +5,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>
         </div>
-        <h2 class="text-3xl font-extrabold text-slate-800 mb-4">Assessment Completed Successfully!</h2>
+        <h2 class="text-3xl font-extrabold text-slate-800 mb-4">Thank You!</h2>
         <p class="text-lg text-slate-600 mb-8">Thank you for completing the <strong>Interest Inventory Test</strong>. Your responses have been successfully recorded and will be reviewed by your counselor.</p>
         
         <?php
@@ -14,8 +14,8 @@
             $next_url = site_url('assessments/take_test?test=' . urlencode($target_test));
             $btn_text = 'Proceed to Next Step &rarr;';
         } else {
-            $next_url = site_url('assessments');
-            $btn_text = 'Return to Dashboard';
+            $next_url = site_url('student/assessment');
+            $btn_text = 'Return to Assessments';
         }
         ?>
         <a href="<?php echo $next_url; ?>" class="inline-block px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 transition-all"><?php echo $btn_text; ?></a>

@@ -422,16 +422,8 @@ class Assessments extends CI_Controller {
             $this->load->view('mbti/result', $data);
             $this->load->view('student/includes/footer');
         } else {
-            // Fetch test answers for standard assessment result breakdown
-            $this->db->select('test_answers.*, questions.question_text, questions.question_number, questions.correct_option, questions.subject as q_subject');
-            $this->db->from('test_answers');
-            $this->db->join('questions', 'questions.id = test_answers.question_id', 'left');
-            $this->db->where('test_answers.attempt_id', $attempt_id);
-            $this->db->order_by('test_answers.id', 'ASC');
-            $data['answers'] = $this->db->get()->result();
-
-            $this->load->view('student/includes/header', array('title' => 'Test Result | AlphaMindz'));
-            $this->load->view('assessments/result', $data);
+            $this->load->view('student/includes/header', array('title' => 'Test Submitted | AlphaMindz'));
+            $this->load->view('assessments/thank_you', $data);
             $this->load->view('student/includes/footer');
         }
     }
