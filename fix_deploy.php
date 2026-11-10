@@ -7,7 +7,28 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// ============================================================
+// STEP 0: Flush PHP OPcache so old compiled code is purged
+// ============================================================
+$opcache_status = 'OPcache not available';
+if (function_exists('opcache_reset')) {
+    opcache_reset();
+    $opcache_status = '✅ OPcache RESET — all cached bytecode cleared';
+}
+// Also invalidate specific files
+$files_to_invalidate = array(
+    __DIR__ . '/application/controllers/Auth.php',
+    __DIR__ . '/application/controllers/Student.php',
+    __DIR__ . '/application/config/config.php',
+);
+foreach ($files_to_invalidate as $f) {
+    if (function_exists('opcache_invalidate') && file_exists($f)) {
+        opcache_invalidate($f, true);
+    }
+}
+
 $results = array();
+$results[] = $opcache_status;
 
 // ============================================================
 // STEP 1: Check current Auth.php version
