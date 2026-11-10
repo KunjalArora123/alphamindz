@@ -23,12 +23,17 @@
                     <h1 class="fw-extrabold fs-2 fs-md-1 mb-2">Welcome back, <?php echo htmlspecialchars($first_name); ?>! 👋</h1>
                     <?php 
                         $display_email = !empty($user_email) ? $user_email : $this->session->userdata('user_email');
-                        if (!empty($display_email)): 
+                        if (empty($display_email) && $this->session->userdata('user_id')) {
+                            $u = $this->db->get_where('users', array('id' => (int)$this->session->userdata('user_id')))->row();
+                            if ($u && !empty($u->email)) {
+                                $display_email = $u->email;
+                            }
+                        }
                     ?>
-                        <p class="mb-2 text-white-50 small d-flex align-items-center">
-                            <i class="ri-mail-line me-1"></i> <?php echo htmlspecialchars($display_email); ?>
-                        </p>
-                    <?php endif; ?>
+                    <p class="mb-2 text-white-50 small d-flex align-items-center">
+                        <i class="ri-mail-line me-1"></i> 
+                        <?php echo !empty($display_email) ? htmlspecialchars($display_email) : '<span class="fst-italic opacity-75">No email address found</span>'; ?>
+                    </p>
                     <p class="text-white-50 mb-3 mb-md-0">Track your enrolled courses, tier access privileges, and assessment performance in real time.</p>
                 </div>
                 
