@@ -236,28 +236,26 @@ class Auth extends CI_Controller {
     }
 
     public function logout() {
-        // Completely destroy and clear all session data
-        if (session_status() === PHP_SESSION_ACTIVE) {
-            $_SESSION = array();
-            if (ini_get('session.use_cookies')) {
-                $params = session_get_cookie_params();
-                setcookie(session_name(), '', time() - 42000,
-                    $params['path'], $params['domain'],
-                    $params['secure'], $params['httponly']
-                );
+        // Clear all userdata from CodeIgniter session
+        $this->session->sess_destroy();
+
+        // Expire all session and auth cookies in browser
+        $cookie_names = array(
+            session_name(),
+            config_item('sess_cookie_name') ? config_item('sess_cookie_name') : 'ci_session',
+            'ci_session'
+        );
+        foreach ($cookie_names as $cname) {
+            if (!empty($cname)) {
+                setcookie($cname, '', time() - 86400, '/');
+                if (isset($_COOKIE[$cname])) {
+                    unset($_COOKIE[$cname]);
+                }
             }
-            session_destroy();
         }
 
-        // Also clear CI session cookie if configured
-        $ci_cookie = config_item('sess_cookie_name');
-        if (!empty($ci_cookie) && isset($_COOKIE[$ci_cookie])) {
-            setcookie($ci_cookie, '', time() - 42000, '/');
-        }
+        $_SESSION = array();
 
-        // Start a fresh, clean session for logout flash message
-        session_start();
-        $this->session->set_flashdata('success', 'You have been successfully logged out.');
-        redirect('auth/login');
+        redirect('auth/login?logged_out=1');
     }
 }

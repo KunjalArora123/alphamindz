@@ -13,9 +13,9 @@
             </div>
         <?php endif; ?>
 
-        <?php if($this->session->flashdata('success')): ?>
+        <?php if($this->session->flashdata('success') || $this->input->get('logged_out')): ?>
             <div style="background: #d4edda; color: #155724; padding: 12px; border-radius: 4px; margin-bottom: 20px; font-size: 0.95rem;">
-                <?php echo $this->session->flashdata('success'); ?>
+                <i class="ri-checkbox-circle-fill me-1"></i> <?php echo $this->session->flashdata('success') ? $this->session->flashdata('success') : 'You have been successfully logged out.'; ?>
             </div>
         <?php endif; ?>
 
