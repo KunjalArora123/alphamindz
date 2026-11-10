@@ -10,47 +10,6 @@ class Auth extends CI_Controller {
         $this->load->library('session');
     }
 
-    /**
-     * Helper: completely nuke the current session so no stale user data survives.
-     * Works regardless of CI session driver (files, database, etc.).
-     */
-    private function _nuke_session() {
-        // 1. Unset every CI userdata key (avoids stale in-memory data)
-        $keys_to_clear = array(
-            'user_id', 'user_name', 'first_name', 'last_name',
-            'username', 'user_email', 'user_role', 'user_logged_in'
-        );
-        foreach ($keys_to_clear as $k) {
-            $this->session->unset_userdata($k);
-        }
-
-        // 2. Destroy CI session (deletes server-side session file/row)
-        $this->session->sess_destroy();
-
-        // 3. Kill the session cookie in the browser with every possible path
-        $cookie_name = $this->config->item('sess_cookie_name');
-        if (empty($cookie_name)) {
-            $cookie_name = 'ci_session';
-        }
-        $names = array_unique(array($cookie_name, 'ci_session', session_name()));
-        $domain = $this->config->item('cookie_domain');
-        foreach ($names as $cn) {
-            if (empty($cn)) continue;
-            setcookie($cn, '', 1, '/');
-            setcookie($cn, '', 1, '/', $domain);
-            setcookie($cn, '', 1);
-            if (isset($_COOKIE[$cn])) {
-                unset($_COOKIE[$cn]);
-            }
-        }
-
-        // 4. Clear native PHP session if active
-        $_SESSION = array();
-        if (session_status() === PHP_SESSION_ACTIVE) {
-            session_destroy();
-        }
-    }
-
     public function login() {
         // ──────────────────────────────────────────────────
         // POST  →  Always process credentials, never skip
@@ -58,9 +17,6 @@ class Auth extends CI_Controller {
         if ($this->input->server('REQUEST_METHOD') === 'POST') {
             $login_input = trim($this->input->post('email'));
             $password    = $this->input->post('password');
-
-            // ★ NUKE any previous session BEFORE we touch the DB
-            $this->_nuke_session();
 
             // Look up user by email OR username
             $user = $this->db->group_start()
@@ -70,11 +26,14 @@ class Auth extends CI_Controller {
                              ->get('users')->row();
 
             if ($user && password_verify($password, $user->password)) {
-                // Generate a brand-new session ID (old file is deleted because
-                // sess_regenerate_destroy is now TRUE in config)
-                $this->session->sess_regenerate(TRUE);
+                // Clear any prior user keys
+                $keys_to_clear = array(
+                    'user_id', 'user_name', 'first_name', 'last_name',
+                    'username', 'user_email', 'user_role', 'user_logged_in'
+                );
+                $this->session->unset_userdata($keys_to_clear);
 
-                // Set ONLY the new user's data
+                // Set ONLY the authenticated user's data
                 $this->session->set_userdata(array(
                     'user_id'        => (int) $user->id,
                     'user_name'      => trim($user->first_name . ' ' . $user->last_name),
@@ -101,10 +60,12 @@ class Auth extends CI_Controller {
         // ──────────────────────────────────────────────────
         // GET  →  Show login form (or redirect if already logged in)
         // ──────────────────────────────────────────────────
-
-        // Coming from logout? Destroy any lingering session data one more time.
         if ($this->input->get('logged_out')) {
-            $this->_nuke_session();
+            $keys_to_clear = array(
+                'user_id', 'user_name', 'first_name', 'last_name',
+                'username', 'user_email', 'user_role', 'user_logged_in'
+            );
+            $this->session->unset_userdata($keys_to_clear);
         } elseif ($this->session->userdata('user_logged_in') && $this->session->userdata('user_id')) {
             // Already authenticated – send to dashboard
             redirect('student');
@@ -314,8 +275,12 @@ class Auth extends CI_Controller {
     }
 
     public function logout() {
-        // Complete nuclear session destruction
-        $this->_nuke_session();
+        $keys = array(
+            'user_id', 'user_name', 'first_name', 'last_name',
+            'username', 'user_email', 'user_role', 'user_logged_in'
+        );
+        $this->session->unset_userdata($keys);
+        $this->session->sess_destroy();
         redirect('auth/login?logged_out=1');
     }
 }
