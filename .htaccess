@@ -6,6 +6,13 @@
     RewriteCond %{HTTP:X-Forwarded-Proto} !https
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+    # Auto-append nocache=1 to sensitive dynamic routes (student, admin, superadmin, auth, cart) if query string is empty
+    RewriteCond %{REQUEST_METHOD} GET
+    RewriteCond %{QUERY_STRING} ^$
+    RewriteCond %{REQUEST_URI} ^/AlphaMindz/(student|admin|superadmin|auth|cart)(/.*)?$ [NC,OR]
+    RewriteCond %{REQUEST_URI} ^/(student|admin|superadmin|auth|cart)(/.*)?$ [NC]
+    RewriteRule ^(.*)$ $1?nocache=1 [R=302,L,QSA]
+
     # CodeIgniter routing
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
@@ -17,13 +24,15 @@
     # Automatically upgrade any insecure HTTP image/media/script requests to HTTPS
     Header always set Content-Security-Policy "upgrade-insecure-requests;"
 
-    <FilesMatch "\.(php|html|htm)$">
-        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
-        Header set Pragma "no-cache"
-        Header set Expires "0"
-    </FilesMatch>
+    # Default: force no-store / no-cache for all dynamic responses across browsers, CDNs, and proxies
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0, private"
+    Header set Pragma "no-cache"
+    Header set Expires "Thu, 01 Jan 1970 00:00:00 GMT"
 
-    <FilesMatch "\.(css|js)$">
+    # Only allow caching for true static files (css, js, images, fonts, pdf, media)
+    <FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg|webp|pdf|zip|mp4|webm|woff|woff2|ttf|eot)$">
         Header set Cache-Control "public, max-age=86400, must-revalidate"
+        Header unset Pragma
+        Header unset Expires
     </FilesMatch>
 </IfModule>

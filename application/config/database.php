@@ -73,8 +73,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-if (isset($_SERVER['HTTP_HOST']) && ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '[::1]' || $_SERVER['HTTP_HOST'] == '127.0.0.1')) {
-	// Local Configuration
+$is_local_db = (isset($_SERVER['HTTP_HOST']) && ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '[::1]' || $_SERVER['HTTP_HOST'] == '127.0.0.1'));
+
+if ($is_local_db) {
+	// Local Configuration (XAMPP default)
 	$hostname = 'localhost';
 	$username = 'root';
 	$password = '';
@@ -89,10 +91,10 @@ if (isset($_SERVER['HTTP_HOST']) && ($_SERVER['HTTP_HOST'] == 'localhost' || $_S
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => isset($_SERVER['DB_HOST']) ? $_SERVER['DB_HOST'] : $hostname,
-	'username' => isset($_SERVER['DB_USER']) ? $_SERVER['DB_USER'] : $username,
-	'password' => isset($_SERVER['DB_PASS']) ? $_SERVER['DB_PASS'] : $password,
-	'database' => isset($_SERVER['DB_NAME']) ? $_SERVER['DB_NAME'] : $database,
+	'hostname' => ($is_local_db ? $hostname : (isset($_SERVER['DB_HOST']) ? $_SERVER['DB_HOST'] : $hostname)),
+	'username' => ($is_local_db ? $username : (isset($_SERVER['DB_USER']) ? $_SERVER['DB_USER'] : $username)),
+	'password' => ($is_local_db ? $password : (isset($_SERVER['DB_PASS']) ? $_SERVER['DB_PASS'] : $password)),
+	'database' => ($is_local_db ? $database : (isset($_SERVER['DB_NAME']) ? $_SERVER['DB_NAME'] : $database)),
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
