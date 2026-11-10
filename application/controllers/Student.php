@@ -77,12 +77,18 @@ class Student extends CI_Controller {
     }
 
     public function index() {
+        // Prevent browser from caching dashboard (stale user data)
+        $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+        $this->output->set_header('Pragma: no-cache');
+
         $user_id = (int)$this->session->userdata('user_id');
         if (!$user_id) {
+            $this->session->sess_destroy();
             redirect('auth/login');
             return;
         }
 
+        // Always get the REAL user from the database – never trust session alone
         $user_profile = $this->db->get_where('users', array('id' => $user_id))->row();
         if (!$user_profile) {
             $this->session->sess_destroy();
@@ -118,18 +124,9 @@ class Student extends CI_Controller {
         }
         $data['enrolled_courses'] = $enrolled_courses;
 
-        // Always resolve latest profile data directly from database for the active user_id
-        $user_profile = $this->db->get_where('users', array('id' => $user_id))->row();
-        if ($user_profile) {
-            $data['first_name'] = !empty($user_profile->first_name) ? $user_profile->first_name : $user_profile->username;
-            $data['user_name'] = trim($user_profile->first_name . ' ' . $user_profile->last_name);
-        } else {
-            $data['first_name'] = $this->session->userdata('first_name');
-            if (empty($data['first_name'])) {
-                $name_parts = explode(' ', (string)$this->session->userdata('user_name'));
-                $data['first_name'] = $name_parts[0];
-            }
-        }
+        // Use the $user_profile we already fetched above (from the guard)
+        $data['first_name'] = !empty($user_profile->first_name) ? $user_profile->first_name : $user_profile->username;
+        $data['user_name'] = trim($user_profile->first_name . ' ' . $user_profile->last_name);
 
         $this->load->view('student/includes/header', array('title' => 'Student Dashboard | AlphaMindz'));
         $this->load->view('student/dashboard', $data);

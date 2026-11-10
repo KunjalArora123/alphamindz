@@ -10,19 +10,59 @@ class Auth extends CI_Controller {
         $this->load->library('session');
     }
 
-    public function login() {
-        if ($this->input->server('REQUEST_METHOD') == 'POST') {
-            $login_input = trim($this->input->post('email'));
-            $password = $this->input->post('password');
+    /**
+     * Helper: completely nuke the current session so no stale user data survives.
+     * Works regardless of CI session driver (files, database, etc.).
+     */
+    private function _nuke_session() {
+        // 1. Unset every CI userdata key (avoids stale in-memory data)
+        $keys_to_clear = array(
+            'user_id', 'user_name', 'first_name', 'last_name',
+            'username', 'user_email', 'user_role', 'user_logged_in'
+        );
+        foreach ($keys_to_clear as $k) {
+            $this->session->unset_userdata($k);
+        }
 
-            // Clear any lingering session keys before authenticating new credentials
-            $all_userdata = $this->session->all_userdata();
-            if (!empty($all_userdata)) {
-                foreach ($all_userdata as $key => $val) {
-                    $this->session->unset_userdata($key);
-                }
+        // 2. Destroy CI session (deletes server-side session file/row)
+        $this->session->sess_destroy();
+
+        // 3. Kill the session cookie in the browser with every possible path
+        $cookie_name = $this->config->item('sess_cookie_name');
+        if (empty($cookie_name)) {
+            $cookie_name = 'ci_session';
+        }
+        $names = array_unique(array($cookie_name, 'ci_session', session_name()));
+        $domain = $this->config->item('cookie_domain');
+        foreach ($names as $cn) {
+            if (empty($cn)) continue;
+            setcookie($cn, '', 1, '/');
+            setcookie($cn, '', 1, '/', $domain);
+            setcookie($cn, '', 1);
+            if (isset($_COOKIE[$cn])) {
+                unset($_COOKIE[$cn]);
             }
+        }
 
+        // 4. Clear native PHP session if active
+        $_SESSION = array();
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_destroy();
+        }
+    }
+
+    public function login() {
+        // ──────────────────────────────────────────────────
+        // POST  →  Always process credentials, never skip
+        // ──────────────────────────────────────────────────
+        if ($this->input->server('REQUEST_METHOD') === 'POST') {
+            $login_input = trim($this->input->post('email'));
+            $password    = $this->input->post('password');
+
+            // ★ NUKE any previous session BEFORE we touch the DB
+            $this->_nuke_session();
+
+            // Look up user by email OR username
             $user = $this->db->group_start()
                              ->where('email', $login_input)
                              ->or_where('username', $login_input)
@@ -30,44 +70,50 @@ class Auth extends CI_Controller {
                              ->get('users')->row();
 
             if ($user && password_verify($password, $user->password)) {
-                // Regenerate session ID upon login to prevent session fixation and stale session leaks
+                // Generate a brand-new session ID (old file is deleted because
+                // sess_regenerate_destroy is now TRUE in config)
                 $this->session->sess_regenerate(TRUE);
 
-                $userdata = array(
-                    'user_id' => (int)$user->id,
-                    'user_name' => trim($user->first_name . ' ' . $user->last_name),
-                    'first_name' => $user->first_name,
-                    'last_name' => $user->last_name,
-                    'username' => $user->username,
-                    'user_email' => $user->email,
-                    'user_role' => $user->role,
+                // Set ONLY the new user's data
+                $this->session->set_userdata(array(
+                    'user_id'        => (int) $user->id,
+                    'user_name'      => trim($user->first_name . ' ' . $user->last_name),
+                    'first_name'     => $user->first_name,
+                    'last_name'      => $user->last_name,
+                    'username'       => $user->username,
+                    'user_email'     => $user->email,
+                    'user_role'      => $user->role,
                     'user_logged_in' => TRUE
-                );
-                $this->session->set_userdata($userdata);
-                $display_name = !empty($user->first_name) ? $user->first_name : $user->username;
-                $this->session->set_flashdata('success', 'Welcome back, ' . $display_name . '!');
+                ));
+
+                $display = !empty($user->first_name) ? $user->first_name : $user->username;
+                $this->session->set_flashdata('success', 'Welcome back, ' . $display . '!');
                 redirect('student');
-                return;
-            } else {
-                $this->session->set_flashdata('error', 'Invalid email/username or password.');
-                redirect('auth/login');
-                return;
+                return;  // safety
             }
+
+            // Bad credentials
+            $this->session->set_flashdata('error', 'Invalid email/username or password.');
+            redirect('auth/login');
+            return;
         }
 
-        // Handle GET requests
+        // ──────────────────────────────────────────────────
+        // GET  →  Show login form (or redirect if already logged in)
+        // ──────────────────────────────────────────────────
+
+        // Coming from logout? Destroy any lingering session data one more time.
         if ($this->input->get('logged_out')) {
-            $all_userdata = $this->session->all_userdata();
-            if (!empty($all_userdata)) {
-                foreach ($all_userdata as $key => $val) {
-                    $this->session->unset_userdata($key);
-                }
-            }
-            $this->session->sess_destroy();
-        } elseif ($this->session->userdata('user_logged_in')) {
+            $this->_nuke_session();
+        } elseif ($this->session->userdata('user_logged_in') && $this->session->userdata('user_id')) {
+            // Already authenticated – send to dashboard
             redirect('student');
             return;
         }
+
+        // Prevent browser from caching the login page
+        $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+        $this->output->set_header('Pragma: no-cache');
 
         $this->load->view('student/includes/header', array('title' => 'Login | AlphaMindz'));
         $this->load->view('login');
@@ -268,36 +314,8 @@ class Auth extends CI_Controller {
     }
 
     public function logout() {
-        // Clear all userdata from CodeIgniter session
-        $all_userdata = $this->session->all_userdata();
-        if (!empty($all_userdata)) {
-            foreach ($all_userdata as $key => $val) {
-                $this->session->unset_userdata($key);
-            }
-        }
-        $this->session->sess_destroy();
-
-        // Expire all session and auth cookies in browser
-        $cookie_names = array(
-            session_name(),
-            config_item('sess_cookie_name') ? config_item('sess_cookie_name') : 'ci_session',
-            'ci_session'
-        );
-        foreach ($cookie_names as $cname) {
-            if (!empty($cname)) {
-                setcookie($cname, '', time() - 86400, '/');
-                setcookie($cname, '', time() - 86400);
-                if (isset($_COOKIE[$cname])) {
-                    unset($_COOKIE[$cname]);
-                }
-            }
-        }
-
-        $_SESSION = array();
-        if (session_status() === PHP_SESSION_ACTIVE) {
-            @session_destroy();
-        }
-
+        // Complete nuclear session destruction
+        $this->_nuke_session();
         redirect('auth/login?logged_out=1');
     }
 }
