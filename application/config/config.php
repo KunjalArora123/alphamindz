@@ -30,13 +30,14 @@ $is_https = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off
 
 if (isset($_SERVER['SITE_URL']) && !empty($_SERVER['SITE_URL'])) {
 	$base_url = rtrim($_SERVER['SITE_URL'], '/') . '/';
-	// If site is accessed via HTTPS or in production, ensure base_url protocol matches HTTPS
-	if ($is_https && strpos($base_url, 'http://') === 0 && strpos($base_url, 'localhost') === false && strpos($base_url, '127.0.0.1') === false) {
+	// If site is accessed via HTTPS, ensure base_url protocol matches HTTPS
+	if ($is_https && strpos($base_url, 'http://') === 0) {
 		$base_url = 'https://' . substr($base_url, 7);
 	}
 	$config['base_url'] = $base_url;
 } elseif (isset($_SERVER['HTTP_HOST']) && ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '[::1]' || $_SERVER['HTTP_HOST'] == '127.0.0.1')) {
-	$config['base_url'] = 'http://localhost/AlphaMindz/';
+	$protocol = $is_https ? "https://" : "http://";
+	$config['base_url'] = $protocol . $_SERVER['HTTP_HOST'] . '/AlphaMindz/';
 } else {
 	// Fallback dynamic URL for production if SITE_URL is not set
 	$protocol = $is_https ? "https://" : "http://";
