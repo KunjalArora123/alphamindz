@@ -11,6 +11,11 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
+		// Force edge proxy bypass if visiting homepage without nocache query string
+		if (empty($_GET['nocache'])) {
+			redirect(site_url(), 'location', 302);
+			return;
+		}
 		$this->db->group_start();
 		$this->db->where('status', 'published');
 		$this->db->or_where('status IS NULL', NULL, FALSE);

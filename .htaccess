@@ -6,9 +6,11 @@
     RewriteCond %{HTTP:X-Forwarded-Proto} !https
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-    # Auto-append nocache=1 to sensitive dynamic routes (student, admin, superadmin, auth, cart) if query string is empty
+    # Auto-append nocache=1 to homepage and sensitive dynamic routes if query string is empty
     RewriteCond %{REQUEST_METHOD} GET
     RewriteCond %{QUERY_STRING} ^$
+    RewriteCond %{REQUEST_URI} ^/AlphaMindz/?$ [NC,OR]
+    RewriteCond %{REQUEST_URI} ^/?$ [OR]
     RewriteCond %{REQUEST_URI} ^/AlphaMindz/(student|admin|superadmin|auth|cart)(/.*)?$ [NC,OR]
     RewriteCond %{REQUEST_URI} ^/(student|admin|superadmin|auth|cart)(/.*)?$ [NC]
     RewriteRule ^(.*)$ $1?nocache=1 [R=302,L,QSA]
