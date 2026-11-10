@@ -11,13 +11,17 @@ class Auth extends CI_Controller {
     }
 
     public function login() {
-        if ($this->session->userdata('user_logged_in')) {
-            redirect('student');
-        }
-
         if ($this->input->server('REQUEST_METHOD') == 'POST') {
             $login_input = trim($this->input->post('email'));
             $password = $this->input->post('password');
+
+            // Clear any lingering session keys before authenticating new credentials
+            $all_userdata = $this->session->all_userdata();
+            if (!empty($all_userdata)) {
+                foreach ($all_userdata as $key => $val) {
+                    $this->session->unset_userdata($key);
+                }
+            }
 
             $user = $this->db->group_start()
                              ->where('email', $login_input)
@@ -30,7 +34,7 @@ class Auth extends CI_Controller {
                 $this->session->sess_regenerate(TRUE);
 
                 $userdata = array(
-                    'user_id' => $user->id,
+                    'user_id' => (int)$user->id,
                     'user_name' => trim($user->first_name . ' ' . $user->last_name),
                     'first_name' => $user->first_name,
                     'last_name' => $user->last_name,
@@ -40,12 +44,29 @@ class Auth extends CI_Controller {
                     'user_logged_in' => TRUE
                 );
                 $this->session->set_userdata($userdata);
-                $this->session->set_flashdata('success', 'Welcome back, ' . $user->first_name . '!');
+                $display_name = !empty($user->first_name) ? $user->first_name : $user->username;
+                $this->session->set_flashdata('success', 'Welcome back, ' . $display_name . '!');
                 redirect('student');
+                return;
             } else {
                 $this->session->set_flashdata('error', 'Invalid email/username or password.');
                 redirect('auth/login');
+                return;
             }
+        }
+
+        // Handle GET requests
+        if ($this->input->get('logged_out')) {
+            $all_userdata = $this->session->all_userdata();
+            if (!empty($all_userdata)) {
+                foreach ($all_userdata as $key => $val) {
+                    $this->session->unset_userdata($key);
+                }
+            }
+            $this->session->sess_destroy();
+        } elseif ($this->session->userdata('user_logged_in')) {
+            redirect('student');
+            return;
         }
 
         $this->load->view('student/includes/header', array('title' => 'Login | AlphaMindz'));
@@ -248,6 +269,12 @@ class Auth extends CI_Controller {
 
     public function logout() {
         // Clear all userdata from CodeIgniter session
+        $all_userdata = $this->session->all_userdata();
+        if (!empty($all_userdata)) {
+            foreach ($all_userdata as $key => $val) {
+                $this->session->unset_userdata($key);
+            }
+        }
         $this->session->sess_destroy();
 
         // Expire all session and auth cookies in browser
@@ -259,6 +286,7 @@ class Auth extends CI_Controller {
         foreach ($cookie_names as $cname) {
             if (!empty($cname)) {
                 setcookie($cname, '', time() - 86400, '/');
+                setcookie($cname, '', time() - 86400);
                 if (isset($_COOKIE[$cname])) {
                     unset($_COOKIE[$cname]);
                 }
@@ -266,6 +294,9 @@ class Auth extends CI_Controller {
         }
 
         $_SESSION = array();
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            @session_destroy();
+        }
 
         redirect('auth/login?logged_out=1');
     }

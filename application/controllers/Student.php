@@ -10,7 +10,7 @@ class Student extends CI_Controller {
         $this->load->library('session');
 
         // Check if user is logged in
-        if (!$this->session->userdata('user_logged_in')) {
+        if (!$this->session->userdata('user_logged_in') || !$this->session->userdata('user_id')) {
             $this->session->set_flashdata('error', 'Please login to access your student panel.');
             redirect('auth/login');
         }
@@ -77,7 +77,19 @@ class Student extends CI_Controller {
     }
 
     public function index() {
-        $user_id = $this->session->userdata('user_id');
+        $user_id = (int)$this->session->userdata('user_id');
+        if (!$user_id) {
+            redirect('auth/login');
+            return;
+        }
+
+        $user_profile = $this->db->get_where('users', array('id' => $user_id))->row();
+        if (!$user_profile) {
+            $this->session->sess_destroy();
+            redirect('auth/login');
+            return;
+        }
+
         $this->_ensure_enrollment_tables();
         
         // Fetch recent test attempts
@@ -184,7 +196,19 @@ class Student extends CI_Controller {
     }
 
     public function course($course_id) {
-        $user_id = $this->session->userdata('user_id');
+        $user_id = (int)$this->session->userdata('user_id');
+        if (!$user_id) {
+            redirect('auth/login');
+            return;
+        }
+
+        $user_profile = $this->db->get_where('users', array('id' => $user_id))->row();
+        if (!$user_profile) {
+            $this->session->sess_destroy();
+            redirect('auth/login');
+            return;
+        }
+
         $this->_ensure_enrollment_tables();
 
         // Verify student enrollment

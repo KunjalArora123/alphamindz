@@ -1,5 +1,13 @@
 ---
 deployment:
   tasks:
+    # Set deployment target path
     - export DEPLOYPATH=/home/befms79lg357/public_html/
+
+    # Copy files from repository to deployment directory if repo is in a separate location
+    - if [ "$PWD" != "$DEPLOYPATH" ] && [ "$PWD/" != "$DEPLOYPATH" ]; then /bin/cp -R * $DEPLOYPATH; /bin/cp .htaccess $DEPLOYPATH 2>/dev/null || true; /bin/cp .env $DEPLOYPATH 2>/dev/null || true; fi
+
+    # Clear application cache and ensure permissions
+    - /bin/rm -f $DEPLOYPATH/application/cache/*.php 2>/dev/null || true
+    - /bin/chmod -R 777 $DEPLOYPATH/application/cache $DEPLOYPATH/application/logs $DEPLOYPATH/assets/uploads 2>/dev/null || true
     - /bin/touch $DEPLOYPATH/.deployed
