@@ -236,21 +236,28 @@ class Auth extends CI_Controller {
     }
 
     public function logout() {
-        // Clear all student user session keys
-        $user_keys = array(
-            'user_id', 'user_name', 'first_name', 'last_name', 'username', 'user_email', 'user_role', 'user_logged_in',
-            'test_started', 'test_subject', 'target_test', 'completed_interest', 'completed_mbti'
-        );
-        $this->session->unset_userdata($user_keys);
-        $this->session->sess_destroy();
-
+        // Completely destroy and clear all session data
         if (session_status() === PHP_SESSION_ACTIVE) {
-            session_regenerate_id(true);
+            $_SESSION = array();
+            if (ini_get('session.use_cookies')) {
+                $params = session_get_cookie_params();
+                setcookie(session_name(), '', time() - 42000,
+                    $params['path'], $params['domain'],
+                    $params['secure'], $params['httponly']
+                );
+            }
+            session_destroy();
         }
 
-        // Restart session clean to carry flashdata message
+        // Also clear CI session cookie if configured
+        $ci_cookie = config_item('sess_cookie_name');
+        if (!empty($ci_cookie) && isset($_COOKIE[$ci_cookie])) {
+            setcookie($ci_cookie, '', time() - 42000, '/');
+        }
+
+        // Start a fresh, clean session for logout flash message
         session_start();
-        $this->session->set_flashdata('success', 'You have been logged out.');
+        $this->session->set_flashdata('success', 'You have been successfully logged out.');
         redirect('auth/login');
     }
 }
