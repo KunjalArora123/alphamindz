@@ -21,6 +21,14 @@
                 <div class="col-12 col-md-8">
                     <span class="badge mb-2 px-3 py-2" style="background-color: var(--sp-green); color: #fff; font-size: 0.8rem; font-weight: 700;">STUDENT DASHBOARD</span>
                     <h1 class="fw-extrabold fs-2 fs-md-1 mb-2">Welcome back, <?php echo htmlspecialchars($first_name); ?>! 👋</h1>
+                    <?php 
+                        $display_email = !empty($user_email) ? $user_email : $this->session->userdata('user_email');
+                        if (!empty($display_email)): 
+                    ?>
+                        <p class="mb-2 text-white-50 small d-flex align-items-center">
+                            <i class="ri-mail-line me-1"></i> <?php echo htmlspecialchars($display_email); ?>
+                        </p>
+                    <?php endif; ?>
                     <p class="text-white-50 mb-3 mb-md-0">Track your enrolled courses, tier access privileges, and assessment performance in real time.</p>
                 </div>
                 

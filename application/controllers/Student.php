@@ -127,6 +127,7 @@ class Student extends CI_Controller {
         // Use the $user_profile we already fetched above (from the guard)
         $data['first_name'] = !empty($user_profile->first_name) ? $user_profile->first_name : $user_profile->username;
         $data['user_name'] = trim($user_profile->first_name . ' ' . $user_profile->last_name);
+        $data['user_email'] = !empty($user_profile->email) ? $user_profile->email : $this->session->userdata('user_email');
 
         $this->load->view('student/includes/header', array('title' => 'Student Dashboard | AlphaMindz'));
         $this->load->view('student/dashboard', $data);
