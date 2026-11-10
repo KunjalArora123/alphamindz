@@ -12,7 +12,7 @@ class Auth extends CI_Controller {
 
     public function login() {
         // ──────────────────────────────────────────────────
-        // POST  →  Always process credentials, never skip
+        // POST  →  Process login credentials
         // ──────────────────────────────────────────────────
         if ($this->input->server('REQUEST_METHOD') === 'POST') {
             $login_input = trim($this->input->post('email'));
@@ -25,16 +25,30 @@ class Auth extends CI_Controller {
                              ->group_end()
                              ->get('users')->row();
 
-            if ($user && password_verify($password, $user->password)) {
-                // Clear any prior user keys
-                $keys_to_clear = array(
-                    'user_id', 'user_name', 'first_name', 'last_name',
-                    'username', 'user_email', 'user_role', 'user_logged_in'
-                );
-                $this->session->unset_userdata($keys_to_clear);
+            $password_valid = FALSE;
+            if ($user && !empty($user->password)) {
+                if (password_verify($password, $user->password)) {
+                    $password_valid = TRUE;
+                } elseif ($password === $user->password) {
+                    $password_valid = TRUE;
+                    // Auto-upgrade plain-text password to secure hash
+                    $this->db->where('id', $user->id)->update('users', array('password' => password_hash($password, PASSWORD_DEFAULT)));
+                } elseif (md5($password) === $user->password) {
+                    $password_valid = TRUE;
+                    // Auto-upgrade MD5 password to secure hash
+                    $this->db->where('id', $user->id)->update('users', array('password' => password_hash($password, PASSWORD_DEFAULT)));
+                }
+            }
 
-                // Set ONLY the authenticated user's data
-                $this->session->set_userdata(array(
+            if ($password_valid) {
+                // Clear any previous session keys to prevent cross-account data leak
+                $clean_keys = array('user_id', 'user_name', 'first_name', 'last_name', 'username', 'user_email', 'user_role', 'user_logged_in');
+                foreach ($clean_keys as $ck) {
+                    $this->session->unset_userdata($ck);
+                }
+
+                // Set new authenticated user session
+                $userdata = array(
                     'user_id'        => (int) $user->id,
                     'user_name'      => trim($user->first_name . ' ' . $user->last_name),
                     'first_name'     => $user->first_name,
@@ -43,12 +57,13 @@ class Auth extends CI_Controller {
                     'user_email'     => $user->email,
                     'user_role'      => $user->role,
                     'user_logged_in' => TRUE
-                ));
+                );
+                $this->session->set_userdata($userdata);
 
                 $display = !empty($user->first_name) ? $user->first_name : $user->username;
                 $this->session->set_flashdata('success', 'Welcome back, ' . $display . '!');
                 redirect('student');
-                return;  // safety
+                return;
             }
 
             // Bad credentials
@@ -61,18 +76,12 @@ class Auth extends CI_Controller {
         // GET  →  Show login form (or redirect if already logged in)
         // ──────────────────────────────────────────────────
         if ($this->input->get('logged_out')) {
-            $keys_to_clear = array(
-                'user_id', 'user_name', 'first_name', 'last_name',
-                'username', 'user_email', 'user_role', 'user_logged_in'
-            );
-            $this->session->unset_userdata($keys_to_clear);
+            // Arrived from explicit logout
         } elseif ($this->session->userdata('user_logged_in') && $this->session->userdata('user_id')) {
-            // Already authenticated – send to dashboard
             redirect('student');
             return;
         }
 
-        // Prevent browser from caching the login page
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
         $this->output->set_header('Pragma: no-cache');
 
@@ -275,11 +284,10 @@ class Auth extends CI_Controller {
     }
 
     public function logout() {
-        $keys = array(
-            'user_id', 'user_name', 'first_name', 'last_name',
-            'username', 'user_email', 'user_role', 'user_logged_in'
-        );
-        $this->session->unset_userdata($keys);
+        $clean_keys = array('user_id', 'user_name', 'first_name', 'last_name', 'username', 'user_email', 'user_role', 'user_logged_in');
+        foreach ($clean_keys as $ck) {
+            $this->session->unset_userdata($ck);
+        }
         $this->session->sess_destroy();
         redirect('auth/login?logged_out=1');
     }
