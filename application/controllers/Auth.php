@@ -77,9 +77,20 @@ class Auth extends CI_Controller {
                 redirect('auth/register');
             }
 
+            // Generate username from email if not set
+            $email_parts = explode('@', $email);
+            $base_username = preg_replace('/[^a-zA-Z0-9_]/', '', $email_parts[0]);
+            $username = $base_username;
+            $counter = 1;
+            while ($this->db->get_where('users', array('username' => $username))->num_rows() > 0) {
+                $username = $base_username . $counter;
+                $counter++;
+            }
+
             $data = array(
                 'first_name' => $first_name,
                 'last_name' => $last_name,
+                'username' => $username,
                 'email' => $email,
                 'password' => password_hash($password, PASSWORD_DEFAULT),
                 'role' => 'student',
