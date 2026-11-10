@@ -167,8 +167,14 @@ class Assessments extends CI_Controller {
         }
 
         $user_id = $this->session->userdata('user_id');
-        $subject = $this->session->userdata('test_subject');
+        $subject = $this->input->post('test');
+        if (empty($subject)) {
+            $subject = $this->session->userdata('test_subject');
+        }
         $started_at = $this->session->userdata('test_started');
+        if (empty($started_at)) {
+            $started_at = time();
+        }
         
         // Grade questions
         $assessment_obj = $this->db->get_where('assessments', array('title' => $subject))->row();

@@ -238,6 +238,7 @@ foreach ($questions as $q) {
     </div>
 
     <form id="submission-form" action="<?php echo site_url('assessments/submit_test'); ?>" method="POST" style="display: none;">
+        <input type="hidden" name="test" value="<?php echo htmlspecialchars($subject); ?>">
         <!-- Hidden inputs generated dynamically -->
     </form>
 
@@ -663,6 +664,11 @@ foreach ($questions as $q) {
             
             const form = document.getElementById('submission-form');
             form.innerHTML = '';
+            const testInput = document.createElement('input');
+            testInput.type = 'hidden';
+            testInput.name = 'test';
+            testInput.value = <?php echo json_encode($subject); ?>;
+            form.appendChild(testInput);
             
             questions.forEach(q => {
                 const ans = userAnswers[q.id] || '';
@@ -684,6 +690,11 @@ foreach ($questions as $q) {
             
             const form = document.getElementById('submission-form');
             form.innerHTML = '';
+            const testInput = document.createElement('input');
+            testInput.type = 'hidden';
+            testInput.name = 'test';
+            testInput.value = <?php echo json_encode($subject); ?>;
+            form.appendChild(testInput);
             
             questions.forEach(q => {
                 const ans = userAnswers[q.id] || '';
