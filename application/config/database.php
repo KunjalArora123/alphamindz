@@ -89,9 +89,9 @@ if ($is_local_db) {
 } else {
 	// Production Configuration
 	$hostname = 'localhost';
-	$username = 'u782754055_kunjal_arora';
-	$password = 'Kunjal@7590012004';
-	$database = 'u782754055_alphamindz';
+	$username = 'u485138581_prismlogic';
+	$password = 'KunjalArora@004';
+	$database = 'u485138581_alphamindz';
 }
 
 $db['default'] = array(
