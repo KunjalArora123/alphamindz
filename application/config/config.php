@@ -28,7 +28,12 @@ $is_https = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off
 	|| (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https')
 	|| (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) === 'on');
 
-$is_local_host = (isset($_SERVER['HTTP_HOST']) && ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '[::1]' || $_SERVER['HTTP_HOST'] == '127.0.0.1'));
+$raw_host = isset($_SERVER['HTTP_HOST']) ? preg_replace('/:\d+$/', '', $_SERVER['HTTP_HOST']) : '';
+$is_local_host = ($raw_host === 'localhost' || $raw_host === '127.0.0.1' || $raw_host === '::1'
+	|| strpos($raw_host, '192.168.') === 0
+	|| strpos($raw_host, '10.') === 0
+	|| strpos($raw_host, '172.') === 0
+	|| (filter_var($raw_host, FILTER_VALIDATE_IP) && filter_var($raw_host, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false));
 
 if ($is_local_host) {
 	$protocol = $is_https ? "https://" : "http://";

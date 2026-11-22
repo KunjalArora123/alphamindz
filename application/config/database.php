@@ -73,14 +73,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-$is_local_db = (isset($_SERVER['HTTP_HOST']) && ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '[::1]' || $_SERVER['HTTP_HOST'] == '127.0.0.1'));
+$raw_host = isset($_SERVER['HTTP_HOST']) ? preg_replace('/:\d+$/', '', $_SERVER['HTTP_HOST']) : '';
+$is_local_db = ($raw_host === 'localhost' || $raw_host === '127.0.0.1' || $raw_host === '::1'
+	|| strpos($raw_host, '192.168.') === 0
+	|| strpos($raw_host, '10.') === 0
+	|| strpos($raw_host, '172.') === 0
+	|| (filter_var($raw_host, FILTER_VALIDATE_IP) && filter_var($raw_host, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false));
 
 if ($is_local_db) {
 	// Local Configuration (XAMPP default)
 	$hostname = 'localhost';
 	$username = 'root';
 	$password = '';
-	$database = 'alphamindz';
+	$database = 'u485138581_alphamindz';
 } else {
 	// Production Configuration
 	$hostname = 'localhost';
