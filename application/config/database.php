@@ -96,10 +96,10 @@ if ($is_local_db) {
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => ($is_local_db ? $hostname : (isset($_SERVER['DB_HOST']) ? $_SERVER['DB_HOST'] : $hostname)),
-	'username' => ($is_local_db ? $username : (isset($_SERVER['DB_USER']) ? $_SERVER['DB_USER'] : $username)),
-	'password' => ($is_local_db ? $password : (isset($_SERVER['DB_PASS']) ? $_SERVER['DB_PASS'] : $password)),
-	'database' => ($is_local_db ? $database : (isset($_SERVER['DB_NAME']) ? $_SERVER['DB_NAME'] : $database)),
+	'hostname' => $hostname,
+	'username' => $username,
+	'password' => $password,
+	'database' => $database,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
