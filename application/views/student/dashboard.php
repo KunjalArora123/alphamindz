@@ -42,7 +42,7 @@
 
         <!-- Quick Action Cards Grid (Mobile First) -->
         <div class="row g-3 g-md-4 mb-4">
-            <div class="col-12 col-sm-6 col-lg-4">
+            <div class="col-12 col-sm-6">
                 <div class="card-sp h-100 d-flex flex-column justify-content-between">
                     <div>
                         <div class="d-flex align-items-center mb-3">
@@ -62,7 +62,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-lg-4">
+            <div class="col-12 col-sm-6">
                 <div class="card-sp h-100 d-flex flex-column justify-content-between">
                     <div>
                         <div class="d-flex align-items-center mb-3">
@@ -78,26 +78,6 @@
                     </div>
                     <a href="<?php echo site_url('student/assessment'); ?>" class="btn btn-sp-accent text-white w-100">
                         Take Assessment <i class="ri-arrow-right-line ms-1"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-12 col-lg-4">
-                <div class="card-sp h-100 d-flex flex-column justify-content-between">
-                    <div>
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="p-3 rounded-3 me-3" style="background-color: #f1f5f9; color: #475569;">
-                                <i class="ri-bar-chart-2-line fs-3"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-0">Performance Stats</h5>
-                                <span class="small text-muted">Test History</span>
-                            </div>
-                        </div>
-                        <p class="small text-muted mb-4">Review scores, answer keys, and improvement recommendations from completed tests.</p>
-                    </div>
-                    <a href="#recent-attempts" class="btn btn-sp-outline w-100">
-                        View Results <i class="ri-history-line ms-1"></i>
                     </a>
                 </div>
             </div>
@@ -167,62 +147,6 @@
             </div>
         </div>
 
-        <!-- Recent Activity / Assessments Table -->
-        <div class="row" id="recent-attempts">
-            <div class="col-12">
-                <div class="card-sp p-0 overflow-hidden">
-                    <div class="p-3 p-md-4 bg-light border-bottom">
-                        <h5 class="fw-bold mb-0 text-sp-blue"><i class="ri-history-line text-sp-green me-1"></i> Recent Assessment Attempts</h5>
-                    </div>
-                    
-                    <?php if(!empty($recent_attempts)): ?>
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th class="px-3 px-md-4 py-3 text-muted small fw-bold">SUBJECT</th>
-                                        <th class="px-3 px-md-4 py-3 text-muted small fw-bold">DATE</th>
-                                        <th class="px-3 px-md-4 py-3 text-muted small fw-bold">SCORE</th>
-                                        <th class="px-3 px-md-4 py-3 text-muted small fw-bold">RESULT</th>
-                                        <th class="px-3 px-md-4 py-3 text-muted small fw-bold text-end">ACTION</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach($recent_attempts as $attempt): ?>
-                                        <tr>
-                                            <td class="px-3 px-md-4 py-3 fw-bold text-dark"><?php echo htmlspecialchars($attempt->subject); ?></td>
-                                            <td class="px-3 px-md-4 py-3 text-muted small"><?php echo date('M d, Y', strtotime($attempt->completed_at)); ?></td>
-                                            <td class="px-3 px-md-4 py-3 fw-semibold"><?php echo $attempt->score; ?> / <?php echo $attempt->total_questions; ?></td>
-                                            <td class="px-3 px-md-4 py-3">
-                                                <?php if($attempt->percentage >= 50): ?>
-                                                    <span class="pill-sp-green"><i class="ri-checkbox-circle-fill me-1"></i> <?php echo $attempt->percentage; ?>% Pass</span>
-                                                <?php else: ?>
-                                                    <span class="badge bg-danger-subtle text-danger px-2 py-1"><i class="ri-close-circle-fill me-1"></i> <?php echo $attempt->percentage; ?>%</span>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td class="px-3 px-md-4 py-3 text-end">
-                                                <a href="<?php echo site_url('assessments/result/'.$attempt->id); ?>" class="btn btn-sm btn-sp-outline">View Details</a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    <?php else: ?>
-                        <div class="text-center py-5 px-3">
-                            <i class="ri-inbox-line text-muted display-4 mb-2 d-block"></i>
-                            <p class="fw-bold mb-1">No Assessment Attempts Yet</p>
-                            <p class="small text-muted mb-3">Complete tests to view detailed performance metrics here.</p>
-                            <a href="<?php echo site_url('assessments'); ?>" class="btn btn-sm btn-sp-accent text-white">Start Your First Test</a>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
-
-
-
 
