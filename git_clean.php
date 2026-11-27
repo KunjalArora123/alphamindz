@@ -16,15 +16,14 @@ $status = shell_exec('git status 2>&1');
 $output[] = "=== Git Status Before ===";
 $output[] = $status ? $status : "(shell_exec disabled or no output)";
 
-// 2. Discard local modifications on server
-$reset = shell_exec('git reset --hard 2>&1');
-$output[] = "=== Git Reset Result ===";
-$output[] = $reset;
+// 2. Discard modifications to tracked files only (never touch untracked/upload files)
+$checkout = shell_exec('git checkout -- . 2>&1');
+$output[] = "=== Git Checkout (Tracked Files Only) ===";
+$output[] = $checkout;
 
-// 3. Clean untracked if needed
-$clean = shell_exec('git clean -fd 2>&1');
-$output[] = "=== Git Clean Result ===";
-$output[] = $clean;
+// 3. DO NOT run git clean -fd — it deletes user uploads and dynamic folders!
+$output[] = "=== Git Clean Status ===";
+$output[] = "git clean disabled to protect user uploads and dynamic assets.";
 
 // 4. Pull latest from origin main
 $pull = shell_exec('git pull origin main 2>&1');
